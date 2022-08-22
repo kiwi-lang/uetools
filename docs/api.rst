@@ -1,5 +1,5 @@
 uetools
-=============================
+=======
 
 .. automodule:: uetools
     :members:

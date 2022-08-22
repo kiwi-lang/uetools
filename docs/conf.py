@@ -39,6 +39,7 @@ sys.path.insert(0, src_path)
 
 import uetools  # noqa
 
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -58,7 +59,6 @@ extensions = [
     'sphinx.ext.extlinks',
     'sphinx.ext.autosummary',
     'numpydoc',
-    'sphinxcontrib.bibtex'
 ]
 
 autodoc_inherit_docstrings = True
@@ -92,7 +92,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

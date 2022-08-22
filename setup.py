@@ -2,31 +2,29 @@ from setuptools import setup
 
 
 setup_kwargs = dict(
-    name='gamekit',
+    name='uetools',
     version='0.0.0',
-    description='Gamekit python utilities',
+    description='Tools for Unreal Engine',
     author='Pierre Delaunay',
     author_email='pierre@delaunay.io',
     license='BSD-3-Clause',
-    url="https://gamekit.readthedocs.io",
+    url="https://uetools.readthedocs.io",
     packages=[
-        'gamekit',
-        'gamekit.commands',
-        'gamekit.coordinator',
+        'uetools',
+        'uetools.commands',
     ],
-    package_dir={"": "Source/Python"},
     zip_safe=True,
-    setup_requires=[],
+    setup_requires=['setuptools'],
     install_requires=["appdirs", "colorama", "cookiecutter"],
     python_requires='>=3.7.*',
     entry_points={
         'console_scripts': [
-            'gkcli = gamekit.cli:main',
+            'uecli = uetools.cli:main',
         ]
     },
     package_data={
-        "gamekit": [
-            'gamekit/templates/TemplateServer.Target.cs'
+        "uetools": [
+            'uetools/templates/TemplateServer.Target.cs'
         ]
     },
 )

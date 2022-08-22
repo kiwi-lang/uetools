@@ -1,7 +1,9 @@
 .. include:: ../README.rst
 
+
+
 .. toctree::
-   :caption: API
+   :caption: Commands
    :maxdepth: 1
 
    api
