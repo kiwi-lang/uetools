@@ -1,0 +1,12 @@
+global-exclude *.pyc
+global-exclude __pycache__
+recursive-include uetools/* *.yaml
+recursive-include uetools *.Target
+
+exclude tox.ini
+exclude Makefile
+exclude .pylintrc
+
+prune docs
+prune examples
+prune tests

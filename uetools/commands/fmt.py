@@ -144,7 +144,7 @@ class Formater:
     def format(
         self, datetime=None, frame=None, category=None, verbosity=None, message=None
     ):
-        """
+        """Creates column for each element of the log and print the message last.
 
         Parameters
         ----------

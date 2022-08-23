@@ -61,6 +61,14 @@ extensions = [
     'numpydoc',
 ]
 
+
+nitpick_ignore = [
+    ('py:obj', 'uetools.commands.fmt.CookingFormater.match_regex'),
+    ('py:obj', 'uetools.commands.fmt.CookingFormater.summary'),
+    ('py:obj', 'uetools.commands.fmt.TestFormater.match_regex'),
+    ('py:obj', 'uetools.commands.fmt.TestFormater.summary'),
+]
+
 autodoc_inherit_docstrings = True
 
 # General information about the project.
