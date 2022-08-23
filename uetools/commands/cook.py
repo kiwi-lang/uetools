@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import os
 import sys
 from argparse import Namespace
@@ -13,6 +14,11 @@ from uetools.conf import (
     guess_platform,
     load_conf,
 )
+
+
+@dataclass
+class Arguments:
+    pass
 
 
 class CookGame(Command):

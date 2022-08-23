@@ -1,5 +1,5 @@
 """Entry point for the command line interface"""
-from argparse import ArgumentParser
+from simple_parsing import ArgumentParser
 
 from uetools.commands import commands
 

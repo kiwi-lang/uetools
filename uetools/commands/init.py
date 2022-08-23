@@ -1,10 +1,21 @@
+from dataclasses import dataclass
 import os
+from typing import Optional
 
 from uetools.conf import CONFIG, CONFIGNAME, Command, load_conf, save_conf
 
 
-class Init(Command):
-    """Initialize the configuration file for the command line interface
+@dataclass
+class Arguments:
+    """Initialize the configuration file with unreal engine folders
+
+    Attributes
+    ----------
+    engine: str
+        Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+
+    project: str
+        Path to the unreal project folder (C:/Projects)
 
     Examples
     --------
@@ -14,22 +25,25 @@ class Init(Command):
        uecli init --engine C:/opt/UnrealEngine/Engine --projects C:/opt/Projects
 
     """
+    engine: Optional[str] = None
+    projects: Optional[str] = None
+
+
+class Init(Command):
+    """Initialize the configuration file for the command line interface"""
 
     name: str = "init"
 
     @staticmethod
     def arguments(subparsers):
-        init = subparsers.add_parser(Init.name, help="Initialize engine location")
-        init.add_argument(
-            "--engine", default=None, type=str, help="path to the engine folder"
-        )
-        init.add_argument(
-            "--projects", default=None, type=str, help="path to your projects folder"
-        )
+        init = subparsers.add_parser(Init.name, help="Initialize common locations")
+        init.add_arguments(Arguments, dest='init')
 
     @staticmethod
     def execute(args):
         """Initialize the engine and projects folders"""
+        args = args.init
+
         config = os.path.join(CONFIG, CONFIGNAME)
         conf = {}
 

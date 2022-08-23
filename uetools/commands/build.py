@@ -1,5 +1,10 @@
+from dataclasses import dataclass
 import os
 import subprocess
+from typing import Optional
+
+
+from simple_parsing import choice
 
 from uetools.conf import (
     Command,
@@ -129,8 +134,23 @@ def replace_variables(command, variables):
     return cmd
 
 
-class Build(Command):
+@dataclass
+class Arguments:
     """Execute UnrealBuildTool for a specified target
+
+    Attributes
+    ----------
+    target: str
+        Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
+
+    platform: str
+        Platform to build for, defaults to current platform (Win64, Linux, etc..)
+
+    mode: str
+        Build mode (Tests, Debug, Development, Shipping)
+
+    profile: str
+        Build multiple targets using a configuration
 
     Examples
     --------
@@ -149,38 +169,29 @@ class Build(Command):
 
     While this works (as of 2022-08-21), you should probably rely epics generated commands instead.
     This was done as an exercice to learn about Unreal internals and might not get updated too often.
+
     """
+    target: str
+    platform: str = choice(*get_build_platforms(), default=guess_platform())
+    mode: str = choice(*get_build_modes(), default='Development')
+    profile: Optional[str] = None
+
+
+class Build(Command):
+    """Execute UnrealBuildTool for a specified target"""
 
     name: str = "build"
 
     @staticmethod
     def arguments(subparsers):
         build = subparsers.add_parser(Build.name, help="Run Unreal Build Tool (UBT)")
-        build.add_argument("target", type=str, help="Target name")
-        build.add_argument(
-            "--platform",
-            type=str,
-            default=guess_platform(),
-            help="Platform to build for",
-            choices=set(list(get_build_platforms())),
-        )
-        build.add_argument(
-            "--mode",
-            type=str,
-            default="Development",
-            help="Build mode",
-            choices=list(get_build_modes()),
-        )
-        build.add_argument(
-            "--profile",
-            type=str,
-            default=None,
-            help="Build multiple targets using a configuration",
-        )
+        build.add_arguments(Arguments, dest="build")
 
     @staticmethod
     def execute_profile(args):
         """Execute a command profile"""
+        args = args.build
+
         commands = profiles.get(args.profile)
 
         exists, uproject = is_project(args.target)
