@@ -5,7 +5,7 @@ import platform
 
 from appdirs import user_config_dir
 
-NAME = "gkcli"
+NAME = "uecli"
 AUTHOR = "uetools"
 CONFIG = user_config_dir(NAME, AUTHOR)
 CONFIGNAME = "loc.json"
@@ -33,6 +33,18 @@ def guess_platform():
     if WINDOWS:
         return "Win64"
 
+    if OSX:
+        return "Mac"
+
+    return "Linux"
+
+
+def guess_editor_platform():
+    """Try to guess for which platform we are trying to build for"""
+    if WINDOWS:
+        return "Windows"
+
+    # this is probably wrong
     if OSX:
         return "Mac"
 
