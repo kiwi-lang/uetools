@@ -1,6 +1,5 @@
 Unreal Engine Tools
--------------------
-
+===================
 
 |pypi| |py_versions| |codecov| |docs| |tests| |style|
 
@@ -26,11 +25,41 @@ Unreal Engine Tools
 
 
 
-``uetools`` implements a set of tools to make it easier to work with Unreal Engine projects.
+``uetools`` implements a set of tools to make it easier to work with Unreal Engine projects and automate common tasks.
 
-It wraps common unreal engine tools and provides a simple interface to them,
-with detailled usage example.
+Get Started
+-----------
 
+.. code-block::
+
+   pip install uetools
+
+   # Saves common paths
+   uecli init --engine C:/opt/UnrealEngine/Engine --projects C:/opt/Projects
+
+   # Install the plugin VoxelPlugin to the RTSGame project
+   uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin
+
+   # Rebuild the RTSGame project
+   uecli build RTSGame
+
+   # Open the project (located in C:/opt/Projects/RTSGame)
+   uecli open RTSGame
+
+   # Cook the project
+   uecli cook RTSGame
+
+   # Start a server
+   uecli server RTSGame localhost:8123
+
+   # start a client
+   uecli client RTSGame localhost:8123
+
+
+Features
+--------
+
+* Windows & Linux
 * Open projects
 * Build
 * Run automated tests
@@ -41,8 +70,18 @@ with detailled usage example.
 It also implements common recipes such as
 
 * Install project plugins from a repository
-* Disable plugin
+* Disable plugins
 * Add dedicated server targets
 * Automatically configure project settings for Python
 * Works on both Linux & Windows seemlessly
 * Add Doxygen to your project
+
+
+Rational
+--------
+
+Unreal engine has 222 comandlets, 83 commands and more than 1237 comand line parameters hidden inside its code,
+very few are documented.
+
+uetools identify the useful arguments and bundle them inside a command line utility, forming groups/set of arguments
+with a singular purpose.

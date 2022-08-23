@@ -1,8 +1,10 @@
 import os
 import sys
 
-from uetools.commands.fmt import TestFormater, popen_with_format
-from uetools.conf import Command, editor_cmd, load_conf
+from uetools.command import Command
+from uetools.conf import editor_cmd, load_conf
+from uetools.format.base import popen_with_format
+from uetools.format.tests import TestFormatter
 
 
 class RunTests(Command):
@@ -91,7 +93,7 @@ class RunTests(Command):
             f"-ExecCmds=Automation {cmd}; Quit",
         ]
 
-        fmt = TestFormater(24)
+        fmt = TestFormatter(24)
         fmt.print_non_matching = True
 
         returncode = popen_with_format(fmt, args)

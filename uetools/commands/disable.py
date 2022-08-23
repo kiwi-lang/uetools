@@ -1,7 +1,35 @@
 import json
 import os
+from dataclasses import dataclass
 
-from uetools.conf import Command, load_conf
+from uetools.command import Command
+from uetools.conf import load_conf
+
+
+@dataclass
+class Arguments:
+    """Disable a plugin
+
+    Attributes
+    ----------
+    name: str
+        Name of the project to modify
+
+    plugin: str
+        Name of the plugin to disable
+
+    Examples
+    --------
+
+    .. code-block:: console
+
+       # Disable the plugin
+       uecli disable RTSGame RTSGamePlugin
+
+    """
+
+    name: str
+    plugin: str
 
 
 class Disable(Command):

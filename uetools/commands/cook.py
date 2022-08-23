@@ -1,22 +1,42 @@
 import os
 import sys
 from argparse import Namespace
+from dataclasses import dataclass
+from typing import Optional
 
+from simple_parsing import choice
+
+from uetools.command import Command
 from uetools.commands.build import Build
-from uetools.commands.fmt import CookingFormater, popen_with_format
 from uetools.conf import (
-    Command,
     build_platform_from_editor,
     editor_cmd,
     get_build_modes,
     get_editor_platforms,
-    guess_platform,
+    guess_editor_platform,
     load_conf,
 )
+from uetools.format.base import popen_with_format
+from uetools.format.cooking import CookingFormatter
 
 
-class CookGame(Command):
+@dataclass
+class Arguments:
     """Cook your main game
+
+    Attributes
+    ----------
+    name: str
+        Name of the project to cook
+
+    output: str
+        Cooking result output path, defaults to ``$PROJECT_NAME/Saved/StagedBuilds/``
+
+    build: str
+        Build mode, if set a build command will be issued before cooking
+
+    platform: str
+        Used if build mode is set.
 
     Notes
     -----
@@ -36,6 +56,17 @@ class CookGame(Command):
 
     """
 
+    name: str
+    output: Optional[str] = None
+    build: Optional[str] = choice(*get_build_modes(), default=None)
+    platform: Optional[str] = choice(
+        *get_editor_platforms(), default=guess_editor_platform()
+    )
+
+
+class CookGame(Command):
+    """Cook your main game"""
+
     name: str = "cook"
 
     @staticmethod
@@ -43,24 +74,7 @@ class CookGame(Command):
         cook = subparsers.add_parser(
             CookGame.name, help="Run Unreal Automation Test (UAT)"
         )
-        cook.add_argument("name", type=str, help="Project name")
-        cook.add_argument(
-            "--build",
-            default=None,
-            type=str,
-            choices=get_build_modes(),
-            help="builds the project before cooking",
-        )
-        cook.add_argument(
-            "--platform",
-            type=str,
-            default=guess_platform(),
-            help="Platform to build for",
-            choices=set(list(get_editor_platforms())),
-        )
-        cook.add_argument(
-            "--output", type=str, default=None, help="path to build the packaged plugin"
-        )
+        cook.add_arguments(Arguments, dest="cook")
 
     @staticmethod
     def execute(args):
@@ -70,6 +84,8 @@ class CookGame(Command):
     def execute_editor(args):
         """Execute the cook command using the editor"""
         # UAT just uses the editor at the end anyway
+        args = args.cook
+
         name = args.name
         platform = args.platform
 
@@ -84,6 +100,9 @@ class CookGame(Command):
         projects_folder = load_conf().get("project_path")
         project_folder = os.path.join(projects_folder, name)
         uproject = os.path.join(project_folder, f"{name}.uproject")
+
+        if args.output is None:
+            args.output = os.path.join(project_folder, "Saved", "StagedBuilds")
 
         args = [
             uproject,
@@ -100,14 +119,13 @@ class CookGame(Command):
             "-unattended",
             "-NoLogTimes",
             "-UTF8Output",
-            "-stdout",
+            # "-stdout",
             "-FullStdOutLogOutput",
             # '-map={}'
             # Incremental cooking
             # '-iterate',
             # '-UnVersioned'
             # Command line just disable everything
-            "-Unattended",
             "-NullRHI",
             "-NoSplash",
             "-NoSound",
@@ -115,7 +133,7 @@ class CookGame(Command):
             "-WarningsAsErrors",
         ]
 
-        fmt = CookingFormater(24)
+        fmt = CookingFormatter(24)
         fmt.print_non_matching = True
 
         cmd = [editor_cmd()] + args

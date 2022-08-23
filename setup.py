@@ -22,9 +22,10 @@ setup_kwargs = dict(
     packages=[
         'uetools',
         'uetools.commands',
+        'uetools.format',
     ],
     classifiers=[
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: BSD-3-Clause license",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
@@ -33,7 +34,7 @@ setup_kwargs = dict(
     ],
     zip_safe=True,
     setup_requires=['setuptools'],
-    install_requires=["appdirs", "colorama", "cookiecutter"],
+    install_requires=["appdirs", "colorama", "cookiecutter", "simple-parsing"],
     python_requires='>=3.7.*',
     entry_points={
         'console_scripts': [

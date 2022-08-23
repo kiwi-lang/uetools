@@ -2,7 +2,8 @@ import configparser
 import json
 import os
 
-from uetools.conf import Command, load_conf
+from uetools.command import Command
+from uetools.conf import load_conf
 
 
 class VSCode(Command):

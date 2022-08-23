@@ -1,25 +1,52 @@
-from uetools.conf import Command
+from dataclasses import dataclass
+from typing import Optional
+
+from uetools.command import Command
 
 
-class Install(Command):
+@dataclass
+class Arguments:
     """Install a plugin to an unreal project.
+
+    Attributes
+    ----------
+    name: str
+        Name of the project to modify.
+
+    url: str
+        url of the plugin to install.
+
+    destination:str
+        installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
+
+    submodule: bool
+        install the plugin as a git submodule (defaults to: ``False``)
 
     Examples
     --------
 
     .. code-block::
 
-       # This will install the plugin inside RTSGame/Plugins/
-       #  it will download the repository on put it inside the RTSGame/Plugins/ folder
-       uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin
+        # This will install the plugin inside RTSGame/Plugins/
+        #  it will download the repository on put it inside the RTSGame/Plugins/ folder
+        uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin
 
-       # This will install the plugin inside RTSGame/Plugins/
-       # it will execute the following command:
-       #    - git submodule add https://github.com/Phyronnaz/VoxelPlugin Plugins/VoxelPlugin
-       #
-       uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin --destination Plugins --submodule
+        # This will install the plugin inside RTSGame/Plugins/
+        # it will execute the following command:
+        #    - git submodule add https://github.com/Phyronnaz/VoxelPlugin Plugins/VoxelPlugin
+        #
+        uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin --destination Plugins --submodule
 
     """
+
+    name: str
+    url: str
+    destination: Optional[str] = None
+    submodule: bool = False
+
+
+class Install(Command):
+    """Install a plugin to an unreal project."""
 
     name: str = "install"
 

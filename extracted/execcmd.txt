@@ -1,0 +1,83 @@
+Source/Developer/AutomationController/Private/AutomationCommandline.cpp:43:class FAutomationExecCmd : private FSelfRegisteringExec
+Source/Developer/GameplayDebugger/Private/GameplayDebuggerCompat.h:14:class FGameplayDebuggerCompat : public FSelfRegisteringExec, public GameplayDebugger
+Source/Developer/HotReload/Private/HotReload.cpp:119:class FHotReloadModule : public IHotReloadModule, FSelfRegisteringExec
+Source/Developer/HotReload/Private/HotReload.cpp:135:	/** FSelfRegisteringExec implementation */
+Source/Editor/Kismet/Private/FindInBlueprintManager.cpp:3646:class FFiBDumpIndexCacheToFileExecHelper : public FSelfRegisteringExec
+Source/Editor/SequenceRecorder/Private/SequenceRecorderModule.cpp:121:class FSequenceRecorderModule : public ISequenceRecorder, private FSelfRegisteringExec
+Source/Editor/SequenceRecorder/Private/SequenceRecorderModule.cpp:259:	// FSelfRegisteringExec implementation
+Source/Editor/SkeletalMeshEditor/Private/MeshHierarchyCmd.h:8:class FMeshHierarchyCmd : private FSelfRegisteringExec
+Source/Editor/TurnkeySupport/Private/TurnkeySupportModule.h:16:	, public FSelfRegisteringExec
+Source/Editor/TurnkeySupport/Private/TurnkeySupportModule.h:58:	// FSelfRegisteringExec interface
+Source/Runtime/AIModule/Classes/EnvironmentQuery/EnvQueryManager.h:206:class AIMODULE_API UEnvQueryManager : public UAISubsystem, public FSelfRegisteringExec
+Source/Runtime/AIModule/Private/AISystemExec.cpp:9:struct FAISystemExec : public FSelfRegisteringExec
+Source/Runtime/ApplicationCore/Public/IOS/IOSInputInterface.h:67:class FIOSInputInterface : public FAppleControllerInterface, FSelfRegisteringExec
+Source/Runtime/ApplicationCore/Public/Linux/LinuxApplication.h:23:class FLinuxApplication : public GenericApplication, public FSelfRegisteringExec, public IInputInterface
+Source/Runtime/ApplicationCore/Public/Linux/LinuxApplication.h:50:	// FSelfRegisteringExec
+Source/Runtime/Core/Private/HAL/IPlatformFileLogWrapper.cpp:12:class FFileLogExec : private FSelfRegisteringExec
+Source/Runtime/Core/Private/IOS/IOSPlatformMisc.cpp:1687:class FIOSExec : public FSelfRegisteringExec
+Source/Runtime/Core/Private/IOS/IOSPlatformMisc.cpp:1691:		: FSelfRegisteringExec()
+Source/Runtime/Core/Private/Logging/LogSuppressionInterface.cpp:57:class FLogSuppressionImplementation: public FLogSuppressionInterface, private FSelfRegisteringExec
+Source/Runtime/Core/Private/Misc/CoreMisc.cpp:40:	FSelfRegisteringExec implementation.
+Source/Runtime/Core/Private/Misc/CoreMisc.cpp:43:using FSelfRegisteredExecArray = TArray<FSelfRegisteringExec*, TInlineAllocator<8>>;
+Source/Runtime/Core/Private/Misc/CoreMisc.cpp:52:FSelfRegisteringExec::FSelfRegisteringExec()
+Source/Runtime/Core/Private/Misc/CoreMisc.cpp:58:FSelfRegisteringExec::~FSelfRegisteringExec()
+Source/Runtime/Core/Private/Misc/CoreMisc.cpp:63:bool FSelfRegisteringExec::StaticExec( UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& Ar )
+Source/Runtime/Core/Private/Misc/CoreMisc.cpp:65:	for (FSelfRegisteringExec* Exe : GetExecRegistry())
+Source/Runtime/Core/Private/Stats/StatsCommand.cpp:2180:static class FStatCmdCore : private FSelfRegisteringExec
+Source/Runtime/Core/Public/Misc/CoreMisc.h:20:class CORE_API FSelfRegisteringExec : public FExec
+Source/Runtime/Core/Public/Misc/CoreMisc.h:24:	FSelfRegisteringExec();
+Source/Runtime/Core/Public/Misc/CoreMisc.h:26:	virtual ~FSelfRegisteringExec();
+Source/Runtime/Core/Public/Misc/CoreMisc.h:32:/** Registers a static Exec function using FSelfRegisteringExec. */
+Source/Runtime/Core/Public/Misc/CoreMisc.h:33:class CORE_API FStaticSelfRegisteringExec : public FSelfRegisteringExec
+Source/Runtime/Core/Public/Modules/ModuleManager.h:125:	: private FSelfRegisteringExec
+Source/Runtime/Core/Public/Modules/ModuleManager.h:492:	// FSelfRegisteringExec interface.
+Source/Runtime/CoreUObject/Private/UObject/LinkerManager.h:15:class FLinkerManager : private FSelfRegisteringExec
+Source/Runtime/CoreUObject/Private/UObject/LinkerManager.h:110:	// FSelfRegisteringExec interface
+Source/Runtime/CoreUObject/Private/UObject/Obj.cpp:4599:	else if(FSelfRegisteringExec::StaticExec( InWorld, Cmd,Ar ))
+Source/Runtime/CoreUObject/Private/UObject/ScriptCore.cpp:1769:	: public FSelfRegisteringExec
+Source/Runtime/CoreUObject/Private/UObject/ScriptCore.cpp:1771:	// FSelfRegisteringExec:
+Source/Runtime/D3D12RHI/Private/D3D12StateCache.cpp:69:class FD3D12ToggleStateCacheExecHelper : public FSelfRegisteringExec
+Source/Runtime/Engine/Classes/AI/Navigation/AvoidanceManager.h:88:class ENGINE_API UAvoidanceManager : public UObject, public FSelfRegisteringExec
+Source/Runtime/Engine/Private/Collision/WorldCollision.cpp:428:static class FCollisionExec : private FSelfRegisteringExec
+Source/Runtime/Engine/Private/DeviceProfiles/DeviceProfileManager.cpp:1366:class FPlatformCVarExec : public FSelfRegisteringExec
+Source/Runtime/Engine/Private/DeviceProfiles/DeviceProfileManager.cpp:1370:	// FSelfRegisteringExec interface
+Source/Runtime/Engine/Private/GameEngine.cpp:808:class FEmbeddedCommunicationExec : public FSelfRegisteringExec
+Source/Runtime/Engine/Private/GameEngine.cpp:812:		: FSelfRegisteringExec()
+Source/Runtime/Engine/Private/InstancedStaticMesh.cpp:132:class FISMExecHelper : public FSelfRegisteringExec
+Source/Runtime/Engine/Private/StatsRender2.cpp:297:static class FStatCmdEngine : private FSelfRegisteringExec
+Source/Runtime/Engine/Private/UnrealEngine.cpp:432:class FDisplayCVarListExecHelper : public FSelfRegisteringExec
+Source/Runtime/Engine/Private/UnrealEngine.cpp:12429:static class FCDODump : private FSelfRegisteringExec
+Source/Runtime/Engine/Private/VisualLogger/VisualLogger.cpp:871:class FLogVisualizerExec : private FSelfRegisteringExec
+Source/Runtime/Launch/Private/Android/AndroidJNI.cpp:2116:class FAndroidEmbeddedExec : public FSelfRegisteringExec
+Source/Runtime/Launch/Private/Android/AndroidJNI.cpp:2120:		: FSelfRegisteringExec()
+Source/Runtime/LevelSequence/Private/LevelSequenceModule.h:13:class FLevelSequenceModule : public ILevelSequenceModule, public FSelfRegisteringExec
+Source/Runtime/LevelSequence/Private/LevelSequenceModule.h:21:	// FSelfRegisteringExec interface
+Source/Runtime/MediaAssets/Private/MediaAssetsModule.cpp:22:	: public FSelfRegisteringExec
+Source/Runtime/MediaAssets/Private/MediaAssetsModule.cpp:27:	//~ FSelfRegisteringExec interface
+Source/Runtime/Messaging/Private/MessagingModule.cpp:26:	: public FSelfRegisteringExec
+Source/Runtime/Messaging/Private/MessagingModule.cpp:31:	//~ FSelfRegisteringExec interface
+Source/Runtime/NavigationSystem/Private/NavMesh/RecastNavMeshGenerator.cpp:7006:static class FNavigationGeomExec : private FSelfRegisteringExec
+Source/Runtime/NavigationSystem/Public/NavigationSystem.h:81:struct FNavigationSystemExec: public FSelfRegisteringExec
+Source/Runtime/NetworkFile/Public/NetworkPlatformFile.h:9:#include "Misc/CoreMisc.h" // included for FSelfRegisteringExec
+Source/Runtime/NetworkFile/Public/NetworkPlatformFile.h:19:class NETWORKFILE_API FNetworkPlatformFile : public IPlatformFile, public FSelfRegisteringExec
+Source/Runtime/NetworkFile/Public/NetworkPlatformFile.h:163:	// FSelfRegisteringExec interface
+Source/Runtime/NetworkFileSystem/Private/NetworkFileServerConnection.h:16:class FNetworkFileServerClientConnection : public FSelfRegisteringExec
+Source/Runtime/NetworkReplayStreaming/NetworkReplayStreaming/Public/NetworkReplayStreaming.h:636:class FNetworkReplayStreaming : public IModuleInterface, public FSelfRegisteringExec
+Source/Runtime/NetworkReplayStreaming/NetworkReplayStreaming/Public/NetworkReplayStreaming.h:671:	// FSelfRegisteringExec interface
+Source/Runtime/Online/HTTP/Public/HttpModule.h:17:	public IModuleInterface, public FSelfRegisteringExec
+Source/Runtime/Online/HTTP/Public/HttpModule.h:22:	// FSelfRegisteringExec
+Source/Runtime/Online/ICMP/Public/IcmpModule.h:17:	public IModuleInterface, public FSelfRegisteringExec
+Source/Runtime/Online/ICMP/Public/IcmpModule.h:22:	// FSelfRegisteringExec
+Source/Runtime/Online/SSL/Public/SslModule.h:14:	public IModuleInterface, public FSelfRegisteringExec
+Source/Runtime/Online/SSL/Public/SslModule.h:19:	// FSelfRegisteringExec
+Source/Runtime/Online/Voice/Public/VoiceModule.h:36:	public IModuleInterface, public FSelfRegisteringExec
+Source/Runtime/Online/Voice/Public/VoiceModule.h:41:	// FSelfRegisteringExec
+Source/Runtime/Online/XMPP/Public/XmppModule.h:19:	public IModuleInterface, public FSelfRegisteringExec, public FTSTickerObjectBase
+Source/Runtime/Online/XMPP/Public/XmppModule.h:24:	// FSelfRegisteringExec
+Source/Runtime/PakFile/Private/IPlatformFilePak.cpp:7140:class FPakExec : private FSelfRegisteringExec
+Source/Runtime/PerfCounters/Private/PerfCounters.h:24:	, public FSelfRegisteringExec
+Source/Runtime/SessionServices/Private/SessionServicesModule.cpp:21:	: public FSelfRegisteringExec
+Source/Runtime/SessionServices/Private/SessionServicesModule.cpp:34:	//~ FSelfRegisteringExec interface
+Source/Runtime/VulkanRHI/Private/VulkanSwapChain.cpp:85:class FVulkanCommandsHelper : public FSelfRegisteringExec
+Source/Runtime/Windows/D3D11RHI/Private/D3D11StateCache.cpp:18:class FD3D11ToggleStateCacheExecHelper : public FSelfRegisteringExec
+Binary file Source/ThirdParty/EOSSDK/SDK/Bin/IOS/EOSSDK.framework/EOSSDK matches

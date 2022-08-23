@@ -1,7 +1,21 @@
 import os
 import subprocess
+from dataclasses import dataclass
 
-from uetools.conf import Command, load_conf, uat
+from simple_parsing import choice
+
+from uetools.command import Command
+from uetools.conf import load_conf, uat
+
+actions = ["Gather", "Compile", "import", "export"]
+
+
+@dataclass
+class Arguments:
+    """Generate localization files"""
+
+    name: str
+    action: choice(*actions)
 
 
 class Local(Command):

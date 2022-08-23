@@ -5,7 +5,7 @@ import platform
 
 from appdirs import user_config_dir
 
-NAME = "gkcli"
+NAME = "uecli"
 AUTHOR = "uetools"
 CONFIG = user_config_dir(NAME, AUTHOR)
 CONFIGNAME = "loc.json"
@@ -33,6 +33,18 @@ def guess_platform():
     if WINDOWS:
         return "Win64"
 
+    if OSX:
+        return "Mac"
+
+    return "Linux"
+
+
+def guess_editor_platform():
+    """Try to guess for which platform we are trying to build for"""
+    if WINDOWS:
+        return "Windows"
+
+    # this is probably wrong
     if OSX:
         return "Mac"
 
@@ -68,23 +80,6 @@ def update_conf(**kwargs):
     conf = load_conf()
     conf.update(kwargs)
     save_conf(conf)
-
-
-class Command:
-    """Base class for all commands"""
-
-    name: str
-    help: str
-
-    @staticmethod
-    def arguments(subparsers):
-        """Define the arguments of this command"""
-        raise NotImplementedError()
-
-    @staticmethod
-    def execute(args):
-        """Execute the command"""
-        raise NotImplementedError()
 
 
 def binary(name):
@@ -168,13 +163,6 @@ def editor_cmd():
     )
 
 
-def uproject(name):
-    """Returns the path to the project file"""
-    projects_folder = load_conf().get("project_path")
-    project_folder = os.path.join(projects_folder, name)
-    return os.path.join(project_folder, f"{name}.uproject")
-
-
 # Supported platforms are listed here
 #       UnrealEngine\Engine\Source\Programs\UnrealBuildTool\Platform
 #
@@ -225,3 +213,12 @@ EDITOR_PLATOFRMS = {
 def get_editor_platforms():
     """returns the platforms supported by the editor"""
     return EDITOR_PLATOFRMS
+
+
+def find_project(name):
+    """Returns the path to the project file"""
+    projects_folder = load_conf().get("project_path")
+    project_folder = os.path.join(projects_folder, name)
+    uproject = os.path.join(project_folder, f"{name}.uproject")
+
+    return uproject if os.path.exists(uproject) else None

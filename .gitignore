@@ -1,38 +1,22 @@
-Binaries/
-Intermediate/
-Saved/
-DerivedDataCache/
-Build/
 trash/
 .vscode/
 *.user
 *.sln
 .idea/
 .vs/
-Content/KiteDemo/
-Content/Assets/
-Plugins/uetools/Docs/html/
-Plugins/uetools/Docs/_build/
-Plugins/uetools/Docs/Doxyfile
+
+
 *.pri
 *.pro
-Content/Levels/FlatLandscape_BuiltData.uasset
 
 *~
 *.autosave
 
-Plugins/uetools/Content/Textures/IconsSkills
-
-MOBA_uetoolsUnits.json
-MOBA_uetoolsAbilies.json
-enc_temp_folder/
-
-Docs/Doxyfile
-Docs/_build/
-Docs/Developer/api/
-Docs/generated_api/
 __pycache__/
 uetools.egg-info/
 
 .coverage*
 coverage.xml
+
+_build/
+build/

@@ -1,8 +1,17 @@
 import configparser
 import os
+from dataclasses import dataclass
 from io import UnsupportedOperation
 
-from uetools.conf import Command, editor, load_conf
+from uetools.command import Command
+from uetools.conf import editor, load_conf
+
+
+@dataclass
+class Arguments:
+    """Tweak your project settings to enable python scripting in your project"""
+
+    project: str
 
 
 class Python(Command):
