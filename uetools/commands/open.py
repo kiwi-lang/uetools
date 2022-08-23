@@ -36,11 +36,15 @@ class Open(Command):
 
     @staticmethod
     def arguments(subparsers):
-        editor_args = subparsers.add_parser(Open.name, help="Open an Unreal Engine porject")
+        editor_args = subparsers.add_parser(
+            Open.name, help="Open an Unreal Engine porject"
+        )
         # this makes it ugly
         # editor.add_arguments(Arguments, dest="open")
 
-        editor_args.add_argument("name", type=str, help="Name of the the project to open")
+        editor_args.add_argument(
+            "name", type=str, help="Name of the the project to open"
+        )
 
     @staticmethod
     def execute(args):

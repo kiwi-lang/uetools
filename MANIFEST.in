@@ -10,3 +10,4 @@ exclude .pylintrc
 prune docs
 prune examples
 prune tests
+prune extracted

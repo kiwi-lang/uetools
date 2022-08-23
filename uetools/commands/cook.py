@@ -126,7 +126,6 @@ class CookGame(Command):
             # '-iterate',
             # '-UnVersioned'
             # Command line just disable everything
-            "-Unattended",
             "-NullRHI",
             "-NoSplash",
             "-NoSound",

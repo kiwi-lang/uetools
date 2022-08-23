@@ -22,6 +22,7 @@ setup_kwargs = dict(
     packages=[
         'uetools',
         'uetools.commands',
+        'uetools.format',
     ],
     classifiers=[
         "License :: OSI Approved :: BSD-3-Clause license",

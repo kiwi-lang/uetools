@@ -10,10 +10,9 @@ from uetools.commands import commands
 
 # pylint: disable=protected-access
 # pylint: disable=too-few-public-methods
-class HelpFormatter(
-    simple_parsing.SimpleHelpFormatter
-):
+class HelpFormatter(simple_parsing.SimpleHelpFormatter):
     """Tweak the arrgument usage format to not show too many duplicates"""
+
     class _Section:
         def __init__(self, formatter, parent, heading=None):
             self.formatter = formatter
@@ -57,6 +56,7 @@ class HelpFormatter(
 # pylint: disable=too-few-public-methods
 class ArgumentParser(simple_parsing.ArgumentParser):
     """Force the argument parse to use the right formatter"""
+
     def _get_formatter(self):
         return HelpFormatter(prog=self.prog, max_help_position=45, width=None)
 

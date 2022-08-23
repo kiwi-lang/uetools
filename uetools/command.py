@@ -29,13 +29,14 @@ def command_builder(args: Dict | Namespace) -> List[str]:
 
     Examples
     --------
+    >>> from dataclasses import dataclass
 
     >>> command_builder(dict(log=True, map='/Game/Map/TopDown'))
     ['-log', '-map=/Game/Map/TopDown']
 
     >>> @dataclass
-    >>> class Arguments:
-    ...     flag       : Optional[bool] = None
+    ... class Arguments:
+    ...     flag       : bool = False
     ...     goalscore  : Optional[float] = None
 
     >>> command_builder(dict(vector=Arguments(flag=True, goalscore=2)))
@@ -46,7 +47,7 @@ def command_builder(args: Dict | Namespace) -> List[str]:
 
 
     >>> @dataclass
-    >>> class Vector:
+    ... class Vector:
     ...     x: Optional[float] = 0
     ...     y: Optional[float] = 0
     ...     z: Optional[float] = 0

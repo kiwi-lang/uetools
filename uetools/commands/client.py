@@ -1,9 +1,9 @@
-import os
-import subprocess
 from dataclasses import dataclass
+from typing import Optional
 
 from uetools.command import Command
-from uetools.conf import editor, load_conf
+from uetools.conf import editor, find_project
+from uetools.format.base import Formatter, popen_with_format
 
 
 # This is not used technically, but we keep it for consistency with the other commands
@@ -14,19 +14,26 @@ class Arguments:
 
     Attributes
     ----------
-    name: str
+    project: str
         Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
+
+    address: str
+        Address of the server to connect to, if None launch in standalone
 
     Examples
     --------
 
     .. code-block:: console
 
-       uecli open RTSGameEditor
+       uecli client RTSGameEditor
+
+       uecli client RTSGameEditor --address localhost --port 8123
 
     """
 
-    name: str
+    # name: str
+    address: Optional[str] = None
+    port: int = 8123  # Server port
 
 
 class Client(Command):
@@ -40,22 +47,34 @@ class Client(Command):
             Client.name,
             help="Launch the editor as a client to an alredy running server",
         )
-        # this makes it ugly
-        # editor.add_arguments(Arguments, dest="open")
 
-        editor_args.add_argument("name", type=str, help="Name of the the project to open")
+        editor_args.add_argument(
+            "project", type=str, help="Name of the the project to open"
+        )
+        editor_args.add_arguments(Arguments, dest="client")
+        editor_args.add_argument(
+            "--dry",
+            action="store_true",
+            default=False,
+            help="Print the command it will execute without running it",
+        )
 
     @staticmethod
     def execute(args):
+        project = find_project(args.project)
 
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, args.name)
-        uproject = os.path.join(project_folder, f"{args.name}.uproject")
+        cmd = [editor(), project]
 
-        subprocess.run(
-            [editor(), uproject, map + "?game={game_info_class}&name={name}", "-game"],
-            check=True,
-        )
+        if args.client.address:
+            cmd.append(args.client.address)
+            cmd.append(f"-port={args.client.port}")
+
+        cmd.append("-game")
+        cmd.append("-FullStdOutLogOutput")
+        print(" ".join(cmd))
+        if not args.dry:
+            fmt = Formatter()
+            popen_with_format(fmt, cmd)
 
 
 COMMAND = Client

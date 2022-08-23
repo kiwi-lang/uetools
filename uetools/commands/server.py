@@ -1,9 +1,9 @@
-import os
-import subprocess
 from dataclasses import dataclass
+from typing import Optional
 
 from uetools.command import Command
-from uetools.conf import editor, load_conf
+from uetools.conf import editor, find_project
+from uetools.format.base import Formatter, popen_with_format
 
 
 # This is not used technically, but we keep it for consistency with the other commands
@@ -14,23 +14,42 @@ class Arguments:
 
     Attributes
     ----------
-    name: str
-        Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
+    project: str
+        Name of the project to serve
+
+    map: str
+        Name of the map to serve
+
+    dedicated: bool
+        If true starts a dedicated server, otherwise a listen server (one local player that can host remote players)
 
     Examples
     --------
 
     .. code-block:: console
 
-       uecli open RTSGameEditor
+       uecli server RTSGame
 
     """
 
-    name: str
+    # project: str
+    # map: str
+    dedicated: bool = False  # If true will start a dedicated server, otherwise a listen server (one local player that can host remote players)
+    port: int = 8123  # Server port
+
+
+@dataclass
+class MapParameters:
+    """Parameters added to the Map URL"""
+
+    bIsLanMatch: bool = False
+    bIsFromInvite: bool = False
+    spectatoronly: bool = False
+    gameinfo: Optional[str] = None
 
 
 class Server(Command):
-    """Launch the editor as a client to an alredy running server"""
+    """Launch the editor as a server"""
 
     name: str = "server"
 
@@ -40,32 +59,70 @@ class Server(Command):
             Server.name,
             help="Launch the editor as a client to an alredy running server",
         )
-        # this makes it ugly
-        # editor.add_arguments(Arguments, dest="open")
 
-        editor_args.add_argument("name", type=str, help="Name of the the project to open")
+        # this makes it ugly
+        # editor.add_arguments(Arguments, dest="server")
+
+        editor_args.add_argument(
+            "project", metavar="project", type=str, help="Name of the project to serve"
+        )
+        editor_args.add_argument(
+            "map",
+            metavar="map",
+            type=str,
+            help=" Name of the map to serve (if the map is located inside the map folder, just the name of the map is needed,"
+            "if not the full path is needed including the extension, e.g. /Game/NotMap/MyMap.umap)",
+        )
+        editor_args.add_arguments(Arguments, dest="args")
+        editor_args.add_arguments(MapParameters, dest="params")
+        editor_args.add_argument(
+            "--dry",
+            action="store_true",
+            default=False,
+            help="Print the command it will execute without running it",
+        )
 
     @staticmethod
     def execute(args):
+        project = find_project(args.project)
 
-        # listen
-        # bIsLanMatch
-        # bIsFromInvite
-        # spectatoronly
+        cmd = [
+            editor(),
+            project,
+        ]
 
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, args.name)
-        uproject = os.path.join(project_folder, f"{args.name}.uproject")
+        map_options = []
 
-        subprocess.run(
-            [
-                editor(),
-                uproject,
-                map + "?listen",
-                "-server",
-            ],
-            check=True,
-        )
+        if not args.args.dedicated:
+            map_options.append("?listen")
+
+        if args.params.bIsLanMatch:
+            map_options.append("?bIsLanMatch=1")
+
+        if args.params.bIsFromInvite:
+            map_options.append("?bIsFromInvite=1")
+
+        if args.params.spectatoronly:
+            map_options.append("?spectatoronly")
+
+        if args.params.gameinfo:
+            map_options.append(f"?game={args.params.gameinfo}")
+
+        mapname = args.map + "&".join(map_options)
+        cmd.append(mapname)
+
+        cmd.append(f"-port={args.args.port}")
+        cmd.append("-game")
+
+        if args.args.dedicated:
+            cmd.append("-server")
+
+        cmd.append("-FullStdOutLogOutput")
+        print(" ".join(cmd))
+
+        if not args.dry:
+            fmt = Formatter()
+            popen_with_format(fmt, cmd)
 
 
 COMMAND = Server

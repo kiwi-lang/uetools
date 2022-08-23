@@ -221,7 +221,7 @@ class Arguments:
     map     : Optional[str]  = None # Path to the map
     game    : bool = False      # Launch the game
     server  : bool = False      # Launch the game as a server
-    address : Optional[str]  = None # Address to connect to
+    address : Optional[str] = None # Address to connect to
 
 # fmt: on
 
@@ -249,7 +249,7 @@ class Editor(Command):
        uecli editor RTSGame /Game/Maps/MyMap --server --game --port 8123
 
        # Launch a client (1 local player)
-       uecli editor RTSGame --address localhost:8123 --game
+       uecli editor RTSGame --address localhost --port 8123 --game
 
     """
 
