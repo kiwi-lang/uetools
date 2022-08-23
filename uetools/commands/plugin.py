@@ -1,7 +1,22 @@
 import os
 import subprocess
+from dataclasses import dataclass, field
+from typing import List, Optional
 
-from uetools.conf import Command, get_build_platforms, load_conf, uat
+from uetools.command import Command
+from uetools.conf import get_build_platforms, load_conf, uat
+
+
+@dataclass
+class Arguments:
+    """Builds and cook a plugin"""
+
+    project: str
+    plugin: str
+    platforms: List[str] = field(default_factory=list)
+    output: str = None
+    strict_includes: Optional[bool] = None
+    no_host_platform: Optional[bool] = None
 
 
 class PackagePlugin(Command):

@@ -29,14 +29,17 @@ class Arguments:
     name: str
 
 
-class Open(Command):
-    """Open the editor for a given project"""
+class Client(Command):
+    """Launch the editor as a client to an alredy running server"""
 
-    name: str = "open"
+    name: str = "client"
 
     @staticmethod
     def arguments(subparsers):
-        editor_args = subparsers.add_parser(Open.name, help="Open an Unreal Engine porject")
+        editor_args = subparsers.add_parser(
+            Client.name,
+            help="Launch the editor as a client to an alredy running server",
+        )
         # this makes it ugly
         # editor.add_arguments(Arguments, dest="open")
 
@@ -49,7 +52,10 @@ class Open(Command):
         project_folder = os.path.join(projects_folder, args.name)
         uproject = os.path.join(project_folder, f"{args.name}.uproject")
 
-        subprocess.run([editor(), uproject], check=True)
+        subprocess.run(
+            [editor(), uproject, map + "?game={game_info_class}&name={name}", "-game"],
+            check=True,
+        )
 
 
-COMMAND = Open
+COMMAND = Client

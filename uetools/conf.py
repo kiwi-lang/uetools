@@ -82,23 +82,6 @@ def update_conf(**kwargs):
     save_conf(conf)
 
 
-class Command:
-    """Base class for all commands"""
-
-    name: str
-    help: str
-
-    @staticmethod
-    def arguments(subparsers):
-        """Define the arguments of this command"""
-        raise NotImplementedError()
-
-    @staticmethod
-    def execute(args):
-        """Execute the command"""
-        raise NotImplementedError()
-
-
 def binary(name):
     """Returns the name of a binary for the current platform"""
     if WINDOWS:
@@ -180,13 +163,6 @@ def editor_cmd():
     )
 
 
-def uproject(name):
-    """Returns the path to the project file"""
-    projects_folder = load_conf().get("project_path")
-    project_folder = os.path.join(projects_folder, name)
-    return os.path.join(project_folder, f"{name}.uproject")
-
-
 # Supported platforms are listed here
 #       UnrealEngine\Engine\Source\Programs\UnrealBuildTool\Platform
 #
@@ -237,3 +213,12 @@ EDITOR_PLATOFRMS = {
 def get_editor_platforms():
     """returns the platforms supported by the editor"""
     return EDITOR_PLATOFRMS
+
+
+def find_project(name):
+    """Returns the path to the project file"""
+    projects_folder = load_conf().get("project_path")
+    project_folder = os.path.join(projects_folder, name)
+    uproject = os.path.join(project_folder, f"{name}.uproject")
+
+    return uproject if os.path.exists(uproject) else None

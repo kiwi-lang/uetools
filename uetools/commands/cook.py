@@ -1,15 +1,14 @@
-from dataclasses import dataclass
 import os
 import sys
 from argparse import Namespace
+from dataclasses import dataclass
 from typing import Optional
 
 from simple_parsing import choice
 
+from uetools.command import Command
 from uetools.commands.build import Build
-from uetools.commands.fmt import CookingFormater, popen_with_format
 from uetools.conf import (
-    Command,
     build_platform_from_editor,
     editor_cmd,
     get_build_modes,
@@ -17,6 +16,8 @@ from uetools.conf import (
     guess_editor_platform,
     load_conf,
 )
+from uetools.format.base import popen_with_format
+from uetools.format.cooking import CookingFormatter
 
 
 @dataclass
@@ -54,10 +55,13 @@ class Arguments:
        uecli cook RTSGame --platform Windows --build Development
 
     """
+
     name: str
     output: Optional[str] = None
     build: Optional[str] = choice(*get_build_modes(), default=None)
-    platform: Optional[str] = choice(*get_editor_platforms(), default=guess_editor_platform())
+    platform: Optional[str] = choice(
+        *get_editor_platforms(), default=guess_editor_platform()
+    )
 
 
 class CookGame(Command):
@@ -97,7 +101,6 @@ class CookGame(Command):
         project_folder = os.path.join(projects_folder, name)
         uproject = os.path.join(project_folder, f"{name}.uproject")
 
-
         if args.output is None:
             args.output = os.path.join(project_folder, "Saved", "StagedBuilds")
 
@@ -116,7 +119,7 @@ class CookGame(Command):
             "-unattended",
             "-NoLogTimes",
             "-UTF8Output",
-            "-stdout",
+            # "-stdout",
             "-FullStdOutLogOutput",
             # '-map={}'
             # Incremental cooking
@@ -131,7 +134,7 @@ class CookGame(Command):
             "-WarningsAsErrors",
         ]
 
-        fmt = CookingFormater(24)
+        fmt = CookingFormatter(24)
         fmt.print_non_matching = True
 
         cmd = [editor_cmd()] + args

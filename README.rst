@@ -49,6 +49,12 @@ Get Started
    # Cook the project
    uecli cook RTSGame
 
+   # Start a server
+   uecli server RTSGame localhost:8123
+
+   # start a client
+   uecli client RTSGame localhost:8123
+
 
 Features
 --------
@@ -69,3 +75,13 @@ It also implements common recipes such as
 * Automatically configure project settings for Python
 * Works on both Linux & Windows seemlessly
 * Add Doxygen to your project
+
+
+Rational
+--------
+
+Unreal engine has 222 comandlets, 83 commands and more than 1237 comand line parameters hidden inside its code,
+very few are documented.
+
+uetools identify the useful arguments and bundle them inside a command line utility, forming groups/set of arguments
+with a singular purpose.

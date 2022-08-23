@@ -1,38 +1,65 @@
 from __future__ import annotations
 
 import subprocess
+from dataclasses import asdict, dataclass
+from typing import Optional
 
-from uetools.conf import Command, get_build_modes, get_build_platforms, ubt
+from simple_parsing import choice
 
-# -Help               :  Display this help.
-# -Verbose            :  Increase output verbosity
-# -VeryVerbose        :  Increase output verbosity more
-# -Log                :  Specify a log file location instead of the default Engine/Programs/UnrealBuildTool/Log.txt
-# -TraceWrites        :  Trace writes requested to the specified file
-# -Timestamps         :  Include timestamps in the log
-# -FromMsBuild        :  Format messages for msbuild
-# -Progress           :  Write progress messages in a format that can be parsed by other programs
-# -NoMutex            :  Allow more than one instance of the program to run at once
-# -WaitMutex          :  Wait for another instance to finish and then start, rather than aborting immediately
-# -RemoteIni          :  Remote tool ini directory
-# -Mode=              :  Select tool mode. One of the following (default tool mode is "Build"):
-#                         AggregateParsedTimingInfo, Analyze, Build, Clean, Deploy, Execute, GenerateClangDatabase,
-#                         GenerateProjectFiles, IOSPostBuildSync, JsonExport, ParseMsvcTimingInfo, PVSGather,
-#                         QueryTargets, SetupPlatforms, ValidatePlatforms, WriteDocumentation, WriteMetadata
-# -Clean              :  Clean build products. Equivalent to -Mode=Clean
-# -ProjectFiles       :  Generate project files based on IDE preference. Equivalent to -Mode=GenerateProjectFiles
-# -ProjectFileFormat= :  Generate project files in specified format. May be used multiple times.
-# -Makefile           :  Generate Linux Makefile
-# -CMakefile          :  Generate project files for CMake
-# -QMakefile          :  Generate project files for QMake
-# -KDevelopfile       :  Generate project files for KDevelop
-# -CodeliteFiles      :  Generate project files for Codelite
-# -XCodeProjectFiles  :  Generate project files for XCode
-# -EddieProjectFiles  :  Generate project files for Eddie
-# -VSCode             :  Generate project files for Visual Studio Code
-# -VSMac              :  Generate project files for Visual Studio Mac
-# -CLion              :  Generate project files for CLion
-# -Rider              :  Generate project files for Rider
+from uetools.command import Command, command_builder
+from uetools.conf import get_build_modes, get_build_platforms, ubt
+
+modes = [
+    "AggregateParsedTimingInfo",
+    "Analyze",
+    "Build",
+    "Clean",
+    "Deploy",
+    "Execute",
+    "GenerateClangDatabase",
+    "GenerateProjectFiles",
+    "IOSPostBuildSync",
+    "JsonExport",
+    "ParseMsvcTimingInfo",
+    "PVSGather",
+    "QueryTargets",
+    "SetupPlatforms",
+    "ValidatePlatforms",
+    "WriteDocumentation",
+    "WriteMetadata",
+]
+
+
+# fmt: off
+@dataclass
+class Arguments:
+    """Unreal Build tools arguments"""
+    mode                : Optional[str] = choice(*modes, default="Build")  #   Select tool mode. One of the following (default tool mode is "Build"):
+    verbose             : bool = False  #   Increase output verbosity
+    veryverbose         : bool = False  #   Increase output verbosity more
+    log                 : Optional[str]  = None  #   Specify a log file location instead of the default Engine/Programs/UnrealBuildTool/Log.txt
+    tracewrites         : bool = False  #   Trace writes requested to the specified file
+    timestamps          : bool = False  #   Include timestamps in the log
+    frommsbuild         : bool = False  #   Format messages for msbuild
+    progress            : bool = False  #   Write progress messages in a format that can be parsed by other programs
+    nomutex             : bool = False  #   Allow more than one instance of the program to run at once
+    waitmutex           : bool = False  #   Wait for another instance to finish and then start, rather than aborting immediately
+    remoteini           : bool = False  #   Remote tool ini directory
+    clean               : bool = False  #   Clean build products. Equivalent to -Mode=Clean
+    projectfiles        : bool = False  #   Generate project files based on IDE preference. Equivalent to -Mode=GenerateProjectFiles
+    projectfileformat   : Optional[str]  = None  #   Generate project files in specified format. May be used multiple times.
+    makefile            : bool = False  #   Generate Linux Makefile
+    cmakefile           : bool = False  #   Generate project files for CMake
+    qmakefile           : bool = False  #   Generate project files for QMake
+    kdevelopfile        : bool = False  #   Generate project files for KDevelop
+    codelitefiles       : bool = False  #   Generate project files for Codelite
+    xcodeprojectfiles   : bool = False  #   Generate project files for XCode
+    eddieprojectfiles   : bool = False  #   Generate project files for Eddie
+    vscode              : bool = False  #   Generate project files for Visual Studio Code
+    vsmac               : bool = False  #   Generate project files for Visual Studio Mac
+    clion               : bool = False  #   Generate project files for CLion
+    rider               : bool = False  #   Generate project files for Rider
+# fmt: on
 
 TARGETS = [
     "UnrealHeaderTool",
@@ -76,7 +103,7 @@ class UBT(Command):
             help="Build profile",
             choices=get_build_modes(),
         )
-        ubt_parser.add_argument("--log", type=str, help="Path to log file")
+        ubt_parser.add_arguments(Arguments, dest="args")
 
     @staticmethod
     def execute(args):
@@ -90,8 +117,7 @@ class UBT(Command):
         if args.project:
             pargs.append(f"-Project={args.project}")
 
-        if args.log:
-            pargs.append(f"-log={args.log}")
+        pargs += command_builder(asdict(args.args))
 
         subprocess.run(
             pargs, stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True

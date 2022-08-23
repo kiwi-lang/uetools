@@ -1,7 +1,7 @@
 [MASTER]
 
 
-disable=C0114,C0301,R0801,C0415
+disable=C0114,C0301,R0801,C0415,R0902,C0103
 
 
 good-names=i,j,k,v

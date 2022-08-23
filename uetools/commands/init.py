@@ -1,8 +1,9 @@
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 from typing import Optional
 
-from uetools.conf import CONFIG, CONFIGNAME, Command, load_conf, save_conf
+from uetools.command import Command
+from uetools.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 
 
 @dataclass
@@ -25,6 +26,7 @@ class Arguments:
        uecli init --engine C:/opt/UnrealEngine/Engine --projects C:/opt/Projects
 
     """
+
     engine: Optional[str] = None
     projects: Optional[str] = None
 
@@ -37,7 +39,7 @@ class Init(Command):
     @staticmethod
     def arguments(subparsers):
         init = subparsers.add_parser(Init.name, help="Initialize common locations")
-        init.add_arguments(Arguments, dest='init')
+        init.add_arguments(Arguments, dest="init")
 
     @staticmethod
     def execute(args):

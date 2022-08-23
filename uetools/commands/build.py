@@ -1,13 +1,12 @@
-from dataclasses import dataclass
 import os
 import subprocess
+from dataclasses import dataclass
 from typing import Optional
-
 
 from simple_parsing import choice
 
+from uetools.command import Command
 from uetools.conf import (
-    Command,
     get_build_modes,
     get_build_platforms,
     guess_platform,
@@ -171,9 +170,10 @@ class Arguments:
     This was done as an exercice to learn about Unreal internals and might not get updated too often.
 
     """
+
     target: str
     platform: str = choice(*get_build_platforms(), default=guess_platform())
-    mode: str = choice(*get_build_modes(), default='Development')
+    mode: str = choice(*get_build_modes(), default="Development")
     profile: Optional[str] = None
 
 

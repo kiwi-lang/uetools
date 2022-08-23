@@ -1,0 +1,1191 @@
+{
+  "": [
+    "directcompile",
+    "VerifyDDC",
+    "ProjectName",
+    "nomcp",
+    "opengl",
+    "vulkan",
+    "fastcook",
+    "LogNavOctree",
+    "openglNoDebug",
+    "openglDebug",
+    "d3ddebug",
+    "Multiprocess",
+    "TARGETPLATFORM",
+    "MaterialStatsMirror",
+    "SavePackagesThatHaveFailedLoads",
+    "signed",
+    "map",
+    "CommandLine",
+    "rhithread",
+    "RenderOffScreen",
+    "LoadTimeStatsForCommandlet",
+    "LoadTimeFileForCommandlet",
+    "LoadTimeStats",
+    "LoadTimeFile",
+    "s.DebugPackageNames",
+    "s.VerbosePackageNames",
+    "novendordevice",
+    "gpuvalidation",
+    "gpucrashdebugging",
+    "aftermathmarkers",
+    "aftermathcallstack",
+    "aftermathresources",
+    "aftermathall",
+    "d3dbreakonwarning",
+    "PresentGPU",
+    "noraytracing",
+    "preferAMD",
+    "preferIntel",
+    "preferNvidia",
+    "quad_buffer_stereo",
+    "graphicsadapter",
+    "RHIValidation",
+    "ForceAsyncCompute",
+    "dx12",
+    "featureleveles31",
+    "GLESCompat",
+    "logpso",
+    "FullscreenDisplay"
+  ],
+  "Developer_Apple_MetalShaderFormat_MetalShaderFormat": [
+    "MetalToolchainOverride"
+  ],
+  "AutomationController": [
+    "FullSizeScreenshots",
+    "SendAutomationAnalytics",
+    "TestLoops",
+    "ReportOutputPath",
+    "DisplayReportOutputPath",
+    "DeveloperReportOutputPath",
+    "ReportExportPath",
+    "ReportURL",
+    "DeveloperReport",
+    "ResumeRunTest",
+    "TelemetryDirectory"
+  ],
+  "Developer_CollectionManager_CollectionManager": [
+    "NoFixupRedirectorsInCollections"
+  ],
+  "Developer_CrashDebugHelper_CrashDebugHelper": [
+    "EngineVersion",
+    "BuildVersion",
+    "PlatformName",
+    "PlatformVariantName"
+  ],
+  "Developer_CrashDebugHelper_Windows_WindowsPlatformStackWalkExt": [
+    "DebugSymbols",
+    "SyncMicrosoftSymbols"
+  ],
+  "DerivedDataCache": [
+    "DDC",
+    "HttpForceSpeedClass",
+    "MergePaks",
+    "ExportBuilds",
+    "DDCSkipSpeedTest",
+    "DDCTOUCH",
+    "NODDCCLEANUP",
+    "CacheStoreTestUpstream",
+    "CacheStoreTestWarm"
+  ],
+  "Developer_IoStoreUtilities_IoStoreUtilities": [
+    "ClusterCSV",
+    "writefinalorder",
+    "Order",
+    "GameOrder",
+    "CookerOrder",
+    "OrderPriority",
+    "DoNotClusterByOrderPriority",
+    "sign",
+    "NoDirectoryIndex",
+    "csvoutput",
+    "compressionformats",
+    "compressionformat",
+    "alignformemorymapping",
+    "compressionblocksize",
+    "blocksize",
+    "patchpaddingalign",
+    "iostorepatchpaddingalign",
+    "maxPartitionSize",
+    "compressionMinBytesSaved",
+    "compressionMinPercentSaved",
+    "compressionEnableDDC",
+    "compressionMinSizeToConsiderDDC",
+    "Commands",
+    "FileRegions",
+    "List",
+    "csv",
+    "Describe",
+    "PackageFilter",
+    "DumpToFile",
+    "IncludeExportHashes",
+    "Diff",
+    "Source",
+    "Target",
+    "Staged2Zen",
+    "TargetPlatform",
+    "BuildPath",
+    "CreateContentPatch",
+    "CreateDLCContainer",
+    "RemapPluginContentToGame",
+    "BasedOnReleaseVersionPath",
+    "CreateGlobalContainer",
+    "CookedDirectory",
+    "PackageStoreManifest",
+    "ScriptObjects"
+  ],
+  "Developer": [
+    "PatchCryptoKeys",
+    "astcqualitybysize"
+  ],
+  "Developer_PakFileUtilities_PakFileUtilities": [
+    "InspectChunk"
+  ],
+  "Developer_TargetPlatform_TargetPlatformManagerModule": [
+    "cookchild"
+  ],
+  "Developer_TextureFormatASTC_TextureFormatASTC": [
+    "astcqualitybyspeed"
+  ],
+  "Developer_TraceServices_AnalysisCache": [
+    "disableanalysiscache"
+  ],
+  "Developer_Virtualization_VirtualizationManager": [
+    "BackendGraph",
+    "VirtualizationForceSingleThreaded"
+  ],
+  "Developer_Windows_LiveCoding_LiveCodingModule": [
+    "LiveCoding"
+  ],
+  "Developer_XGEController_XGEControllerModule": [
+    "xgecontroller",
+    "noxgecontroller"
+  ],
+  "Developer_Zen_Internal_ZenServerInterface": [
+    "ZenDataPath",
+    "NoZenAutoLaunch",
+    "ZenLogPath"
+  ],
+  "CallFunction": [
+    "AllowUnsafeBlueprintCalls"
+  ],
+  "Editor_Documentation_Documentation": [
+    "testdocs"
+  ],
+  "Editor_GameProjectGeneration_GameProjectUtils": [
+    "norocketcleanup"
+  ],
+  "Editor_IntroTutorials_IntroTutorials": [
+    "ResetTutorials",
+    "TestTutorialAlerts"
+  ],
+  "Editor_LevelEditor_LevelEditor": [
+    "editortoolbox"
+  ],
+  "Editor_MovieSceneTools_AutomatedLevelSequenceCapture": [
+    "LevelSequence",
+    "Shot",
+    "MovieStartFrame",
+    "MovieEndFrame",
+    "MovieWarmUpFrames",
+    "MovieDelayBeforeWarmUp",
+    "MovieDelayBeforeShotWarmUp",
+    "MovieDelayEveryFrame",
+    "WriteEditDecisionList",
+    "WriteFinalCutProXML",
+    "UseBurnIn"
+  ],
+  "Editor_TranslationEditor_TranslationPickerEditWindow": [
+    "AllowTranslationPickerSubmissionsToOneSky"
+  ],
+  "Editor_UnrealEd_Commandlets_ContentCommandlets": [
+    "KeepPackageGUIDOnSave",
+    "CLEANCLASSES"
+  ],
+  "Editor_UnrealEd_Commandlets_CookCommandlet": [
+    "SendCookAnalytics",
+    "CookLLMPeriod"
+  ],
+  "Editor_UnrealEd_Commandlets_ExportPakDependencies": [
+    "PakFile",
+    "Output"
+  ],
+  "Editor_UnrealEd_Commandlets_MakeBinaryConfigCommandlet": [
+    "OutputFile",
+    "StagedPluginsFile"
+  ],
+  "Editor_UnrealEd_Commandlets_PackageUtilities": [
+    "SORT"
+  ],
+  "Editor_UnrealEd_Commandlets_TextAssetCommandlet": [
+    "schemaoutput",
+    "disablecleanup"
+  ],
+  "Editor_UnrealEd_Commandlets_WorldPartitionBuilderCommandlet": [
+    "Builder"
+  ],
+  "Editor_UnrealEd_Cooker_CookPackageData": [
+    "CookShowInstigator"
+  ],
+  "Editor_UnrealEd_Cooker_CookTypes": [
+    "CookTestPendingBuilds"
+  ],
+  "Editor_UnrealEd_Cooker_DiffPackageWriter": [
+    "MaxDiffstoLog",
+    "SaveForDiff",
+    "HeaderDiffs",
+    "IgnoreHeaderDiffs",
+    "diffcmds"
+  ],
+  "Editor_UnrealEd": [
+    "LINKERDIFF",
+    "fullcook",
+    "immersive"
+  ],
+  "Editor_UnrealEd_CookOnTheFlyServer": [
+    "PreloadDevAR",
+    "BasedOnReleaseVersion",
+    "DevelopmentAssetRegistryPlatformOverride",
+    "CookAgainstFixedBase",
+    "DIFFONLY",
+    "hybriditerativedebug",
+    "DumpAssetRegistry",
+    "helpcookusage",
+    "SkipSaveAssetRegistry",
+    "ExtraFlavorChunkSize",
+    "RANDOMPACKAGEORDER",
+    "DIFFNORANDCOOK",
+    "ConcurrentSave"
+  ],
+  "Editor_UnrealEd_DerivedDataBuildRemoteExecutor": [
+    "DDC2RemoteExecution"
+  ],
+  "Editor_UnrealEd_EditorBuildUtils": [
+    "SkipMapCheck"
+  ],
+  "Editor_UnrealEd_EditorDomain_EditorDomain": [
+    "noeditordomainread"
+  ],
+  "Editor_UnrealEd_EditorDomain_EditorDomainUtils": [
+    "iterate"
+  ],
+  "Editor_UnrealEd_EditorEngine": [
+    "ExecuteBuildsLocally",
+    "PListEditor"
+  ],
+  "Editor_UnrealEd_FileHelpers": [
+    "PATHS"
+  ],
+  "Editor_UnrealEd_PackageAutoSaver": [
+    "AutoDeclinePackageRecovery"
+  ],
+  "Editor_UnrealEd_PlayLevelNewProcess": [
+    "SubprocessCommandLine"
+  ],
+  "Editor_UnrealEd_UnrealEdGlobals": [
+    "VREditor",
+    "ForceVREditor",
+    "AutomatedMapBuild"
+  ],
+  "Editor_UnrealEd_WorldPartition_WorldPartitionBuilder": [
+    "Submit"
+  ],
+  "Editor_UnrealEd_WorldPartition_WorldPartitionFoliageBuilder": [
+    "NewGridSize"
+  ],
+  "Editor_UnrealEd_WorldPartition_WorldPartitionHLODsBuilder": [
+    "SetupHLODs",
+    "BuildHLODs",
+    "DeleteHLODs",
+    "FinalizeHLODs",
+    "DumpStats",
+    "ResumeBuild",
+    "DistributedBuild",
+    "BuildManifest",
+    "BuilderIdx",
+    "BuilderCount",
+    "HLODLevel"
+  ],
+  "Editor_UnrealEd_WorldPartition_WorldPartitionMiniMapBuilder": [
+    "AutoSubmit"
+  ],
+  "Editor_UnrealEd_WorldPartition_WorldPartitionRenameDuplicateBuilder": [
+    "NewPackage",
+    "Rename"
+  ],
+  "Programs_BenchmarkTool_BenchmarkTool": [
+    "Benchmark"
+  ],
+  "Programs_BuildPatchTool_ToolMode": [
+    "help",
+    "mode"
+  ],
+  "Programs": [
+    "Hidden"
+  ],
+  "Programs_LiveCodingConsole_LiveCodingConsole": [
+    "Group"
+  ],
+  "Programs_SlateViewer_SlateViewerApp": [
+    "perftest",
+    "testsuite"
+  ],
+  "Programs_UnrealFrontend_Commands_LaunchFromProfileCommand": [
+    "PROFILENAME"
+  ],
+  "Programs_UnrealFrontend_Commands": [
+    "INFILE"
+  ],
+  "Programs_UnrealFrontend_Commands_StatsConvertCommand": [
+    "OUTFILE",
+    "STATLIST"
+  ],
+  "Programs_UserInterfaceCommand": [
+    "DebugTools"
+  ],
+  "Programs_UnrealHeaderTool_CodeGenerator": [
+    "WRITEREF",
+    "VERIFYREF",
+    "FailIfGeneratedCodeChanges",
+    "VERBOSE"
+  ],
+  "Programs_UnrealInsights_UserInterfaceCommand": [
+    "OpenTraceId",
+    "Store",
+    "StoreHost",
+    "StorePort",
+    "ExecOnAnalysisCompleteCmd",
+    "AutoQuit",
+    "NoUI",
+    "InsightsTest",
+    "stompmalloc",
+    "OpenTraceFile"
+  ],
+  "Programs_UnrealRecoverySvc_UnrealRecoverySvc": [
+    "EDITORPID"
+  ],
+  "Runtime": [
+    "FixedSeed",
+    "EPICAPP",
+    "LOG",
+    "nothreadtimeout",
+    "UseIoStore",
+    "stdout",
+    "TrackBootLoading",
+    "CleanCrashReports",
+    "FileOpenLog",
+    "vr",
+    "WinY",
+    "NoTimeouts",
+    "NoEnginePlugins",
+    "emulatestereo",
+    "hmd",
+    "NoLoadingScreen"
+  ],
+  "Runtime_Analytics_Analytics_Analytics": [
+    "DEBUGANALYTICS",
+    "TESTANALYTICS",
+    "RELEASEANALYTICS"
+  ],
+  "Runtime_Analytics_AnalyticsET_AnalyticsPerfTracker": [
+    "ANALYTICSTRACKPERF"
+  ],
+  "Runtime_Analytics_AnalyticsET_IAnalyticsProviderET": [
+    "ANALYTICSDISABLECACHING",
+    "ANALYTICSAPPVERSION"
+  ],
+  "Runtime_Analytics": [
+    "ANALYTICSUSERID"
+  ],
+  "RHI": [
+    "nometalparallelencoder",
+    "metalshaderdebug",
+    "metalunretained",
+    "metalretainrefs",
+    "MetalRuntimeDebugLevel",
+    "AGXOffscreenOnly",
+    "gpulockstep",
+    "nomsaa",
+    "AGXPSOCache",
+    "AGXProfileFrames",
+    "metalmrt",
+    "metaltiledreflections",
+    "metaldistancefields",
+    "metalparallel",
+    "metalasynccompute",
+    "metalpointlights",
+    "metaltlv",
+    "nometalv2",
+    "msaa",
+    "metaltextureheaps",
+    "metalfence",
+    "metalheap",
+    "nometalfence",
+    "nometalheap",
+    "metalgpudebug",
+    "forcemetalheap",
+    "metaliabs",
+    "MetalOffscreenOnly",
+    "MetalPSOCache",
+    "MetalProfileFrames",
+    "sm5",
+    "sm6",
+    "mtl",
+    "agx",
+    "dx11",
+    "logPSO",
+    "nostablepipelinecache",
+    "psocache",
+    "reportpso",
+    "logpsodetails",
+    "skippsoclear",
+    "FeatureLevelES3_1",
+    "forcerhibypass",
+    "parallelrendering",
+    "RHIValidationLog"
+  ],
+  "Runtime_Apple_AudioMixerAudioUnit_AudioMixerPlatformAudioUnit": [
+    "ForceIOSAudioMixerBufferSize",
+    "ForceIOSAudioMixerNumBuffers"
+  ],
+  "Runtime_ApplicationCore": [
+    "mcsf",
+    "NOSPLASH"
+  ],
+  "Runtime_ApplicationCore_GenericPlatform_GenericApplication": [
+    "SafeZonePaddingLeft",
+    "SafeZonePaddingRight",
+    "SafeZonePaddingTop",
+    "SafeZonePaddingBottom"
+  ],
+  "Runtime_ApplicationCore_IOS_IOSAppDelegate": [
+    "FileHostIP"
+  ],
+  "Runtime_ApplicationCore_IOS_IOSPlatformFramePacer": [
+    "FrameRateLock"
+  ],
+  "Runtime_ApplicationCore_IOS_IOSView": [
+    "NewKeyboard"
+  ],
+  "Runtime_ApplicationCore_Linux_LinuxApplication": [
+    "norelativemousemode"
+  ],
+  "Runtime_ApplicationCore_Linux_LinuxPlatformApplicationMisc": [
+    "egldevice"
+  ],
+  "Runtime_ApplicationCore_Mac_MacCursor": [
+    "MacCursorTypeOverride"
+  ],
+  "Runtime_ApplicationCore_Windows_WindowsApplication": [
+    "NoGamepad",
+    "FilterLowLevelMouse"
+  ],
+  "Runtime_ApplicationCore_Windows_WindowsConsoleOutputDevice": [
+    "ConsoleX",
+    "ConsoleY"
+  ],
+  "Runtime_AssetRegistry_AssetDataGatherer": [
+    "ForceDependsGathering",
+    "multiprocess",
+    "AssetGatherSync"
+  ],
+  "Runtime_AssetRegistry_AssetRegistry": [
+    "AssetGatherAll"
+  ],
+  "Runtime_AutomationWorker_AutomationAnalytics": [
+    "60hzmin",
+    "30hzmin"
+  ],
+  "Runtime_Core_Android_AndroidPlatformMisc": [
+    "enablesystrace",
+    "joystick",
+    "detectvulkan",
+    "OpenGL"
+  ],
+  "Runtime_Core_Android_AndroidPlatformPGO": [
+    "pgoprofileoutput"
+  ],
+  "Runtime_Core_Async_TaskGraph": [
+    "TaskGraphForceOldBackend",
+    "TaskGraphForceNewBackend",
+    "runcook",
+    "foregroundworkers"
+  ],
+  "Runtime_Core_Compression_OodleDataCompressionFormat": [
+    "runiostore",
+    "compressmethod",
+    "compresslevel",
+    "OodleSpaceSpeedTradeoff",
+    "compressionformatsoodle",
+    "compressionformatoodle",
+    "OodleCompressDLL"
+  ],
+  "Runtime_Core_FramePro_FrameProProfiler": [
+    "FrameproEnableContextSwitches"
+  ],
+  "Runtime_Core_GenericPlatform_GenericPlatformMemory": [
+    "MemBucket"
+  ],
+  "Runtime_Core": [
+    "CrashForUAT",
+    "AutomatedPerfTesting",
+    "KillAllPopUpBlockingWindows",
+    "onethread",
+    "NOCONSOLE",
+    "hitchdetection",
+    "hitchdetectionstartsuspended",
+    "hitchdetectionstartrunning",
+    "firstinstall",
+    "usehyperthreading"
+  ],
+  "Runtime_Core_GenericPlatform_GenericPlatformMisc": [
+    "noheartbeatthread",
+    "handleensurepercent"
+  ],
+  "Runtime_Core_GenericPlatform_GenericPlatformOutputDevices": [
+    "NODEFAULTLOG",
+    "ABSLOG",
+    "LOGTOMEMORY",
+    "NOLOGTOMEMORY",
+    "logcategoryfiles"
+  ],
+  "Runtime_Core_GenericPlatform_GenericPlatformProcess": [
+    "threading",
+    "nothreading"
+  ],
+  "Runtime_Core_HAL_DiskUtilizationTracker": [
+    "ThrottleDiskIOMBS"
+  ],
+  "Runtime_Core_HAL_FileManagerGeneric": [
+    "CLEANSCREENSHOTS",
+    "CLEANLOGS"
+  ],
+  "Runtime_Core_HAL_ThreadHeartBeat": [
+    "debughangdetection",
+    "nocheckpointhangdetector",
+    "hitchdetectionstackwalk"
+  ],
+  "Runtime_Core_Internationalization_TextLocalizationManager": [
+    "CULTUREFORCOOKING",
+    "CULTURE",
+    "LEETIFYUnlocalized"
+  ],
+  "Runtime_Core_Internationalization_TextLocalizationResource": [
+    "LogLocalizationConflicts"
+  ],
+  "Runtime_Core_IOS_IOSPlatformFile": [
+    "streaminghostip",
+    "iterative"
+  ],
+  "Runtime_Core_IOS_IOSPlatformMisc": [
+    "PACKAGED_FOR_DISTRIBUTION"
+  ],
+  "Runtime_Core_Mac_MacPlatformMisc": [
+    "RedirectNSLog",
+    "MacExplicitRenderer"
+  ],
+  "Runtime_Core_Mac_MacPlatformProcess": [
+    "dllerrors"
+  ],
+  "Runtime_Core_Misc_App": [
+    "InstanceId",
+    "SessionId",
+    "SessionName",
+    "SessionOwner",
+    "NotInstalled",
+    "Installed",
+    "NotInstalledEngine",
+    "InstalledEngine",
+    "UNATTENDED",
+    "noperfthreads",
+    "useperfthreads"
+  ],
+  "Runtime_Core_Misc_AutomationTest": [
+    "nullrhi"
+  ],
+  "Runtime_Core_Misc_ConfigCacheIni": [
+    "nowrite",
+    "MultiprocessSaveConfig",
+    "REGENERATEINIS",
+    "NOAUTOINIUPDATE",
+    "ScalabilityIniPlatformOverride",
+    "textconfig",
+    "IniBootstrap",
+    "cvarsini"
+  ],
+  "Runtime_Core_Misc_CoreMisc": [
+    "Port"
+  ],
+  "Runtime_Core_Misc_EmbeddedCommunication": [
+    "ForceTickMin",
+    "ForceTickMax"
+  ],
+  "Runtime_Core_Misc_Fork": [
+    "WaitAndFork",
+    "NoFakeForking",
+    "FakeForking",
+    "DisablePostForkThreading",
+    "PostForkThreading"
+  ],
+  "Runtime_Core_Misc_MemStack": [
+    "NoProtectMemStack"
+  ],
+  "Runtime_Core_Misc_NetworkVersion": [
+    "networkversionoverride"
+  ],
+  "Runtime_Core_Misc_OutputDeviceFile": [
+    "LOGFLUSHINTERVAL",
+    "DisableForkedOutputThread",
+    "FORCELOGFLUSH"
+  ],
+  "Runtime_Core_Misc_Paths": [
+    "SaveToUserDir",
+    "UserDir",
+    "ShaderWorkingDir"
+  ],
+  "Runtime_Core_Modules_ModuleManager": [
+    "ModulesBootstrap"
+  ],
+  "Runtime_Core_ProfilingDebugging_CsvProfiler": [
+    "csvABTest",
+    "csvABTestStatFrameOffset",
+    "csvABTestSwitchDuration",
+    "csvABTestFastCVarSet",
+    "ExitAfterCsvProfiling",
+    "csvNoProcessingThread",
+    "csvCaptureOnEventFrameCount",
+    "csvStartOnEvent",
+    "csvStopOnEvent",
+    "csvGpuStats",
+    "csvTest",
+    "csvTestMT",
+    "csvCategories",
+    "csvMetadata",
+    "csvNamedEvents",
+    "csvNamedEventsTiming",
+    "csvStatCounts",
+    "csvCaptureFrames",
+    "csvRepeat",
+    "csvCompression",
+    "csvExecCmds"
+  ],
+  "Runtime_Core_ProfilingDebugging_LoadTimeTracker": [
+    "NoLoadTrackClear"
+  ],
+  "Runtime_Core_ProfilingDebugging_ProfilingHelpers": [
+    "gABC",
+    "BuildName"
+  ],
+  "Runtime_Core_Serialization_Archive": [
+    "USEALLAVAILABLECORES",
+    "MTCHILD"
+  ],
+  "Runtime_Core_Stats_StatsMallocProfilerProxy": [
+    "MemoryProfiler"
+  ],
+  "Runtime_Core_Unix_UnixPlatformCrashContext": [
+    "CrashGUID"
+  ],
+  "Runtime_Core_Unix_UnixPlatformMisc": [
+    "preloadmodulesymbols",
+    "norandomguids"
+  ],
+  "Runtime_Core_Unix_UnixPlatformProcess": [
+    "NumForks",
+    "WaitAndForkCmdLinePath",
+    "WaitAndForkRequireResponse",
+    "neverfirst"
+  ],
+  "Runtime_Core_Windows_WindowsEventLogOutputDevice": [
+    "Login"
+  ],
+  "Runtime_Core_Windows_WindowsPlatformCrashContext": [
+    "AbsCrashReportClientLog",
+    "waitforattachcrc",
+    "ForceLogCallstacks"
+  ],
+  "Runtime_Core_Windows_WindowsPlatformMisc": [
+    "installge",
+    "allusers",
+    "uninstallge",
+    "uninstallfw",
+    "corelimit"
+  ],
+  "Runtime_Core_Windows_WindowsPlatformStackWalk": [
+    "DisableUploadSymbols"
+  ],
+  "Runtime_CoreUObject_Serialization_ArchiveStackTrace": [
+    "cooksinglepackage",
+    "diffonlybreakoffset",
+    "diffoutputdir"
+  ],
+  "Runtime_CoreUObject_Serialization_AsyncLoading": [
+    "FilePackageOpenLog",
+    "RandomizeLoadOrder"
+  ],
+  "Runtime_CoreUObject_Serialization_AsyncPackageLoader": [
+    "NoAsyncLoadingThread",
+    "AsyncLoadingThread",
+    "NoAsyncPostLoad",
+    "AsyncPostLoad"
+  ],
+  "Runtime_CoreUObject_UObject_LazyObjectPtr": [
+    "AssignNewMapGuids"
+  ],
+  "Runtime_CoreUObject_UObject_LinkerLoad": [
+    "DefaultLoadBehaviorTest",
+    "LazyLoadImports"
+  ],
+  "Runtime_CoreUObject_UObject_Obj": [
+    "VERIFYGC",
+    "NOVERIFYGC"
+  ],
+  "Runtime_CoreUObject_UObject_SavePackage_SavePackageUtilities": [
+    "DisableEDLCookChecker"
+  ],
+  "Runtime_CoreUObject_UObject_ScriptCore": [
+    "SCRIPTSTACKONWARNINGS",
+    "FATALSCRIPTWARNINGS"
+  ],
+  "Runtime_CoreUObject_UObject_UObjectClusters": [
+    "DumpClustersWithObjects"
+  ],
+  "Runtime_CoreUObject_UObject_UObjectGlobals": [
+    "TREATLOADWARNINGSASERRORS"
+  ],
+  "Adapter": [
+    "MaxGPUCount",
+    "AFR",
+    "VMGPU",
+    "NumAFRGroups"
+  ],
+  "Device": [
+    "gpupreference",
+    "attachPIX",
+    "d3debug",
+    "dxdebug",
+    "nod3dasync",
+    "preferMS",
+    "AllowSoftwareRendering",
+    "nogpucrashdebugging",
+    "gpucrashdump"
+  ],
+  "Runtime_Engine_AmbientSound": [
+    "NoAmbientActors"
+  ],
+  "Runtime_Engine_AssetCompilingManager": [
+    "DumpAsyncStallsOnExit"
+  ],
+  "Runtime_Engine_AudioDevice": [
+    "AudioCallbackBufferFrameSize",
+    "AudioNumBuffersToEnqueue"
+  ],
+  "Runtime_Engine_AudioDeviceManager": [
+    "DebugSound",
+    "AudioMixer",
+    "NoAudioMixer",
+    "DeterministicAudio"
+  ],
+  "Runtime_Engine_ContentStreaming": [
+    "NoTextureStreaming"
+  ],
+  "Runtime_Engine_DebugViewModeHelpers": [
+    "quadoverdraw",
+    "streamingaccuracy",
+    "streamingbuild"
+  ],
+  "Runtime_Engine_DemoNetDriver": [
+    "csvdemostarttime",
+    "csvdemoendtime",
+    "csvdemoframecount",
+    "csvDemoStopAfterProfile",
+    "csvDemoStopCsvAtReplayEnd",
+    "ExitAfterReplay"
+  ],
+  "Runtime_Engine_DeviceProfiles_DeviceProfileManager": [
+    "DPCVar",
+    "DP"
+  ],
+  "Runtime_Engine_DeviceProfiles_DeviceProfileMatching": [
+    "DPFragments"
+  ],
+  "Runtime_Engine_GameEngine": [
+    "SAVEWINPOS",
+    "SimMobile",
+    "FullScreen",
+    "Res",
+    "ResX",
+    "ResY",
+    "ForceRes",
+    "Portrait"
+  ],
+  "Runtime_Engine": [
+    "NETWORKPROFILER",
+    "noshaderddc",
+    "NoPacketHandler",
+    "lanplay"
+  ],
+  "Runtime_Engine_GameModeBase": [
+    "MultiprocessOSS"
+  ],
+  "Runtime_Engine_GameSession": [
+    "MatchAutoStatCapture"
+  ],
+  "Runtime_Engine_GameViewportClient": [
+    "DefaultViewportMouseCaptureMode"
+  ],
+  "Runtime_Engine_NetConnection": [
+    "longtimeouts"
+  ],
+  "Runtime_Engine_NetDriver": [
+    "profilestats",
+    "limitclientticks",
+    "ReplicationCSVCaptureFrames",
+    "RepDriverEnable",
+    "RepDriverDisable"
+  ],
+  "Runtime_Engine_ObjectCacheContext": [
+    "ObjectReverseLookupMode"
+  ],
+  "Runtime_Engine_Particles_ParticleComponents": [
+    "LogThreadedParticleTicking"
+  ],
+  "PhysX": [
+    "physxDispatcher"
+  ],
+  "Runtime_Engine_ReplaySubsystem": [
+    "NOREPLAYS"
+  ],
+  "Runtime_Engine_ShaderCompiler_ShaderCompiler": [
+    "NoRemoteShaderCompile",
+    "mirrorshaderstats",
+    "target",
+    "targetplatform",
+    "noshaderworker"
+  ],
+  "Runtime_Engine_SoundWave": [
+    "SoundWaveDataHasStreamingDisabled"
+  ],
+  "Runtime_Engine_Streaming_StreamingManagerTexture": [
+    "NeverStreamOutRenderAssets"
+  ],
+  "Runtime_Engine_SystemSettings": [
+    "SystemSettings",
+    "MAXQUALITYMODE"
+  ],
+  "Runtime_Engine_Tests_AutomationCommon": [
+    "DisableFrameTraceCapture",
+    "map.cycles"
+  ],
+  "Runtime_Engine_TextureDerivedData": [
+    "ForceTextureEncodeSpeed",
+    "DDC2TextureBuilds"
+  ],
+  "Runtime_Engine_UnrealEngine": [
+    "virtmemkb",
+    "DEFAULTMAP",
+    "SlateDebug",
+    "EXEC",
+    "ExecCmds",
+    "vsync",
+    "novsync",
+    "NetTrace",
+    "noailogging",
+    "enableailogging",
+    "MaxAlloc",
+    "SkipAssetScan",
+    "nohmd",
+    "noxrstereo",
+    "noeyetracking",
+    "eyetracking",
+    "NetDriverOverrides"
+  ],
+  "Runtime_Engine_UserInterface_InputSettings": [
+    "RemoveInvalidKeys"
+  ],
+  "Runtime_Engine_UserInterface_PlayerInput": [
+    "DisableTouch",
+    "NoDebugExecBindings"
+  ],
+  "Runtime_Engine_VisualLogger_VisualLogger": [
+    "EnableAILogging"
+  ],
+  "Runtime_Engine_World": [
+    "PIEVIACONSOLE",
+    "simmobile"
+  ],
+  "Runtime_Experimental_Chaos_Chaos_Framework_PhysicsSolverBase": [
+    "PhysicsRunsOnGT"
+  ],
+  "Runtime_Experimental_Chaos_ChaosModule": [
+    "SingleThreadedPhysics"
+  ],
+  "Runtime_ExternalRPCRegistry_ExternalRpcRegistry": [
+    "rpcport"
+  ],
+  "Runtime_GameplayMediaEncoder_GameplayMediaEncoder": [
+    "GameplayMediaEncoder.ResY",
+    "GameplayMediaEncoder.FPS",
+    "GameplayMediaEncoder.Bitrate"
+  ],
+  "Runtime_Launch_Android_LaunchAndroid": [
+    "Messaging",
+    "hwcpipe"
+  ],
+  "Runtime_Launch_HoloLens_HoloLensLaunch": [
+    "clearbasedir"
+  ],
+  "Runtime_Launch_IOS_LaunchIOS": [
+    "WaitForDebugger"
+  ],
+  "Runtime_Launch_LaunchEngineLoop": [
+    "GenericConsoleOutput",
+    "AllowStdOutLogVerbosity",
+    "FullStdOutLogOutput",
+    "CmdLineFile",
+    "EnvAfterHere",
+    "nodrawevents",
+    "emitdrawevents",
+    "testexit",
+    "mallocframeprofiler",
+    "BUILDMACHINE",
+    "BENCHMARK",
+    "Deterministic",
+    "UseFixedTimeStep",
+    "ReduceThreadUsage",
+    "DumpEarlyConfigReads",
+    "DumpEarlyPakFileReads",
+    "ForceQuitAfterEarlyReads",
+    "AllowCommandletRendering",
+    "AllowCommandletAudio",
+    "DEMOMODE",
+    "norhithread",
+    "DUMPALLWARNINGS",
+    "DUMPMOVIE",
+    "NOSCREENMESSAGES",
+    "statunit",
+    "NOINI",
+    "SECONDS",
+    "BENCHMARKSECONDS",
+    "FPS",
+    "LOGTIMES",
+    "UTCLOGTIMES",
+    "NOLOGTIMES",
+    "LOGTIMESINCESTART",
+    "LOCALLOGTIMES",
+    "LOGTIMECODE",
+    "purgatorymallocproxy",
+    "poisonmallocproxy",
+    "buildmachine",
+    "MULTIPROCESS",
+    "PROMPTREMOTEDEBUG",
+    "PROMPTREMOTEDEBUGENSURE",
+    "WARNINGSASERRORS",
+    "SILENT",
+    "RUNNINGUNATTENDEDSCRIPT",
+    "bForceSmokeTests",
+    "CreatePak"
+  ],
+  "Runtime_MovieSceneCapture_CompositionGraphCaptureProtocol": [
+    "CustomRenderPasses",
+    "CaptureFramesInHDR",
+    "DisableScreenPercentage",
+    "PostProcessingMaterial"
+  ],
+  "Runtime_MovieSceneCapture": [
+    "CaptureGamut",
+    "HDRCompressionQuality",
+    "MovieQuality"
+  ],
+  "Runtime_MovieSceneCapture_MovieSceneCapture": [
+    "MovieFolder",
+    "MovieName",
+    "MovieOverwriteExisting",
+    "MovieRelativeFrames",
+    "HandleFrames",
+    "MovieEngineScalabilityMode",
+    "MovieCinematicMode",
+    "PathTracer",
+    "PathTracerSamplePerPixel",
+    "MovieFormat",
+    "ImageCaptureProtocol",
+    "AudioCaptureProtocol",
+    "MovieFrameRate"
+  ],
+  "Runtime_MovieSceneCapture_MovieSceneCaptureModule": [
+    "EmulateStereo",
+    "MovieSceneCaptureType",
+    "MovieSceneCaptureManifest"
+  ],
+  "Runtime_Net_Core_Net_Core_Misc_PacketAudit": [
+    "PacketAudit"
+  ],
+  "Runtime_NetworkFile_NetworkPlatformFile": [
+    "FileHostIP%s",
+    "DeleteLocalCache"
+  ],
+  "Runtime_NetworkReplayStreaming_HttpNetworkReplayStreaming_HttpNetworkReplayStreaming": [
+    "ReplayMeta"
+  ],
+  "Runtime_NetworkReplayStreaming_NetworkReplayStreaming_NetworkReplayStreaming": [
+    "REPLAYSTREAMEROVERRIDE"
+  ],
+  "Runtime_NVidia_GeForceNOW_GeForceNOWWrapper": [
+    "MockGFN"
+  ],
+  "Runtime_Online_BackgroundHTTP_PlatformWithModularFeature_ModularFeaturePlatformBackgroundHttp": [
+    "BackgroundHttpModularFeatureNameOverride"
+  ],
+  "Runtime_Online_BuildPatchServices_BuildPatchServicesModule": [
+    "skipbuildpatchprereq"
+  ],
+  "Runtime_Online_BuildPatchServices_Generation_ChunkDeltaOptimiser": [
+    "singlescanneronly"
+  ],
+  "Runtime_Online_HTTP_Curl_CurlHttpManager": [
+    "noreuseconn",
+    "MULTIHOMEHTTP"
+  ],
+  "Runtime_Online_HTTP_HttpManager": [
+    "EnableHttpDomainRestrictions",
+    "DisableHttpDomainRestrictions"
+  ],
+  "Runtime_Online_HTTP_HttpModule": [
+    "httpproxy"
+  ],
+  "Runtime_Online_HTTP_HttpThread": [
+    "DisableForkedHTTPThread"
+  ],
+  "Runtime_Online_HTTP_Windows_WindowsPlatformHttp": [
+    "HTTP"
+  ],
+  "Runtime_Online_SSL_SslCertificateManager": [
+    "DisableSSLCertificatePinning"
+  ],
+  "Runtime_Online_XMPP_XmppModule": [
+    "EPICENV",
+    "MCPCONFIG"
+  ],
+  "Runtime_OpenGLDrv_Android_AndroidOpenGL": [
+    "filehostip"
+  ],
+  "Runtime_OpenGLDrv_Android_AndroidOpenGLFramePacer": [
+    "UseSwappyThreads"
+  ],
+  "Runtime_OpenGLDrv_OpenGLShaders": [
+    "ClearOpenGLBinaryProgramCache"
+  ],
+  "Runtime_OpenGLDrv_Windows_OpenGLWindows": [
+    "WinX"
+  ],
+  "Runtime_PakFile_IoDispatcherFileBackend": [
+    "forcegenericio"
+  ],
+  "Runtime_PakFile_IPlatformFilePak": [
+    "ForcePakProcessReads",
+    "CachePerPak",
+    "NewTrimCache",
+    "PakCacheMaxBlockMemory",
+    "iniFile",
+    "checkpak",
+    "SkipOptionalPakFiles",
+    "fileopenlog",
+    "StartupPaksWildcard",
+    "paklist"
+  ],
+  "Runtime_PerfCounters_PerfCountersModule": [
+    "statsPort"
+  ],
+  "Runtime_PhysicsCore_PhysicsInitialization": [
+    "PVD"
+  ],
+  "Runtime_Portal_LauncherCheck_LauncherCheckModule": [
+    "q",
+    "EpicPortal"
+  ],
+  "Runtime_Projects_PluginManager": [
+    "EnableAllPlugins"
+  ],
+  "Runtime_RenderCore_RenderCore": [
+    "hdr",
+    "nohdr"
+  ],
+  "Runtime_RenderCore_RenderGraphPrivate": [
+    "rdgimmediate",
+    "rdgdebug",
+    "rdgdebugextendresourcelifetimes",
+    "rdgtransitionlog",
+    "rdgbreakpoint",
+    "rdgclobberresources",
+    "rdgtransientallocator",
+    "rdgcullpasses",
+    "rdgparallelxecute",
+    "rdgmergerenderpasses",
+    "rdgoverlapuavs",
+    "rdgdumpgraph",
+    "rdgasynccompute",
+    "rdgdebuggraphfilter",
+    "rdgdebugpassfilter",
+    "rdgdebugresourcefilter"
+  ],
+  "Runtime_RenderCore_RenderingThread": [
+    "noexceptionhandler"
+  ],
+  "Runtime_RenderCore_ShaderCodeLibrary": [
+    "ShaderCodeLibrarySeparateLoadingCache"
+  ],
+  "Runtime_RenderCore_ShaderCore": [
+    "NoShaderCompile",
+    "PrecompiledShadersOnly"
+  ],
+  "Runtime_SandboxFile_IPlatformFileSandboxWrapper": [
+    "InjectedSandbox%s;%s",
+    "Sandbox%s"
+  ],
+  "Runtime_SessionServices_SessionManager": [
+    "SessionFilter"
+  ],
+  "Runtime_Slate_Framework_Application_SlateApplication": [
+    "faketouches",
+    "nohighdpi"
+  ],
+  "Runtime_SlateCore_Styling_CoreStyle": [
+    "oldeditorstyle"
+  ],
+  "Runtime_Sockets_SocketSubsystem": [
+    "MULTIHOME"
+  ],
+  "Runtime_StorageServerClient_StorageServerPlatformFile": [
+    "ZenStoreHost",
+    "CookOnTheFly",
+    "CookOnTheFlyServerWaitTime"
+  ],
+  "Runtime_StreamingFile_StreamingNetworkPlatformFile": [
+    "fileserverport",
+    "StreamingHostIP%s"
+  ],
+  "VulkanRHI": [
+    "vulkandebugmarkers",
+    "PrintVulkanPixelFormatMappings",
+    "vktrace",
+    "vulkanapidump",
+    "disablememorypriority",
+    "disablememorybudget",
+    "vulkandebug",
+    "vulkanvalidation",
+    "ClearVulkanBinaryProgramCache",
+    "vulkanbestpractices",
+    "savevulkanpsocacheonexit",
+    "vulkanpresentmode"
+  ],
+  "WebBrowser": [
+    "CefAllowAllCookies",
+    "KairosOnly",
+    "nocefaccelpaint",
+    "forcecefaccelpaint",
+    "nocef",
+    "debuglog",
+    "cefdebug"
+  ]
+}

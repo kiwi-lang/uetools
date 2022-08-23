@@ -1,8 +1,35 @@
 import os
+from dataclasses import dataclass
 
 import pkg_resources
 
-from uetools.conf import Command, load_conf
+from uetools.command import Command
+from uetools.conf import load_conf
+
+
+@dataclass
+class Arguments:
+    """Create a dedicated server target for a given project
+
+    Attributes
+    ----------
+    project: str
+        Name of the project to add the server target
+
+    Examples
+    --------
+
+    .. code-block:: console
+
+       # Add the new server target
+       uecli dedicated RTSGame
+
+       # Build the new target
+       uecli build RTSGameServer
+
+    """
+
+    project: str
 
 
 class Dedicated(Command):

@@ -2,9 +2,24 @@ import os
 
 from cookiecutter.main import cookiecutter
 
-from uetools.conf import Command, load_conf
+from uetools.command import Command
+from uetools.conf import load_conf
 
 COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
+
+
+# pylint: disable=too-few-public-methods
+class Arguments:
+    """Add a Sphinx + Doxygen documentation to a project
+
+    Attributes
+    ----------
+    name: str
+        Name of the project
+
+    """
+
+    name: str
 
 
 class Docs(Command):
