@@ -50,10 +50,10 @@ Get Started
    uecli cook RTSGame
 
    # Start a server
-   uecli server RTSGame localhost:8123
+   uecli server RTSGame --dedicated --port 8123
 
    # start a client
-   uecli client RTSGame localhost:8123
+   uecli client RTSGame --address 127.0.0.1 --port  8123
 
 
 Features
@@ -80,8 +80,8 @@ It also implements common recipes such as
 Rational
 --------
 
-Unreal engine has 222 comandlets, 83 commands and more than 1237 comand line parameters hidden inside its code,
+Unreal engine has 222 comandlets, 83 commands and more than 1237 command line parameters hidden inside its code,
 very few are documented.
 
-uetools identify the useful arguments and bundle them inside a command line utility, forming groups/set of arguments
+``uetools`` identifies the useful arguments and bundle them inside a command line utility, forming groups/set of arguments
 with a singular purpose.

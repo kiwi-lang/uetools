@@ -6,11 +6,12 @@ from typing import Optional
 
 from simple_parsing import choice
 
-from uetools.command import Command
+from uetools.command import Command, command_builder
 from uetools.commands.build import Build
 from uetools.conf import (
     build_platform_from_editor,
     editor_cmd,
+    find_project,
     get_build_modes,
     get_editor_platforms,
     guess_editor_platform,
@@ -38,6 +39,18 @@ class Arguments:
     platform: str
         Used if build mode is set.
 
+    compressed: bool
+        Compress the cooked data, defaults to ``True``
+
+    cookall: bool
+        Cook all assets, defaults to ``False``
+
+    unversioned: bool
+        Don't version the cooked data, defaults to ``False``
+
+    WarningsAsErrors: bool
+        Treat warnings as errors, defaults to ``False``
+
     Notes
     -----
 
@@ -56,12 +69,16 @@ class Arguments:
 
     """
 
-    name: str
+    project: str
     output: Optional[str] = None
     build: Optional[str] = choice(*get_build_modes(), default=None)
     platform: Optional[str] = choice(
         *get_editor_platforms(), default=guess_editor_platform()
     )
+    compressed: bool = True
+    cookall: bool = True
+    unversioned: bool = True
+    WarningsAsErrors: bool = True
 
 
 class CookGame(Command):
@@ -86,10 +103,10 @@ class CookGame(Command):
         # UAT just uses the editor at the end anyway
         args = args.cook
 
-        name = args.name
-        platform = args.platform
-
-        if args.build:
+        name = vars(args).pop("project")
+        platform = vars(args).pop("platform")
+        build = vars(args).pop("build")
+        if build:
             build_args = Namespace()
             build_args.target = name
             build_args.platform = build_platform_from_editor(platform)
@@ -97,50 +114,39 @@ class CookGame(Command):
             build_args.profile = "update-project"
             Build.execute_profile(build_args)
 
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, name)
-        uproject = os.path.join(project_folder, f"{name}.uproject")
+        uproject = find_project(name)
 
         if args.output is None:
+            project_folder = load_conf().get("project_folder")
             args.output = os.path.join(project_folder, "Saved", "StagedBuilds")
 
-        args = [
-            uproject,
-            "-run=cook",
-            f"-targetplatform={platform}",
-            "-Compressed",
-            "-CookAll",
-            # '-log',
-            # extracted from a UAT run
-            # '-fileopenlog',
-            "-unversioned",
-            f"-abslog={project_folder}/Saved/Automation/Cooking.txt",
+        cli_cmd = [
             "-CrashForUAT",
             "-unattended",
             "-NoLogTimes",
             "-UTF8Output",
-            # "-stdout",
             "-FullStdOutLogOutput",
-            # '-map={}'
-            # Incremental cooking
-            # '-iterate',
-            # '-UnVersioned'
-            # Command line just disable everything
-            "-NullRHI",
-            "-NoSplash",
-            "-NoSound",
-            "-NoPause",
-            "-WarningsAsErrors",
         ]
+
+        options = command_builder(args)
+
+        cmd = (
+            [
+                editor_cmd(),
+                uproject,
+                "-run=cook",
+                f"-targetplatform={platform}",
+                f"-abslog={project_folder}/Saved/Automation/Cooking.txt",
+            ]
+            + cli_cmd
+            + options
+        )
+
+        print(" ".join(cmd), flush=True)
 
         fmt = CookingFormatter(24)
         fmt.print_non_matching = True
-
-        cmd = [editor_cmd()] + args
-
-        print(" ".join(cmd), flush=True)
         returncode = popen_with_format(fmt, cmd)
-
         fmt.summary()
 
         print(f"Subprocess terminated with (rc: {returncode})")

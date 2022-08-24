@@ -1,0 +1,54 @@
+name: tests
+
+on: [push]
+
+# see https://docs.unrealengine.com/4.27/en-US/SharingAndReleasing/Containers/ContainersQuickStart/
+jobs:
+  cooking:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epicgames/unreal-engine:dev-slim-4.27
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.CONTAINER_REGISTRY_PAT }}
+
+      # Github expects us to be root, not ue4
+      # ue4 wont be able to write anything anywhere
+      # NB: Cooking refuse to work as root
+      options: "-u root"
+
+    steps:
+      - name: Update Git
+        run: |
+          sudo add-apt-repository ppa:git-core/ppa -y
+          sudo apt-get update
+          sudo apt-get install git -y
+          git --version
+
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Cook
+        run: |
+          export PROJECT="$(pwd)/Chessy.uproject"
+          export COOKED="$(pwd)/Cooked"
+          export LOGS="$(pwd)/Saved/UAT"
+          chown -R ue4 $(pwd)
+          export uebp_LogFolder=$LOGS
+          runuser -u ue4 -- /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh \
+            BuildCookRun                                           \
+            -unattended                                            \
+            -utf8output                                            \
+            -platform=Linux                                        \
+            -clientconfig=Shipping                                 \
+            -serverconfig=Shipping                                 \
+            -project=$PROJECT                                      \
+            -noP4 -nodebuginfo -allmaps                            \
+            -cook -build -stage -prereqs -pak -archive             \
+            -archivedirectory=$COOKED
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: cooked-chessy-linux
+          path: Cooked/*

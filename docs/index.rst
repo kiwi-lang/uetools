@@ -20,3 +20,10 @@
    commands/tests
    commands/ubt
    commands/vscode
+
+.. toctree::
+   :caption: Examples
+   :maxdepth: 1
+
+   examples/pipeline
+   examples/actions

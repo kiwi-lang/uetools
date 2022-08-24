@@ -33,7 +33,62 @@ modes = [
 # fmt: off
 @dataclass
 class Arguments:
-    """Unreal Build tools arguments"""
+    """Unreal Build tools arguments
+
+    Attributes
+    ----------
+    mode, str
+        Select tool mode. One of the following (default tool mode is "Build"):
+    verbose, bool
+        Increase output verbosity
+    veryverbose, bool
+        Increase output verbosity more
+    log, str
+        Specify a log file location instead of the default Engine/Programs/UnrealBuildTool/Log.txt
+    tracewrites, str
+        Trace writes requested to the specified file
+    timestamps, bool
+        Include timestamps in the log
+    frommsbuild, bool
+        Format messages for msbuild
+    progress, bool
+        Write progress messages in a format that can be parsed by other programs
+    nomutex, bool
+        Allow more than one instance of the program to run at once
+    waitmutex, bool
+        Wait for another instance to finish and then start, rather than aborting immediately
+    remoteini, str
+        Remote tool ini directory
+    clean, bool
+        Clean build products. Equivalent to -Mode=Clean
+    projectfiles, bool
+        Generate project files based on IDE preference. Equivalent to -Mode=GenerateProjectFiles
+    projectfileformat, str
+        Generate project files in specified format. May be used multiple times.
+    makefile, bool
+        Generate Linux Makefile
+    cmakefile, bool
+        Generate project files for CMake
+    qmakefile, bool
+        Generate project files for QMake
+    kdevelopfile, bool
+        Generate project files for KDevelop
+    codelitefiles, bool
+        Generate project files for Codelite
+    xcodeprojectfiles, bool
+        Generate project files for XCode
+    eddieprojectfiles, bool
+        Generate project files for Eddie
+    vscode, bool
+        Generate project files for Visual Studio Code
+    vsmac, bool
+        Generate project files for Visual Studio Mac
+    clion, bool
+        Generate project files for CLion
+    rider, bool
+        Generate project files for Rider
+
+    """
     mode                : Optional[str] = choice(*modes, default="Build")  #   Select tool mode. One of the following (default tool mode is "Build"):
     verbose             : bool = False  #   Increase output verbosity
     veryverbose         : bool = False  #   Increase output verbosity more

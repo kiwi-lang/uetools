@@ -1,0 +1,110 @@
+stages:
+  - setup
+  - compile
+  - test
+  - build
+  - cook
+  - deploy
+  - upload
+
+
+variables:
+  ENGINE_FOLDER: "C:/opt/UnrealEngine/Engine"
+  PROJECT_FOLDER: "C:/opt/Projects"
+  PROJECT_NAME: "RTSGame"
+  ANACONDA_FOLDER: "C:/opt/anaconda"
+  OUTPUT: "C:/opt/Temporary/RTSGame"
+  ARCHIVE: "C:/opt/Archive/"
+  OUTPUT_NAME: RTSGame
+
+# Cook the example project, for development to run tests
+development:
+  stage: compile
+
+  # Only run on my own custom runner that already has UE5 setup
+  tags:
+    - windows-ue5
+
+  script:
+    - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
+    - conda activate "$ANACONDA_FOLDER"
+    - uecli init --engine $ENGINE_FOLDER --projects $PROJECT_FOLDER
+    - uecli cook $PROJECT_NAME --platform Windows --build Development
+
+
+test:
+  stage: test
+
+  tags:
+    - windows-ue5
+
+  script:
+    - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
+    - conda activate "$ANACONDA_FOLDER"
+    - uecli tests $PROJECT_NAME /Game/Maps/AbilityTest/AbilityTest Gamekit
+    - uecli tests $PROJECT_NAME /Game/Maps/AbilityTest/AbilityTest Project.Functional
+
+cook:
+  stage: cook
+
+  tags:
+    - windows-ue5
+
+  needs:
+    - package-windows
+
+  script:
+    - $LATEST_TAG = git describe --tags --abbrev=0
+    - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
+    - conda activate "$ANACONDA_FOLDER"
+    - uecli cook $PROJECT_NAME --platform Windows --build Shipping --output $OUTPUT
+    - Compress-Archive -Force -CompressionLevel Optimal -Path $OUTPUT -DestinationPath $ARCHIVE/${OUTPUT_NAME}_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip
+
+
+# Generate the documentation, using gitlab pages
+pages:
+  stage: deploy
+  image: python:3.9-alpine
+
+  tags:
+    - docker
+
+  needs: []
+
+  script:
+    - apk update
+    - apk add doxygen
+    - apk add graphviz
+    - apk add git
+    - apk add make
+    - pip install -e .
+    - pip install -r requirements.txt
+    - pip install -r Docs/requirements.txt
+    - cd Docs
+    - make build-doc
+    - cd ..
+    - mkdir .public
+    - cp -r Docs/_build/html/* .public
+    - rm -rf public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+
+# Upload the end results, to gitlab package repository
+upload-cook:
+  stage: upload
+  tags:
+    - windows-ue5
+
+  rules:
+    - if: '$CI_COMMIT_TAG != null'
+      when: never
+
+  script:
+    - $OUTPUT = $ARCHIVE/${OUTPUT_NAME}_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip
+    - $URL = "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/GamekitExample/${CI_COMMIT_TAG}/${OUTPUT_NAME}-Win64.zip"
+    - Invoke-RestMethod -Headers @{ "JOB-TOKEN"="$CI_JOB_TOKEN" } -InFile ${OUTPUT_NAME} -uri "$URL" -Method put

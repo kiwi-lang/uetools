@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 from typing import Optional
 
 from uetools.command import Command, command_builder
-from uetools.conf import get_build_modes, uat
+from uetools.conf import find_project, get_build_modes, load_conf, uat
 
 commands = [
     "AnalyzeThirdPartyLibs",
@@ -221,7 +222,18 @@ class BuildEditorArgs:
 
 @dataclass
 class LocalizeArgs:
-    """Updates the external localization data using the arguments provided."""
+    """Updates the external localization data using the arguments provided.
+
+    Examples
+    --------
+
+    .. code-block:: console
+
+       uecli uat Localize --project GamekitDev --IncludePlugins --ParallelGather --LocalizationSteps Gather --LocalizationProjectNames GamekitDev
+
+       uecli local --project RTSGame --run GatherText --target RTSGame
+
+    """
     UEProjectRoot                   : Optional[str]  = None # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).",
     UEProjectDirectory              : Optional[str]  = None # Sub-path to the project we're gathering for (relative to UEProjectRoot).",
     UEProjectName                   : Optional[str]  = None # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).",
@@ -234,6 +246,7 @@ class LocalizeArgs:
     IncludePlatforms                : bool = False # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.",
     AdditionalCSCommandletArguments : Optional[str]  = None # Optional arguments to pass to the gather process.",
     ParallelGather                  : bool = False # Run the gather processes for a single batch in parallel rather than sequence.",
+    OneSkyProjectGroupName          : Optional[str] = None
 # fmt: on
 
 
@@ -256,11 +269,12 @@ class UAT(Command):
         uat_parser = subparsers.add_parser("uat", help="Run the UAT command line tool")
 
         uat_parser.add_argument(
-            "command", type=str, choices=commands, help="UAT Command to execute"
+            "cmd", type=str, choices=commands, help="UAT Command to execute"
         )
         uat_parser.add_argument(
-            "configuration",
+            "--configuration",
             type=str,
+            default="Development",
             choices=get_build_modes(),
             help="Build configuration",
         )
@@ -273,12 +287,29 @@ class UAT(Command):
     def execute(args):
         """Execute the UAT command"""
 
-        uat_cmd = vars(args).pop("command")
+        uat_cmd = vars(args).pop("cmd")
+
+        uproject = find_project(args.uat.project)
+
+        if uat_cmd.lower() in ("localize", "localise"):
+            uproject_folder = os.path.dirname(uproject)
+            project_name = os.path.basename(uproject_folder)
+
+            if args.localize.UEProjectRoot is None:
+                args.localize.UEProjectRoot = uproject_folder
+
+            if args.localize.UEProjectDirectory is None:
+                args.localize.UEProjectDirectory = ""
+
+            if args.localize.UEProjectName is None:
+                args.localize.UEProjectName = project_name
 
         args = command_builder(args)
+        cmd = [uat()] + [uat_cmd] + args
 
+        print(" ".join(cmd))
         subprocess.run(
-            [uat()] + [uat_cmd] + args,
+            cmd,
             stdin=subprocess.PIPE,
             stderr=subprocess.PIPE,
             shell=True,
@@ -400,10 +431,8 @@ cook_profiles = dict(test=cook_arguments_testing, shipping=cook_arguments_shippi
 # pylint: disable=too-many-locals
 def execute_uat_cook(args, profiles):
     """Experimental UAT cook command"""
-    import os
     import sys
 
-    from uetools.conf import load_conf
     from uetools.format.base import popen_with_format
     from uetools.format.cooking import CookingFormatter
 
@@ -442,10 +471,6 @@ def execute_uat_cook(args, profiles):
 @staticmethod
 def execute_uat_test(args):
     """UAT & Gauntlet lookt totally unusable"""
-    import os
-
-    from uetools.conf import load_conf
-
     # Gauntlet seems to simply be launching the editor
     name = args.name
     test = args.test
