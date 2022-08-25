@@ -6,10 +6,10 @@ from typing import Optional
 import pkg_resources
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder, newparser
-from uetools.conf import editor_cmd, find_project, load_conf, uat
+from uetools.core.command import Command, command_builder, newparser
+from uetools.core.conf import editor_cmd, find_project, uat
+from uetools.core.run import popen_with_format, run
 from uetools.format.base import Formatter
-from uetools.run import popen_with_format, run
 
 actions = ["Gather", "Compile", "import", "export"]
 
@@ -18,6 +18,45 @@ actions = ["Gather", "Compile", "import", "export"]
 @dataclass
 class ArgumentEditor:
     """Generate localization files for your unreal project
+
+    Attributes
+    ----------
+
+    project: str
+        Project we are generating localization for
+
+    run: str
+        Name of the localization commandlet to run
+
+    target: str
+        Localization target (defaults to the project name)
+
+    SCCProvider: bool
+        Source control provider
+
+    EnableSCC: bool
+        enable source control
+
+    DisableSCCSubmit: bool
+        Disable submitting to source control
+
+    Unattended: bool
+        Don't ask for user input
+
+    NoShaderCompile: bool
+        Prevent shader compilation
+
+    multiprocess: bool
+        Use multiple threads to gather text
+
+    ReportStaleGatherCache: bool
+        Generates a StaleGatherCacheReport.txt file alongside the manifest for your localization target. This file contains a list of any Assets that contain a stale gather cache.
+
+    FixStaleGatherCache: bool
+        Attempts to automatically fix any Assets that contain a stale gather cache, by re-saving them.
+
+    FixMissingGatherCache: bool
+        For Assets too old to have a gather cache, this attempts to automatically fix Assets that are missing a gather cache by re-saving them.
 
     Examples
     --------
@@ -62,10 +101,10 @@ class LocalEditor(Command):
     @staticmethod
     def bootstrap(name, target):
         """Bootstrap localization configuration for your project"""
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, name)
+        project = find_project(name)
+        folder = os.path.dirname(project)
 
-        localization_config = os.path.join(project_folder, "Config", "Localization")
+        localization_config = os.path.join(folder, "Config", "Localization")
         os.makedirs(localization_config, exist_ok=True)
 
         template = pkg_resources.resource_filename(
@@ -92,14 +131,13 @@ class LocalEditor(Command):
         if bootstrap:
             LocalEditor.bootstrap(name, target)
 
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, name)
-        uproject = os.path.join(project_folder, f"{name}.uproject")
+        project = find_project(name)
+        folder = os.path.dirname(project)
 
         cmd = [
             editor_cmd(),
-            uproject,
-            f"-config={project_folder}/Config/Localization/{target}.ini",
+            project,
+            f"-config={folder}/Config/Localization/{target}.ini",
         ] + command_builder(args)
 
         print(" ".join(cmd))
@@ -111,6 +149,49 @@ class LocalEditor(Command):
 class UATArguments:
     """Updates the external localization data using the arguments provided.
 
+    Attributes
+    ----------
+    project: str
+        Project name
+
+    UEProjectRoot: Optional[str]
+        Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
+
+    UEProjectDirectory: str
+        Sub-path to the project we're gathering for (relative to UEProjectRoot)
+
+    UEProjectName: Optional[str]
+        Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
+
+    LocalizationProjectNames: Optional[str]
+        Comma separated list of the projects to gather text from.
+
+    LocalizationBranch: Optional[str]
+        Optional suffix to use when uploading the new data to the localization provider.
+
+    LocalizationProvider: Optional[str]
+        Optional localization provide override.
+
+    LocalizationSteps: Optional[str]
+        Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
+
+    IncludePlugins: bool
+        Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
+
+    ExcludePlugins: Optional[str]
+        Optional comma separated list of plugins to exclude from the gather.
+
+    IncludePlatforms: bool
+        Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
+
+    AdditionalCSCommandletArguments: Optional[str]
+        Optional arguments to pass to the gather process.
+
+    ParallelGather: bool
+        Run the gather processes for a single batch in parallel rather than sequence.
+
+    OneSkyProjectGroupName: Optional[str] = None
+
     Examples
     --------
 
@@ -120,20 +201,20 @@ class UATArguments:
 
     """
 
-    project: str
-    UEProjectRoot: Optional[str] = None  # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).",
-    UEProjectDirectory: str = ''  # Sub-path to the project we're gathering for (relative to UEProjectRoot).",
-    UEProjectName: Optional[str] = None  # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).",
-    LocalizationProjectNames: Optional[str] = None  # Comma separated list of the projects to gather text from.",
-    LocalizationBranch: Optional[str] = None  # Optional suffix to use when uploading the new data to the localization provider.",
-    LocalizationProvider: Optional[str] = None  # Optional localization provide override."),
-    LocalizationSteps: Optional[str] = None  # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.",
-    IncludePlugins: bool = False  # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).",
-    ExcludePlugins: Optional[str] = None  # Optional comma separated list of plugins to exclude from the gather.",
-    IncludePlatforms: bool = False  # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.",
-    AdditionalCSCommandletArguments: Optional[str] = None  # Optional arguments to pass to the gather process.",
-    ParallelGather: bool = False  # Run the gather processes for a single batch in parallel rather than sequence.",
-    OneSkyProjectGroupName: Optional[str] = None
+    project                         : str                   # Project name
+    UEProjectRoot                   : Optional[str] = None  # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
+    UEProjectDirectory              : str           = ''    # Sub-path to the project we're gathering for (relative to UEProjectRoot).
+    UEProjectName                   : Optional[str] = None  # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
+    LocalizationProjectNames        : Optional[str] = None  # Comma separated list of the projects to gather text from.
+    LocalizationBranch              : Optional[str] = None  # Optional suffix to use when uploading the new data to the localization provider.
+    LocalizationProvider            : Optional[str] = None  # Optional localization provide override."
+    LocalizationSteps               : Optional[str] = None  # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
+    IncludePlugins                  : bool          = False # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
+    ExcludePlugins                  : Optional[str] = None  # Optional comma separated list of plugins to exclude from the gather.
+    IncludePlatforms                : bool          = False # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
+    AdditionalCSCommandletArguments : Optional[str] = None  # Optional arguments to pass to the gather process.
+    ParallelGather                  : bool          = False # Run the gather processes for a single batch in parallel rather than sequence.
+    OneSkyProjectGroupName          : Optional[str] = None
 # fmt: on
 
 

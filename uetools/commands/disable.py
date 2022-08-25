@@ -1,9 +1,8 @@
 import json
-import os
 from dataclasses import dataclass
 
-from uetools.command import Command, newparser
-from uetools.conf import load_conf
+from uetools.core.command import Command, newparser
+from uetools.core.conf import find_project
 
 
 @dataclass
@@ -46,9 +45,7 @@ class Disable(Command):
     @staticmethod
     def execute(args):
         name = args.name
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, name)
-        uproject = os.path.join(project_folder, f"{name}.uproject")
+        uproject = find_project(args.name)
 
         with open(uproject, "r", encoding="utf-8") as project_file:
             project_conf = json.load(project_file)

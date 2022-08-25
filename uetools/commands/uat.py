@@ -4,9 +4,9 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command, command_builder, newparser
-from uetools.conf import find_project, get_build_modes, load_conf, uat
-from uetools.run import run
+from uetools.core.command import Command, command_builder, newparser
+from uetools.core.conf import find_project, get_build_modes, uat
+from uetools.core.run import run
 
 commands = [
     "AnalyzeThirdPartyLibs",
@@ -241,12 +241,12 @@ class LocalizeArgs:
     LocalizationBranch              : Optional[str]  = None # Optional suffix to use when uploading the new data to the localization provider.",
     LocalizationProvider            : Optional[str]  = None # Optional localization provide override."),
     LocalizationSteps               : Optional[str]  = None # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.",
-    IncludePlugins                  : bool = False # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).",
+    IncludePlugins                  : bool           = False # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).",
     ExcludePlugins                  : Optional[str]  = None # Optional comma separated list of plugins to exclude from the gather.",
-    IncludePlatforms                : bool = False # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.",
+    IncludePlatforms                : bool           = False # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.",
     AdditionalCSCommandletArguments : Optional[str]  = None # Optional arguments to pass to the gather process.",
-    ParallelGather                  : bool = False # Run the gather processes for a single batch in parallel rather than sequence.",
-    OneSkyProjectGroupName          : Optional[str] = None
+    ParallelGather                  : bool           = False # Run the gather processes for a single batch in parallel rather than sequence.",
+    OneSkyProjectGroupName          : Optional[str]  = None
 # fmt: on
 
 
@@ -324,9 +324,7 @@ def execute_uat_test(args):
     name = args.name
     test = args.test
 
-    projects_folder = load_conf().get("project_path")
-    project_folder = os.path.join(projects_folder, name)
-    uproject = os.path.join(project_folder, f"{name}.uproject")
+    project = find_project(name)
 
     # """
     # Gauntlet.Automation:
@@ -350,7 +348,7 @@ def execute_uat_test(args):
     cmd_args = [
         uat(),
         "RunEditorTests",
-        f"-project={uproject}",
+        f"-project={project}",
         f"-testname={test}",
     ]
 
@@ -359,7 +357,7 @@ def execute_uat_test(args):
     cmd_args = [
         uat(),
         "RunUnreal",
-        f"-project={uproject}",
+        f"-project={project}",
         "-platform=Win64",
         "--configuration=Development",
         "-build=local",
@@ -375,7 +373,7 @@ def execute_uat_test(args):
     cmd_args = [
         uat(),
         "RunUnrealTests",
-        f"-project={uproject}",
+        f"-project={project}",
         # f"-platform=Win64",
         # f"--configuration=Development",
         "-build=local",

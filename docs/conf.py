@@ -37,7 +37,7 @@ sys.path.insert(0, src_path)
 src_path = os.path.abspath(os.path.join(docs_src_path, '..'))
 sys.path.insert(0, src_path)
 
-import uetools  # noqa
+import uetools.core  # noqa
 
 
 # -- General configuration ------------------------------------------------
@@ -61,21 +61,28 @@ extensions = [
     'numpydoc',
 ]
 
+from uetools.commands import commands
 
 nitpick_ignore = [
     ('py:obj', 'uetools.commands.fmt.CookingFormatter.match_regex'),
     ('py:obj', 'uetools.commands.fmt.CookingFormatter.summary'),
     ('py:obj', 'uetools.commands.fmt.TestFormatter.match_regex'),
     ('py:obj', 'uetools.commands.fmt.TestFormatter.summary'),
+    ('py:obj', 'uetools.commands.tests.RunTestsUAT.help'),
 ]
+
+for name, cls in commands.items():
+    nitpick = ('py:obj', cls.__module__ + '.' + cls.__name__ + '.help')
+    print(nitpick)
+    nitpick_ignore.append(nitpick)
 
 autodoc_inherit_docstrings = True
 
 # General information about the project.
 project = u'uetools'
-_full_version = uetools.__version__
-author = uetools.__author__
-copyright = uetools.__copyright__
+_full_version = uetools.core.__version__
+author = uetools.core.__author__
+copyright = uetools.core.__copyright__
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -218,7 +225,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'uetools', 'uetools Documentation',
-     author, 'uetools', uetools.__descr__,
+     author, 'uetools', uetools.core.__descr__,
      'Miscellaneous'),
 ]
 

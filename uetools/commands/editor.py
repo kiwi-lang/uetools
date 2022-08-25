@@ -3,10 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command, command_builder, newparser
-from uetools.conf import editor_cmd, find_project
+from uetools.core.command import Command, command_builder, newparser
+from uetools.core.conf import editor_cmd, find_project
+from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
-from uetools.run import popen_with_format
 
 EDITOR_COMMANDSS = [
     # "debug {0}"
@@ -38,7 +38,6 @@ class Rotation:
     def to_ue_cmd(self, name, cmd):
         """Convert the rotation into a command line argument"""
         cmd.append(f"-{name}=(Pitch={self.pitch},Yaw={self.yaw},Roll={self.roll})")
-
 
 
 @dataclass

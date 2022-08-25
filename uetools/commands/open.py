@@ -1,9 +1,8 @@
-import os
 from dataclasses import dataclass
 
-from uetools.command import Command, newparser
-from uetools.conf import editor, load_conf
-from uetools.run import run
+from uetools.core.command import Command, newparser
+from uetools.core.conf import editor, find_project
+from uetools.core.run import run
 
 
 # This is not used technically, but we keep it for consistency with the other commands
@@ -26,7 +25,7 @@ class Arguments:
 
     """
 
-    name: str
+    name: str  # Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
 
 
 class Open(Command):
@@ -44,12 +43,9 @@ class Open(Command):
 
     @staticmethod
     def execute(args):
+        project = find_project(args.name)
 
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, args.name)
-        uproject = os.path.join(project_folder, f"{args.name}.uproject")
-
-        run([editor(), uproject], check=True)
+        run([editor(), project], check=True)
 
 
 COMMANDS = Open

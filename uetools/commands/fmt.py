@@ -2,7 +2,7 @@ import logging
 import sys
 from dataclasses import dataclass
 
-from uetools.command import Command, newparser
+from uetools.core.command import Command, newparser
 from uetools.format.base import Formatter
 from uetools.format.cooking import CookingFormatter
 from uetools.format.tests import TestFormatter
@@ -42,7 +42,18 @@ class Arguments:
 
        uecli fmt --profile cooking --file RTSGame.log
 
-       UnrealEditor | uecli fmt
+       ../UnrealEditor ... | uecli fmt
+       [  0][L][LogWindows           ] Failed to load 'aqProf.dll' (GetLastError=126)
+       [  0][L][LogWindows           ] File 'aqProf.dll' does not exist
+       [  0][L][LogProfilingDebugging] Loading WinPixEventRuntime.dll for PIX profiling (from ../../../Engine/Binaries/ThirdParty/Windows/WinPixEventRuntime/x64).
+       [  0][D][LogConfig            ]  Loading HoloLens ini files took 0.02 seconds
+       [  0][D][LogConfig            ]  Loading Android ini files took 0.02 seconds
+       [  0][D][LogConfig            ]  Loading Unix ini files took 0.03 seconds
+       [  0][D][LogConfig            ]  Loading Windows ini files took 0.03 seconds
+       [  0][D][LogConfig            ]  Loading TVOS ini files took 0.03 seconds
+       [  0][D][LogConfig            ]  Loading Linux ini files took 0.03 seconds
+       [  0][D][LogConfig            ]  Loading LinuxArm64 ini files took 0.03 seconds
+       [  0][L][LogPluginManager     ] Mounting Engine plugin FastBuildController
 
     """
 
