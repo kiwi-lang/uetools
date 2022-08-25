@@ -1,35 +1,17 @@
 import os
-import subprocess
-from dataclasses import dataclass
+import sys
+from dataclasses import asdict, dataclass
 from typing import Optional
 
 import pkg_resources
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder
-from uetools.conf import editor_cmd, load_conf
+from uetools.command import Command, command_builder, newparser
+from uetools.conf import editor_cmd, find_project, load_conf, uat
+from uetools.format.base import Formatter
+from uetools.run import popen_with_format, run
 
 actions = ["Gather", "Compile", "import", "export"]
-
-
-@dataclass
-class ArgumentsUAT:
-    """Generate localization files"""
-
-    name: str
-    action: choice(*actions)
-
-
-class LocalUAT(Command):
-    """TODO"""
-
-    @staticmethod
-    def arguments(subparsers):
-        pass
-
-    @staticmethod
-    def execute(args):
-        pass
 
 
 # fmt: off
@@ -68,11 +50,9 @@ class LocalEditor(Command):
     @staticmethod
     def arguments(subparsers):
         """Localization arguments"""
-        init = subparsers.add_parser(
-            LocalEditor.name, help="Initialize engine location"
-        )
-        init.add_arguments(ArgumentEditor, dest="args")
-        init.add_argument(
+        parser = newparser(subparsers, LocalEditor)
+        parser.add_arguments(ArgumentEditor, dest="args")
+        parser.add_argument(
             "--bootstrap",
             action="store_true",
             default=False,
@@ -95,7 +75,7 @@ class LocalEditor(Command):
         with open(template, "r", encoding="utf-8") as template:
             template = template.read()
 
-        template.replace("{TargetName}", name)
+        template = template.replace("{TargetName}", name)
 
         with open(
             os.path.join(localization_config, f"{target}.ini"), "w", encoding="utf-8"
@@ -108,7 +88,8 @@ class LocalEditor(Command):
         name = args.args.project
         target = args.args.target or name
 
-        if args.bootstrap:
+        bootstrap = vars(args).pop("bootstrap")
+        if bootstrap:
             LocalEditor.bootstrap(name, target)
 
         projects_folder = load_conf().get("project_path")
@@ -122,9 +103,77 @@ class LocalEditor(Command):
         ] + command_builder(args)
 
         print(" ".join(cmd))
-        subprocess.run(
-            cmd, stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True
-        )
+        run(cmd, check=True)
 
 
-COMMAND = LocalEditor
+# fmt: off
+@dataclass
+class UATArguments:
+    """Updates the external localization data using the arguments provided.
+
+    Examples
+    --------
+
+    .. code-block:: console
+
+       uecli uat-local --project GamekitDev --IncludePlugins --ParallelGather --LocalizationSteps Gather --LocalizationProjectNames GamekitDev
+
+    """
+
+    project: str
+    UEProjectRoot: Optional[str] = None  # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).",
+    UEProjectDirectory: str = ''  # Sub-path to the project we're gathering for (relative to UEProjectRoot).",
+    UEProjectName: Optional[str] = None  # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).",
+    LocalizationProjectNames: Optional[str] = None  # Comma separated list of the projects to gather text from.",
+    LocalizationBranch: Optional[str] = None  # Optional suffix to use when uploading the new data to the localization provider.",
+    LocalizationProvider: Optional[str] = None  # Optional localization provide override."),
+    LocalizationSteps: Optional[str] = None  # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.",
+    IncludePlugins: bool = False  # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).",
+    ExcludePlugins: Optional[str] = None  # Optional comma separated list of plugins to exclude from the gather.",
+    IncludePlatforms: bool = False  # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.",
+    AdditionalCSCommandletArguments: Optional[str] = None  # Optional arguments to pass to the gather process.",
+    ParallelGather: bool = False  # Run the gather processes for a single batch in parallel rather than sequence.",
+    OneSkyProjectGroupName: Optional[str] = None
+# fmt: on
+
+
+class LocalUAT(Command):
+    """Use the UAT to run localization gathering"""
+
+    name: str = "uat-local"
+
+    @staticmethod
+    def arguments(subparsers):
+        parser = newparser(subparsers, LocalUAT)
+        parser.add_arguments(UATArguments, dest="local")
+
+    @staticmethod
+    def execute(args):
+        args.local.project = find_project(args.local.project)
+
+        if args.local.UEProjectRoot is None:
+            args.local.UEProjectRoot = os.path.dirname(args.local.project)
+
+        if args.local.UEProjectName is None:
+            args.local.UEProjectName = os.path.basename(args.local.UEProjectRoot)
+
+        args = asdict(args.local)
+
+        uat_args = command_builder(args)
+        cmd = [uat()] + ["Localize"] + uat_args
+
+        print(" ".join(cmd))
+
+        fmt = Formatter(24)
+        fmt.print_non_matching = True
+        returncode = popen_with_format(fmt, cmd)
+        fmt.summary()
+
+        if returncode != 0:
+            sys.exit(returncode)
+
+
+COMMANDS = [
+    LocalEditor,
+    LocalUAT,
+]

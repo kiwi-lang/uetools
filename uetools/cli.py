@@ -22,17 +22,17 @@ class HelpFormatter(simple_parsing.SimpleHelpFormatter):
 
         def format_help(self):
             """Format the help section"""
+
+            offset = 0
             # format the indented section
             if self.parent is not None:
                 self.formatter._indent()
 
-                # skip the first item which is a giga dump of all the arguments we already know about
-                # the function is _format_action
-                self.items = self.items[1:]
-
             join = self.formatter._join_parts
 
-            item_help = join([func(*args) for func, args in self.items])
+            frags = [func(*args) for func, args in self.items]
+
+            item_help = join(frags[offset:])
 
             if self.parent is not None:
                 self.formatter._dedent()
@@ -61,7 +61,7 @@ class ArgumentParser(simple_parsing.ArgumentParser):
         return HelpFormatter(prog=self.prog, max_help_position=45, width=None)
 
 
-def parse_args():
+def parse_args(argv):
     """Setup the argument parser for all supported commands"""
     parser = ArgumentParser()
 
@@ -70,21 +70,27 @@ def parse_args():
     for _, command in commands.items():
         command.arguments(subparsers)
 
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
-def main():
+def args(*a):
+    """Utility to turn arguments into a list"""
+    return a
+
+
+def main(argv=None):
     """Entry point for the command line interface"""
-    args = parse_args()
+    parsed_args = parse_args(argv)
 
-    cmd_name = args.command
+    cmd_name = parsed_args.command
+
     command = commands.get(cmd_name)
 
     if command is None:
         print(f"Action `{cmd_name}` not implemented")
         return
 
-    command.execute(args)
+    command.execute(parsed_args)
 
 
 if __name__ == "__main__":

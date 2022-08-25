@@ -2,7 +2,7 @@ import json
 import os
 from dataclasses import dataclass
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import load_conf
 
 
@@ -39,11 +39,9 @@ class Disable(Command):
 
     @staticmethod
     def arguments(subparsers):
-        disable = subparsers.add_parser(
-            Disable.name, help="Install uetools in a unreal project"
-        )
-        disable.add_argument("name", type=str, help="project's name")
-        disable.add_argument("plugin", type=str, help="Plugin's name")
+        parser = newparser(subparsers, Disable)
+        parser.add_argument("name", type=str, help="project's name")
+        parser.add_argument("plugin", type=str, help="Plugin's name")
 
     @staticmethod
     def execute(args):
@@ -66,7 +64,6 @@ class Disable(Command):
 
         if args.plugin in plugin_dict:
             plugin_dict[args.plugin]["Enabled"] = False
-
         else:
             plugins.append(dict(Name=args.plugin, Enabled=False))
 
@@ -74,4 +71,4 @@ class Disable(Command):
             json.dump(project_conf, project_file)
 
 
-COMMAND = Disable
+COMMANDS = Disable

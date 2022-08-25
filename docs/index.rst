@@ -25,5 +25,6 @@
    :caption: Examples
    :maxdepth: 1
 
+   examples/extending
    examples/pipeline
    examples/actions

@@ -1,7 +1,11 @@
+import json
+import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command
+from uetools.command import Command, newparser
+from uetools.conf import find_project, load_conf
+from uetools.run import run
 
 
 @dataclass
@@ -29,13 +33,13 @@ class Arguments:
 
         # This will install the plugin inside RTSGame/Plugins/
         #  it will download the repository on put it inside the RTSGame/Plugins/ folder
-        uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin
+        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin
 
         # This will install the plugin inside RTSGame/Plugins/
         # it will execute the following command:
         #    - git submodule add https://github.com/Phyronnaz/VoxelPlugin Plugins/VoxelPlugin
         #
-        uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin --destination Plugins --submodule
+        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --destination Plugins --submodule
 
     """
 
@@ -52,27 +56,78 @@ class Install(Command):
 
     @staticmethod
     def arguments(subparsers):
-        install = subparsers.add_parser(
-            Install.name, help="Install a Plugin in a unreal project"
+        parser = newparser(subparsers, Install)
+        parser.add_argument("name", type=str, help="Project name")
+        parser.add_argument("plugin", type=str, help="name of the plugin")
+        parser.add_argument("url", type=str, help="repository url of the plugin")
+        parser.add_argument(
+            "--enable",
+            action="store_true",
+            help="Enable the plugin in the project settings",
         )
-        install.add_argument("name", type=str, help="Project name")
-        install.add_argument("url", type=str, help="repository url of the plugin")
-        install.add_argument(
+        parser.add_argument(
             "--destination",
             type=str,
             default="Plugins",
             help="Plugin destination, relative to the root of the project",
         )
-        install.add_argument(
+        parser.add_argument(
             "--submodule",
             action="store_true",
             default=False,
             help="add the plugin as a git submodule",
         )
+        parser.add_argument(
+            "--force",
+            action="store_true",
+            default=False,
+            help="submodule force",
+        )
 
     @staticmethod
     def execute(args):
-        pass
+        project_root = load_conf().get("project_path")
+        dest_relative = f"{args.destination}/{args.plugin}"
+        dest = f"{project_root}/{args.name}/{dest_relative}"
+
+        if not os.path.exists(dest):
+            if args.submodule:
+                force = ["--force"] if args.force else []
+                cmd = (
+                    ["git", "submodule", "add"]
+                    + force
+                    + ["--depth", "1", args.url, dest_relative]
+                )
+            else:
+                cmd = ["git", "clone", "--depth", "1", args.url, dest_relative]
+
+            print(" ".join(cmd))
+            run(cmd, check=True, cwd=f"{project_root}/{args.name}")
+
+        else:
+            print(f"Folder {dest} exists already, skipping installation")
+
+        if args.enable:
+            project = find_project(args.name)
+
+            with open(project, "r", encoding="utf-8") as project_file:
+                project_conf = json.load(project_file)
+
+            plugins = project_conf.get("Plugins", [])
+            for plugin in plugins:
+
+                if plugin.get("Name") == args.plugin:
+                    plugin["Enabled"] = True
+                    break
+
+            else:
+                # If Plugins array was missing, it was created above
+                # insert it just in case
+                project_conf["Plugins"] = plugins
+                plugins.append(dict(Name=args.plugin, Enabled=True))
+
+            with open(project, "w", encoding="utf-8") as project_file:
+                json.dump(project_conf, project_file)
 
 
-COMMAND = Install
+COMMANDS = Install

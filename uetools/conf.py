@@ -59,6 +59,9 @@ def load_conf():
     config = os.path.join(CONFIG, CONFIGNAME)
     os.makedirs(CONFIG, exist_ok=True)
 
+    if not os.path.exists(config):
+        return {}
+
     with open(config, "r", encoding="utf-8") as conffile:
         conf = json.load(conffile)
 
@@ -222,3 +225,8 @@ def find_project(name):
     uproject = os.path.join(project_folder, f"{name}.uproject")
 
     return uproject if os.path.exists(uproject) else None
+
+
+def ready():
+    """Returns true if uetools was initialized"""
+    return load_conf().get("project_path") is not None

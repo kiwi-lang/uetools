@@ -1,9 +1,9 @@
-import configparser
 import json
 import os
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import load_conf
+from uetools.ini import UnrealINIParser
 
 
 class VSCode(Command):
@@ -22,10 +22,11 @@ class VSCode(Command):
 
     @staticmethod
     def arguments(subparsers):
-        python = subparsers.add_parser(
-            VSCode.name, help="change vscode settings to fetch unreal python stub"
+        parser = newparser(subparsers, VSCode)
+        parser.add_argument("name", type=str, help="Project name")
+        parser.add_argument(
+            "--yes", action="store_true", help="No user prompts (assume yes)"
         )
-        python.add_argument("name", type=str, help="Project name")
 
     @staticmethod
     def execute(args):
@@ -41,12 +42,12 @@ class VSCode(Command):
         conf = os.path.join(project_folder, "Config")
         default_engine = os.path.join(conf, "DefaultEngine.ini")
 
-        config = configparser.ConfigParser()
-        config.read(default_engine)
+        with open(default_engine, "r", encoding="utf-8") as file:
+            config = UnrealINIParser(file)
 
         python_section = "/Script/PythonScriptPlugin.PythonScriptPluginUserSettings"
-        config[python_section]["bDeveloperMode"] = "True"
-        config[python_section]["bEnableContentBrowserIntegration"] = "True"
+        config.insert(python_section, "bDeveloperMode", "True")
+        config.insert(python_section, "bEnableContentBrowserIntegration", "True")
 
         with open(default_engine, "w", encoding="utf-8") as file:
             config.write(file)
@@ -62,7 +63,7 @@ class VSCode(Command):
         vscode_settings = os.path.join(vscode_folder, "settings.json")
 
         if not os.path.exists(vscode_settings):
-            create_file = None
+            create_file = "Y" if args.yes else None
 
             while create_file not in ("Y", "N"):
                 create_file = input(
@@ -98,4 +99,4 @@ class VSCode(Command):
             json.dump(vssetting, file, indent=2)
 
 
-COMMAND = VSCode
+COMMANDS = VSCode

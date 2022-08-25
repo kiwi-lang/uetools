@@ -3,11 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command, command_builder
+from uetools.command import Command, command_builder, newparser
 from uetools.conf import editor_cmd, find_project
-from uetools.format.base import Formatter, popen_with_format
+from uetools.format.base import Formatter
+from uetools.run import popen_with_format
 
-EDITOR_COMMANDS = [
+EDITOR_COMMANDSS = [
     # "debug {0}"
     "automation list",
     "runtests",
@@ -258,36 +259,36 @@ class Editor(Command):
     @staticmethod
     def arguments(subparsers):
         """Adds the arguments for this command to the given parser"""
-        ueditor = subparsers.add_parser("editor", help="")
+        parser = newparser(subparsers, Editor)
 
-        ueditor.add_argument(
+        parser.add_argument(
             "project",
             type=str,
             metavar="project",
             help="Project name, example: <project>.uproject",
         )
-        ueditor.add_argument(
+        parser.add_argument(
             "--cli",
             action="store_true",
             default=False,
             help="Enable a group of arguments to make the editor as a command line tool",
         )
 
-        ueditor.add_argument(
+        parser.add_argument(
             "--dry",
             action="store_true",
             default=False,
             help="Print the command it will execute without running it",
         )
-        ueditor.add_arguments(Arguments, dest="args")
-        ueditor.add_arguments(DevArguments, dest="dev")
-        ueditor.add_arguments(RenderingArguments, dest="rendering")
-        ueditor.add_arguments(NetworkArguments, dest="network")
-        ueditor.add_arguments(UserArguments, dest="user")
-        ueditor.add_arguments(ServerArguments, dest="server")
-        ueditor.add_arguments(GameStatsArguments, dest="stats")
-        ueditor.add_arguments(DebugArguments, dest="debug")
-        ueditor.add_arguments(MiscArguments, dest="misc")
+        parser.add_arguments(Arguments, dest="args")
+        parser.add_arguments(DevArguments, dest="dev")
+        parser.add_arguments(RenderingArguments, dest="rendering")
+        parser.add_arguments(NetworkArguments, dest="network")
+        parser.add_arguments(UserArguments, dest="user")
+        parser.add_arguments(ServerArguments, dest="server")
+        parser.add_arguments(GameStatsArguments, dest="stats")
+        parser.add_arguments(DebugArguments, dest="debug")
+        parser.add_arguments(MiscArguments, dest="misc")
 
     @staticmethod
     def execute(args):
@@ -305,7 +306,7 @@ class Editor(Command):
         if project is not None and not project.endswith(".uproject"):
             project = find_project(project)
 
-        cmd = [editor_cmd(), project] + command_builder(args)
+        cmd = [editor_cmd()] + ([project] if project else []) + command_builder(args)
         print(" ".join(cmd))
 
         if not args.dry:
@@ -313,4 +314,4 @@ class Editor(Command):
             popen_with_format(fmt, cmd)
 
 
-COMMAND = Editor
+COMMANDS = Editor

@@ -1,9 +1,9 @@
 import os
-import subprocess
 from dataclasses import dataclass
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import editor, load_conf
+from uetools.run import run
 
 
 # This is not used technically, but we keep it for consistency with the other commands
@@ -36,15 +36,11 @@ class Open(Command):
 
     @staticmethod
     def arguments(subparsers):
-        editor_args = subparsers.add_parser(
-            Open.name, help="Open an Unreal Engine porject"
-        )
+        parser = newparser(subparsers, Open)
         # this makes it ugly
         # editor.add_arguments(Arguments, dest="open")
 
-        editor_args.add_argument(
-            "name", type=str, help="Name of the the project to open"
-        )
+        parser.add_argument("name", type=str, help="Name of the the project to open")
 
     @staticmethod
     def execute(args):
@@ -53,7 +49,7 @@ class Open(Command):
         project_folder = os.path.join(projects_folder, args.name)
         uproject = os.path.join(project_folder, f"{args.name}.uproject")
 
-        subprocess.run([editor(), uproject], check=True)
+        run([editor(), uproject], check=True)
 
 
-COMMAND = Open
+COMMANDS = Open

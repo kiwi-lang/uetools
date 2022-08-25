@@ -1,6 +1,5 @@
 import logging
 import re
-import subprocess
 
 import colorama
 from colorama import Fore, Style
@@ -177,24 +176,3 @@ class Formatter:
             frame = 0
 
         print(f"[{int(frame):3d}][{verb}][{category}] {colored(message, color=color)}")
-
-
-def popen_with_format(fmt, args):
-    """Execute a command with the given formatter."""
-    with subprocess.Popen(
-        args,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        # This is needed because without lines might not be recognized as such
-        text=True,
-    ) as process:
-
-        while process.poll() is None:
-            # sys.stdout.flush()
-
-            line = process.stdout.readline()
-
-            if len(line) > 0:
-                fmt.match_regex(line)
-
-        return process.poll()

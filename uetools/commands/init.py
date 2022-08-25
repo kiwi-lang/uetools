@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 
 
@@ -38,8 +38,8 @@ class Init(Command):
 
     @staticmethod
     def arguments(subparsers):
-        init = subparsers.add_parser(Init.name, help="Initialize common locations")
-        init.add_arguments(Arguments, dest="init")
+        parser = newparser(subparsers, Init)
+        parser.add_arguments(Arguments, dest="init")
 
     @staticmethod
     def execute(args):
@@ -77,4 +77,4 @@ class Init(Command):
         print(f"Updated Engine paths inside `{config}`")
 
 
-COMMAND = Init
+COMMANDS = Init

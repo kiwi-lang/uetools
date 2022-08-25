@@ -1,11 +1,10 @@
 import os
-import subprocess
 from dataclasses import dataclass
 from typing import Optional
 
 from simple_parsing import choice
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import (
     get_build_modes,
     get_build_platforms,
@@ -13,6 +12,7 @@ from uetools.conf import (
     load_conf,
     ubt,
 )
+from uetools.run import run
 
 project_uht = [
     "UnrealHeaderTool",
@@ -47,7 +47,6 @@ project_editor = [
     "-NoHotReload",
     '-abslog="{ENGINE_FOLDER}/Programs/AutomationTool/Saved/Logs/UBT-{PROJECT_NAME}Editor-{PLATFORM}-{MODE}.txt"',
 ]
-
 
 shader_compile_worker = [
     "ShaderCompileWorker",
@@ -106,9 +105,14 @@ build_update_project = [
     bootstrap,
 ]
 
-profiles = {
-    "update-project": build_update_project,
-}
+
+short_update = [
+    project_editor,
+    shader_compile_worker,
+]
+
+
+profiles = {"update-project": build_update_project, "short-update": short_update}
 
 
 def is_project(target):
@@ -184,8 +188,8 @@ class Build(Command):
 
     @staticmethod
     def arguments(subparsers):
-        build = subparsers.add_parser(Build.name, help="Run Unreal Build Tool (UBT)")
-        build.add_arguments(Arguments, dest="build")
+        parser = newparser(subparsers, Build)
+        parser.add_arguments(Arguments, dest="build")
 
     @staticmethod
     def execute_profile(args):
@@ -218,15 +222,16 @@ class Build(Command):
 
             cmd = [ubt()] + cmd
             print(" ".join(cmd), flush=True)
-            subprocess.run(cmd, check=True)
+            run(cmd, check=True)
 
     @staticmethod
     def execute(args):
-        target = args.target
-        platform = args.platform
-        mode = args.mode
+        """Execute the UAT build tool on the target"""
+        target = args.build.target
+        platform = args.build.platform
+        mode = args.build.mode
 
-        if args.profile:
+        if args.build.profile:
             Build.execute_profile(args)
             return
 
@@ -238,7 +243,7 @@ class Build(Command):
         logfile = os.path.join(logfolder, logfile)
         # "{ENGINE_FOLDER}/Programs/AutomationTool/Saved/Logs/UBT-UnrealHeaderTool-Win64-Development.txt"
 
-        args = [
+        cmd = [
             target,
             platform,
             mode,
@@ -247,12 +252,12 @@ class Build(Command):
         # Check if the target is a project
         exists, uproject = is_project(target)
         if exists:
-            args += [f"-Project={uproject}", uproject]
+            cmd += [f"-Project={uproject}", uproject]
 
-        args.append("-NoUBTMakefiles")
-        args.append("-NoHotReload")
-        args.append(f"-Manifest={engine_path}/Intermediate/Build/Manifest.xml")
-        args.append(f"-abslog={logfile}")
+        cmd.append("-NoUBTMakefiles")
+        cmd.append("-NoHotReload")
+        cmd.append(f"-Manifest={engine_path}/Intermediate/Build/Manifest.xml")
+        cmd.append(f"-abslog={logfile}")
 
         # Tools
         #    RequiredTools UnrealFrontend UnrealEditor UnrealInsights
@@ -267,10 +272,9 @@ class Build(Command):
         #   dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll "$@"
         #
         #
-        cmd = [ubt()] + args
+        cmd = [ubt()] + cmd
         print(" ".join(cmd), flush=True)
+        run(cmd, check=True)
 
-        subprocess.run(cmd, stdin=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
 
-
-COMMAND = Build
+COMMANDS = Build

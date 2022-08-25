@@ -1,10 +1,10 @@
-import configparser
 import os
 from dataclasses import dataclass
 from io import UnsupportedOperation
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import editor, load_conf
+from uetools.ini import UnrealINIParser
 
 
 @dataclass
@@ -21,8 +21,8 @@ class Python(Command):
 
     @staticmethod
     def arguments(subparsers):
-        init = subparsers.add_parser(Python.name, help="Enable python for your project")
-        init.add_argument(
+        parser = newparser(subparsers, Python)
+        parser.add_argument(
             "project", default=None, type=str, help="name of your project"
         )
 
@@ -35,28 +35,32 @@ class Python(Command):
         conf = os.path.join(project_folder, "Config")
         default_engine = os.path.join(conf, "DefaultEngine.ini")
 
-        config = configparser.ConfigParser(strict=False)
-        config.read(default_engine)
+        with open(default_engine, "r", encoding="utf-8") as file:
+            config = UnrealINIParser(file)
 
         python_section = "/Script/PythonScriptPlugin.PythonScriptPluginUserSettings"
-        config[python_section]["bDeveloperMode"] = "True"
-        config[python_section]["bEnableContentBrowserIntegration"] = "True"
-
-        base_path = os.path.join(args.project, "Plugins", "uetools", "Script")
-        relative_path = os.path.relpath(projects_folder, os.path.dirname(editor()))
-        final_path = os.path.join(relative_path, base_path)
+        config.insert(python_section, "bDeveloperMode", "True")
+        config.insert(python_section, "bEnableContentBrowserIntegration", "True")
 
         python_setting = "/Script/PythonScriptPlugin.PythonScriptPluginSettings"
-        config[python_setting]["bDeveloperMode"] = "True"
-        config[python_setting]["+AdditionalPaths"] = f'(Path="{final_path}")'
+        config.insert(python_setting, "bDeveloperMode", "True")
+
+        if os.path.exists(
+            os.path.join(project_folder, args.project, "Plugings", "Gamekit")
+        ):
+            base_path = os.path.join(args.project, "Plugins", "Gamekit", "Script")
+            relative_path = os.path.relpath(projects_folder, os.path.dirname(editor()))
+            final_path = os.path.join(relative_path, base_path)
+            config.insert(python_setting, "+AdditionalPaths", f'(Path="{final_path}")')
 
         try:
             with open(default_engine, "w", encoding="utf-8") as file:
                 config.write(file)
+
         except UnsupportedOperation:
             print("Could not save config")
             print("Is unreal engine open ?")
             raise
 
 
-COMMAND = Python
+COMMANDS = Python

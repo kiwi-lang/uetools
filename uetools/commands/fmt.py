@@ -2,7 +2,7 @@ import logging
 import sys
 from dataclasses import dataclass
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.format.base import Formatter
 from uetools.format.cooking import CookingFormatter
 from uetools.format.tests import TestFormatter
@@ -59,8 +59,8 @@ class Format(Command):
 
     @staticmethod
     def arguments(subparsers):
-        fmt = subparsers.add_parser(Format.name, help="Format UnrealEngine logs")
-        fmt.add_arguments(Arguments, dest="args")
+        parser = newparser(subparsers, Format)
+        parser.add_arguments(Arguments, dest="args")
 
     def __init__(self, profile=None):
         self.profile = profile
@@ -93,4 +93,4 @@ class Format(Command):
 
 logging.basicConfig(level=logging.CRITICAL)
 
-COMMAND = Format
+COMMANDS = Format

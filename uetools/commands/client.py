@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import editor, find_project
-from uetools.format.base import Formatter, popen_with_format
+from uetools.format.base import Formatter
+from uetools.run import popen_with_format
 
 
 # This is not used technically, but we keep it for consistency with the other commands
@@ -43,16 +44,10 @@ class Client(Command):
 
     @staticmethod
     def arguments(subparsers):
-        editor_args = subparsers.add_parser(
-            Client.name,
-            help="Launch the editor as a client to an alredy running server",
-        )
-
-        editor_args.add_argument(
-            "project", type=str, help="Name of the the project to open"
-        )
-        editor_args.add_arguments(Arguments, dest="client")
-        editor_args.add_argument(
+        parser = newparser(subparsers, Client)
+        parser.add_argument("project", type=str, help="Name of the the project to open")
+        parser.add_arguments(Arguments, dest="client")
+        parser.add_argument(
             "--dry",
             action="store_true",
             default=False,
@@ -77,4 +72,4 @@ class Client(Command):
             popen_with_format(fmt, cmd)
 
 
-COMMAND = Client
+COMMANDS = Client

@@ -34,7 +34,7 @@ setup_kwargs = dict(
     ],
     zip_safe=True,
     setup_requires=['setuptools'],
-    install_requires=["appdirs", "colorama", "cookiecutter", "simple-parsing"],
+    install_requires=["appdirs", "colorama", "cookiecutter", "simple-parsing", "GitPython"],
     python_requires='>=3.7.*',
     entry_points={
         'console_scripts': [

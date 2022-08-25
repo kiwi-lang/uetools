@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import os
-import subprocess
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command, command_builder
+from uetools.command import Command, command_builder, newparser
 from uetools.conf import find_project, get_build_modes, load_conf, uat
+from uetools.run import run
 
 commands = [
     "AnalyzeThirdPartyLibs",
@@ -108,7 +108,7 @@ class UATArgs:
     compile                 : bool = False # Force all script modules to be compiled
     nocompile               : bool = False # Do not attempt to compile any script modules - attempts to run with whatever is up to date
     ignorebuildrecords      : bool = False # Ignore build records (Intermediate/ScriptModule/ProjectName.json) files when determining if script modules are up to date
-    uselocalbuildstorage    : bool = False # Allows you to use local storage for your root build storage dir {default of P:\Builds {on PC} is changed to Engine\Saved\LocalBuilds}. Used for local testing.
+    uselocalbuildstorage    : bool = False # Allows you to use local storage for your root build storage dir {default of P:\\Builds {on PC} is changed to Engine\\Saved\\LocalBuilds}. Used for local testing.
     waitfordebugger         : bool = False # Waits for a debugger to be attached, and breaks once debugger successfully attached.
     # help                  : bool = False # Displays help
 
@@ -266,22 +266,22 @@ class UAT(Command):
     @staticmethod
     def arguments(subparsers):
         """Defines UAT arguments"""
-        uat_parser = subparsers.add_parser("uat", help="Run the UAT command line tool")
+        parser = newparser(subparsers, UAT)
 
-        uat_parser.add_argument(
+        parser.add_argument(
             "cmd", type=str, choices=commands, help="UAT Command to execute"
         )
-        uat_parser.add_argument(
+        parser.add_argument(
             "--configuration",
             type=str,
             default="Development",
             choices=get_build_modes(),
             help="Build configuration",
         )
-        uat_parser.add_arguments(LocalizeArgs, dest="localize")
-        uat_parser.add_arguments(BuildEditorArgs, dest="build_editor")
-        uat_parser.add_arguments(BuildCookRunArgs, dest="build_cook_run")
-        uat_parser.add_arguments(UATArgs, dest="uat")
+        parser.add_arguments(LocalizeArgs, dest="localize")
+        parser.add_arguments(BuildEditorArgs, dest="build_editor")
+        parser.add_arguments(BuildCookRunArgs, dest="build_cook_run")
+        parser.add_arguments(UATArgs, dest="uat")
 
     @staticmethod
     def execute(args):
@@ -308,164 +308,13 @@ class UAT(Command):
         cmd = [uat()] + [uat_cmd] + args
 
         print(" ".join(cmd))
-        subprocess.run(
+        run(
             cmd,
-            stdin=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            shell=True,
             check=True,
         )
 
 
-COMMAND = UAT
-
-
-def cook_arguments_testing():
-    """Experimental UAT cook command"""
-    return [
-        "BuildCookRun",
-        "-configuration=Development",
-        "-unattended",
-        "-utf8output",
-        "-noP4",
-        "-allmaps",
-        "-build",
-        "-cook",
-        "-pak",
-        "-stage",
-        "-WarningsAsErrors",
-    ]
-
-
-def cook_arguments_shipping():
-    """Experimental UAT command cook"""
-    return [
-        "BuildCookRun",
-        # "-Help",
-        "-configuration=Shipping",
-        "-unattended",
-        "-utf8output",
-        "-noP4",
-        "-allmaps",
-        "-build",
-        "-cook",  # Used cooked data
-        "-stage",  # Only stagged bulds can be paked, puts the build in its own directory
-        "-pak",
-        "-manifests",  # Generate a manifest of all the cooked files
-        # "-chunkinstalldirectory={chunkdir}"
-        # "-createchunkinstall",  # Create a chunk install
-        "-prereqs",
-        "-package",
-        "-distribution",
-        # -skippackage
-        # f"-archive={output}",
-        # -archivedirectory=Path
-        "-nodebuginfo",  # Remove debug info
-        # "-separatedebuginfo", #
-        # -numclients=n
-        # Builds crash reporter
-        "-CrashReporter",
-        "-WarningsAsErrors",
-        # -ForceMonolithic
-        # -ForceDebugInfo
-        # -ForceNonUnity
-        # -ForceUnity
-        # -logwindow
-        # -noxge no XGE
-        # -signed sign the packfile
-        # -clean wipe intermediate folder
-        # -targetplatform=PlatformName       target platform for building, cooking and deployment (also -Platform)
-        # -dedicatedserver
-        # -servertargetplatform=PlatformName target platform for building, cooking and deployment of the dedicated server (also -ServerPlatform)
-        # -destsample
-        # -foreigndest
-    ]
-
-
-def cook_arguments_scratch():
-    """Experimental UAT cook command"""
-    return [
-        # Base
-        # ====
-        # "-Help",
-        # "-Verbose",
-        # "-VeryVerbose",
-        # "-List",
-        # "-Compile",
-        # "-NoCompile",
-        # CSCommands
-        # ========
-        "BuildCookRun",
-        # "BuildPlugin",
-        # "BuildServer",
-        # "BuildGame",
-        # "Localise",
-        # "RunUnreal",
-        # "RunLowLevelTests",
-        # "TestGauntlet",
-        # "RunEditorTests",
-        # -LogCmds="loginit warning, logexit warning, logdatabase error"
-        "-configuration=Development",
-        # f"-archivedirectory={project_folder}/Cooked",
-        # Options
-        # =======
-        "-unattended",
-        "-utf8output",
-        "-noP4",
-        "-allmaps",
-        # "-clientconfig=Shipping",
-        # "-serverconfig=Shipping",
-        # "-nodebuginfo",
-        "-build",
-        "-cook",
-        "-pak",
-        "-stage",
-        "-prereqs",
-        # "-archive",
-        "-WarningsAsErrors",
-    ]
-
-
-cook_profiles = dict(test=cook_arguments_testing, shipping=cook_arguments_shipping)
-
-# pylint: disable=too-many-locals
-def execute_uat_cook(args, profiles):
-    """Experimental UAT cook command"""
-    import sys
-
-    from uetools.format.base import popen_with_format
-    from uetools.format.cooking import CookingFormatter
-
-    name = args.name
-    platform = args.platform
-    output = args.output
-
-    projects_folder = load_conf().get("project_path")
-    project_folder = os.path.join(projects_folder, name)
-    uproject = os.path.join(project_folder, f"{name}.uproject")
-
-    if output is None:
-        output = os.path.join(project_folder, "Saved", "Cooked")
-
-    base = [
-        f"-project={uproject}",
-        f"-platform={platform}",
-        f"-stagingdirectory={output}",
-    ]
-    args = profiles.get(args.profile, profiles.get("test"))() + base
-
-    print(args)
-    fmt = CookingFormatter(24)
-    fmt.print_non_matching = True
-
-    returncode = popen_with_format(fmt, [uat()] + args)
-
-    fmt.summary()
-
-    print(f"Subprocess terminated with (rc: {returncode})")
-
-    if returncode != 0:
-        sys.exit(returncode)
+COMMANDS = UAT
 
 
 @staticmethod
@@ -490,12 +339,12 @@ def execute_uat_test(args):
     # """
 
     # Error: Test EditorTest.EditorTestNode threw an exception during launch. Skipping test. Ex: Unreal tests should use ApplyToConfig(Config, Role, OtherRoles)
-    #    at Gauntlet.UnrealTestConfiguration.ApplyToConfig(UnrealAppConfig AppConfig) in E:\UnrealEngine\Engine\Source\Programs\AutomationTool\Gauntlet\Unreal\Base\Gauntlet.UnrealTestConfiguration.cs:line 803
-    #    at EditorTest.EditorTestConfig.ApplyToConfig(UnrealAppConfig AppConfig, UnrealSessionRole ConfigRole, IEnumerable`1 OtherRoles) in E:\UnrealEngine\Engine\Source\Programs\AutomationTool\Gauntlet\Editor\RunEditorTests.cs:line 53
-    #    at Gauntlet.UnrealBuildSource.CreateConfiguration(UnrealSessionRole Role, IEnumerable`1 OtherRoles) in E:\UnrealEngine\Engine\Source\Programs\AutomationTool\Gauntlet\Unreal\BuildSource\Gauntlet.UnrealBuildSource.cs:line 519
-    #    at Gauntlet.UnrealSession.LaunchSession() in E:\UnrealEngine\Engine\Source\Programs\AutomationTool\Gauntlet\Unreal\Base\Gauntlet.UnrealSession.cs:line 667
-    #    at Gauntlet.UnrealTestNode`1.StartTest(Int32 Pass, Int32 InNumPasses) in E:\UnrealEngine\Engine\Source\Programs\AutomationTool\Gauntlet\Unreal\Base\Gauntlet.UnrealTestNode.cs:line 702
-    #    at Gauntlet.TextExecutor.StartTest(TestExecutionInfo TestInfo, Int32 Pass, Int32 NumPasses) in E:\UnrealEngine\Engine\Source\Programs\AutomationTool\Gauntlet\Framework\Gauntlet.TestExecutor.cs:line 553
+    #    at Gauntlet.UnrealTestConfiguration.ApplyToConfig(UnrealAppConfig AppConfig) in E:\\UnrealEngine\\Engine\\Source\\Programs\\AutomationTool\\Gauntlet\\Unreal\\Base\\Gauntlet.UnrealTestConfiguration.cs:line 803
+    #    at EditorTest.EditorTestConfig.ApplyToConfig(UnrealAppConfig AppConfig, UnrealSessionRole ConfigRole, IEnumerable`1 OtherRoles) in E:\\UnrealEngine\\Engine\\Source\\Programs\\AutomationTool\\Gauntlet\\Editor\\RunEditorTests.cs:line 53
+    #    at Gauntlet.UnrealBuildSource.CreateConfiguration(UnrealSessionRole Role, IEnumerable`1 OtherRoles) in E:\\UnrealEngine\\Engine\\Source\\Programs\\AutomationTool\\Gauntlet\\Unreal\\BuildSource\\Gauntlet.UnrealBuildSource.cs:line 519
+    #    at Gauntlet.UnrealSession.LaunchSession() in E:\\UnrealEngine\\Engine\\Source\\Programs\\AutomationTool\\Gauntlet\\Unreal\\Base\\Gauntlet.UnrealSession.cs:line 667
+    #    at Gauntlet.UnrealTestNode`1.StartTest(Int32 Pass, Int32 InNumPasses) in E:\\UnrealEngine\\Engine\\Source\\Programs\\AutomationTool\\Gauntlet\\Unreal\\Base\\Gauntlet.UnrealTestNode.cs:line 702
+    #    at Gauntlet.TextExecutor.StartTest(TestExecutionInfo TestInfo, Int32 Pass, Int32 NumPasses) in E:\\UnrealEngine\\Engine\\Source\\Programs\\AutomationTool\\Gauntlet\\Framework\\Gauntlet.TestExecutor.cs:line 553
     # Error: Test EditorTest.EditorTestNode (Win64 Development EditorGame) failed to start
     # Test EditorTest.EditorTestNode (Win64 Development EditorGame) NotStarted
     cmd_args = [
@@ -506,7 +355,7 @@ def execute_uat_test(args):
     ]
 
     # ERROR: Unable to find type uetools in assemblies. Namespaces= System.Linq.Enumerable+SelectArrayIterator`2[System.String,System.String].
-    #  (see E:\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\Log.txt for full exception trace)
+    #  (see E:\\UnrealEngine\\Engine\\Programs\\AutomationTool\\Saved\\Logs\\Log.txt for full exception trace)
     cmd_args = [
         uat(),
         "RunUnreal",
@@ -522,7 +371,7 @@ def execute_uat_test(args):
     ]
 
     # ERROR: Unable to find type uetools in assemblies. Namespaces= System.Linq.Enumerable+SelectArrayIterator`2[System.String,System.String].
-    #  (see E:\UnrealEngine\Engine\Programs\AutomationTool\Saved\Logs\Log.txt for full exception trace)
+    #  (see E:\\UnrealEngine\\Engine\\Programs\\AutomationTool\\Saved\\Logs\\Log.txt for full exception trace)
     cmd_args = [
         uat(),
         "RunUnrealTests",
@@ -537,6 +386,4 @@ def execute_uat_test(args):
         # f'-ExecCmds=Automation RunTests {args.test}',
     ]
 
-    subprocess.run(
-        cmd_args, stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True
-    )
+    run(cmd_args, check=True)

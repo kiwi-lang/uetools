@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 import pkg_resources
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import load_conf
 
 
@@ -24,6 +24,9 @@ class Arguments:
        # Add the new server target
        uecli dedicated RTSGame
 
+       # update visual studio project
+       uecli regenerate RTSGame
+
        # Build the new target
        uecli build RTSGameServer
 
@@ -39,10 +42,8 @@ class Dedicated(Command):
 
     @staticmethod
     def arguments(subparsers):
-        init = subparsers.add_parser(
-            Dedicated.name, help="Create a dedicated server target"
-        )
-        init.add_argument(
+        parser = newparser(subparsers, Dedicated)
+        parser.add_argument(
             "project", default=None, type=str, help="name of your project"
         )
 
@@ -79,4 +80,4 @@ class Dedicated(Command):
             file.write(template)
 
 
-COMMAND = Dedicated
+COMMANDS = Dedicated

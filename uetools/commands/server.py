@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import editor, find_project
-from uetools.format.base import Formatter, popen_with_format
+from uetools.format.base import Formatter
+from uetools.run import popen_with_format
 
 
 # This is not used technically, but we keep it for consistency with the other commands
@@ -55,27 +56,24 @@ class Server(Command):
 
     @staticmethod
     def arguments(subparsers):
-        editor_args = subparsers.add_parser(
-            Server.name,
-            help="Launch the editor as a client to an alredy running server",
-        )
+        parser = newparser(subparsers, Server)
 
         # this makes it ugly
         # editor.add_arguments(Arguments, dest="server")
 
-        editor_args.add_argument(
+        parser.add_argument(
             "project", metavar="project", type=str, help="Name of the project to serve"
         )
-        editor_args.add_argument(
+        parser.add_argument(
             "map",
             metavar="map",
             type=str,
             help=" Name of the map to serve (if the map is located inside the map folder, just the name of the map is needed,"
             "if not the full path is needed including the extension, e.g. /Game/NotMap/MyMap.umap)",
         )
-        editor_args.add_arguments(Arguments, dest="args")
-        editor_args.add_arguments(MapParameters, dest="params")
-        editor_args.add_argument(
+        parser.add_arguments(Arguments, dest="args")
+        parser.add_arguments(MapParameters, dest="params")
+        parser.add_argument(
             "--dry",
             action="store_true",
             default=False,
@@ -125,4 +123,4 @@ class Server(Command):
             popen_with_format(fmt, cmd)
 
 
-COMMAND = Server
+COMMANDS = Server

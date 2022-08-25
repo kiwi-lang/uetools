@@ -2,7 +2,7 @@ import os
 
 from cookiecutter.main import cookiecutter
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import load_conf
 
 COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
@@ -29,11 +29,19 @@ class Docs(Command):
 
     @staticmethod
     def arguments(subparsers):
-        init = subparsers.add_parser(
-            Docs.name, help="Add documentation to your project"
+        parser = newparser(subparsers, Docs)
+        parser.add_argument("project", type=str, help="name of your project")
+        parser.add_argument(
+            "--no-input",
+            action="store_true",
+            default=False,
+            help="Do not show user prompts",
         )
-        init.add_argument(
-            "project", default=None, type=str, help="name of your project"
+        parser.add_argument(
+            "--config",
+            type=str,
+            default=None,
+            help="Configuration file used to initialize the project (json)",
         )
 
     @staticmethod
@@ -44,7 +52,7 @@ class Docs(Command):
         project_folder = os.path.join(projects_folder, project)
 
         os.chdir(project_folder)
-        cookiecutter(COOKIECUTTER)
+        cookiecutter(COOKIECUTTER, no_input=args.no_input, config_file=args.config)
 
 
-COMMAND = Docs
+COMMANDS = Docs

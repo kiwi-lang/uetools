@@ -1,16 +1,38 @@
 from __future__ import annotations
 
+import os
 from argparse import Namespace
+from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict, is_dataclass
 from typing import Dict, List
+
+
+def newparser(subparsers, commandcls: Command):
+    """Add a subparser to the parser for the command"""
+    # The help text is not showing :/
+    return subparsers.add_parser(commandcls.name, help=commandcls.help())
+
+
+@contextmanager
+def chdir(root):
+    """change directory and revert back to previous directory"""
+    old = os.getcwd()
+    os.chdir(root)
+
+    yield
+    os.chdir(old)
 
 
 class Command:
     """Base class for all commands"""
 
     name: str
-    help: str
+
+    @classmethod
+    def help(cls) -> str:
+        """Return the help text for the command"""
+        return cls.__doc__
 
     @staticmethod
     def arguments(subparsers):
@@ -38,8 +60,9 @@ def command_builder(args: Dict | Namespace) -> List[str]:
     ... class Arguments:
     ...     flag       : bool = False
     ...     goalscore  : Optional[float] = None
+    ...     something  : Optional[str] = None
 
-    >>> command_builder(dict(vector=Arguments(flag=True, goalscore=2)))
+    >>> command_builder(dict(vector=Arguments(flag=True, goalscore=2, something=None)))
     ['-flag', '-goalscore=2']
 
     >>> command_builder(dict(vector=Arguments(flag=False, goalscore=2)))
@@ -57,6 +80,8 @@ def command_builder(args: Dict | Namespace) -> List[str]:
     >>> command_builder(dict(vector=Vector(x=1, y=2, z=3)))
     ['-vector=(X=1,Y=2,Z=3)']
 
+    >>> command_builder(Namespace(vector=Vector(x=1, y=2, z=3)))
+    ['-vector=(X=1,Y=2,Z=3)']
 
     """
     args = deepcopy(args)
@@ -65,9 +90,10 @@ def command_builder(args: Dict | Namespace) -> List[str]:
         args = vars(args)
 
     # Note: we do not NEED to pop them, UE ignore unknown arguments
-    args.pop("command", None)
-    args.pop("cli", None)
-    args.pop("dry", None)
+    if isinstance(args, dict):
+        args.pop("command", None)
+        args.pop("cli", None)
+        args.pop("dry", None)
 
     cmd = []
 

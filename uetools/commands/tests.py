@@ -1,10 +1,13 @@
 import os
 import sys
+from dataclasses import dataclass
 
-from uetools.command import Command
-from uetools.conf import editor_cmd, load_conf
-from uetools.format.base import popen_with_format
+from simple_parsing import choice
+
+from uetools.command import Command, command_builder, newparser
+from uetools.conf import editor_cmd, get_build_modes, guess_platform, load_conf, uat
 from uetools.format.tests import TestFormatter
+from uetools.run import popen_with_format
 
 
 class RunTests(Command):
@@ -32,12 +35,10 @@ class RunTests(Command):
 
     @staticmethod
     def arguments(subparsers):
-        tests = subparsers.add_parser(
-            RunTests.name, help="Run Unreal Automation Test (UAT)"
-        )
-        tests.add_argument("name", type=str, help="Project name")
-        tests.add_argument("map", type=str, help="map name")
-        tests.add_argument(
+        parser = newparser(subparsers, RunTests)
+        parser.add_argument("name", type=str, help="Project name")
+        parser.add_argument("map", type=str, help="map name")
+        parser.add_argument(
             "tests", type=str, default="uetools", help="Test section to run"
         )
 
@@ -106,4 +107,59 @@ class RunTests(Command):
             sys.exit(returncode)
 
 
-COMMAND = RunTests
+@dataclass
+class UATArguments:
+    """Arguments for the UAT command"""
+
+    project: str
+    test: str
+    run: str = choice(
+        "RunEditorTests",
+        "RunUnreal",
+        "RunUnrealTests",
+        "TestGauntlet",
+        type=str,
+        default="RunUnrealTests",
+    )
+    platform: str = choice(*get_build_modes(), type=str, default=guess_platform())
+    configuration: str = choice(*get_build_modes(), type=str, default="Development")
+    build: str = "local"
+
+
+class RunTestsUAT(Command):
+    """Execute automated tests for a given project using UAT
+
+    Notes
+    -----
+    This does not work
+    """
+
+    name: str = "uat-tests"
+
+    @staticmethod
+    def arguments(subparsers):
+        """Defines UAT testing arguments"""
+        parser = newparser(subparsers, RunTestsUAT)
+        parser.add_arguments(UATArguments, dest="cook")
+
+    @staticmethod
+    def execute(args):
+        """Execute the UAT command"""
+        args = args.cook
+        uat_cmd = vars(args).pop("run")
+
+        uat_args = command_builder(args)
+        cmd = [uat()] + [uat_cmd] + uat_args
+
+        print(" ".join(cmd))
+
+        fmt = TestFormatter(24)
+        fmt.print_non_matching = True
+        returncode = popen_with_format(fmt, cmd)
+        fmt.summary()
+
+        if returncode != 0:
+            sys.exit(returncode)
+
+
+COMMANDS = RunTests

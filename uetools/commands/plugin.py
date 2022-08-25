@@ -1,10 +1,10 @@
 import os
-import subprocess
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-from uetools.command import Command
+from uetools.command import Command, newparser
 from uetools.conf import get_build_platforms, load_conf, uat
+from uetools.run import run
 
 
 @dataclass
@@ -26,14 +26,12 @@ class PackagePlugin(Command):
 
     @staticmethod
     def arguments(subparsers):
-        cook = subparsers.add_parser(
-            PackagePlugin.name, help="Package an UnrealEngine Plugin"
-        )
-        cook.add_argument("project", type=str, help="Project name")
+        parser = newparser(subparsers, PackagePlugin)
+        parser.add_argument("project", type=str, help="Project name")
 
-        cook.add_argument("plugin", type=str, help="Path to uplugin file")
+        parser.add_argument("plugin", type=str, help="Path to uplugin file (relative)")
 
-        cook.add_argument(
+        parser.add_argument(
             "--platforms",
             type=str,
             nargs="+",
@@ -41,17 +39,17 @@ class PackagePlugin(Command):
             help="list of platforms to build for",
         )
 
-        cook.add_argument(
+        parser.add_argument(
             "--output", type=str, help="path to build the packaged plugin"
         )
 
-        cook.add_argument(
+        parser.add_argument(
             "--strict-includes",
             action="store_true",
             help="Disables precompiled headers & unity build. (Forces Headers to include all their dependencies)",
         )
 
-        cook.add_argument(
+        parser.add_argument(
             "--no-host-platform",
             action="store_true",
             help="Does not compile the editor platform on the host",
@@ -78,19 +76,18 @@ class PackagePlugin(Command):
             # what does this do ?
             "-Rocket",
         ]
+
         if args.strict_includes:
             cmdargs.append("-StrictIncludes")
 
         if args.no_host_platform:
             cmdargs.append("-NoHostPlatform ")
 
-        subprocess.run(
+        print(" ".join(cmdargs))
+        run(
             cmdargs,
-            stdin=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            shell=True,
             check=True,
         )
 
 
-COMMAND = PackagePlugin
+COMMANDS = PackagePlugin

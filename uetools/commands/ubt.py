@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import subprocess
 from dataclasses import asdict, dataclass
 from typing import Optional
 
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder
-from uetools.conf import get_build_modes, get_build_platforms, ubt
+from uetools.command import Command, command_builder, newparser
+from uetools.conf import find_project, get_build_modes, get_build_platforms, ubt
+from uetools.run import run
 
 modes = [
     "AggregateParsedTimingInfo",
@@ -136,29 +136,29 @@ class UBT(Command):
 
     @staticmethod
     def arguments(subparsers):
-        ubt_parser = subparsers.add_parser("ubt", help="")
-        ubt_parser.add_argument("target", type=str, help="target name")
-        ubt_parser.add_argument(
+        parser = newparser(subparsers, UBT)
+        parser.add_argument("target", type=str, help="target name")
+        parser.add_argument(
             "--project",
             default=None,
             type=str,
             help="Path to the project, example: <project>.uproject",
         )
-        ubt_parser.add_argument(
+        parser.add_argument(
             "--platform",
             default="Win64",
             type=str,
             help="Platofrm to compile for",
             choices=get_build_platforms(),
         )
-        ubt_parser.add_argument(
+        parser.add_argument(
             "--profile",
             default="Development",
             type=str,
             help="Build profile",
             choices=get_build_modes(),
         )
-        ubt_parser.add_arguments(Arguments, dest="args")
+        parser.add_arguments(Arguments, dest="args")
 
     @staticmethod
     def execute(args):
@@ -170,13 +170,12 @@ class UBT(Command):
         ]
 
         if args.project:
-            pargs.append(f"-Project={args.project}")
+            project = find_project(args.project)
+            pargs.append(f"-Project={project}")
 
         pargs += command_builder(asdict(args.args))
 
-        subprocess.run(
-            pargs, stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True
-        )
+        run(pargs, check=True)
 
 
-COMMAND = UBT
+COMMANDS = UBT

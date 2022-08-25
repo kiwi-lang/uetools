@@ -1,24 +1,27 @@
 import os
 import sys
 from argparse import Namespace
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Optional
 
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder
+from uetools.command import Command, command_builder, newparser
 from uetools.commands.build import Build
 from uetools.conf import (
     build_platform_from_editor,
     editor_cmd,
     find_project,
     get_build_modes,
+    get_build_platforms,
     get_editor_platforms,
     guess_editor_platform,
+    guess_platform,
     load_conf,
+    uat,
 )
-from uetools.format.base import popen_with_format
 from uetools.format.cooking import CookingFormatter
+from uetools.run import popen_with_format
 
 
 @dataclass
@@ -88,36 +91,31 @@ class CookGame(Command):
 
     @staticmethod
     def arguments(subparsers):
-        cook = subparsers.add_parser(
-            CookGame.name, help="Run Unreal Automation Test (UAT)"
-        )
-        cook.add_arguments(Arguments, dest="cook")
+        """Add arguments to the parser"""
+        parser = newparser(subparsers, CookGame)
+        parser.add_arguments(Arguments, dest="cook")
 
     @staticmethod
     def execute(args):
-        CookGame.execute_editor(args)
-
-    @staticmethod
-    def execute_editor(args):
         """Execute the cook command using the editor"""
-        # UAT just uses the editor at the end anyway
-        args = args.cook
+        args = Namespace(**asdict(args.cook))
 
         name = vars(args).pop("project")
         platform = vars(args).pop("platform")
         build = vars(args).pop("build")
+
         if build:
             build_args = Namespace()
             build_args.target = name
             build_args.platform = build_platform_from_editor(platform)
-            build_args.mode = args.build
+            build_args.mode = build
             build_args.profile = "update-project"
-            Build.execute_profile(build_args)
+            Build.execute_profile(Namespace(build=build_args))
 
         uproject = find_project(name)
 
         if args.output is None:
-            project_folder = load_conf().get("project_folder")
+            project_folder = load_conf().get("project_path")
             args.output = os.path.join(project_folder, "Saved", "StagedBuilds")
 
         cli_cmd = [
@@ -155,4 +153,59 @@ class CookGame(Command):
             sys.exit(returncode)
 
 
-COMMAND = CookGame
+@dataclass
+class UATArguments:
+    """Cook arguments for UAT"""
+
+    project: str
+    unattended: bool = True
+    utf8output: bool = True
+    platform: str = choice(*get_build_platforms(), default=guess_platform())
+    clientconfig: str = choice(*get_build_modes(), default="Development")
+    serverconfig: str = choice(*get_build_modes(), default="Development")
+    noP4: bool = True
+    nodebuginfo: bool = True
+    allmaps: bool = True
+    cook: bool = True
+    build: bool = True
+    stage: bool = True
+    prereqs: bool = True
+    pak: bool = True
+    archive: bool = True
+    stagingdirectory: Optional[str] = None
+    archivedirectory: Optional[str] = None
+    WarningsAsErrors: bool = True
+
+
+class CookGameUAT(Command):
+    """Cook your main game using UAT"""
+
+    name: str = "uat-cook"
+
+    @staticmethod
+    def arguments(subparsers):
+        parser = newparser(subparsers, CookGameUAT)
+        parser.add_arguments(UATArguments, dest="cook")
+
+    @staticmethod
+    def execute(args):
+        args = args.cook
+
+        uat_args = command_builder(args)
+        cmd = [uat()] + ["BuildCookRun"] + uat_args
+
+        print(" ".join(cmd))
+
+        fmt = CookingFormatter(24)
+        fmt.print_non_matching = True
+        returncode = popen_with_format(fmt, cmd)
+        fmt.summary()
+
+        if returncode != 0:
+            sys.exit(returncode)
+
+
+COMMANDS = [
+    CookGame,
+    CookGameUAT,
+]
