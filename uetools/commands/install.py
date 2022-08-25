@@ -3,9 +3,9 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command, newparser
-from uetools.conf import find_project, load_conf
-from uetools.run import run
+from uetools.core.command import Command, newparser
+from uetools.core.conf import find_project
+from uetools.core.run import run
 
 
 @dataclass
@@ -33,14 +33,16 @@ class Arguments:
 
         # This will install the plugin inside RTSGame/Plugins/
         #  it will download the repository on put it inside the RTSGame/Plugins/ folder
-        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin
+        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable
 
         # This will install the plugin inside RTSGame/Plugins/
         # it will execute the following command:
         #    - git submodule add https://github.com/Phyronnaz/VoxelPlugin Plugins/VoxelPlugin
         #
-        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --destination Plugins --submodule
+        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable --destination Plugins --submodule
 
+        # disable the plugin
+        uecli disable RTSGame VoxelPlugin
     """
 
     name: str
@@ -86,9 +88,11 @@ class Install(Command):
 
     @staticmethod
     def execute(args):
-        project_root = load_conf().get("project_path")
+        project = find_project(args.name)
+        folder = os.path.dirname(project)
+
         dest_relative = f"{args.destination}/{args.plugin}"
-        dest = f"{project_root}/{args.name}/{dest_relative}"
+        dest = f"{folder}/{dest_relative}"
 
         if not os.path.exists(dest):
             if args.submodule:
@@ -102,7 +106,7 @@ class Install(Command):
                 cmd = ["git", "clone", "--depth", "1", args.url, dest_relative]
 
             print(" ".join(cmd))
-            run(cmd, check=True, cwd=f"{project_root}/{args.name}")
+            run(cmd, check=True, cwd=folder)
 
         else:
             print(f"Folder {dest} exists already, skipping installation")

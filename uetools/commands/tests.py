@@ -4,10 +4,16 @@ from dataclasses import dataclass
 
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder, newparser
-from uetools.conf import editor_cmd, get_build_modes, guess_platform, load_conf, uat
+from uetools.core.command import Command, command_builder, newparser
+from uetools.core.conf import (
+    editor_cmd,
+    find_project,
+    get_build_modes,
+    guess_platform,
+    uat,
+)
+from uetools.core.run import popen_with_format
 from uetools.format.tests import TestFormatter
-from uetools.run import popen_with_format
 
 
 class RunTests(Command):
@@ -49,11 +55,8 @@ class RunTests(Command):
     @staticmethod
     def execute_editor(args):
         """Run the tests using the editor"""
-        name = args.name
-
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, name)
-        uproject = os.path.join(project_folder, f"{name}.uproject")
+        project = find_project(args.name)
+        folder = os.path.dirname(project)
 
         # Commands a separated by ;
         # RunTest Accept a single argument
@@ -73,7 +76,7 @@ class RunTests(Command):
 
         args = [
             editor_cmd(),
-            uproject,
+            project,
             args.map,
             "-stdout",
             "-FullStdOutLogOutput",
@@ -84,7 +87,7 @@ class RunTests(Command):
             "-NoSound",
             "-NoPause",
             "-noP4",
-            f'-ReportExportPath="{project_folder}/Saved/Automation/Report"',
+            f'-ReportExportPath="{folder}/Saved/Automation/Report"',
             "-allmaps",
             "-WarningsAsErrors",
             # This will make UE quit sucessfully (i.e no error code)

@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 import pkg_resources
 
-from uetools.command import Command, newparser
-from uetools.conf import load_conf
+from uetools.core.command import Command, newparser
+from uetools.core.conf import find_project
 
 
 @dataclass
@@ -49,20 +49,17 @@ class Dedicated(Command):
 
     @staticmethod
     def execute(args):
-        conf = load_conf()
+        project = find_project(args.project)
+        folder = os.path.dirname(project)
 
-        project = args.project
-        projects_folder = conf.get("project_path")
-        project_folder = os.path.join(projects_folder, project)
-
-        source_folder = os.path.join(project_folder, "Source")
-        server_target = os.path.join(source_folder, f"{project}Server.Target.cs")
+        source_folder = os.path.join(folder, "Source")
+        server_target = os.path.join(source_folder, f"{args.project}Server.Target.cs")
 
         if os.path.exists(server_target):
             print(f"{server_target} already exists")
             return
 
-        Dedicated.generate_server_target(project, server_target)
+        Dedicated.generate_server_target(args.project, server_target)
 
     @staticmethod
     def generate_server_target(project, server_target):

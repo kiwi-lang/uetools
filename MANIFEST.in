@@ -2,6 +2,7 @@ global-exclude *.pyc
 global-exclude __pycache__
 recursive-include uetools/* *.yaml
 recursive-include uetools *.Target
+recursive-include uetools *.ini
 
 exclude tox.ini
 exclude Makefile
@@ -10,3 +11,6 @@ exclude .pylintrc
 prune docs
 prune tests
 prune extracted
+prune examples
+prune uetools/plugins
+

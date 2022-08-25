@@ -2,13 +2,14 @@ import os
 
 import pytest
 
-from uetools.cli import args, main
 from uetools.commands.local import LocalEditor
-from uetools.conf import ready
+from uetools.core import args, main
+from uetools.core.conf import ready
 
 skipif = pytest.mark.skipif
 
 
+@skipif(True, reason="Localization does not work on the example project")
 @skipif(not ready(), reason="Unreal engine is not installed")
 def test_local(project, project_name):
     assert (
@@ -37,6 +38,7 @@ def test_local(project, project_name):
     )
 
 
+@skipif(True, reason="Localization does not work on the example project")
 @skipif(not ready(), reason="Unreal engine is not installed")
 def test_uatlocal(project, project_name):
 

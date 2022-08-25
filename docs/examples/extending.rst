@@ -1,12 +1,13 @@
-Adding new Commands
+Adding new commands
 -------------------
 
 You can extend uetools with your own commands.
 An example is provided here `plugin example <https://github.com/kiwi-lang/uetools.plugins.myplugin>`_
 
-The examples creates a new python package that extends uetools.plugins with its own commands.
-Once the package is installed (``pip install -e .`` for a local development install)
-you can use your commands by calling ``uecli name-of-my-command ...``.
+The example creates a new python package that extends uetools.plugins with its own commands.
+Once the package is installed (``pip install -e .`` for a local development install
+or ``pip install git+https://github.com/kiwi-lang/uetools.plugins.myplugin`)
+you can use your commands by calling ``uecli name-of-your-command ...``.
 
 You will note that ``uetools`` use a dataclass to define the arguments of its commands.
 As long as the name of the attribute matches the name of the argument in the underlying command
@@ -19,8 +20,8 @@ almost no boilerplate code is needed.
    from dataclasses import dataclass
 
    from simple_parsing import choice
-   from uetools.command import Command, command_builder
-   from uetools.conf import editor_cmd, find_project, uat
+   from uetools.core.command import Command, command_builder
+   from uetools.core.conf import editor_cmd, find_project, uat
    from uetootls.run import popen_with_format
    from uetools.format.base import Formatter
 

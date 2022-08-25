@@ -4,15 +4,16 @@ from typing import Optional
 
 from simple_parsing import choice
 
-from uetools.command import Command, newparser
-from uetools.conf import (
+from uetools.core.command import Command, newparser
+from uetools.core.conf import (
+    engine_folder,
+    find_project,
     get_build_modes,
     get_build_platforms,
     guess_platform,
-    load_conf,
     ubt,
 )
-from uetools.run import run
+from uetools.core.run import run
 
 project_uht = [
     "UnrealHeaderTool",
@@ -115,17 +116,6 @@ short_update = [
 profiles = {"update-project": build_update_project, "short-update": short_update}
 
 
-def is_project(target):
-    """Return true if the target was inferred to be a project name"""
-    if target.endswith("Editor"):
-        target = target[0:-6]
-
-    projects_folder = load_conf().get("project_path")
-    project_folder = os.path.join(projects_folder, target)
-    uproject = os.path.join(project_folder, f"{target}.uproject")
-    return os.path.exists(uproject), uproject
-
-
 def replace_variables(command, variables):
     """Replace variables in a command"""
     cmd = []
@@ -198,8 +188,8 @@ class Build(Command):
 
         commands = profiles.get(args.profile)
 
-        exists, uproject = is_project(args.target)
-        assert exists, f"Project {args.target} does not exist"
+        uproject = find_project(args.target)
+        assert uproject is not None, f"Project {args.target} does not exist"
 
         name = args.target
         if name.endswith("Editor"):
@@ -210,7 +200,7 @@ class Build(Command):
             "MODE": args.mode,
             "UPROJECT": uproject,
             "PROJECT_NAME": name,
-            "ENGINE_FOLDER": load_conf().get("engine_path"),
+            "ENGINE_FOLDER": engine_folder(),
         }
 
         for command in commands:
@@ -236,7 +226,7 @@ class Build(Command):
             return
 
         assert target is not None, "Target name is required"
-        engine_path = load_conf().get("engine_path")
+        engine_path = engine_folder()
 
         logfolder = os.path.join(engine_path, "Programs/AutomationTool/Saved.Logs")
         logfile = f"UBT-{target}-{platform}-{mode}.txt"
@@ -250,8 +240,9 @@ class Build(Command):
         ]
 
         # Check if the target is a project
-        exists, uproject = is_project(target)
-        if exists:
+        uproject = find_project(target)
+
+        if uproject is not None:
             cmd += [f"-Project={uproject}", uproject]
 
         cmd.append("-NoUBTMakefiles")

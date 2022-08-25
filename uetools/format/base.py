@@ -4,7 +4,7 @@ import re
 import colorama
 from colorama import Fore, Style
 
-from uetools.conf import load_conf, update_conf
+from uetools.core.conf import load_conf, update_conf
 
 log = logging.getLogger()
 

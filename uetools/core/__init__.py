@@ -7,3 +7,8 @@ __author__ = "Pierre Delaunay"
 __author_email__ = "pierre@delaunay.io"
 __copyright__ = "2022 Pierre Delaunay"
 __url__ = "https://github.com/kiwi-lang/uetools"
+
+
+from .cli import args, main
+
+__slot___ = ["main", "args"]

@@ -2,8 +2,8 @@ import os
 
 from cookiecutter.main import cookiecutter
 
-from uetools.command import Command, newparser
-from uetools.conf import load_conf
+from uetools.core.command import Command, newparser
+from uetools.core.conf import find_project
 
 COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
 
@@ -46,12 +46,10 @@ class Docs(Command):
 
     @staticmethod
     def execute(args):
-        project = args.project
+        uproject = find_project(args.project)
+        folder = os.path.dirname(uproject)
 
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, project)
-
-        os.chdir(project_folder)
+        os.chdir(folder)
         cookiecutter(COOKIECUTTER, no_input=args.no_input, config_file=args.config)
 
 

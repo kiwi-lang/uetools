@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command, newparser
-from uetools.conf import editor, find_project
+from uetools.core.command import Command, newparser
+from uetools.core.conf import editor, find_project
+from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
-from uetools.run import popen_with_format
 
 
 # This is not used technically, but we keep it for consistency with the other commands

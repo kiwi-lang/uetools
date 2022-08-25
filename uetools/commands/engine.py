@@ -1,10 +1,8 @@
-import os
-
 from git import Repo
 
-from uetools.command import Command, chdir, newparser
-from uetools.conf import load_conf
-from uetools.run import run
+from uetools.core.command import Command, chdir, newparser
+from uetools.core.conf import engine_root
+from uetools.core.run import run
 
 
 class Engine(Command):
@@ -34,29 +32,27 @@ class Engine(Command):
 
     @staticmethod
     def execute(args):
-        engine_root = os.path.abspath(
-            os.path.join(load_conf().get("engine_path"), "..")
-        )
+        root = engine_root()
 
         if args.update:
-            cmd = Engine.update(engine_root, args.remote)
+            cmd = Engine.update(root, args.remote)
         else:
-            cmd = Engine.checkout(engine_root, args.branch, args.remote)
+            cmd = Engine.checkout(root, args.branch, args.remote)
 
-        with chdir(engine_root):
+        with chdir(root):
             Engine.execute_cmd(cmd, dry=args.dry)
 
     @staticmethod
-    def update(engine_root, remote):
+    def update(root, remote):
         """Update current branch by pulling the latest changes"""
-        engine_repo = Repo(engine_root)
+        engine_repo = Repo(root)
         cmd = ["git", "pull", remote, engine_repo.active_branch]
         return [cmd]
 
     @staticmethod
-    def checkout(engine_root, branch, remote):
+    def checkout(root, branch, remote):
         """Checkout a new branch"""
-        engine_repo = Repo(engine_root)
+        engine_repo = Repo(root)
 
         if branch == engine_repo.active_branch:
             cmd = [["git", "pull", remote, branch]]

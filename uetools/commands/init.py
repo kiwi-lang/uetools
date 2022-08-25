@@ -2,8 +2,8 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.command import Command, newparser
-from uetools.conf import CONFIG, CONFIGNAME, load_conf, save_conf
+from uetools.core.command import Command, newparser
+from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 
 
 @dataclass
@@ -27,8 +27,10 @@ class Arguments:
 
     """
 
-    engine: Optional[str] = None
-    projects: Optional[str] = None
+    engine: Optional[
+        str
+    ] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+    projects: Optional[str] = None  # Path to the unreal project folder (C:/Projects)
 
 
 class Init(Command):
