@@ -5,9 +5,9 @@ from typing import Optional
 
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder, newparser
-from uetools.conf import find_project, get_build_modes, get_build_platforms, ubt
-from uetools.run import run
+from uetools.core.command import Command, command_builder, newparser
+from uetools.core.conf import find_project, get_build_modes, get_build_platforms, ubt
+from uetools.core.run import run
 
 modes = [
     "AggregateParsedTimingInfo",

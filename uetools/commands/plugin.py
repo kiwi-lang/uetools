@@ -1,22 +1,24 @@
 import os
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List
 
-from uetools.command import Command, newparser
-from uetools.conf import get_build_platforms, load_conf, uat
-from uetools.run import run
+from uetools.core.command import Command, newparser
+from uetools.core.conf import find_project, get_build_platforms, uat
+from uetools.core.run import run
 
 
+# fmt: off
 @dataclass
 class Arguments:
     """Builds and cook a plugin"""
 
-    project: str
-    plugin: str
-    platforms: List[str] = field(default_factory=list)
-    output: str = None
-    strict_includes: Optional[bool] = None
-    no_host_platform: Optional[bool] = None
+    project         : str # Name of the project
+    plugin          : str # Path to the plugin (relative to project folder)
+    platforms       : List[str] = field(default_factory=list)
+    output          : str       = None  # Packaged plugin destination
+    strict_includes : bool      = False #
+    no_host_platform: bool      = False #
+# fmt: on
 
 
 class PackagePlugin(Command):
@@ -60,10 +62,15 @@ class PackagePlugin(Command):
         project = args.project
         plugin = args.plugin
 
-        projects_folder = load_conf().get("project_path")
-        project_folder = os.path.join(projects_folder, project)
+        project = find_project(args.project)
+        folder = os.path.dirname(project)
 
-        plugin_path = os.path.join(project_folder, plugin)
+        print()
+        print(args.project, project)
+        print(folder)
+        print()
+
+        plugin_path = os.path.join(folder, plugin)
 
         platforms = "+".join(args.platforms)
 

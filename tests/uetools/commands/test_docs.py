@@ -4,8 +4,8 @@ import subprocess
 
 import pytest
 
-from uetools.cli import args, main
-from uetools.conf import ready
+from uetools.core import args, main
+from uetools.core.conf import ready
 
 skipif = pytest.mark.skipif
 
@@ -34,7 +34,6 @@ def test_docs(project, project_name, tmp_path):
     docs = os.path.join(project, "Docs")
     assert os.path.exists(docs) is True
 
-    # Todo check that Sphinx compiles
     subprocess.run("pip install -r requirements.txt".split(" "), cwd=docs, check=True)
 
     os.environ["READTHEDOCS"] = "True"

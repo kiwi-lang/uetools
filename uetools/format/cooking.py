@@ -13,7 +13,7 @@ class CookingFormatter(Formatter):
         self.summary_starts = 0
         self.print_non_matching = True
 
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments,unused-argument
     def default_format(
         self, datetime=None, frame=None, category=None, verbosity=None, message=None
     ):

@@ -2,9 +2,9 @@ import os
 
 import pytest
 
-from uetools.cli import args, main
-from uetools.conf import ready
-from uetools.testing import git_status
+from uetools.core import args, main
+from uetools.core.conf import ready
+from uetools.core.testing import git_status
 
 skipif = pytest.mark.skipif
 

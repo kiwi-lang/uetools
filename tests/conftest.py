@@ -5,7 +5,7 @@ from tabnanny import check
 
 import pytest
 
-from uetools.conf import load_conf
+from uetools.core.conf import load_conf
 
 original_name = "ExampleProject"
 clean_project = "https://github.com/kiwi-lang/ExampleProject"

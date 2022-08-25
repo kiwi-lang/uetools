@@ -6,9 +6,9 @@ from typing import Optional
 
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder, newparser
 from uetools.commands.build import Build
-from uetools.conf import (
+from uetools.core.command import Command, command_builder, newparser
+from uetools.core.conf import (
     build_platform_from_editor,
     editor_cmd,
     find_project,
@@ -17,11 +17,10 @@ from uetools.conf import (
     get_editor_platforms,
     guess_editor_platform,
     guess_platform,
-    load_conf,
     uat,
 )
+from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
-from uetools.run import popen_with_format
 
 
 @dataclass
@@ -113,10 +112,10 @@ class CookGame(Command):
             Build.execute_profile(Namespace(build=build_args))
 
         uproject = find_project(name)
+        folder = os.path.dirname(uproject)
 
         if args.output is None:
-            project_folder = load_conf().get("project_path")
-            args.output = os.path.join(project_folder, "Saved", "StagedBuilds")
+            args.output = os.path.join(folder, "Saved", "StagedBuilds")
 
         cli_cmd = [
             "-CrashForUAT",
@@ -134,7 +133,7 @@ class CookGame(Command):
                 uproject,
                 "-run=cook",
                 f"-targetplatform={platform}",
-                f"-abslog={project_folder}/Saved/Automation/Cooking.txt",
+                f"-abslog={folder}/Saved/Automation/Cooking.txt",
             ]
             + cli_cmd
             + options
@@ -191,7 +190,9 @@ class CookGameUAT(Command):
     def execute(args):
         args = args.cook
 
-        uat_args = command_builder(args)
+        args.project = find_project(args.project)
+
+        uat_args = command_builder(asdict(args))
         cmd = [uat()] + ["BuildCookRun"] + uat_args
 
         print(" ".join(cmd))

@@ -3,8 +3,8 @@ import subprocess
 
 import pytest
 
-from uetools.cli import args, main
-from uetools.conf import find_project, ready
+from uetools.core import args, main
+from uetools.core.conf import find_project, ready
 
 skipif = pytest.mark.skipif
 

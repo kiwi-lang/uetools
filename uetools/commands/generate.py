@@ -3,9 +3,9 @@ from dataclasses import asdict, dataclass
 
 from simple_parsing import choice
 
-from uetools.command import Command, command_builder, newparser
-from uetools.conf import find_project, ubt
-from uetools.run import run
+from uetools.core.command import Command, command_builder, newparser
+from uetools.core.conf import find_project, ubt
+from uetools.core.run import run
 
 NONE = object()
 
@@ -27,7 +27,7 @@ generators = [
     NONE,
 ]
 
-
+# fmt: off
 @dataclass
 class Arguments:
     """Generate project files
@@ -52,22 +52,23 @@ class Arguments:
 
     """
 
-    makefile: bool = False  #   Generate Linux Makefile
-    cmakefile: bool = False  #   Generate project files for CMake
-    qmakefile: bool = False  #   Generate project files for QMake
-    kdevelopfile: bool = False  #   Generate project files for KDevelop
-    codelitefiles: bool = False  #   Generate project files for Codelite
-    xcodeprojectfiles: bool = False  #   Generate project files for XCode
-    eddieprojectfiles: bool = False  #   Generate project files for Eddie
-    vscode: bool = False  #   Generate project files for Visual Studio Code
-    vsmac: bool = False  #   Generate project files for Visual Studio Mac
-    clion: bool = False  #   Generate project files for CLion
-    rider: bool = False  #   Generate project files for Rider
-    projectfiles: bool = True  #   Generate project files based on IDE preference.
-    projectfileformat: str = choice(*generators, default=NONE, type=str)
-    game: bool = True
-    engine: bool = True
-    progress: bool = True
+    makefile            : bool = False  # Generate Linux Makefile
+    cmakefile           : bool = False  # Generate project files for CMake
+    qmakefile           : bool = False  # Generate project files for QMake
+    kdevelopfile        : bool = False  # Generate project files for KDevelop
+    codelitefiles       : bool = False  # Generate project files for Codelite
+    xcodeprojectfiles   : bool = False  # Generate project files for XCode
+    eddieprojectfiles   : bool = False  # Generate project files for Eddie
+    vscode              : bool = False  # Generate project files for Visual Studio Code
+    vsmac               : bool = False  # Generate project files for Visual Studio Mac
+    clion               : bool = False  # Generate project files for CLion
+    rider               : bool = False  # Generate project files for Rider
+    projectfiles        : bool = True   # Generate project files based on IDE preference.
+    projectfileformat   : str = choice(*generators, default=NONE, type=str)
+    game                : bool = True
+    engine              : bool = True
+    progress            : bool = True
+# fmt: on
 
 
 class Generate(Command):
