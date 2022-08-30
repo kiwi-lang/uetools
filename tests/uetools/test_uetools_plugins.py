@@ -41,3 +41,7 @@ def test_uetools_plugin():
                 break
 
         assert "command" in discover_commands()
+
+
+def test_ml_plugin_was_installed():
+    assert "ml" in discover_commands()
