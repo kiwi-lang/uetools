@@ -1,13 +1,12 @@
-from ast import Import
 import glob
 import importlib
 import os
 import pkgutil
 import traceback
 
-
 try:
     import uetools.plugins
+
     PLUGINS = True
 
 except ImportError:
