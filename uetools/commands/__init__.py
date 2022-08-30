@@ -1,10 +1,17 @@
+from ast import Import
 import glob
 import importlib
 import os
 import pkgutil
 import traceback
 
-import uetools.plugins
+
+try:
+    import uetools.plugins
+    PLUGINS = True
+
+except ImportError:
+    PLUGINS = False
 
 
 def fetch_factories(registry, base_module, base_file_name, function_name="COMMANDS"):
@@ -78,7 +85,10 @@ def discover_commands():
     """Discover all the commands we can find (plugins and built-in)"""
     registry = CommandRegistry()
     fetch_factories(registry, "uetools.commands", __file__)
-    discover_from_plugins_commands(registry, uetools.plugins)
+
+    if PLUGINS:
+        discover_from_plugins_commands(registry, uetools.plugins)
+
     return registry.found_commands
 
 
