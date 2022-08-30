@@ -26,6 +26,7 @@ setup_kwargs = dict(
         'uetools.core',
         'uetools.commands',
         'uetools.format',
+        'uetools.plugins.ml',
     ],
     classifiers=[
         "License :: OSI Approved :: BSD License",
@@ -39,10 +40,14 @@ setup_kwargs = dict(
     setup_requires=['setuptools'],
     install_requires=["appdirs", "colorama", "cookiecutter", "simple-parsing", "GitPython"],
     python_requires='>=3.7.*',
+    namespace_packages=['uetools.plugins'],
     entry_points={
         'console_scripts': [
             'uecli = uetools.core.cli:main',
-        ]
+        ],
+        "UECLICommands": [
+            "command = uetools.plugins.ml:ML",
+        ],
     },
     package_data={
         "uetools": [

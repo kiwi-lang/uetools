@@ -9,6 +9,9 @@ try:
 
     PLUGINS = True
 
+except ModuleNotFoundError:
+    PLUGINS = False
+
 except ImportError:
     PLUGINS = False
 
