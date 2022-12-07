@@ -45,7 +45,7 @@ class Command:
         raise NotImplementedError()
 
 
-def command_builder(args: Dict | Namespace) -> List[str]:
+def command_builder(args: Dict | Namespace, ignore=None) -> List[str]:
     """Convert a namespace of arguments into a list of command line arguments for unreal engine.
     Supports dataclasses (even nested) and custom command generation through the ``to_ue_cmd`` method.
 
@@ -84,10 +84,16 @@ def command_builder(args: Dict | Namespace) -> List[str]:
     ['-vector=(X=1,Y=2,Z=3)']
 
     """
+    if ignore is None:
+        ignore = set()
+
     args = deepcopy(args)
 
     if isinstance(args, Namespace):
         args = vars(args)
+
+    if not isinstance(args, dict):
+        args = asdict(args)
 
     # Note: we do not NEED to pop them, UE ignore unknown arguments
     if isinstance(args, dict):
@@ -97,14 +103,17 @@ def command_builder(args: Dict | Namespace) -> List[str]:
 
     cmd = []
 
-    _command_builder(cmd, args)
+    _command_builder(cmd, args, ignore)
 
     return cmd
 
 
-def _command_builder(cmd, args):
+def _command_builder(cmd, args, ignore):
     for k, v in args.items():
         if v is None:
+            continue
+
+        if k in ignore:
             continue
 
         if isinstance(v, bool):

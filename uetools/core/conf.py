@@ -248,6 +248,9 @@ def find_project(name):
     if os.path.isabs(name) and name.endswith(".uproject"):
         return name
 
+    if name.endswith(".uproject"):
+        name = name[:-9]
+
     if name.endswith("Editor"):
         name = name[:-6]
 
@@ -258,17 +261,17 @@ def find_project(name):
         name = name[:-6]
 
     folder = os.path.join(project_folder(), name)
-    uproject = os.path.join(folder, f"{name}.uproject")
+    uproject_project = os.path.join(folder, f"{name}.uproject")
 
-    if os.path.exists(uproject):
-        return uproject
+    if os.path.exists(uproject_project):
+        return uproject_project
 
-    uproject = os.path.join(engine_root(), name, f"{name}.uproject")
+    uproject_engine = os.path.join(engine_root(), name, f"{name}.uproject")
 
-    if os.path.exists(uproject):
-        return uproject
+    if os.path.exists(uproject_engine):
+        return uproject_engine
 
-    return uproject
+    raise RuntimeError(f"None of {uproject_project}, {uproject_engine} exist")
 
 
 def project_folder():
