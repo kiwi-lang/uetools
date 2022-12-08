@@ -127,4 +127,4 @@ def _command_builder(cmd, args, ignore):
             v.to_ue_cmd(k, cmd)
 
         elif is_dataclass(v):
-            _command_builder(cmd, asdict(v))
+            _command_builder(cmd, asdict(v), ignore)

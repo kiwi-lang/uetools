@@ -1,6 +1,6 @@
 import os
-from dataclasses import dataclass, field
-from typing import List, Optional
+from dataclasses import dataclass
+from typing import Optional
 
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_platforms, guess_platform, uat
