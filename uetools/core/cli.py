@@ -94,7 +94,10 @@ def main(argv=None):
 
     returncode = command.execute(parsed_args)
 
-    if returncode is not None:
+    if returncode is None:
+        return
+
+    if returncode != 0:
         sys.exit(returncode)
 
 

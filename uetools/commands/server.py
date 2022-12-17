@@ -122,5 +122,7 @@ class Server(Command):
             fmt = Formatter()
             return popen_with_format(fmt, cmd)
 
+        return 0
+
 
 COMMANDS = Server

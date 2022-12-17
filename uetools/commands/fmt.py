@@ -85,7 +85,10 @@ class Format(Command):
             with open(args.file, "r", encoding="utf-8") as file:
                 for line in file:
                     fmt.match_regex(line)
-            return
+
+            if args.fail_on_error and len(fmt.bad_logs) > 0:
+                return 1
+            return 0
 
         for line in sys.stdin:
             fmt.match_regex(line)

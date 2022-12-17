@@ -214,6 +214,8 @@ class Build(Command):
             print(" ".join(cmd), flush=True)
             run(cmd, check=True)
 
+        return 0
+
     @staticmethod
     def execute(args):
         """Execute the UAT build tool on the target"""
@@ -222,8 +224,7 @@ class Build(Command):
         mode = args.build.mode
 
         if args.build.profile:
-            Build.execute_profile(args)
-            return
+            return Build.execute_profile(args)
 
         assert target is not None, "Target name is required"
         engine_path = engine_folder()

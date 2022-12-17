@@ -1,5 +1,4 @@
 import os
-import sys
 from argparse import Namespace
 from dataclasses import asdict, dataclass
 from typing import Optional
