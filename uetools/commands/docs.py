@@ -52,5 +52,7 @@ class Docs(Command):
         os.chdir(folder)
         cookiecutter(COOKIECUTTER, no_input=args.no_input, config_file=args.config)
 
+        return 0
+
 
 COMMANDS = Docs

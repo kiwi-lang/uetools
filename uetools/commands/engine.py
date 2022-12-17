@@ -40,7 +40,7 @@ class Engine(Command):
             cmd = Engine.checkout(root, args.branch, args.remote)
 
         with chdir(root):
-            Engine.execute_cmd(cmd, dry=args.dry)
+            return Engine.execute_cmd(cmd, dry=args.dry)
 
     @staticmethod
     def update(root, remote):
@@ -72,7 +72,9 @@ class Engine(Command):
             print(" ".join(cmd))
 
             if not dry:
-                run(cmd, check=True)
+                return run(cmd, check=True).returncode
+
+        return 0
 
 
 COMMANDS = Engine

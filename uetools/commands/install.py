@@ -94,6 +94,8 @@ class Install(Command):
         dest_relative = f"{args.destination}/{args.plugin}"
         dest = f"{folder}/{dest_relative}"
 
+        errors = 0
+
         if not os.path.exists(dest):
             if args.submodule:
                 force = ["--force"] if args.force else []
@@ -106,7 +108,7 @@ class Install(Command):
                 cmd = ["git", "clone", "--depth", "1", args.url, dest_relative]
 
             print(" ".join(cmd))
-            run(cmd, check=True, cwd=folder)
+            errors += run(cmd, check=True, cwd=folder).returncode
 
         else:
             print(f"Folder {dest} exists already, skipping installation")
@@ -132,6 +134,8 @@ class Install(Command):
 
             with open(project, "w", encoding="utf-8") as project_file:
                 json.dump(project_conf, project_file)
+
+        return errors
 
 
 COMMANDS = Install

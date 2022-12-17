@@ -117,7 +117,7 @@ class PackagePlugin(Command):
 
         fmt = CookingFormatter(24)
         fmt.print_non_matching = True
-        popen_with_format(fmt, cmdargs)
+        return popen_with_format(fmt, cmdargs)
 
 
 COMMANDS = PackagePlugin

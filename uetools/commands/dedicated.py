@@ -57,9 +57,11 @@ class Dedicated(Command):
 
         if os.path.exists(server_target):
             print(f"{server_target} already exists")
-            return
+            return 0
 
         Dedicated.generate_server_target(args.project, server_target)
+
+        return 0
 
     @staticmethod
     def generate_server_target(project, server_target):

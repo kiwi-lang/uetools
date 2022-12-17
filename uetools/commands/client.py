@@ -67,9 +67,10 @@ class Client(Command):
         cmd.append("-game")
         cmd.append("-FullStdOutLogOutput")
         print(" ".join(cmd))
+
         if not args.dry:
             fmt = Formatter()
-            popen_with_format(fmt, cmd)
+            return popen_with_format(fmt, cmd)
 
 
 COMMANDS = Client

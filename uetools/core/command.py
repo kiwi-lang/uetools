@@ -40,7 +40,7 @@ class Command:
         raise NotImplementedError()
 
     @staticmethod
-    def execute(args):
+    def execute(args) -> int:
         """Execute the command"""
         raise NotImplementedError()
 

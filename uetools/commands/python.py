@@ -61,6 +61,7 @@ class Python(Command):
             with open(default_engine, "w", encoding="utf-8") as file:
                 config.write(file)
 
+            return 0
         except UnsupportedOperation:
             print("Could not save config")
             print("Is unreal engine open ?")

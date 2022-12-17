@@ -141,7 +141,7 @@ class LocalEditor(Command):
         ] + command_builder(args)
 
         print(" ".join(cmd))
-        run(cmd, check=True)
+        return run(cmd, check=True).returncode
 
 
 # fmt: off
@@ -250,8 +250,7 @@ class LocalUAT(Command):
         returncode = popen_with_format(fmt, cmd)
         fmt.summary()
 
-        if returncode != 0:
-            sys.exit(returncode)
+        return returncode
 
 
 COMMANDS = [

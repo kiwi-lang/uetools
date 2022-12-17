@@ -45,7 +45,7 @@ class Open(Command):
     def execute(args):
         project = find_project(args.name)
 
-        run([editor(), project], check=True)
+        return run([editor(), project], check=True).returncode
 
 
 COMMANDS = Open

@@ -265,7 +265,8 @@ class Build(Command):
         #
         cmd = [ubt()] + cmd
         print(" ".join(cmd), flush=True)
-        run(cmd, check=True)
+
+        return run(cmd, check=True).returncode
 
 
 COMMANDS = Build

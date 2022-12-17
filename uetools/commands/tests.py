@@ -106,8 +106,7 @@ class RunTests(Command):
 
         print(f"Subprocess terminated with (rc: {returncode})")
 
-        if returncode != 0:
-            sys.exit(returncode)
+        return returncode
 
 
 @dataclass
@@ -160,9 +159,7 @@ class RunTestsUAT(Command):
         fmt.print_non_matching = True
         returncode = popen_with_format(fmt, cmd)
         fmt.summary()
-
-        if returncode != 0:
-            sys.exit(returncode)
+        return returncode
 
 
 COMMANDS = RunTests

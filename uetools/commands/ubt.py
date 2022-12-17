@@ -175,7 +175,7 @@ class UBT(Command):
 
         pargs += command_builder(asdict(args.args))
 
-        run(pargs, check=True)
+        return run(pargs, check=True).returncode
 
 
 COMMANDS = UBT

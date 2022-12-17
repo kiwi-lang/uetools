@@ -148,8 +148,7 @@ class CookGame(Command):
 
         print(f"Subprocess terminated with (rc: {returncode})")
 
-        if returncode != 0:
-            sys.exit(returncode)
+        return returncode
 
 
 @dataclass
@@ -202,8 +201,7 @@ class CookGameUAT(Command):
         returncode = popen_with_format(fmt, cmd)
         fmt.summary()
 
-        if returncode != 0:
-            sys.exit(returncode)
+        return returncode
 
 
 COMMANDS = [

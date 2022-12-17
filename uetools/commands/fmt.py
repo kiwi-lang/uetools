@@ -99,7 +99,9 @@ class Format(Command):
         print("=" * 80)
 
         if args.fail_on_error and len(fmt.bad_logs) > 0:
-            sys.exit(1)
+            return 1
+
+        return 0
 
 
 logging.basicConfig(level=logging.CRITICAL)

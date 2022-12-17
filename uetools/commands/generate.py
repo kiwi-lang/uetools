@@ -98,11 +98,11 @@ class Generate(Command):
 
         root = os.path.dirname(project)
 
-        run(
+        return run(
             cmd,
             check=True,
             cwd=root,
-        )
+        ).returncode
 
 
 COMMANDS = Generate

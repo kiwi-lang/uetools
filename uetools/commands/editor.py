@@ -310,7 +310,9 @@ class Editor(Command):
 
         if not args.dry:
             fmt = Formatter()
-            popen_with_format(fmt, cmd)
+            return popen_with_format(fmt, cmd)
+
+        return 0
 
 
 COMMANDS = Editor

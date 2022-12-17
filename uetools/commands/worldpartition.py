@@ -38,4 +38,4 @@ class WorldPartition(Command):
     @staticmethod
     def execute(args):
         cmd = [editor_cmd()] + command_builder(args)
-        run(cmd, check=True)
+        return run(cmd, check=True).returncode

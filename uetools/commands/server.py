@@ -120,7 +120,7 @@ class Server(Command):
 
         if not args.dry:
             fmt = Formatter()
-            popen_with_format(fmt, cmd)
+            return popen_with_format(fmt, cmd)
 
 
 COMMANDS = Server

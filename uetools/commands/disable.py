@@ -67,5 +67,7 @@ class Disable(Command):
         with open(uproject, "w", encoding="utf-8") as project_file:
             json.dump(project_conf, project_file)
 
+        return 0
+
 
 COMMANDS = Disable

@@ -57,7 +57,7 @@ almost no boilerplate code is needed.
          fmt = Formatter()
          popen_with_format(fmt, [uat(), uproject] + cmd)
 
-         popen_with_format(fmt, [editor_cmd()] + cmd)
+         return popen_with_format(fmt, [editor_cmd()] + cmd)
 
    # Register the commands here
    COMMANDS = [

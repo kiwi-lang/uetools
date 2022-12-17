@@ -40,6 +40,8 @@ class VSCode(Command):
         VSCode.enable_python_editor(args)
         VSCode.add_stub_to_path(args)
 
+        return 0
+
     @staticmethod
     def enable_python_editor(args):
         """Modify your project settings to enable python scripting in your project"""

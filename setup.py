@@ -41,7 +41,7 @@ setup_kwargs = dict(
     setup_requires=['setuptools'],
     install_requires=["appdirs", "colorama", "cookiecutter", "simple-parsing", "GitPython"],
     python_requires='>=3.7.*',
-    namespace_packages=['uetools.plugins'],
+    namespace_packages=['uetools', 'uetools.plugins'],
     entry_points={
         'console_scripts': [
             'uecli = uetools.core.cli:main',

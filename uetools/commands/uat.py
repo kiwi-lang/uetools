@@ -308,10 +308,10 @@ class UAT(Command):
         cmd = [uat()] + [uat_cmd] + args
 
         print(" ".join(cmd))
-        run(
+        return run(
             cmd,
             check=True,
-        )
+        ).returncode
 
 
 COMMANDS = UAT
