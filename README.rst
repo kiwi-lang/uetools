@@ -55,6 +55,9 @@ Get Started
    # start a client
    uecli client RTSGame --address 127.0.0.1 --port  8123
 
+   # Turn a blueprint Project into a C++ project
+   uecli cpp RTSGame
+
 
 Features
 --------

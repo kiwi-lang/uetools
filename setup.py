@@ -48,11 +48,12 @@ setup_kwargs = dict(
         ],
         "UECLICommands": [
             "command = uetools.plugins.ml:ML",
+            "command = uetools.plugins.cpp:CPP",
         ],
     },
     package_data={
         "uetools": [
-            'uetools/templates/TemplateServer.Target.cs'
+            'uetools/templates/.*'
         ]
     },
     include_package_data=True,
