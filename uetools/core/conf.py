@@ -1,5 +1,6 @@
 """Defines constants and utility used throughout the project"""
 import json
+import logging
 import os
 import platform
 
@@ -13,6 +14,9 @@ LATEST_CONF = None
 WINDOWS = platform.system().startswith("Windows")
 OSX = platform.system().startswith("Darwin")
 LINUX = not WINDOWS and not OSX
+
+
+logger = logging.getLogger()
 
 
 def get_build_modes():
@@ -274,14 +278,43 @@ def find_project(name):
     raise RuntimeError(f"None of {uproject_project}, {uproject_engine} exist")
 
 
+class ConfigurationError(Exception):
+    pass
+
+
 def project_folder():
     """Returns the folder user to store projects"""
-    return load_conf().get("project_path")
+    p = load_conf().get("project_path")
+
+    if p is None:
+        logger.warning(
+            "Project folder is not defined, using UnrealEngine root as default"
+        )
+        return engine_root()
+
+    return project_folder()
+
+
+def guess_engine_folder():
+    """Try to guess the engine location by looking at standard locations"""
+    default_path = 'C:/Program Files/Epic Games/'
+
+    if os.path.exists(default_path):
+        folders = os.listdir(default_path)
+
+    raise RuntimeError("Not implemented")
 
 
 def engine_folder():
     """returns the engine folder ``UnrealEngine/Engine``"""
-    return load_conf().get("engine_path")
+    p = load_conf().get("engine_path")
+
+    if p is None:
+        raise ConfigurationError(
+            "Engine path is missing; call `uecli init --engine <...> --projects <...>` first"
+        )
+
+    return p
 
 
 def engine_root():
@@ -291,4 +324,4 @@ def engine_root():
 
 def ready():
     """Returns true if uetools was initialized"""
-    return load_conf().get("project_path") is not None
+    return load_conf().get("engine_path") is not None
