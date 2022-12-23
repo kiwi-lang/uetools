@@ -32,31 +32,33 @@ valid_file = """
 
 @dataclass
 class WindowsPlatformT:
-    pass
+    """Windows Platform"""
 
 
 @dataclass
 class ModuleConfigurationT:
-    pass
+    """Module Configuration"""
 
 
 @dataclass
 class FASTBuildT:
-    pass
+    """FAST Build"""
 
 
 @dataclass
 class TaskExecutorT:
-    pass
+    """TaskExecutor"""
 
 
 @dataclass
 class HybridExecutorT:
-    pass
+    """HybridExecutor"""
 
 
 @dataclass
 class ParallelExecutorT:
+    """ParallelExecutor"""
+
     bStopCompilationAfterErrors: bool = False
     bShowCompilationTimes: bool = False
     bShowPerActionCompilationTimes: bool = True
@@ -69,116 +71,118 @@ class ParallelExecutorT:
 
 @dataclass
 class SNDBST:
-    pass
+    """SNDBS"""
 
 
 @dataclass
 class XGET:
-    pass
+    """XGE"""
 
 
 @dataclass
 class BuildModeT:
-    pass
+    """BuildMode"""
 
 
 @dataclass
 class ProjectFileGeneratorT:
-    pass
+    """ProjectFileGenerator"""
 
 
 @dataclass
 class HoloLensPlatformT:
-    pass
+    """HoloLensPlatform"""
 
 
 @dataclass
 class IOSToolChainT:
-    pass
+    """IOSToolChain"""
 
 
 @dataclass
 class WindowsTargetRulesT:
-    pass
+    """WindowsTargetRules"""
 
 
 @dataclass
 class CLionGeneratorT:
-    pass
+    """CLionGenerator"""
 
 
 @dataclass
 class CMakeFileGeneratorT:
-    pass
+    """CMakeFileGenerator"""
 
 
 @dataclass
 class CodeLiteGeneratorT:
-    pass
+    """CodeLiteGenerator"""
 
 
 @dataclass
 class EddieProjectFileGeneratorT:
-    pass
+    """EddieProjectFileGenerator"""
 
 
 @dataclass
 class KDevelopGeneratorT:
-    pass
+    """KDevelopGenerator"""
 
 
 @dataclass
 class MakefileGeneratorT:
-    pass
+    """MakefileGenerator"""
 
 
 @dataclass
 class QMakefileGeneratorT:
-    pass
+    """QMakefileGenerator"""
 
 
 @dataclass
 class RiderProjectGeneratorT:
-    pass
+    """RiderProjectGenerator"""
 
 
 @dataclass
 class VSCodeProjectFileGeneratorT:
-    pass
+    """VSCodeProjectFileGenerator"""
 
 
 @dataclass
 class VCMakeProjectFileGeneratorT:
-    pass
+    """VCMakeProjectFileGenerator"""
 
 
 @dataclass
 class VCProjetFileGeneratorT:
-    pass
+    """VCProjetFileGenerator"""
 
 
 @dataclass
 class XCodeProjectFileGeneratorT:
-    pass
+    """XCodeProjectFileGenerator"""
 
 
 @dataclass
 class SourceFileWorkingSetT:
-    pass
+    """SourceFileWorkingSet"""
 
 
 @dataclass
 class RemoteMacT:
-    pass
+    """RemoteMac"""
 
 
 @dataclass
 class LogT:
-    pass
+    """Log"""
 
 
 @dataclass
 class Configuration:
+    """Configuration"""
+
     WindowsPlatform: WindowsPlatformT = field(default_factory=WindowsPlatformT)
     ModuleConfiguration: ModuleConfigurationT = field(
         default_factory=ModuleConfigurationT
@@ -272,6 +276,7 @@ COMMANDS = LimitCPU
 
 
 def from_xml(filename: str) -> Configuration:
+    """Parse UBT XML Configuration file"""
     namespaces = {"ue": "https://www.unrealengine.com/BuildConfiguration"}
     ET.register_namespace("", "https://www.unrealengine.com/BuildConfiguration")
     tree = ET.parse(filename)
@@ -280,7 +285,7 @@ def from_xml(filename: str) -> Configuration:
     config = asdict(Configuration())
 
     path = []
-    from_xml(config, path, namespaces, 0)
+    _from_xml(config, path, root, namespaces, 0)
 
     return config
 
@@ -293,7 +298,7 @@ def _from_xml(config, path: list, tree, namespaces, depth):
         ref = getattr(config, k)
 
         if isinstance(v, dict):
-            _from_xml(ref, fullpath, tree, depth + 1)
+            _from_xml(ref, fullpath, tree, namespaces, depth + 1)
 
         else:
             fullpath = "/".join([f"ue:{p}" for p in fullpath])
@@ -302,6 +307,7 @@ def _from_xml(config, path: list, tree, namespaces, depth):
 
 
 def to_xml(config: Configuration) -> str:
+    """Writes a UBT XML configuration file"""
     frags = []
 
     dictconf = asdict(config)
@@ -333,8 +339,11 @@ def _to_xml(dictionary: dict, output: list, depth: int) -> None:
             output.append(f"</{k}>")
 
 
-if __name__ == "__main__":
-
+def check():
+    """check POC"""
     config = Configuration()
-
     print(to_xml(config))
+
+
+if __name__ == "__main__":
+    check()

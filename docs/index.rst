@@ -20,6 +20,8 @@
    commands/tests
    commands/ubt
    commands/vscode
+   commands/ml
+   commands/cpp
 
 .. toctree::
    :caption: Examples

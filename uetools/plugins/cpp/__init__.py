@@ -66,6 +66,8 @@ class CPP(Command):
                 "Cannot add cpp source file to a project that already has sources"
             )
 
+        # Windows does not like when python holds the file with `with``
+        # pylint: disable=consider-using-with
         configfile = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
         json.dump({"default_context": {"project_name": name[0]}}, configfile)
         configfile.flush()
