@@ -47,8 +47,8 @@ setup_kwargs = dict(
             'uecli = uetools.core.cli:main',
         ],
         "UECLICommands": [
-            "command = uetools.plugins.ml:ML",
-            "command = uetools.plugins.cpp:CPP",
+            "ml = uetools.plugins.ml:ML",
+            "cpp = uetools.plugins.cpp:CPP",
         ],
     },
     package_data={
