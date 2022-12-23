@@ -1,9 +1,10 @@
 import os
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass, field
+from copy import deepcopy
+from dataclasses import asdict, dataclass, field
 
 from uetools.core.command import Command, newparser
-from uetools.core.conf import engine_folder, find_project
+from uetools.core.conf import engine_folder
 
 valid_file = """
 <?xml version="1.0" encoding="utf-8" ?>
@@ -30,32 +31,32 @@ valid_file = """
 
 
 @dataclass
-class WindowsPlatform:
+class WindowsPlatformT:
     pass
 
 
 @dataclass
-class ModuleConfiguration:
+class ModuleConfigurationT:
     pass
 
 
 @dataclass
-class FASTBuild:
+class FASTBuildT:
     pass
 
 
 @dataclass
-class TaskExecutor:
+class TaskExecutorT:
     pass
 
 
 @dataclass
-class HybridExecutor:
+class HybridExecutorT:
     pass
 
 
 @dataclass
-class ParallelExecutor:
+class ParallelExecutorT:
     bStopCompilationAfterErrors: bool = False
     bShowCompilationTimes: bool = False
     bShowPerActionCompilationTimes: bool = True
@@ -67,163 +68,163 @@ class ParallelExecutor:
 
 
 @dataclass
-class SNDBS:
+class SNDBST:
     pass
 
 
 @dataclass
-class XGE:
+class XGET:
     pass
 
 
 @dataclass
-class BuildMode:
+class BuildModeT:
     pass
 
 
 @dataclass
-class ProjectFileGenerator:
+class ProjectFileGeneratorT:
     pass
 
 
 @dataclass
-class HoloLensPlatform:
+class HoloLensPlatformT:
     pass
 
 
 @dataclass
-class IOSToolChain:
+class IOSToolChainT:
     pass
 
 
 @dataclass
-class WindowsTargetRules:
+class WindowsTargetRulesT:
     pass
 
 
 @dataclass
-class CLionGenerator:
+class CLionGeneratorT:
     pass
 
 
 @dataclass
-class CMakeFileGenerator:
+class CMakeFileGeneratorT:
     pass
 
 
 @dataclass
-class CodeLiteGenerator:
+class CodeLiteGeneratorT:
     pass
 
 
 @dataclass
-class EddieProjectFileGenerator:
+class EddieProjectFileGeneratorT:
     pass
 
 
 @dataclass
-class KDevelopGenerator:
+class KDevelopGeneratorT:
     pass
 
 
 @dataclass
-class MakefileGenerator:
+class MakefileGeneratorT:
     pass
 
 
 @dataclass
-class QMakefileGenerator:
+class QMakefileGeneratorT:
     pass
 
 
 @dataclass
-class RiderProjectGenerator:
+class RiderProjectGeneratorT:
     pass
 
 
 @dataclass
-class VSCodeProjectFileGenerator:
+class VSCodeProjectFileGeneratorT:
     pass
 
 
 @dataclass
-class VCMakeProjectFileGenerator:
+class VCMakeProjectFileGeneratorT:
     pass
 
 
 @dataclass
-class VCProjetFileGenerator:
+class VCProjetFileGeneratorT:
     pass
 
 
 @dataclass
-class XCodeProjectFileGenerator:
+class XCodeProjectFileGeneratorT:
     pass
 
 
 @dataclass
-class SourceFileWorkingSet:
+class SourceFileWorkingSetT:
     pass
 
 
 @dataclass
-class RemoteMac:
+class RemoteMacT:
     pass
 
 
 @dataclass
-class Log:
+class LogT:
     pass
 
 
 @dataclass
 class Configuration:
-    WindowsPlatform: WindowsPlatform = field(default_factory=WindowsPlatform)
-    ModuleConfiguration: ModuleConfiguration = field(
-        default_factory=ModuleConfiguration
+    WindowsPlatform: WindowsPlatformT = field(default_factory=WindowsPlatformT)
+    ModuleConfiguration: ModuleConfigurationT = field(
+        default_factory=ModuleConfigurationT
     )
-    FASTBuild: FASTBuild = field(default_factory=FASTBuild)
-    TaskExecutor: TaskExecutor = field(default_factory=TaskExecutor)
-    HybridExecutor: HybridExecutor = field(default_factory=HybridExecutor)
-    ParallelExecutor: ParallelExecutor = field(default_factory=ParallelExecutor)
-    SNDBS: SNDBS = field(default_factory=SNDBS)
-    XGE: XGE = field(default_factory=XGE)
-    BuildMode: BuildMode = field(default_factory=BuildMode)
-    ProjectFileGenerator: ProjectFileGenerator = field(
-        default_factory=ProjectFileGenerator
+    FASTBuild: FASTBuildT = field(default_factory=FASTBuildT)
+    TaskExecutor: TaskExecutorT = field(default_factory=TaskExecutorT)
+    HybridExecutor: HybridExecutorT = field(default_factory=HybridExecutorT)
+    ParallelExecutor: ParallelExecutorT = field(default_factory=ParallelExecutorT)
+    SNDBS: SNDBST = field(default_factory=SNDBST)
+    XGE: XGET = field(default_factory=XGET)
+    BuildMode: BuildModeT = field(default_factory=BuildModeT)
+    ProjectFileGenerator: ProjectFileGeneratorT = field(
+        default_factory=ProjectFileGeneratorT
     )
-    HoloLensPlatform: HoloLensPlatform = field(default_factory=HoloLensPlatform)
-    IOSToolChain: IOSToolChain = field(default_factory=IOSToolChain)
-    WindowsTargetRules: WindowsTargetRules = field(default_factory=WindowsTargetRules)
-    CLionGenerator: CLionGenerator = field(default_factory=CLionGenerator)
-    CMakeFileGenerator: CMakeFileGenerator = field(default_factory=CMakeFileGenerator)
-    CodeLiteGenerator: CodeLiteGenerator = field(default_factory=CodeLiteGenerator)
-    EddieProjectFileGenerator: EddieProjectFileGenerator = field(
-        default_factory=EddieProjectFileGenerator
+    HoloLensPlatform: HoloLensPlatformT = field(default_factory=HoloLensPlatformT)
+    IOSToolChain: IOSToolChainT = field(default_factory=IOSToolChainT)
+    WindowsTargetRules: WindowsTargetRulesT = field(default_factory=WindowsTargetRulesT)
+    CLionGenerator: CLionGeneratorT = field(default_factory=CLionGeneratorT)
+    CMakeFileGenerator: CMakeFileGeneratorT = field(default_factory=CMakeFileGeneratorT)
+    CodeLiteGenerator: CodeLiteGeneratorT = field(default_factory=CodeLiteGeneratorT)
+    EddieProjectFileGenerator: EddieProjectFileGeneratorT = field(
+        default_factory=EddieProjectFileGeneratorT
     )
-    KDevelopGenerator: KDevelopGenerator = field(default_factory=KDevelopGenerator)
-    MakefileGenerator: MakefileGenerator = field(default_factory=MakefileGenerator)
-    QMakefileGenerator: QMakefileGenerator = field(default_factory=QMakefileGenerator)
-    RiderProjectGenerator: RiderProjectGenerator = field(
-        default_factory=RiderProjectGenerator
+    KDevelopGenerator: KDevelopGeneratorT = field(default_factory=KDevelopGeneratorT)
+    MakefileGenerator: MakefileGeneratorT = field(default_factory=MakefileGeneratorT)
+    QMakefileGenerator: QMakefileGeneratorT = field(default_factory=QMakefileGeneratorT)
+    RiderProjectGenerator: RiderProjectGeneratorT = field(
+        default_factory=RiderProjectGeneratorT
     )
-    VSCodeProjectFileGenerator: VSCodeProjectFileGenerator = field(
-        default_factory=VSCodeProjectFileGenerator
+    VSCodeProjectFileGenerator: VSCodeProjectFileGeneratorT = field(
+        default_factory=VSCodeProjectFileGeneratorT
     )
-    VCMakeProjectFileGenerator: VCMakeProjectFileGenerator = field(
-        default_factory=VCMakeProjectFileGenerator
+    VCMakeProjectFileGenerator: VCMakeProjectFileGeneratorT = field(
+        default_factory=VCMakeProjectFileGeneratorT
     )
-    VCProjetFileGenerator: VCProjetFileGenerator = field(
-        default_factory=VCProjetFileGenerator
+    VCProjetFileGenerator: VCProjetFileGeneratorT = field(
+        default_factory=VCProjetFileGeneratorT
     )
-    XCodeProjectFileGenerator: XCodeProjectFileGenerator = field(
-        default_factory=XCodeProjectFileGenerator
+    XCodeProjectFileGenerator: XCodeProjectFileGeneratorT = field(
+        default_factory=XCodeProjectFileGeneratorT
     )
-    SourceFileWorkingSet: SourceFileWorkingSet = field(
-        default_factory=SourceFileWorkingSet
+    SourceFileWorkingSet: SourceFileWorkingSetT = field(
+        default_factory=SourceFileWorkingSetT
     )
-    RemoteMac: RemoteMac = field(default_factory=RemoteMac)
-    Log: Log = field(default_factory=Log)
+    RemoteMac: RemoteMacT = field(default_factory=RemoteMacT)
+    Log: LogT = field(default_factory=LogT)
 
 
 class LimitCPU(Command):
@@ -268,3 +269,72 @@ class LimitCPU(Command):
 
 
 COMMANDS = LimitCPU
+
+
+def from_xml(filename: str) -> Configuration:
+    namespaces = {"ue": "https://www.unrealengine.com/BuildConfiguration"}
+    ET.register_namespace("", "https://www.unrealengine.com/BuildConfiguration")
+    tree = ET.parse(filename)
+
+    root = tree.getroot()
+    config = asdict(Configuration())
+
+    path = []
+    from_xml(config, path, namespaces, 0)
+
+    return config
+
+
+def _from_xml(config, path: list, tree, namespaces, depth):
+    configdict = asdict(config)
+
+    for k, v in configdict.items():
+        fullpath = deepcopy(path) + [k]
+        ref = getattr(config, k)
+
+        if isinstance(v, dict):
+            _from_xml(ref, fullpath, tree, depth + 1)
+
+        else:
+            fullpath = "/".join([f"ue:{p}" for p in fullpath])
+            node = tree.find(fullpath, namespaces)
+            setattr(config, k, node.text)
+
+
+def to_xml(config: Configuration) -> str:
+    frags = []
+
+    dictconf = asdict(config)
+
+    frags.append('<?xml version="1.0" encoding="utf-8" ?>\n')
+    frags.append(
+        '<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">'
+    )
+    _to_xml(dictconf, frags, 1)
+    frags.append("</Configuration>")
+
+    return "".join(frags)
+
+
+def _to_xml(dictionary: dict, output: list, depth: int) -> None:
+    idt = "  " * depth
+
+    for k, v in dictionary.items():
+        if not v:
+            continue
+
+        if isinstance(v, dict):
+            output.append(f"\n{idt}<{k}>")
+            _to_xml(v, output, depth + 1)
+            output.append(f"\n{idt}</{k}>\n")
+        else:
+            output.append(f"\n{idt}<{k}>")
+            output.append(f"{v}")
+            output.append(f"</{k}>")
+
+
+if __name__ == "__main__":
+
+    config = Configuration()
+
+    print(to_xml(config))
