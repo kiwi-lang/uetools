@@ -101,7 +101,7 @@ class PackagePlugin(Command):
             plugin_path = plugin
 
         if not os.path.exists(plugin_path):
-            raise RuntimeError("Could not find {plugin_path}")
+            raise RuntimeError(f"Could not find {plugin_path}")
 
         plugin_path = os.path.abspath(plugin_path)
 

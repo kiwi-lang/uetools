@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import platform
+import re
 
 from appdirs import user_config_dir
 
@@ -279,7 +280,7 @@ def find_project(name):
 
 
 class ConfigurationError(Exception):
-    pass
+    """Raised when uetools has not been configured yet"""
 
 
 def project_folder():
@@ -292,15 +293,43 @@ def project_folder():
         )
         return engine_root()
 
-    return project_folder()
+    return p
+
+
+PRECOMPILED_UE_VERSION = re.compile(r"UE_(?P<Major>[0-9]*)\.(?P<Minor>\d{1,})")
+
+
+def find_engine(installfolder):
+    """Look for the precompiled UE version people install from the Launcher"""
+    if not os.path.exists(installfolder):
+        print("Could not find UnrealEngine installation path")
+        return None
+
+    folders = os.listdir(installfolder)
+    found = []
+    for folder in folders:
+        if PRECOMPILED_UE_VERSION.match(folder):
+            found.append(folder)
+
+    if found:
+        print("Found UnrealEngine installation...")
+
+        for folder in found:
+            print(" - ", installfolder + folder)
+
+        return [os.path.join(installfolder, folder) for folder in found]
+
+    print("Found installation path {installfolder} but no Engine was found")
+    return []
 
 
 def guess_engine_folder():
     """Try to guess the engine location by looking at standard locations"""
-    default_path = 'C:/Program Files/Epic Games/'
+    default_paths = ["C:/Program Files/Epic Games/"]
 
-    if os.path.exists(default_path):
-        folders = os.listdir(default_path)
+    engines = []
+    for path in default_paths:
+        engines.extend(find_engine(path))
 
     raise RuntimeError("Not implemented")
 

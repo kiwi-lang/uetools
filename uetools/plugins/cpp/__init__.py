@@ -7,9 +7,8 @@ from dataclasses import dataclass
 import pkg_resources
 from cookiecutter.main import cookiecutter
 
-from uetools.core.command import Command, command_builder, newparser
-from uetools.core.conf import editor, find_project
-from uetools.core.run import popen_with_format
+from uetools.core.command import Command, newparser
+from uetools.core.conf import find_project
 from uetools.format.base import Formatter
 
 
