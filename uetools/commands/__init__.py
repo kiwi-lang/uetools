@@ -48,7 +48,7 @@ def discover_plugins(module):
 
     for _, name, _ in pkgutil.iter_modules(path, name + "."):
         plugins[name] = importlib.import_module(name)
-        print(f" - Found plugin: {name}")
+        print(f" - Found plugin: `{name}`")
 
     return plugins
 
@@ -77,6 +77,9 @@ class CommandRegistry:
             cmds = [cmds]
 
         for cmd in cmds:
+            if cmd.name != cmd.name.strip():
+                print(f'Warning: {cmd.name} has white space before or after the name')
+
             assert (
                 cmd.name not in self.found_commands
             ), f"Duplicate command name: {cmd.name}"
