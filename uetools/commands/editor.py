@@ -261,9 +261,10 @@ class Editor(Command):
         parser = newparser(subparsers, Editor)
 
         parser.add_argument(
-            "project",
+            "--project",
             type=str,
             metavar="project",
+            default=None,
             help="Project name, example: <project>.uproject",
         )
         parser.add_argument(

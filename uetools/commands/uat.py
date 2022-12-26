@@ -172,9 +172,6 @@ class BuildCookRunArgs:
     deploy                  : bool = False # deploy the project for the target platform
     getfile                 : bool = False # download file from target after successful run
     IgnoreLightMapErrors    : bool = False # Whether Light Map errors should be treated as critical
-    stagingdirectory        : Optional[str]     = None # Directory to copy the builds to, i.e. -stagingdirectory=C:/Stage
-    unrealexe               : Optional[str]     = None # Name of the Unreal Editor executable, i.e. -unrealexe=UnrealEditor.exe
-    archivedirectory        : Optional[str]     = None # Directory to archive the builds to, i.e. -archivedirectory=C:/Archive
     archivemetadata         : bool = False # Archive extra metadata files in addition to the build (e.g. build.properties)
     createappbundle         : bool = False # When archiving for Mac, set this to true to package it in a .app bundle instead of normal loose files
     iterativecooking        : bool = False # Uses the iterative cooking, command line: -iterativecooking or -iterate
@@ -182,35 +179,39 @@ class BuildCookRunArgs:
     CookAll                 : bool = False # Cook all the things in the content directory for this project
     SkipCookingEditorContent: bool = False # Skips content under /Engine/Editor when cooking
     FastCook                : bool = False # Uses fast cook path if supported by target
-    cmdline                 : Optional[str]     = None # command line to put into the stage in UECSCommandLine.txt
-    bundlename              : Optional[str]     = None # string to use as the bundle name when deploying to mobile device
-    map                     : Optional[str]     = None # map to run the game with
-    AdditionalServerMapParams: Optional[str]    = None # Additional server map params, i.e ?param=value
     device                  : bool = False # Devices to run the game on
     serverdevice            : bool = False # Device to run the server on
     skipserver              : bool = False # Skip starting the server
-    numclients              : Optional[int]     = None # Start extra clients, n should be 2 or more
-    addcmdline              : Optional[str]     = None # Additional command line arguments for the program
-    servercmdline           : Optional[str]     = None # Additional command line arguments for the program
-    clientcmdline           : Optional[str]     = None # Override command line arguments to pass to the client
     nullrhi                 : bool = False # add -nullrhi to the client commandlines
     fakeclient              : bool = False # adds ?fake to the server URL
     editortest              : bool = False # rather than running a client, run the editor instead
     RunAutomationTests      : bool = False # when running -editortest or a client, run all automation tests, not compatible with -server
-    Crash                   : Optional[int]     = None # when running -editortest or a client, adds commands like debug crash, debug rendercrash, etc based on index
-    deviceuser              : Optional[str]     = None # Linux username for unattended key genereation
-    devicepass              : Optional[str]     = None # Linux password
-    RunTimeoutSeconds       : Optional[float]   = None # timeout to wait after we lunch the game
-    SpecifiedArchitecture   : Optional[str]     = None # Determine a specific Minimum OS
-    UbtArgs                 : Optional[str]     = None # extra options to pass to ubt
-    MapsToRebuildLightMaps  : Optional[str]     = None # List of maps that need light maps rebuilding
-    MapsToRebuildHLODMaps   : Optional[str]     = None # List of maps that need HLOD rebuilding
     ForceMonolithic         : bool = False # Toggle to combined the result into one executable
     ForceDebugInfo          : bool = False # Forces debug info even in development builds
     ForceNonUnity           : bool = False # Toggle to disable the unity build system
     ForceUnity              : bool = False # Toggle to force enable the unity build system
     Licensee                : bool = False # If set, this build is being compiled by a licensee
     NoSign                  : bool = False # Skips signing of code/content files.
+    stagingdirectory        : Optional[str]     = None # Directory to copy the builds to, i.e. -stagingdirectory=C:/Stage
+    unrealexe               : Optional[str]     = None # Name of the Unreal Editor executable, i.e. -unrealexe=UnrealEditor.exe
+    archivedirectory        : Optional[str]     = None # Directory to archive the builds to, i.e. -archivedirectory=C:/Archive
+    cmdline                 : Optional[str]     = None  # command line to put into the stage in UECSCommandLine.txt
+    bundlename              : Optional[str]     = None  # string to use as the bundle name when deploying to mobile device
+    map                     : Optional[str]     = None  # map to run the game with
+    AdditionalServerMapParams: Optional[str]    = None  # Additional server map params, i.e ?param=value
+    numclients              : Optional[int]     = None  # Start extra clients, n should be 2 or more
+    addcmdline              : Optional[str]     = None  # Additional command line arguments for the program
+    servercmdline           : Optional[str]     = None  # Additional command line arguments for the program
+    clientcmdline           : Optional[str]     = None  # Override command line arguments to pass to the client
+    Crash                   : Optional[int]     = None  # when running -editortest or a client, adds commands like debug crash, debug rendercrash, etc based on index
+    deviceuser              : Optional[str]     = None  # Linux username for unattended key genereation
+    devicepass              : Optional[str]     = None  # Linux password
+    RunTimeoutSeconds       : Optional[float]   = None  # timeout to wait after we lunch the game
+    SpecifiedArchitecture   : Optional[str]     = None  # Determine a specific Minimum OS
+    UbtArgs                 : Optional[str]     = None  # extra options to pass to ubt
+    MapsToRebuildLightMaps  : Optional[str]     = None  # List of maps that need light maps rebuilding
+    MapsToRebuildHLODMaps   : Optional[str]     = None  # List of maps that need HLOD rebuilding
+
 
 @dataclass
 class BuildEditorArgs:
