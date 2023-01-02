@@ -1,4 +1,3 @@
-
 import os
 import re
 import subprocess
@@ -9,9 +8,9 @@ from uetools.core.command import Command, newparser
 class GitVersion(Command):
     """Update a file with git version info
 
-    Replaces ``{%<NAMESPACE>_TAG%}``, ``{%<NAMESPACE>_HASH%}``, ``{%<NAMESPACE>_DATE%}`` inside a given file
+    Replaces ``{%%<NAMESPACE>_TAG%%}``, ``{%%<NAMESPACE>_HASH%%}``, ``{%%<NAMESPACE>_DATE%%}`` inside a given file
     with the latest values
-    
+
     Example
     -------
 
@@ -33,30 +32,34 @@ class GitVersion(Command):
         directory = os.path.dirname(args.file)
 
         def execcmd(cmd, cwd):
-            return subprocess.check_output(cmd.split(' '), cwd=cwd).decode('utf-8').strip()
-        
+            return (
+                subprocess.check_output(cmd.split(" "), cwd=cwd).decode("utf-8").strip()
+            )
+
         commit = execcmd("git --no-optional-locks rev-parse HEAD", directory)
         tag = execcmd("git --no-optional-locks describe --tags --abbrev=0", directory)
-        date = execcmd("git --no-optional-locks show -s --format=%ci " + commit, directory)
+        date = execcmd(
+            "git --no-optional-locks show -s --format=%ci " + commit, directory
+        )
 
         replacements = [
-            (f'{args.namespace}_TAG', tag),
-            (f'{args.namespace}_HASH', commit),
-            (f'{args.namespace}_DATE', date),
+            (f"{args.namespace}_TAG", tag),
+            (f"{args.namespace}_HASH", commit),
+            (f"{args.namespace}_DATE", date),
         ]
 
-        with open(args.file, 'r', encoding='utf-8') as original_file:
+        with open(args.file, encoding="utf-8") as original_file:
             data = original_file.read()
 
         for k, v in replacements:
-            pattern = 'string ' + k + ' = ".*";'
-            replacement = f"string {k} = \"{v}\";";
+            pattern = "string " + k + ' = ".*";'
+            replacement = f'string {k} = "{v}";'
             data = re.sub(pattern, replacement, data)
 
-        with open(args.file + '.new', 'w', encoding='utf-8') as new_file:
+        with open(args.file + ".new", "w", encoding="utf-8") as new_file:
             new_file.write(data)
 
-        os.replace(args.file + '.new', args.file)
+        os.replace(args.file + ".new", args.file)
 
         return 0
 

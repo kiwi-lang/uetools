@@ -51,7 +51,7 @@ class VSCode(Command):
         conf = os.path.join(folder, "Config")
         default_engine = os.path.join(conf, "DefaultEngine.ini")
 
-        with open(default_engine, "r", encoding="utf-8") as file:
+        with open(default_engine, encoding="utf-8") as file:
             config = UnrealINIParser(file)
 
         python_section = "/Script/PythonScriptPlugin.PythonScriptPluginUserSettings"
@@ -89,7 +89,7 @@ class VSCode(Command):
                 print("Nothing to do")
                 return
 
-        with open(vscode_settings, "r", encoding="utf-8") as file:
+        with open(vscode_settings, encoding="utf-8") as file:
             vssetting = json.load(file)
 
         autocomplete_key = "python.autocomplete.extraPaths"

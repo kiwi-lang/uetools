@@ -78,7 +78,7 @@ class CommandRegistry:
 
         for cmd in cmds:
             if cmd.name != cmd.name.strip():
-                print(f'Warning: {cmd.name} has white space before or after the name')
+                print(f"Warning: {cmd.name} has white space before or after the name")
 
             assert (
                 cmd.name not in self.found_commands

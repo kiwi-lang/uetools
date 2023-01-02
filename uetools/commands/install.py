@@ -116,7 +116,7 @@ class Install(Command):
         if args.enable:
             project = find_project(args.name)
 
-            with open(project, "r", encoding="utf-8") as project_file:
+            with open(project, encoding="utf-8") as project_file:
                 project_conf = json.load(project_file)
 
             plugins = project_conf.get("Plugins", [])

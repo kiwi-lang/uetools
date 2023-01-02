@@ -47,7 +47,7 @@ class Disable(Command):
         name = args.name
         uproject = find_project(args.name)
 
-        with open(uproject, "r", encoding="utf-8") as project_file:
+        with open(uproject, encoding="utf-8") as project_file:
             project_conf = json.load(project_file)
 
         plugins = project_conf.get("Plugins")

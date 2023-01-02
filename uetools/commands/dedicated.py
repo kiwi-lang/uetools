@@ -70,7 +70,7 @@ class Dedicated(Command):
             __name__, "../templates/TemplateServer.Target"
         )
 
-        with open(template, "r", encoding="utf-8") as template_file:
+        with open(template, encoding="utf-8") as template_file:
             template = template_file.read()
 
         template = template.replace("{ProjectName}", project)

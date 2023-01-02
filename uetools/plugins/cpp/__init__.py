@@ -20,7 +20,7 @@ class Arguments:
     Attributes
     ----------
     project: str
-        Name of the proejct
+        Name of the project
 
     Examples
     --------

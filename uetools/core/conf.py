@@ -67,7 +67,7 @@ def load_conf():
     if not os.path.exists(config):
         return {}
 
-    with open(config, "r", encoding="utf-8") as conffile:
+    with open(config, encoding="utf-8") as conffile:
         conf = json.load(conffile)
 
     LATEST_CONF = conf

@@ -5,7 +5,6 @@ from argparse import Namespace
 from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict, is_dataclass
-from typing import Dict, List
 
 
 def newparser(subparsers, commandcls: Command):
@@ -45,7 +44,7 @@ class Command:
         raise NotImplementedError()
 
 
-def command_builder(args: Dict | Namespace, ignore=None) -> List[str]:
+def command_builder(args: dict | Namespace, ignore=None) -> list[str]:
     """Convert a namespace of arguments into a list of command line arguments for unreal engine.
     Supports dataclasses (even nested) and custom command generation through the ``to_ue_cmd`` method.
 

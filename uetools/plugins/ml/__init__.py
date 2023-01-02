@@ -9,7 +9,7 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    """Lauch a game setup for machine learning
+    """Launch a game setup for machine learning
 
     Attributes
     ----------
@@ -44,7 +44,7 @@ class Arguments:
 
 
 class ML(Command):
-    """Lauch a game setup for machine learning"""
+    """Launch a game setup for machine learning"""
 
     name: str = "ml"
 
@@ -69,7 +69,7 @@ class ML(Command):
         if project is not None:
             cmd = [editor(), project, args.map]
 
-        # Assue the project is a path to the compiled project
+        # Assume the project is a path to the compiled project
         else:
             cmd = [args.project, args.map]
 

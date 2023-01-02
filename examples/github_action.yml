@@ -13,7 +13,7 @@ jobs:
         password: ${{ secrets.CONTAINER_REGISTRY_PAT }}
 
       # Github expects us to be root, not ue4
-      # ue4 wont be able to write anything anywhere
+      # ue4 won't be able to write anything anywhere
       # NB: Cooking refuse to work as root
       options: "-u root"
 

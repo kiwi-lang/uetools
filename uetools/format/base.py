@@ -66,7 +66,7 @@ def colored(text, color, attrs=None):
     return COLORAMA[color.lower()] + text + Style.RESET_ALL
 
 
-# The loggging format is specfiied in the follorwing function calls
+# The logging format is specified in the follorwing function calls
 # Logf_InternalImpl(File, Line, Category, Verbosity, Fmt, Args...);
 # FPlatformMisc::LowLevelOutputDebugStringf(TEXT("%s%s"),*FOutputDeviceHelper::FormatLogLine(Verbosity, Category, Data, GPrintLogTimes, Time),LINE_TERMINATOR);
 

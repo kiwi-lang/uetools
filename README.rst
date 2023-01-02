@@ -25,7 +25,8 @@ Unreal Engine Tools
 
 
 
-``uetools`` implements a set of tools to make it easier to work with Unreal Engine projects and automate common tasks.
+``uetools`` implements a set of tools to make it easier to work
+with Unreal Engine projects and automate common tasks.
 
 Get Started
 -----------
@@ -76,15 +77,15 @@ It also implements common recipes such as
 * Disable plugins
 * Add dedicated server targets
 * Automatically configure project settings for Python
-* Works on both Linux & Windows seemlessly
+* Works on both Linux & Windows seamlessly
 * Add Doxygen to your project
 
 
 Rational
 --------
 
-Unreal engine has 222 comandlets, 83 commands and more than 1237 command line parameters hidden inside its code,
-very few are documented.
+Unreal engine has 222 comandlets, 83 commands and more than
+1237 command line parameters hidden inside its code, very few are documented.
 
-``uetools`` identifies the useful arguments and bundle them inside a command line utility, forming groups/set of arguments
-with a singular purpose.
+``uetools`` identifies the useful arguments and bundle them inside a command line utility,
+forming groups/set of arguments with a singular purpose.

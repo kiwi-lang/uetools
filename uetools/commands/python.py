@@ -41,7 +41,7 @@ class Python(Command):
         conf = os.path.join(folder, "Config")
         default_engine = os.path.join(conf, "DefaultEngine.ini")
 
-        with open(default_engine, "r", encoding="utf-8") as file:
+        with open(default_engine, encoding="utf-8") as file:
             config = UnrealINIParser(file)
 
         python_section = "/Script/PythonScriptPlugin.PythonScriptPluginUserSettings"

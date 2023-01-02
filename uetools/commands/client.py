@@ -38,7 +38,7 @@ class Arguments:
 
 
 class Client(Command):
-    """Launch the editor as a client to an alredy running server"""
+    """Launch the editor as a client to an already running server"""
 
     name: str = "client"
 

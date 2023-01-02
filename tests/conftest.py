@@ -1,7 +1,6 @@
 import os
 import shutil
 import subprocess
-from tabnanny import check
 
 import pytest
 

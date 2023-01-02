@@ -24,7 +24,7 @@ class Arguments:
     Attributes
     ----------
     profile: str
-        Formating profile to use (None, cooking, tests)
+        Formatting profile to use (None, cooking, tests)
 
     file: str
         File to format, if none it will use stdin
@@ -82,7 +82,7 @@ class Format(Command):
         fmt = profiles.get(args.profile, Formatter)(args.col)
 
         if args.file is not None:
-            with open(args.file, "r", encoding="utf-8") as file:
+            with open(args.file, encoding="utf-8") as file:
                 for line in file:
                     fmt.match_regex(line)
 

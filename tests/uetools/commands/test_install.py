@@ -12,7 +12,7 @@ skipif = pytest.mark.skipif
 def get_project_conf(name):
     project = find_project(name)
 
-    with open(project, "r", encoding="utf-8") as project_file:
+    with open(project, encoding="utf-8") as project_file:
         project_conf = json.load(project_file)
 
     return project_conf

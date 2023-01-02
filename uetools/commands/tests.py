@@ -89,7 +89,7 @@ class RunTests(Command):
             f'-ReportExportPath="{folder}/Saved/Automation/Report"',
             "-allmaps",
             "-WarningsAsErrors",
-            # This will make UE quit sucessfully (i.e no error code)
+            # This will make UE quit successfully (i.e no error code)
             "-TestExit=Automation Test Queue Empty",
             # Quit will force the engine to quit with a error code
             # if a test failed

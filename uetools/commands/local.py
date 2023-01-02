@@ -65,18 +65,18 @@ class ArgumentEditor:
        uecli local --project RTSGame --run GatherText --target RTSGame
 
     """
-    project                 : str # Project we are generating localization for
+    project                 : str  # Project we are generating localization for
     run                     : str = choice(["GatherText"], default='GatherText')
-    target                  : Optional[str] = None # Localization target (defaults to the project name)
-    SCCProvider             : Optional[str] = None # Source control provider
-    EnableSCC               : bool = False # enable source control
-    DisableSCCSubmit        : bool = True # Disable submitting to source control
-    Unattended              : bool = True # Don't ask for user input
-    NoShaderCompile         : bool = True # Prevent shader compilation
-    multiprocess            : bool = True # Use multiple threads to gather text
-    ReportStaleGatherCache  : bool = False # Generates a StaleGatherCacheReport.txt file alongside the manifest for your localization target. This file contains a list of any Assets that contain a stale gather cache.
-    FixStaleGatherCache     : bool = False # Attempts to automatically fix any Assets that contain a stale gather cache, by re-saving them.
-    FixMissingGatherCache   : bool = False # For Assets too old to have a gather cache, this attempts to automatically fix Assets that are missing a gather cache by re-saving them.
+    target                  : Optional[str] = None  # Localization target (defaults to the project name)
+    SCCProvider             : Optional[str] = None  # Source control provider
+    EnableSCC               : bool = False  # enable source control
+    DisableSCCSubmit        : bool = True   # Disable submitting to source control
+    Unattended              : bool = True   # Don't ask for user input
+    NoShaderCompile         : bool = True   # Prevent shader compilation
+    multiprocess            : bool = True   # Use multiple threads to gather text
+    ReportStaleGatherCache  : bool = False  # Generates a StaleGatherCacheReport.txt file alongside the manifest for your localization target. This file contains a list of any Assets that contain a stale gather cache.
+    FixStaleGatherCache     : bool = False  # Attempts to automatically fix any Assets that contain a stale gather cache, by re-saving them.
+    FixMissingGatherCache   : bool = False  # For Assets too old to have a gather cache, this attempts to automatically fix Assets that are missing a gather cache by re-saving them.
 # fmt: on
 
 
@@ -110,7 +110,7 @@ class LocalEditor(Command):
             __name__, "../templates/Localization/TargetName.ini"
         )
 
-        with open(template, "r", encoding="utf-8") as template:
+        with open(template, encoding="utf-8") as template:
             template = template.read()
 
         template = template.replace("{TargetName}", name)
@@ -200,19 +200,19 @@ class UATArguments:
 
     """
 
-    project                         : str                   # Project name
-    UEProjectRoot                   : Optional[str] = None  # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
-    UEProjectDirectory              : str           = ''    # Sub-path to the project we're gathering for (relative to UEProjectRoot).
-    UEProjectName                   : Optional[str] = None  # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
-    LocalizationProjectNames        : Optional[str] = None  # Comma separated list of the projects to gather text from.
-    LocalizationBranch              : Optional[str] = None  # Optional suffix to use when uploading the new data to the localization provider.
-    LocalizationProvider            : Optional[str] = None  # Optional localization provide override."
-    LocalizationSteps               : Optional[str] = None  # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
-    IncludePlugins                  : bool          = False # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
-    ExcludePlugins                  : Optional[str] = None  # Optional comma separated list of plugins to exclude from the gather.
-    IncludePlatforms                : bool          = False # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
-    AdditionalCSCommandletArguments : Optional[str] = None  # Optional arguments to pass to the gather process.
-    ParallelGather                  : bool          = False # Run the gather processes for a single batch in parallel rather than sequence.
+    project                         : str                    # Project name
+    UEProjectRoot                   : Optional[str] = None   # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
+    UEProjectDirectory              : str           = ''     # Sub-path to the project we're gathering for (relative to UEProjectRoot).
+    UEProjectName                   : Optional[str] = None   # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
+    LocalizationProjectNames        : Optional[str] = None   # Comma separated list of the projects to gather text from.
+    LocalizationBranch              : Optional[str] = None   # Optional suffix to use when uploading the new data to the localization provider.
+    LocalizationProvider            : Optional[str] = None   # Optional localization provide override."
+    LocalizationSteps               : Optional[str] = None   # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
+    IncludePlugins                  : bool          = False  # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
+    ExcludePlugins                  : Optional[str] = None   # Optional comma separated list of plugins to exclude from the gather.
+    IncludePlatforms                : bool          = False  # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
+    AdditionalCSCommandletArguments : Optional[str] = None   # Optional arguments to pass to the gather process.
+    ParallelGather                  : bool          = False  # Run the gather processes for a single batch in parallel rather than sequence.
     OneSkyProjectGroupName          : Optional[str] = None
 # fmt: on
 
