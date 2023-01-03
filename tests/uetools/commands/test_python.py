@@ -11,13 +11,13 @@ skipif = pytest.mark.skipif
 diff = (
     """
 diff --git a/Config/DefaultEngine.ini b/Config/DefaultEngine.ini
-index 3bff2ee..56793b8 100644
+index 2556b01..35344b6 100644
 --- a/Config/DefaultEngine.ini
 +++ b/Config/DefaultEngine.ini
-@@ -46,3 +46,8 @@ ConnectionType=USBOnly
+@@ -45,3 +45,8 @@ bReportStats=False
+ ConnectionType=USBOnly
  bUseManualIPAddress=False
- ManualIPAddress=
- """
+ ManualIPAddress="""
     + """
 +[/Script/PythonScriptPlugin.PythonScriptPluginUserSettings]
 +bDeveloperMode=True

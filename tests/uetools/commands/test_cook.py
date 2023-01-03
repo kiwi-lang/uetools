@@ -7,10 +7,11 @@ skipif = pytest.mark.skipif
 
 
 @skipif(not ready(), reason="Unreal engine is not installed")
-def test_uat_cook(project, project_name):
-
+def test_editor_cook(project, project_name):
     main(args("cook", "--project", project_name, "--build", "Development"))
 
-    main(args("uat-cook", "--build", "--project", project_name))
 
-    # TODO check what files the cooking should generate
+@skipif(not ready(), reason="Unreal engine is not installed")
+def test_uat_cook(project, project_name):
+
+    main(args("uat-cook", "--build", "--project", project_name))

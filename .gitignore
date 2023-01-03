@@ -25,3 +25,4 @@ build/
 .tox/
 build/
 dist/
+out.txt

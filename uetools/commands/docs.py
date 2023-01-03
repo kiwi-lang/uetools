@@ -50,7 +50,12 @@ class Docs(Command):
         folder = os.path.dirname(uproject)
 
         os.chdir(folder)
-        cookiecutter(COOKIECUTTER, no_input=args.no_input, config_file=args.config)
+        cookiecutter(
+            COOKIECUTTER,
+            no_input=args.no_input,
+            config_file=args.config,
+            overwrite_if_exists=True,
+        )
 
         return 0
 
