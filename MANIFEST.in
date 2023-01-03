@@ -3,10 +3,12 @@ global-exclude __pycache__
 recursive-include uetools/* *.yaml
 recursive-include uetools *.Target
 recursive-include uetools *.ini
+graft uetools/templates
 
 exclude tox.ini
 exclude Makefile
 exclude .pylintrc
+exclude  .pre-commit-config.yaml
 
 prune docs
 prune tests
