@@ -131,6 +131,27 @@ def uat():
     return os.path.join(engine, "Build", "BatchFiles", bash("RunUAT"))
 
 
+def uat_exec():
+    """Returns the compiled automation tool"""
+    engine = engine_folder()
+
+    uat_directory = os.path.join(engine, "Binaries", "DotNet", "AutomationTool")
+    uat_exec = "AutomationTool.dll"
+
+    if WINDOWS:
+        return os.path.join(uat_directory, uat_exec)
+
+    raise NotImplementedError()
+
+
+def dotnet():
+    """Return the dotnet executable to run c# programs"""
+    if WINDOWS:
+        return "dotnet"
+
+    raise NotImplementedError()
+
+
 def editor():
     """Returns the path to the editor executable"""
     engine = engine_folder()

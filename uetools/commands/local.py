@@ -240,7 +240,7 @@ class LocalUAT(Command):
         args = asdict(args.local)
 
         uat_args = command_builder(args)
-        cmd = [uat()] + ["Localize"] + uat_args
+        cmd = [uat()] + ["Localize"] + uat_args + ["-nocompileuat"]
 
         print(" ".join(cmd))
 

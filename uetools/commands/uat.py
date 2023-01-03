@@ -305,7 +305,7 @@ class UAT(Command):
                 args.localize.UEProjectName = project_name
 
         args = command_builder(args)
-        cmd = [uat()] + [uat_cmd] + args
+        cmd = [uat()] + [uat_cmd] + args + ["-nocompileuat"]
 
         print(" ".join(cmd))
         return run(
@@ -350,7 +350,7 @@ def execute_uat_test(args):
         "RunEditorTests",
         f"-project={project}",
         f"-testname={test}",
-    ]
+    ] + ["-nocompileuat"]
 
     # ERROR: Unable to find type uetools in assemblies. Namespaces= System.Linq.Enumerable+SelectArrayIterator`2[System.String,System.String].
     #  (see E:\\UnrealEngine\\Engine\\Programs\\AutomationTool\\Saved\\Logs\\Log.txt for full exception trace)
@@ -366,7 +366,7 @@ def execute_uat_test(args):
         # f'-log={log_path}',
         # '-TestExit=Automation Test Queue Empty',
         # f'-ExecCmds=Automation RunTests {args.test}',
-    ]
+    ] + ["-nocompileuat"]
 
     # ERROR: Unable to find type uetools in assemblies. Namespaces= System.Linq.Enumerable+SelectArrayIterator`2[System.String,System.String].
     #  (see E:\\UnrealEngine\\Engine\\Programs\\AutomationTool\\Saved\\Logs\\Log.txt for full exception trace)
@@ -382,6 +382,6 @@ def execute_uat_test(args):
         # f'-log={log_path}',
         # '-TestExit=Automation Test Queue Empty',
         # f'-ExecCmds=Automation RunTests {args.test}',
-    ]
+    ] + ["-nocompileuat"]
 
     run(cmd_args, check=True)

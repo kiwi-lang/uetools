@@ -4,7 +4,7 @@ import subprocess
 run = subprocess.run
 
 
-def popen_with_format(fmt, args):
+def popen_with_format(fmt, args, shell=False):
     """Execute a command with the given formatter."""
     with subprocess.Popen(
         args,
@@ -12,6 +12,7 @@ def popen_with_format(fmt, args):
         stderr=subprocess.STDOUT,
         # This is needed because without lines might not be recognized as such
         text=True,
+        shell=shell,
     ) as process:
         try:
             while process.poll() is None:

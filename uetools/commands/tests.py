@@ -150,7 +150,7 @@ class RunTestsUAT(Command):
         uat_cmd = vars(args).pop("run")
 
         uat_args = command_builder(args)
-        cmd = [uat()] + [uat_cmd] + uat_args
+        cmd = [uat()] + [uat_cmd] + uat_args + ["-nocompileuat"]
 
         print(" ".join(cmd))
 

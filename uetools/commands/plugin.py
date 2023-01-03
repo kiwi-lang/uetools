@@ -107,13 +107,17 @@ class PackagePlugin(Command):
 
         plugin_path = os.path.abspath(plugin_path)
 
-        cmdargs = [
-            uat(),
-            "BuildPlugin",
-            f"-Plugin={plugin_path}",
-            f"-Package={args.output}",
-            f"-TargetPlatforms={platforms}",
-        ] + command_builder(args.pkg)
+        cmdargs = (
+            [
+                uat(),
+                "BuildPlugin",
+                f"-Plugin={plugin_path}",
+                f"-Package={args.output}",
+                f"-TargetPlatforms={platforms}",
+            ]
+            + command_builder(args.pkg)
+            + ["-nocompileuat"]
+        )
 
         print(" ".join(cmdargs))
 

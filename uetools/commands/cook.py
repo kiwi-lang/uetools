@@ -191,13 +191,13 @@ class CookGameUAT(Command):
         args.project = find_project(args.project)
 
         uat_args = command_builder(asdict(args))
-        cmd = [uat()] + ["BuildCookRun"] + uat_args
+        cmd = [uat()] + ["BuildCookRun"] + uat_args + ["-nocompileuat"]
 
         print(" ".join(cmd))
 
         fmt = CookingFormatter(24)
         fmt.print_non_matching = True
-        returncode = popen_with_format(fmt, cmd)
+        returncode = popen_with_format(fmt, cmd, shell=False)
         fmt.summary()
 
         return returncode
