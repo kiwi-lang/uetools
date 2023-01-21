@@ -1,0 +1,39 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "{{cookiecutter.plugin_name}}",
+	"Description": "Fog of War",
+	"Category": "Other",
+	"CreatedBy": "Pierre Delaunay",
+	"CreatedByURL": "https://gitlab.com/mischievousgame",
+	"DocsURL": "https://mischievousgame.gitlab.io/{{cookiecutter.plugin_name}}/",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/",
+	"SupportURL": "https://gitlab.com/mischievousgame/{{cookiecutter.plugin_name}}/-/issues",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "{{cookiecutter.plugin_name}}",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [ "Win64", "Linux" ],
+			"PlatformAllowList": [
+				"Win64",
+				"Linux"
+			]
+		},
+		{
+			"Name": "{{cookiecutter.plugin_name}}Shader",
+			"Type": "Runtime",
+			"LoadingPhase": "PostConfigInit",
+			"WhitelistPlatforms": [ "Win64", "Linux" ],
+			"PlatformAllowList": [
+				"Win64",
+				"Linux"
+			]
+		}
+	]
+}

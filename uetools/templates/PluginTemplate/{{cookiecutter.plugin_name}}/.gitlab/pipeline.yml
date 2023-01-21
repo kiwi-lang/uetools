@@ -1,0 +1,96 @@
+stages:
+  - setup
+  - build
+  - deploy
+
+
+setup-win64:
+  tags:
+    - windows-ue5
+
+  stage: setup
+
+  variables:
+    ENGINE_FOLDER: "C:/opt/UnrealEngine/Engine"
+    PROJECT_FOLDER: "C:/opt/Projects"
+    ANACONDA_FOLDER: "C:/opt/anaconda"
+
+  script:
+    - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
+    - conda activate "$ANACONDA_FOLDER"
+    - pip install --upgrade uetools
+    - uecli init --engine $ENGINE_FOLDER --projects $PROJECT_FOLDER
+
+build-win64:
+  stage: build
+
+  tags:
+    - windows-ue5
+
+  needs:
+    - setup-win64
+
+  variables:
+    OUTPUT: "C:/opt/Temporary/{{cookiecutter.plugin_name}}"
+    ARCHIVE: "C:/opt/Archive/"
+    ANACONDA_FOLDER: "C:/opt/anaconda"
+
+  script:
+    - $LATEST_TAG = git describe --tags --abbrev=0
+    - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
+    - conda activate "$ANACONDA_FOLDER"
+    - uecli plugin {{cookiecutter.plugin_name}}.uplugin --StrictIncludes --output $OUTPUT --platforms Win64
+    - Compress-Archive -Force -CompressionLevel Optimal -Path $OUTPUT -DestinationPath $ARCHIVE/{{cookiecutter.plugin_name}}_Win64_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip
+
+
+build-linux:
+  stage: build
+
+  tags:
+    - linux-ue5
+
+  variables:
+    ANACONDA_FOLDER: "/opt/anaconda"
+    OUTPUT: "/opt/Temporary/{{cookiecutter.plugin_name}}"
+    ARCHIVE: "/opt/Archive/"
+
+  script:
+    - LATEST_TAG=$(git describe --tags --abbrev=0)
+    - eval "$($ANACONDA_FOLDER/bin/conda shell.bash hook)"
+    - PATH="$PATH:$HOME/.local/bin/"
+    - pip install --upgrade uetools
+    - uecli plugin {{cookiecutter.plugin_name}}.uplugin --output $OUTPUT --platforms Linux
+    - zip -r $ARCHIVE/GamekitPlugin_Linux_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip $OUTPUT
+
+# Generate the documentation
+pages:
+  stage: deploy
+  image: python:3.9-alpine
+
+  tags:
+    - docker
+
+  needs: []
+
+  script:
+    - apk update
+    - apk add doxygen
+    - apk add graphviz
+    - apk add git
+    - apk add make
+    - pip install -r Docs/requirements.txt
+    - cd Docs
+    - make build-doc
+    - cd ..
+    - mkdir .public
+    - cp -r Docs/_build/html/* .public
+    - rm -rf public
+    - mv .public public
+
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+

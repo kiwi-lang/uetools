@@ -1,0 +1,6 @@
+sphinx >= 1.8
+sphinx_rtd_theme
+sphinxcontrib-bibtex
+sphinx-serve
+breathe
+exhale
