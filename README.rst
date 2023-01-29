@@ -37,6 +37,9 @@ Get Started
 
    # Saves common paths
    uecli init --engine C:/opt/UnrealEngine/Engine --projects C:/opt/Projects
+   uecli engine-add --version src --engine C:/opt/UnrealEngine/Engine
+   uecli engine-add --version 5.1 --engine C:/EpicGames/UE_5.1/Engine
+   uecli engine-add --version 5.0 --engine C:/EpicGames/UE_5.0/Engine
 
    # Install the plugin VoxelPlugin to the RTSGame project
    uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin
@@ -46,6 +49,8 @@ Get Started
 
    # Open the project (located in C:/opt/Projects/RTSGame)
    uecli open RTSGame
+   uecli --engine-version 5.1 open RTSGame
+   uecli --engine-version 5.0 open RTSGame
 
    # Cook the project
    uecli cook RTSGame
@@ -129,6 +134,7 @@ Features
 * Cook
 * Generate localization files for internationalization
 * Run the editor
+* multi version support
 
 It also implements common recipes such as
 
