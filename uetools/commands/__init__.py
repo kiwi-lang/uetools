@@ -48,7 +48,6 @@ def discover_plugins(module):
 
     for _, name, _ in pkgutil.iter_modules(path, name + "."):
         plugins[name] = importlib.import_module(name)
-        print(f" - Found plugin: `{name}`")
 
     return plugins
 
@@ -98,3 +97,7 @@ def discover_commands():
 
 
 commands = discover_commands()
+
+
+def find_command(name):
+    return commands.get(name)

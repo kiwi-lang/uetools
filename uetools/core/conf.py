@@ -192,6 +192,23 @@ def editor_cmd():
     )
 
 
+
+def editor_commandlet(project_path, command):
+    """Returns editor arguments to run a commandlet""" 
+    return [editor_cmd()] + [
+            project, 
+            "-NoLiveCoding",
+            "-fullstdoutlogoutput",
+            "-utf8output",
+            "-nullrhi",
+            "-nosplash",
+            "-nosound",
+            "-nopause",
+            "-unattended",
+            f"-run={command}",
+        ]
+
+
 # Supported platforms are listed here
 #       UnrealEngine\Engine\Source\Programs\UnrealBuildTool\Platform
 #

@@ -255,6 +255,13 @@ class Editor(Command):
     name: str = "editor"
 
     @staticmethod
+    def examples():
+        return [
+            "uecli editor RTSGame -game",
+            "uecli editor RTSGame /Game/Maps/MyMap --server --game --port 8123"
+        ]
+
+    @staticmethod
     def arguments(subparsers):
         """Adds the arguments for this command to the given parser"""
         parser = newparser(subparsers, Editor)

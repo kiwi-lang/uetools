@@ -84,6 +84,8 @@ class Formatter:
         self.regex = UE_LOG_FORMAT
         self.print_non_matching = False
         self.bad_logs = []
+        self.ignore = set()
+        self.only = set()
 
         if self.col is not None:
             self.longest_category = self.col
@@ -162,6 +164,12 @@ class Formatter:
             log message
 
         """
+        if category in self.ignore:
+            return
+
+        if len(self.only) > 0 and category not in self.only:
+            return
+
         self._meta(category)
         verb = short.get(verbosity, " ")
 
@@ -175,4 +183,5 @@ class Formatter:
         if frame is None:
             frame = 0
 
+        
         print(f"[{int(frame):3d}][{verb}][{category}] {colored(message, color=color)}")

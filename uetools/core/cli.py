@@ -1,17 +1,36 @@
 """Entry point for the command line interface"""
 from __future__ import annotations
 
-from argparse import SUPPRESS
+from dataclasses import dataclass, field
+from argparse import SUPPRESS, Action
+from functools import singledispatch
 
 import simple_parsing
 
-from uetools.commands import commands
+from uetools.commands import commands, find_command
 
 
 # pylint: disable=protected-access
 # pylint: disable=too-few-public-methods
 class HelpFormatter(simple_parsing.SimpleHelpFormatter):
     """Tweak the arrgument usage format to not show too many duplicates"""
+
+    def __init__(self, prog, max_help_position, width=None):
+        super().__init__(prog=prog, max_help_position=max_help_position, width=width)
+        self.command = find_command(prog.split(' ')[-1])
+
+    def _get_help_string(self, action: Action) -> Optional[str]:
+        help = super()._get_help_string(action=action)
+        lines = help.split('\n', maxsplit=1)
+        return lines[0]
+
+    def add_usage(self, usage, actions, groups, prefix=None):
+        if usage is None and self.command:
+            examples = "\n       ".join(self.command.examples())
+
+            usage = examples + "\n\ndescription:\n    " + self.command.help()
+        
+        super().add_usage(usage, actions, groups, prefix)
 
     class _Section:
         def __init__(self, formatter, parent, heading=None):
@@ -59,6 +78,8 @@ class ArgumentParser(simple_parsing.ArgumentParser):
 
     def _get_formatter(self):
         return HelpFormatter(prog=self.prog, max_help_position=45, width=None)
+        # return BaseArgumentHelpFormatter()
+        # return 
 
 
 def parse_args(argv):

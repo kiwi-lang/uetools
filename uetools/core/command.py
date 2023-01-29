@@ -43,6 +43,11 @@ class Command:
         """Execute the command"""
         raise NotImplementedError()
 
+    @staticmethod
+    def examples() -> list[str]:
+        """returns a list of examples"""
+        return []
+
 
 def command_builder(args: dict | Namespace, ignore=None) -> list[str]:
     """Convert a namespace of arguments into a list of command line arguments for unreal engine.
