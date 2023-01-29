@@ -60,6 +60,58 @@ Get Started
    uecli cpp RTSGame
 
 
+Help Example
+------------
+
+.. code-block::
+
+   $ uecli ml --help
+   usage:
+
+   description:
+      Launch a game setup for machine learning
+
+   positional arguments:
+      str                       Name of the the project to open
+      str                       Name of the map to open
+
+   optional arguments:
+      -h, --help                show this help message and exit
+      --dry                     Print the command it will execute without running it (default: False)
+
+   Arguments ['ml']:
+      Launch a game setup for machine learning
+
+         Attributes
+         ----------
+         project: str
+            Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
+
+         Examples
+         --------
+
+         .. code-block:: console
+
+            uecli ml RTSGame
+
+            # Launch your agent script that will connect and make the agents play the game
+
+      --resx int                resolution width (default: 320)
+      --resy int                resolution height (default: 240)
+      --fps int                 Max FPS (default: 20)
+      --windowed bool           Window mode (default: True)
+      --usefixedtimestep bool   Block until the ML agent replies with an action (default: True)
+      --game bool               (default: True)
+      --unattended bool         Close when the game finishes (default: True)
+      --onethread bool          Run on a single thread (default: False)
+      --reducethreadusage bool  (default: False)
+      --nosound bool            Disable sound (default: False)
+      --nullrhi bool            Disable rendering (default: False)
+      --deterministic bool      Set seeds ? (default: False)
+      --debug bool              (default: False)
+      --mladapterport int       RPC server listen port (default: 8123)
+
+
 Features
 --------
 
