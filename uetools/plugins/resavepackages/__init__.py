@@ -30,18 +30,18 @@ class Arguments:
 
 
 class ReSavePackages(Command):
-    """Convert a Blueprint into GKScript"""
+    """Resave assets, fixing some issues that can arise when using marketplace assets"""
 
     name: str = "resavepackages"
 
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, ReSavePackages)
-        parser.add_arguments(Arguments, dest="gkscript")
+        parser.add_arguments(Arguments, dest="args")
 
     @staticmethod
     def execute(args):
-        args = args.gkscript
+        args = args.args
         project = find_project(args.project)
 
         cmd = editor_commandlet(project, "resavepackages") + [

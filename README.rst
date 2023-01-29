@@ -60,6 +60,13 @@ Get Started
    uecli cpp RTSGame
 
 
+Make your own command
+---------------------
+
+You can extend uetoosl for your organization by creating plugins.
+A `template <https://github.com/kiwi-lang/uetools.plugins.myplugin>`_ is provided to help you get started.
+
+
 Help Example
 ------------
 
