@@ -80,7 +80,7 @@ def save_conf(conf):
     os.makedirs(CONFIG, exist_ok=True)
 
     with open(config, "w", encoding="utf-8") as conffile:
-        json.dump(conf, conffile)
+        json.dump(conf, conffile, indent=2)
 
 
 def update_conf(**kwargs):
@@ -371,9 +371,35 @@ def guess_engine_folder():
     raise RuntimeError("Not implemented")
 
 
-def engine_folder():
+SELECTED_VERSION = None
+
+
+class BadConfig(Exception):
+    pass
+
+
+def select_engine_version(version):
+    global SELECTED_VERSION
+
+    SELECTED_VERSION = version
+
+    p = load_conf().get("engines").get(version, None)
+
+    if p is None:
+        print(
+            f"Engine version {version} does not exist, call first:\n\t"
+            f"`uecli engine-add --version {version} --engine <...>`"
+        )
+        raise BadConfig()
+
+
+def engine_folder(version=None):
     """returns the engine folder ``UnrealEngine/Engine``"""
-    p = load_conf().get("engine_path")
+
+    if SELECTED_VERSION is None:
+        p = load_conf().get("engine_path")
+    else:
+        p = load_conf().get("engines").get(SELECTED_VERSION, None)
 
     if p is None:
         raise ConfigurationError(

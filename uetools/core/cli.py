@@ -6,6 +6,7 @@ from argparse import SUPPRESS, Action
 import simple_parsing
 
 from uetools.commands import commands, find_command
+from uetools.core.conf import BadConfig, select_engine_version
 
 
 # pylint: disable=protected-access
@@ -83,13 +84,25 @@ class ArgumentParser(simple_parsing.ArgumentParser):
 def parse_args(argv):
     """Setup the argument parser for all supported commands"""
     parser = ArgumentParser()
+    parser.add_argument(
+        "--engine-version",
+        nargs="?",
+        type=str,
+        default=None,
+        help="Engine version to use if you have multiple installed",
+    )
 
     subparsers = parser.add_subparsers(dest="command")
 
     for _, command in commands.items():
         command.arguments(subparsers)
 
-    return parser.parse_args(argv)
+    args = parser.parse_args(argv)
+    if args.engine_version is not None:
+        select_engine_version(args.engine_version)
+        args.engine_version = None
+
+    return args
 
 
 def args(*a):
@@ -101,10 +114,12 @@ def main(argv=None):
     """Entry point for the command line interface"""
     import sys
 
-    parsed_args = parse_args(argv)
+    try:
+        parsed_args = parse_args(argv)
+    except BadConfig:
+        sys.exit(-1)
 
     cmd_name = parsed_args.command
-
     command = commands.get(cmd_name)
 
     if command is None:

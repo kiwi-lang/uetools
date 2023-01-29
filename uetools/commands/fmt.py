@@ -19,7 +19,7 @@ profiles = {
 
 @dataclass
 class Arguments:
-    """Format UnrealEngine log output. It will attempt to align log output to make them more easily readable.
+    """Format UnrealEngine log output. It will attempt to align log output to make them more readable.
 
     Attributes
     ----------
