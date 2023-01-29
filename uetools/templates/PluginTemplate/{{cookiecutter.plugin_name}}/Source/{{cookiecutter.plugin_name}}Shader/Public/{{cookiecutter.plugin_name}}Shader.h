@@ -16,9 +16,6 @@ DECLARE_LOG_CATEGORY_EXTERN(LogGKFoWShader, Log, All);
 #define GKFOGSHD_VERBOSE(Format, ...)     UE_LOG(LogGKFoWShader, Verbose, Format, ##__VA_ARGS__)
 #define GKFOGSHD_VERYVERBOSE(Format, ...) UE_LOG(LogGKFoWShader, VeryVerbose, Format, ##__VA_ARGS__)
 
-// AnyThread is any unamed thread so not Rendering thread
-#define GKFOG_THREAD ENamedThreads::AnyThread
-
 DECLARE_STATS_GROUP(TEXT("{{cookiecutter.plugin_name}}Shader"), STATGROUP_GKFoWShader, STATCAT_Advanced);
 */
 

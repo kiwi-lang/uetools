@@ -1,9 +1,7 @@
 """Entry point for the command line interface"""
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from argparse import SUPPRESS, Action
-from functools import singledispatch
 
 import simple_parsing
 
@@ -17,11 +15,11 @@ class HelpFormatter(simple_parsing.SimpleHelpFormatter):
 
     def __init__(self, prog, max_help_position, width=None):
         super().__init__(prog=prog, max_help_position=max_help_position, width=width)
-        self.command = find_command(prog.split(' ')[-1])
+        self.command = find_command(prog.split(" ")[-1])
 
-    def _get_help_string(self, action: Action) -> Optional[str]:
+    def _get_help_string(self, action: Action) -> str | None:
         help = super()._get_help_string(action=action)
-        lines = help.split('\n', maxsplit=1)
+        lines = help.split("\n", maxsplit=1)
         return lines[0]
 
     def add_usage(self, usage, actions, groups, prefix=None):
@@ -29,7 +27,7 @@ class HelpFormatter(simple_parsing.SimpleHelpFormatter):
             examples = "\n       ".join(self.command.examples())
 
             usage = examples + "\n\ndescription:\n    " + self.command.help()
-        
+
         super().add_usage(usage, actions, groups, prefix)
 
     class _Section:
@@ -79,7 +77,7 @@ class ArgumentParser(simple_parsing.ArgumentParser):
     def _get_formatter(self):
         return HelpFormatter(prog=self.prog, max_help_position=45, width=None)
         # return BaseArgumentHelpFormatter()
-        # return 
+        # return
 
 
 def parse_args(argv):

@@ -1,11 +1,11 @@
+import json
 import os
+import tempfile
 from dataclasses import dataclass
 from typing import Optional
-import tempfile
-import json
 
-from cookiecutter.main import cookiecutter
 import pkg_resources
+from cookiecutter.main import cookiecutter
 
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_platforms, guess_platform, uat
@@ -131,7 +131,6 @@ class PackagePlugin(Command):
         return popen_with_format(fmt, cmdargs)
 
 
-
 class NewPlugin(Command):
     """Create a new plugin from a template"""
 
@@ -140,7 +139,9 @@ class NewPlugin(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, NewPlugin)
-        parser.add_argument("project", type=str, help="Project in which the plugin will live")
+        parser.add_argument(
+            "project", type=str, help="Project in which the plugin will live"
+        )
         parser.add_argument("plugin", type=str, help="Name of the plugin")
         # parser.add_argument("--no-input", type=bool, default=True)
 
@@ -159,17 +160,10 @@ class NewPlugin(Command):
         assert os.path.exists(template)
 
         configfile = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
-        json.dump(
-            {
-                "default_context": {
-                    "plugin_name": args.plugin
-                }
-            }, 
-            configfile
-        )
+        json.dump({"default_context": {"plugin_name": args.plugin}}, configfile)
         configfile.flush()
 
-        plugin_dir = os.path.join(project_dir, 'Plugins')
+        plugin_dir = os.path.join(project_dir, "Plugins")
         assert os.path.exists(plugin_dir)
 
         kwargs = dict(
@@ -187,6 +181,6 @@ class NewPlugin(Command):
         # Windows have permission issues on reading a temporary files
         configfile.close()
         os.remove(configfile.name)
-    
+
 
 COMMANDS = [PackagePlugin, NewPlugin]

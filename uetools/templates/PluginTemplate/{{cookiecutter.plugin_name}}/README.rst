@@ -1,5 +1,5 @@
 {{cookiecutter.plugin_name}}
-=============
+============================
 
 
 Features

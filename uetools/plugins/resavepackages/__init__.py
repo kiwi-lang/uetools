@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 
 from uetools.core.command import Command, newparser
-from uetools.core.conf import find_project, editor_cmd
-from uetools.format.base import Formatter
+from uetools.core.conf import editor_commandlet, find_project
 from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
+
 
 # fmt: off
 @dataclass
@@ -51,5 +52,6 @@ class ReSavePackages(Command):
         print(" ".join(cmd))
         fmt = Formatter()
         return popen_with_format(fmt, cmd)
+
 
 COMMANDS = ReSavePackages

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # project test documentation build configuration file, created by
 # sphinx-quickstart on Tue Jan 19 19:30:57 2016.
@@ -31,32 +30,34 @@ doxygen_version_file = os.path.join(doxygen_out_xml, "version.txt")
 doxygen_out_html = os.path.join(project_root, "Docs", "_build", "doxygen", "doxygen")
 os.makedirs(doxygen_out_html, exist_ok=True)
 
+
 def get_versions():
     try:
         version_tag = subprocess.check_output(
-            'git describe --tags --abbrev=0', shell=True
-        ).decode('utf-8')
+            "git describe --tags --abbrev=0", shell=True
+        ).decode("utf-8")
     except:
-        version_tag = ''
+        version_tag = ""
 
-    commit = subprocess.check_output(
-        'git rev-parse --short HEAD', shell=True
-    ).decode('utf-8')
+    commit = subprocess.check_output("git rev-parse --short HEAD", shell=True).decode(
+        "utf-8"
+    )
 
-    if version_tag == '':
+    if version_tag == "":
         version_identifier = commit
     else:
-        version_identifier = f'{version_tag}-{commit}'
+        version_identifier = f"{version_tag}-{commit}"
 
     return version_tag, version_identifier, commit
 
 
 version_tag, version_identifier, commit = get_versions()
 
+
 def is_new_version():
     os.makedirs(doxygen_out_xml, exist_ok=True)
 
-    if os.name.startswith('nt'):
+    if os.name.startswith("nt"):
         return True
 
     # TODO: only go it for C++ files
@@ -82,7 +83,7 @@ project_name = "{{cookiecutter.plugin_name}}"
 
 
 def configure_doxyfile():
-    with open("Doxyfile.in", "r") as file:
+    with open("Doxyfile.in") as file:
         filedata = file.read()
 
     filedata = (
@@ -101,8 +102,10 @@ def configure_doxyfile():
 def is_rtd_build():
     return os.environ.get("READTHEDOCS") is not None
 
+
 def is_github_build():
-    return  os.environ.get("GITHUB_ACTIONS") is not None
+    return os.environ.get("GITHUB_ACTIONS") is not None
+
 
 read_the_docs_build = is_rtd_build() or is_github_build()
 
@@ -152,7 +155,6 @@ exhale_args = {
     # Suggested optional arguments
     "createTreeView": True,
     "exhaleExecutesDoxygen": False,
-
     # "generateBreatheFileDirectives": False
 }
 
@@ -185,8 +187,8 @@ master_doc = "index"
 
 # General information about the project.
 project = f"{project_name}"
-copyright = u"2022"
-author = u"Pierre Delaunay"
+copyright = "2022"
+author = "Pierre Delaunay"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -344,20 +346,26 @@ htmlhelp_basename = f"{project_name}doc"
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    #'papersize': 'letterpaper',
+    # 'papersize': 'letterpaper',
     # The font size ('10pt', '11pt' or '12pt').
-    #'pointsize': '10pt',
+    # 'pointsize': '10pt',
     # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
+    # 'preamble': '',
     # Latex figure (float) alignment
-    #'figure_align': 'htbp',
+    # 'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, f"{project_name}.tex", "{project_name} Documentation", u"Pierre Delaunay", "manual"),
+    (
+        master_doc,
+        f"{project_name}.tex",
+        "{project_name} Documentation",
+        "Pierre Delaunay",
+        "manual",
+    ),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

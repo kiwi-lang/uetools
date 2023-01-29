@@ -183,5 +183,4 @@ class Formatter:
         if frame is None:
             frame = 0
 
-        
         print(f"[{int(frame):3d}][{verb}][{category}] {colored(message, color=color)}")

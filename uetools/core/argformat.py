@@ -1,12 +1,12 @@
 """Argument formatting experimentation"""
 from __future__ import annotations
 
+from argparse import Action, _SubParsersAction
 from dataclasses import dataclass, field
-from argparse import SUPPRESS, Action
 from functools import singledispatch
 
 
-class BaseArgumentHelpFormatter():
+class BaseArgumentHelpFormatter:
     def _format_args(self, action, default_metavar):
         # print("_format_args", args, kwargs)
         return ""
@@ -28,7 +28,7 @@ class BaseArgumentHelpFormatter():
     def start_section(self, heading: str) -> None:
         print("start_section", heading)
         return ""
-    
+
     def add_text(self, text: str) -> None:
         print("add_text", text)
         return ""
@@ -42,10 +42,10 @@ class BaseArgumentHelpFormatter():
         return ""
 
 
-
 @singledispatch
 def format_action(action, level):
     return repr(action)
+
 
 def _(action: _SubParsersAction):
 
@@ -54,8 +54,8 @@ def _(action: _SubParsersAction):
     for name, _ in action.choices.items():
         helpstr = ""
         frags.append((name, helpstr))
-    
-    return 
+
+    return
 
 
 @dataclass
@@ -66,13 +66,13 @@ class ArgumentSection:
     level: int = 0
 
     def __repr__(self):
-        idt = '  '
+        idt = "  "
         idt1 = idt * self.level
         frags = [
             f"{idt1}{self.name}: {self.description}",
-        ] + [ f"{idt1}{idt}{a}" for a in self.actions]
+        ] + [f"{idt1}{idt}{a}" for a in self.actions]
 
-        return '\n'.join(frags)
+        return "\n".join(frags)
 
 
 class ArgumentHelpFormatter(BaseArgumentHelpFormatter):
@@ -82,7 +82,7 @@ class ArgumentHelpFormatter(BaseArgumentHelpFormatter):
 
     def _format_args(self, action, default_metavar):
         # print("_format_args", args, kwargs)
-        return 
+        return
 
     def add_usage(self, usage, actions, groups, prefix=None):
         print("add_usage", usage, actions, groups, prefix)
@@ -98,7 +98,7 @@ class ArgumentHelpFormatter(BaseArgumentHelpFormatter):
 
     def start_section(self, heading: str) -> None:
         self.sections.append(ArgumentSection(name=heading, level=len(self.sections)))
-    
+
     def add_text(self, text: str) -> None:
         if self.sections:
             self.sections[-1].description = text
@@ -110,5 +110,3 @@ class ArgumentHelpFormatter(BaseArgumentHelpFormatter):
     def end_section(self) -> None:
         if self.sections:
             self.generated.append(self.sections.pop())
-        
-

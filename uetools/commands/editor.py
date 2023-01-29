@@ -258,7 +258,7 @@ class Editor(Command):
     def examples():
         return [
             "uecli editor RTSGame -game",
-            "uecli editor RTSGame /Game/Maps/MyMap --server --game --port 8123"
+            "uecli editor RTSGame /Game/Maps/MyMap --server --game --port 8123",
         ]
 
     @staticmethod
