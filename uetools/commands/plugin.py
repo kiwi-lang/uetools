@@ -3,12 +3,21 @@ import os
 import tempfile
 from dataclasses import dataclass
 from typing import Optional
+import shutil
 
 import pkg_resources
 from cookiecutter.main import cookiecutter
 
 from uetools.core.command import Command, command_builder, newparser
-from uetools.core.conf import find_project, get_build_platforms, guess_platform, uat
+from uetools.core.conf import (
+    find_project,
+    get_build_platforms,
+    guess_platform,
+    uat,
+    get_version_tag,
+    engine_folder,
+    retrieve_exact_engine_version
+)
 from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
 
@@ -143,9 +152,6 @@ class NewPlugin(Command):
             "project", type=str, help="Project in which the plugin will live"
         )
         parser.add_argument("plugin", type=str, help="Name of the plugin")
-        # parser.add_argument("--no-input", type=bool, default=True)
-
-        parser.add_arguments(Arguments, dest="pkg")
 
     @staticmethod
     def execute(args):
@@ -183,4 +189,61 @@ class NewPlugin(Command):
         os.remove(configfile.name)
 
 
-COMMANDS = [PackagePlugin, NewPlugin]
+class FinalizePlugin(Command):
+    """Finalize Plugin for redistribution
+    
+    * Set the engine version inside the <plugin>.uplugin
+    * Set installed to false inside <plugin>.uplugin
+    * Check MarketplaceURL
+    * Set VersionName 
+    * Copy some Config folder
+
+    """
+
+    name: str = "plugin-finalize"
+
+    @dataclass
+    class Arguments:
+        plugin: str    # plugin name
+        output: str    # output
+
+
+    @staticmethod
+    def arguments(subparsers):
+        parser = newparser(subparsers, FinalizePlugin)
+        parser.add_arguments(FinalizePlugin.Arguments, dest="args")
+
+    @staticmethod
+    def execute(args):
+        args = args.args
+        base_url = 'com.epicgames.launcher://ue/marketplace/product/'
+
+        plugin_dir = os.path.dirname(args.plugin)
+        plugin_version = get_version_tag(plugin_dir).replace("v", "")
+        engine_version = retrieve_exact_engine_version(engine_folder())
+
+        # Configure the plugin descriptor
+        # -------------------------------
+        with open(args.output, "r") as f:
+            uplugin = json.load(f)
+
+        uplugin['VersionName'] = plugin_version
+        uplugin['Installed'] = False
+        uplugin['EngineVersion'] = engine_version
+        
+        assert len(uplugin['MarketplaceURL'][len(base_url):]) > 0, "MarketPlace URL missing"
+
+        with open(args.output, 'w') as f:
+            json.dump(uplugin, f)
+        
+        # Copy files
+        # ----------
+        config_folder = os.path.join(plugin_dir, 'Config')
+        output_folder = os.path.dirname(args.output)
+        
+        shutil.copytree(config_folder, os.path.join(output_folder, "Config"))
+
+
+        
+
+COMMANDS = [PackagePlugin, NewPlugin, FinalizePlugin]

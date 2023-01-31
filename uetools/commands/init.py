@@ -1,11 +1,10 @@
 import os
 import re
-import subprocess
 from dataclasses import dataclass
 from typing import Optional
 
 from uetools.core.command import Command, newparser
-from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
+from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf, get_version_tag
 
 
 @dataclass
@@ -50,13 +49,7 @@ def get_engine_version(path):
         if version:
             return version
 
-    # Source install, use git to get the latest tag
-    try:
-        cmd = "git --no-optional-locks describe --tags --abbrev=0"
-        return subprocess.check_output(cmd.split(" "), cwd=path).decode("utf-8").strip()
-    except Exception as err:
-        print("Could not deduce engine version")
-        return "archive"
+    return get_version_tag(path, "archive")
 
 
 class Init(Command):

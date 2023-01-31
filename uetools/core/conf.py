@@ -4,6 +4,7 @@ import logging
 import os
 import platform
 import re
+import subprocess
 
 from appdirs import user_config_dir
 
@@ -378,6 +379,46 @@ class BadConfig(Exception):
     pass
 
 
+def get_selected_engine_version():
+    return SELECTED_VERSION
+
+
+VERSION_FILE_PATH = '\Source\Runtime\Launch\Resources\Version.h'
+
+
+def retrieve_exact_engine_version(engine_folder, default=None, ignore_patch=True):
+    """Retrieve the engine version from the headers"""
+    path = engine_folder + VERSION_FILE_PATH
+
+    if not os.path.exists(path):
+        return default
+
+    version_names = [
+        'ENGINE_MAJOR_VERSION',
+        'ENGINE_MINOR_VERSION',
+        'ENGINE_PATCH_VERSION',
+    ]
+
+    version = [
+        0,
+        0,
+        0
+    ]
+
+    n = len(version_names[0])
+    i = 0
+
+    with open(path, 'r') as f:
+        for line in f.readlines():
+            if version_names[i] in line:
+                version[i] = line[n:].strip()
+
+    if ignore_patch:
+        version[-1] = 0
+
+    return '.'.join(version)
+
+
 def select_engine_version(version):
     global SELECTED_VERSION
 
@@ -417,3 +458,13 @@ def engine_root():
 def ready():
     """Returns true if uetools was initialized"""
     return load_conf().get("engine_path") is not None
+
+
+def get_version_tag(path, default="1.0"):
+    """Retrieve a version tag using git"""
+    try:
+        cmd = "git --no-optional-locks describe --tags --abbrev=0"
+        return subprocess.check_output(cmd.split(" "), cwd=path).decode("utf-8").strip()
+    except Exception as err:
+        print("Could not deduce engine version")
+        return default
