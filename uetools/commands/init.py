@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from uetools.core.command import Command, newparser
-from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf, get_version_tag
+from uetools.core.conf import CONFIG, CONFIGNAME, get_version_tag, load_conf, save_conf
 
 
 @dataclass

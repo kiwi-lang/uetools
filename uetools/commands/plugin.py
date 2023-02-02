@@ -1,22 +1,22 @@
 import json
 import os
+import shutil
 import tempfile
 from dataclasses import dataclass
 from typing import Optional
-import shutil
 
 import pkg_resources
 from cookiecutter.main import cookiecutter
 
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import (
+    engine_folder,
     find_project,
     get_build_platforms,
-    guess_platform,
-    uat,
     get_version_tag,
-    engine_folder,
-    retrieve_exact_engine_version
+    guess_platform,
+    retrieve_exact_engine_version,
+    uat,
 )
 from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
@@ -191,11 +191,11 @@ class NewPlugin(Command):
 
 class FinalizePlugin(Command):
     """Finalize Plugin for redistribution
-    
+
     * Set the engine version inside the <plugin>.uplugin
     * Set installed to false inside <plugin>.uplugin
     * Check MarketplaceURL
-    * Set VersionName 
+    * Set VersionName
     * Copy some Config folder
 
     """
@@ -204,9 +204,8 @@ class FinalizePlugin(Command):
 
     @dataclass
     class Arguments:
-        plugin: str    # plugin name
-        output: str    # output
-
+        plugin: str  # plugin name
+        output: str  # output
 
     @staticmethod
     def arguments(subparsers):
@@ -216,7 +215,7 @@ class FinalizePlugin(Command):
     @staticmethod
     def execute(args):
         args = args.args
-        base_url = 'com.epicgames.launcher://ue/marketplace/product/'
+        base_url = "com.epicgames.launcher://ue/marketplace/product/"
 
         plugin_dir = os.path.dirname(args.plugin)
         plugin_version = get_version_tag(plugin_dir).replace("v", "")
@@ -224,26 +223,26 @@ class FinalizePlugin(Command):
 
         # Configure the plugin descriptor
         # -------------------------------
-        with open(args.output, "r") as f:
+        with open(args.output) as f:
             uplugin = json.load(f)
 
-        uplugin['VersionName'] = plugin_version
-        uplugin['Installed'] = False
-        uplugin['EngineVersion'] = engine_version
-        
-        assert len(uplugin['MarketplaceURL'][len(base_url):]) > 0, "MarketPlace URL missing"
+        uplugin["VersionName"] = plugin_version
+        uplugin["Installed"] = False
+        uplugin["EngineVersion"] = engine_version
 
-        with open(args.output, 'w') as f:
+        assert (
+            len(uplugin["MarketplaceURL"][len(base_url) :]) > 0
+        ), "MarketPlace URL missing"
+
+        with open(args.output, "w") as f:
             json.dump(uplugin, f)
-        
+
         # Copy files
         # ----------
-        config_folder = os.path.join(plugin_dir, 'Config')
+        config_folder = os.path.join(plugin_dir, "Config")
         output_folder = os.path.dirname(args.output)
-        
+
         shutil.copytree(config_folder, os.path.join(output_folder, "Config"))
 
-
-        
 
 COMMANDS = [PackagePlugin, NewPlugin, FinalizePlugin]

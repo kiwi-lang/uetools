@@ -231,6 +231,21 @@ class Configuration:
     Log: LogT = field(default_factory=LogT)
 
 
+def find_or_insert(root, *paths, namespaces=None):
+    node = root
+    for i, p in enumerate(paths):
+        full_path = "ue:" + "/ue:".join(paths[: i + 1])
+        val = root.find(full_path, namespaces)
+
+        if val is None:
+            val = ET.Element(p)
+            node.insert(0, val)
+
+        node = val
+
+    return val
+
+
 class LimitCPU(Command):
     """Disable unused plugin that are loading by default"""
 
@@ -261,14 +276,17 @@ class LimitCPU(Command):
         tree = ET.parse(global_ubt_config)
 
         root = tree.getroot()
+        node = find_or_insert(
+            root, "ParallelExecutor", "MaxProcessorCount", namespaces=namespaces
+        )
 
-        val = root.find("ue:ParallelExecutor/ue:MaxProcessorCount", namespaces)
-        oldval = val.text
-        val.text = str(args.cpu)
+        oldval = node.text
+        node.text = str(args.cpu)
 
         print(f"CPU {oldval} => {args.cpu}")
-        tree.write(global_ubt_config, xml_declaration=True, encoding="utf-8")
 
+        ET.indent(tree, space="  ", level=0)
+        tree.write(global_ubt_config, xml_declaration=True, encoding="utf-8")
         return 0
 
 

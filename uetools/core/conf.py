@@ -383,7 +383,7 @@ def get_selected_engine_version():
     return SELECTED_VERSION
 
 
-VERSION_FILE_PATH = '\Source\Runtime\Launch\Resources\Version.h'
+VERSION_FILE_PATH = "/Source/Runtime/Launch/Resources/Version.h"
 
 
 def retrieve_exact_engine_version(engine_folder, default=None, ignore_patch=True):
@@ -394,21 +394,17 @@ def retrieve_exact_engine_version(engine_folder, default=None, ignore_patch=True
         return default
 
     version_names = [
-        'ENGINE_MAJOR_VERSION',
-        'ENGINE_MINOR_VERSION',
-        'ENGINE_PATCH_VERSION',
+        "ENGINE_MAJOR_VERSION",
+        "ENGINE_MINOR_VERSION",
+        "ENGINE_PATCH_VERSION",
     ]
 
-    version = [
-        0,
-        0,
-        0
-    ]
+    version = [0, 0, 0]
 
     n = len(version_names[0])
     i = 0
 
-    with open(path, 'r') as f:
+    with open(path) as f:
         for line in f.readlines():
             if version_names[i] in line:
                 version[i] = line[n:].strip()
@@ -416,7 +412,7 @@ def retrieve_exact_engine_version(engine_folder, default=None, ignore_patch=True
     if ignore_patch:
         version[-1] = 0
 
-    return '.'.join(version)
+    return ".".join(version)
 
 
 def select_engine_version(version):
