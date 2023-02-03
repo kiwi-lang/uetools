@@ -206,6 +206,7 @@ class FinalizePlugin(Command):
     class Arguments:
         plugin: str  # plugin name
         output: str  # output
+        marketplace: bool = False  # make the folder marketplace friendly
 
     @staticmethod
     def arguments(subparsers):
@@ -254,6 +255,32 @@ class FinalizePlugin(Command):
         shutil.copytree(
             config_folder, os.path.join(output_folder, "Config"), dirs_exist_ok=True
         )
+
+        if args.marketplace:
+            FinalizePlugin.remove_temp_folders(output_folder)
+
+    @staticmethod
+    def remove_temp_folders(output_folder):
+        bad_folders = [
+            "Binaries",
+            "Build",
+            "Intermediate",
+            "Saved",
+            "DerivedDataCache",
+            "Cooked",
+        ]
+
+        def handler(function, path, excinfo):
+            cls, instance, traceback = excinfo
+
+            print(f"{instance}: {path}")
+
+        for folder in bad_folders:
+            to_be_removed = os.path.join(output_folder, folder)
+
+            if os.path.exists(to_be_removed):
+                print(f"Removing {to_be_removed}")
+                shutil.rmtree(to_be_removed, onerror=handler)
 
 
 COMMANDS = [PackagePlugin, NewPlugin, FinalizePlugin]
