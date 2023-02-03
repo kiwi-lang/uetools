@@ -288,8 +288,12 @@ def find_project(name):
 
     """
 
-    if name.endswith(".uproject") and (os.path.isabs(name) or os.path.exists(name)):
-        return name
+    if name.endswith(".uproject"):
+        if os.path.isabs(name):
+            return name
+
+        if os.path.exists(name):
+            return os.path.abspath(name)
 
     if name.endswith(".uproject"):
         name = name[:-9]
