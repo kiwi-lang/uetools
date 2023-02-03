@@ -288,7 +288,7 @@ def find_project(name):
 
     """
 
-    if os.path.isabs(name) and name.endswith(".uproject"):
+    if name.endswith(".uproject") and (os.path.isabs(name) or os.path.exists(name)):
         return name
 
     if name.endswith(".uproject"):
