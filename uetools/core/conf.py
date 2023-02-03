@@ -399,7 +399,7 @@ def retrieve_exact_engine_version(engine_folder, default=None, ignore_patch=True
         "ENGINE_PATCH_VERSION",
     ]
 
-    version = [0, 0, 0]
+    versions = ["0", "0", "0"]
 
     n = len(version_names[0])
     i = 0
@@ -407,12 +407,16 @@ def retrieve_exact_engine_version(engine_folder, default=None, ignore_patch=True
     with open(path) as f:
         for line in f.readlines():
             if version_names[i] in line:
-                version[i] = line[n:].strip()
+                versions[i] = line.split(version_names[i])[-1].strip()
+                i += 1
+
+            if i >= len(version_names):
+                break
 
     if ignore_patch:
-        version[-1] = 0
+        versions[-1] = "0"
 
-    return ".".join(version)
+    return ".".join(versions)
 
 
 def select_engine_version(version):
@@ -462,5 +466,5 @@ def get_version_tag(path, default="1.0"):
         cmd = "git --no-optional-locks describe --tags --abbrev=0"
         return subprocess.check_output(cmd.split(" "), cwd=path).decode("utf-8").strip()
     except Exception as err:
-        print("Could not deduce engine version")
+        print(f"Could not use git to find version for {path}")
         return default
