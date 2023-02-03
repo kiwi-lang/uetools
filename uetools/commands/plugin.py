@@ -216,9 +216,10 @@ class FinalizePlugin(Command):
     def execute(args):
         args = args.args
         base_url = "com.epicgames.launcher://ue/marketplace/product/"
+        plugin_dir = os.path.dirname(os.path.abspath(args.plugin))
+        
+        plugin_version = get_version_tag(plugin_dir).replace("v", "").split('-')[0]
 
-        plugin_dir = os.path.dirname(args.plugin)
-        plugin_version = get_version_tag(plugin_dir).replace("v", "")
         engine_version = retrieve_exact_engine_version(engine_folder())
 
         # Configure the plugin descriptor
@@ -226,9 +227,17 @@ class FinalizePlugin(Command):
         with open(args.output) as f:
             uplugin = json.load(f)
 
+        version_old = uplugin["VersionName"]
+        installed_old = uplugin["Installed"]
+        engine_old = uplugin["EngineVersion"]
+
         uplugin["VersionName"] = plugin_version
         uplugin["Installed"] = False
         uplugin["EngineVersion"] = engine_version
+
+        print("Plugin Version:", version_old, ' => ', plugin_version)
+        print("     Installed:", installed_old, ' => ', False)
+        print(" EngineVersion:", engine_old, ' => ', engine_version)
 
         assert (
             len(uplugin["MarketplaceURL"][len(base_url) :]) > 0
@@ -242,7 +251,7 @@ class FinalizePlugin(Command):
         config_folder = os.path.join(plugin_dir, "Config")
         output_folder = os.path.dirname(args.output)
 
-        shutil.copytree(config_folder, os.path.join(output_folder, "Config"))
+        shutil.copytree(config_folder, os.path.join(output_folder, "Config"), dirs_exist_ok=True)
 
 
 COMMANDS = [PackagePlugin, NewPlugin, FinalizePlugin]
