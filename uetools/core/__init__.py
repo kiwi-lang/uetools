@@ -1,7 +1,7 @@
 """Top level module for uetools"""
 
 __descr__ = "Unreal Engine Tools"
-__version__ = "0.2.8"
+__version__ = "0.2.9"
 __license__ = "BSD 3-Clause License"
 __author__ = "Pierre Delaunay"
 __author_email__ = "pierre@delaunay.io"

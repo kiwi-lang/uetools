@@ -282,15 +282,15 @@ class LimitCPU(Command):
             #   FileReference.Combine(new DirectoryReference(PersonalFolder), "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml");
             #
             #   AppDataFolder = ''              <= this should be ~/.config # XDG_CONFIG_HOME
-            #   PersonalFolder = /home/runner   <= this 
+            #   PersonalFolder = /home/runner   <= this
 
-            app_data = os.path.join(home, '.config')
-            if 'XDG_CONFIG_HOME' not in os.environ:
-                os.environ['XDG_CONFIG_HOME'] = app_data
-            else:
-                app_data = os.environ['XDG_CONFIG_HOME']
-            
             home = os.path.expanduser("~")
+            app_data = os.path.join(home, ".config")
+            if "XDG_CONFIG_HOME" not in os.environ:
+                os.environ["XDG_CONFIG_HOME"] = app_data
+            else:
+                app_data = os.environ["XDG_CONFIG_HOME"]
+
             app_ubt_config = os.path.join(
                 app_data,
                 "Unreal Engine",
