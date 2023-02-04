@@ -65,4 +65,4 @@ void F{{cookiecutter.plugin_name}}ShaderModule::ShutdownModule()
 
 #undef LOCTEXT_NAMESPACE
 
-IMPLEMENT_MODULE(F{{cookiecutter.plugin_name}}ShaderModule, {{cookiecutter.plugin_name}})
+IMPLEMENT_MODULE(F{{cookiecutter.plugin_name}}ShaderModule, {{cookiecutter.plugin_name}}Shader)
