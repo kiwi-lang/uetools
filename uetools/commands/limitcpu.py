@@ -266,9 +266,21 @@ class LimitCPU(Command):
         #
         engine = engine_folder()
         namespaces = {"ue": "https://www.unrealengine.com/BuildConfiguration"}
-        global_ubt_config = os.path.join(
-            engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
-        )
+
+        if os.name == "nt":
+            global_ubt_config = os.path.join(
+                engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
+            )
+        else:
+            home = os.path.expanduser("~")
+            global_ubt_config = os.path.join(
+                home,
+                ".config",
+                "Unreal Engine",
+                "UnrealBuildTool",
+                "BuildConfiguration.xml",
+            )
+
         # user_ubt_config = os.path.join(home, "AppData", "Roaming", "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml")
         # local_ubt_config = os.path.join(home, "Documents", "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml")
 
