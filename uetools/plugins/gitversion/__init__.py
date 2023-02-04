@@ -54,7 +54,13 @@ class GitVersion(Command):
         for k, v in replacements:
             pattern = "string " + k + ' = ".*";'
             replacement = f'string {k} = "{v}";'
-            data = re.sub(pattern, replacement, data)
+
+            data, count = re.subn(pattern, replacement, data)
+
+            if count == 1:
+                print(f'Set {k} = "{v}"')
+            else:
+                print(f'Key {k} not found')
 
         with open(args.file + ".new", "w", encoding="utf-8") as new_file:
             new_file.write(data)
