@@ -28,6 +28,10 @@ setup_kwargs = dict(
         "uetools.commands",
         "uetools.format",
         "uetools.plugins.ml",
+        "uetools.plugins.gitversion",
+        "uetools.plugins.cpp",
+        "uetools.plugins.gkscript",
+        "uetools.plugins.resavepackages",
     ],
     classifiers=[
         "License :: OSI Approved :: BSD License",

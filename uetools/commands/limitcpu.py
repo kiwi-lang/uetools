@@ -267,15 +267,39 @@ class LimitCPU(Command):
         engine = engine_folder()
         namespaces = {"ue": "https://www.unrealengine.com/BuildConfiguration"}
 
-        if os.name == "nt":
-            global_ubt_config = os.path.join(
-                engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
-            )
-        else:
+        # this should work for everybody but it doesn't
+        global_ubt_config = os.path.join(
+            engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
+        )
+        if os.name != "nt":
+            # this is not loaded by UBT
+            # UnrealEngine\Engine\Source\Programs\UnrealBuildTool\System\XmlConfig.cs
+            #   this one is ignored if touch /opt/UnrealEngine/Engine/Build/InstalledBuild.txt exists
+            #   creating the file triggers a bunch of other issues
+            #
+            #   FileReference UserConfigLocation = FileReference.Combine(Unreal.EngineDirectory, "Saved", "UnrealBuildTool", "BuildConfiguration.xml");
+            #   FileReference.Combine(new DirectoryReference(AppDataFolder), "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml");
+            #   FileReference.Combine(new DirectoryReference(PersonalFolder), "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml");
+            #
+            #   AppDataFolder = ''              <= this should be ~/.config # XDG_CONFIG_HOME
+            #   PersonalFolder = /home/runner   <= this 
+
+            app_data = os.path.join(home, '.config')
+            if 'XDG_CONFIG_HOME' not in os.environ:
+                os.environ['XDG_CONFIG_HOME'] = app_data
+            else:
+                app_data = os.environ['XDG_CONFIG_HOME']
+            
             home = os.path.expanduser("~")
-            global_ubt_config = os.path.join(
+            app_ubt_config = os.path.join(
+                app_data,
+                "Unreal Engine",
+                "UnrealBuildTool",
+                "BuildConfiguration.xml",
+            )
+
+            user_ubt_config = os.path.join(
                 home,
-                ".config",
                 "Unreal Engine",
                 "UnrealBuildTool",
                 "BuildConfiguration.xml",
