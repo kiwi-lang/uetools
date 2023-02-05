@@ -60,7 +60,7 @@ class GitVersion(Command):
             if count == 1:
                 print(f'Set {k} = "{v}"')
             else:
-                print(f'Key {k} not found')
+                print(f"Key {k} not found")
 
         with open(args.file + ".new", "w", encoding="utf-8") as new_file:
             new_file.write(data)

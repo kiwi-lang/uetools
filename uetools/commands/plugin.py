@@ -245,7 +245,7 @@ class FinalizePlugin(Command):
         ), "MarketPlace URL missing"
 
         with open(args.output, "w") as f:
-            json.dump(uplugin, f)
+            json.dump(uplugin, f, indent=2)
 
         # Copy files
         # ----------
