@@ -18,8 +18,29 @@ from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
 
 
+def editor_platforms():
+    return choice(*get_editor_platforms(), default=guess_editor_platform())
+
+
+def build_modes():
+    return choice(*get_build_modes(), default=None)
+
+
 @dataclass
 class Arguments:
+    # fmt: off
+    project         : str                                   # Project Name
+    output          : Optional[str] = None                  # Output
+    build           : Optional[str] = build_modes()         # Build modes
+    platform        : Optional[str] = editor_platforms()    # Platform to cookf
+    compressed      : bool          = True                  # Compressed
+    cookall         : bool          = True                  # Cook All the content
+    unversioned     : bool          = True                  # unversioned
+    WarningsAsErrors: bool          = True                  # Fail on warnings
+    # fmt: on
+
+
+class CookGame(Command):
     """Cook your main game
 
     Attributes
@@ -66,21 +87,6 @@ class Arguments:
 
     """
 
-    project: str
-    output: Optional[str] = None
-    build: Optional[str] = choice(*get_build_modes(), default=None)
-    platform: Optional[str] = choice(
-        *get_editor_platforms(), default=guess_editor_platform()
-    )
-    compressed: bool = True
-    cookall: bool = True
-    unversioned: bool = True
-    WarningsAsErrors: bool = True
-
-
-class CookGame(Command):
-    """Cook your main game"""
-
     name: str = "cook"
 
     @staticmethod
@@ -103,7 +109,7 @@ class CookGame(Command):
             build_args.platform = build_platform_from_editor(platform)
             build_args.mode = build
             build_args.profile = "update-project"
-            Build.execute_profile(Namespace(build=build_args))
+            Build.execute_profile(build_args)
 
         uproject = find_project(name)
         folder = os.path.dirname(uproject)
@@ -141,7 +147,6 @@ class CookGame(Command):
         fmt.summary()
 
         print(f"Subprocess terminated with (rc: {returncode})")
-
         return returncode
 
 

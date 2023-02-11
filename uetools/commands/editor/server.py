@@ -8,10 +8,27 @@ from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 
 
-# This is not used technically, but we keep it for consistency with the other commands
-# also help with the doc generation as this object appears on top
+# fmt: off
 @dataclass
 class Arguments:
+    project     : str           # Name of the project to serve
+    map         : str           # Name of the map to serve
+    dedicated   : bool = False  # If true will start a dedicated server, otherwise a listen server (one local player that can host remote players)
+    port        : int = 8123    # Server port
+    dry         : bool = False  # Print the command it will execute without running it
+
+@dataclass
+class MapParameters:
+    """Parameters added to the Map URL"""
+
+    bIsLanMatch  : bool          = False
+    bIsFromInvite: bool          = False
+    spectatoronly: bool          = False
+    gameinfo     : Optional[str] = None
+# fmt: on
+
+
+class Server(Command):
     """Launch the editor as a server
 
     Attributes
@@ -34,52 +51,13 @@ class Arguments:
 
     """
 
-    # project: str
-    # map: str
-    dedicated: bool = False  # If true will start a dedicated server, otherwise a listen server (one local player that can host remote players)
-    port: int = 8123  # Server port
-
-
-@dataclass
-class MapParameters:
-    """Parameters added to the Map URL"""
-
-    bIsLanMatch: bool = False
-    bIsFromInvite: bool = False
-    spectatoronly: bool = False
-    gameinfo: Optional[str] = None
-
-
-class Server(Command):
-    """Launch the editor as a server"""
-
     name: str = "server"
 
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Server)
-
-        # this makes it ugly
-        # editor.add_arguments(Arguments, dest="server")
-
-        parser.add_argument(
-            "project", metavar="project", type=str, help="Name of the project to serve"
-        )
-        parser.add_argument(
-            "map",
-            metavar="map",
-            type=str,
-            help=" Name of the map to serve (if the map is located inside the map folder, just the name of the map is needed,"
-            "if not the full path is needed including the extension, e.g. /Game/NotMap/MyMap.umap)",
-        )
         add_arguments(parser, Arguments)
         add_arguments(parser, MapParameters)
-        parser.add_argument(
-            "--dry",
-            action="store_true",
-            default=False,
-            help="Print the command it will execute without running it",
-        )
 
     @staticmethod
     def execute(args):

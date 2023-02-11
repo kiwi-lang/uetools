@@ -10,23 +10,6 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    """Launch a game setup for machine learning
-
-    Attributes
-    ----------
-    project: str
-        Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
-
-    Examples
-    --------
-
-    .. code-block:: console
-
-       uecli ml RTSGame
-
-       # Launch your agent script that will connect and make the agents play the game
-
-    """
     resx                : int = 320     # resolution width
     resy                : int = 240     # resolution height
     fps                 : int = 20      # Max FPS
@@ -45,7 +28,23 @@ class Arguments:
 
 
 class ML(Command):
-    """Launch a game setup for machine learning"""
+    """Launch a game setup for machine learning
+
+    Attributes
+    ----------
+    project: str
+        Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
+
+    Examples
+    --------
+
+    .. code-block:: console
+
+       uecli ml RTSGame
+
+       # Launch your agent script that will connect and make the agents play the game
+
+    """
 
     name: str = "ml"
 

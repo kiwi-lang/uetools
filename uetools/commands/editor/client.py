@@ -8,10 +8,17 @@ from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 
 
-# This is not used technically, but we keep it for consistency with the other commands
-# also help with the doc generation as this object appears on top
 @dataclass
 class Arguments:
+    # fmt: off
+    project : str                    # Name of the the project to open
+    address : Optional[str] = None   # Address to the server
+    port    : int           = 8123   # Server port
+    dry     : bool          = False  # Print the command it will execute without running it
+    # fmt: on
+
+
+class Client(Command):
     """Launch the editor as a client, connecting to an already running server
 
     Attributes
@@ -21,6 +28,9 @@ class Arguments:
 
     address: str
         Address of the server to connect to, if None launch in standalone
+
+    port: int
+        Post of the server to connect to
 
     Examples
     --------
@@ -33,27 +43,12 @@ class Arguments:
 
     """
 
-    # name: str
-    address: Optional[str] = None
-    port: int = 8123  # Server port
-
-
-class Client(Command):
-    """Launch the editor as a client to an already running server"""
-
     name: str = "client"
 
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Client)
-        parser.add_argument("project", type=str, help="Name of the the project to open")
         add_arguments(parser, Arguments)
-        parser.add_argument(
-            "--dry",
-            action="store_true",
-            default=False,
-            help="Print the command it will execute without running it",
-        )
 
     @staticmethod
     def execute(args):

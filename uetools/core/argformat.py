@@ -2,17 +2,9 @@ import argparse
 
 
 def recursively_show_actions(parser: argparse.ArgumentParser):
-    print()
-    print("=======================")
-    print("  Exhaustive Commands")
-    print("=======================")
-    print("")
-    print("  Pattern:")
-    print("     uecli [-v version] command subcommand ...")
-    print("")
-    print("  Examples:")
-    print("     uecli -v 5.1 editor open RTSGame --help")
-    print("")
+    if parser.description:
+        print(parser.description)
+
     _recursively_show_actions(parser, 2)
 
 
@@ -33,8 +25,9 @@ def format_group(group: argparse._ArgumentGroup, depth: int):
             choices = action.choices
 
             for name, choice in choices.items():
+                title = choice.description.partition("\n")[0]
                 if isinstance(choice, argparse.ArgumentParser):
-                    print(f"{indent}{name:<40} {choice.description}")
+                    print(f"{indent}{name:<40} {title}")
                     _recursively_show_actions(choice, depth + 1)
         else:
             format_action(action, depth)
@@ -83,6 +76,10 @@ def format_action(action: argparse.Action, depth: int):
 
 
 class HelpAction(argparse._HelpAction):
+    def __init__(self, *args, docstring=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.docstring = docstring
+
     def __call__(self, parser, namespace, values, option_string=None):
         # parser.print_help()
         recursively_show_actions(parser)

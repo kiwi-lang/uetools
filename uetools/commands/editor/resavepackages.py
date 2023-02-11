@@ -10,7 +10,13 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    """Convert a Blueprint into GKScript
+    project: str
+    no_input: bool = True
+# fmt: on
+
+
+class ReSavePackages(Command):
+    """Resave assets, fixing some issues that can arise when using marketplace assets
 
     Attributes
     ----------
@@ -25,13 +31,6 @@ class Arguments:
        uecli gkscript RTSGame
 
     """
-    project: str
-    no_input: bool = True
-# fmt: on
-
-
-class ReSavePackages(Command):
-    """Resave assets, fixing some issues that can arise when using marketplace assets"""
 
     name: str = "resavepackages"
 
@@ -42,7 +41,7 @@ class ReSavePackages(Command):
 
     @staticmethod
     def execute(args):
-        project = find_project(args.project)
+        project = find_project(vars(args).pop("project"))
 
         cmd = editor_commandlet(project, "resavepackages") + [
             # "-VERIFY",

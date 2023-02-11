@@ -9,6 +9,10 @@ from uetools.core.ini import UnrealINIParser
 
 @dataclass
 class Arguments:
+    project: str
+
+
+class Python(Command):
     """Tweak your project settings to enable python scripting in your project
 
     Attributes
@@ -17,12 +21,6 @@ class Arguments:
         Name of the project
 
     """
-
-    project: str
-
-
-class Python(Command):
-    """Tweak your project settings to enable python scripting in your project"""
 
     name: str = "python"
 

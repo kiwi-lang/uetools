@@ -50,20 +50,29 @@ def test_install(project, project_name):
 
 
 @skipif(not ready(), reason="Unreal engine is not installed")
-def test_install_submodule(project, project_name):
+def test_install_submodule(project, project_name, capsys):
     # Regenerate the project files
-    main(
-        args(
-            "plugin",
-            "install",
-            project_name,
-            "ExamplePlugin2",
-            "https://github.com/kiwi-lang/ExamplePlugin",
-            "--submodule",
-            "--enable",
-            "--force",
+    with capsys.disabled():
+        main(
+            args(
+                "plugin",
+                "install",
+                project_name,
+                "ExamplePlugin2",
+                "https://github.com/kiwi-lang/ExamplePlugin",
+                "--submodule",
+                "--enable",
+                "--force",
+            )
         )
-    )
+
+    main(args("plugin", "list", project_name))
+    capture = capsys.readouterr().out.splitlines()
+
+    # Plugins:
+    #   - ExamplePlugin
+    #   - ExamplePlugin2
+    assert len(capture) == 3
 
     output = subprocess.check_output(
         "git config --file .gitmodules --name-only --get-regexp path".split(" "),

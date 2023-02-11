@@ -15,6 +15,22 @@ actions = ["Gather", "Compile", "import", "export"]
 # fmt: off
 @dataclass
 class ArgumentEditor:
+    project                 : str  # Project we are generating localization for
+    run                     : str = choice("GatherText")
+    target                  : Optional[str] = None  # Localization target (defaults to the project name)
+    SCCProvider             : Optional[str] = None  # Source control provider
+    EnableSCC               : bool = False  # enable source control
+    DisableSCCSubmit        : bool = True   # Disable submitting to source control
+    Unattended              : bool = True   # Don't ask for user input
+    NoShaderCompile         : bool = True   # Prevent shader compilation
+    multiprocess            : bool = True   # Use multiple threads to gather text
+    ReportStaleGatherCache  : bool = False  # Generates a StaleGatherCacheReport.txt file alongside the manifest for your localization target. This file contains a list of any Assets that contain a stale gather cache.
+    FixStaleGatherCache     : bool = False  # Attempts to automatically fix any Assets that contain a stale gather cache, by re-saving them.
+    FixMissingGatherCache   : bool = False  # For Assets too old to have a gather cache, this attempts to automatically fix Assets that are missing a gather cache by re-saving them.
+# fmt: on
+
+
+class LocalEditor(Command):
     """Generate localization files for your unreal project
 
     Attributes
@@ -62,25 +78,7 @@ class ArgumentEditor:
     .. code-block:: console
 
        uecli local --project RTSGame --run GatherText --target RTSGame
-
     """
-    project                 : str  # Project we are generating localization for
-    run                     : str = choice("GatherText")
-    target                  : Optional[str] = None  # Localization target (defaults to the project name)
-    SCCProvider             : Optional[str] = None  # Source control provider
-    EnableSCC               : bool = False  # enable source control
-    DisableSCCSubmit        : bool = True   # Disable submitting to source control
-    Unattended              : bool = True   # Don't ask for user input
-    NoShaderCompile         : bool = True   # Prevent shader compilation
-    multiprocess            : bool = True   # Use multiple threads to gather text
-    ReportStaleGatherCache  : bool = False  # Generates a StaleGatherCacheReport.txt file alongside the manifest for your localization target. This file contains a list of any Assets that contain a stale gather cache.
-    FixStaleGatherCache     : bool = False  # Attempts to automatically fix any Assets that contain a stale gather cache, by re-saving them.
-    FixMissingGatherCache   : bool = False  # For Assets too old to have a gather cache, this attempts to automatically fix Assets that are missing a gather cache by re-saving them.
-# fmt: on
-
-
-class LocalEditor(Command):
-    """Generate localization files using unreal editor"""
 
     name: str = "localize"
 

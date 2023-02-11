@@ -217,7 +217,9 @@ class CLIArguments:
 @dataclass
 class Arguments:
     """Unreal Editor arguments"""
-    # project: str # Path to the pro
+    project: str                  # Project name, example: <project>.uproject
+    cli     : bool = False        # Enable a group of arguments to make the editor as a command line tool
+    dry     : bool = False        # Print the command it will execute without running it
     map     : str | None  = None  # Path to the map
     game    : bool = False        # Launch the game
     server  : bool = False        # Launch the game as a server
@@ -266,27 +268,6 @@ class Editor(Command):
     def arguments(subparsers):
         """Adds the arguments for this command to the given parser"""
         parser = newparser(subparsers, Editor)
-
-        parser.add_argument(
-            "--project",
-            type=str,
-            metavar="project",
-            default=None,
-            help="Project name, example: <project>.uproject",
-        )
-        parser.add_argument(
-            "--cli",
-            action="store_true",
-            default=False,
-            help="Enable a group of arguments to make the editor as a command line tool",
-        )
-
-        parser.add_argument(
-            "--dry",
-            action="store_true",
-            default=False,
-            help="Print the command it will execute without running it",
-        )
         add_arguments(parser, Arguments)
         add_arguments(parser, DevArguments)
         add_arguments(parser, RenderingArguments)

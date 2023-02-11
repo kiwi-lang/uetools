@@ -10,6 +10,14 @@ from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 
 @dataclass
 class Arguments:
+    # fmt: off
+    engine  : Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+    projects: Optional[str] = None  # Path to the unreal project folder (C:/Projects)
+    version : Optional[str] = None  # Unreal Engine Version (5.1)
+    # fmt: on
+
+
+class Init(Command):
     """Initialize the configuration file with unreal engine folders
 
     Attributes
@@ -31,16 +39,6 @@ class Arguments:
        uecli init --engine C:/opt/UnrealEngine/Engine --projects C:/opt/Projects
 
     """
-
-    # fmt: off
-    engine  : Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    projects: Optional[str] = None  # Path to the unreal project folder (C:/Projects)
-    version : Optional[str] = None  # Unreal Engine Version (5.1)
-    # fmt: on
-
-
-class Init(Command):
-    """Initialize the configuration file for the command line interface"""
 
     name: str = "init"
 

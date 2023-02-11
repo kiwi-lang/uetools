@@ -15,6 +15,12 @@ from uetools.core.conf import find_project
 # fmt: off
 @dataclass
 class Arguments:
+    project : str           # Project name
+    no_input: bool = True   # Disable prompt
+# fmt: on
+
+
+class CPP(Command):
     """Turn a blueprint project into a C++ project
 
     Attributes
@@ -30,13 +36,6 @@ class Arguments:
        uecli cpp RTSGame
 
     """
-    project: str
-    no_input: bool = True
-# fmt: on
-
-
-class CPP(Command):
-    """Turn a blueprint project into a C++ project"""
 
     name: str = "cpp"
 

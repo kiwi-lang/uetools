@@ -15,4 +15,4 @@ class ProjectNew(Command):
         print("here")
 
 
-COMMANDS = ProjectNew
+# COMMANDS = ProjectNew

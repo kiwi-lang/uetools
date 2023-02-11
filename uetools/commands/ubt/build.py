@@ -128,6 +128,13 @@ def replace_variables(command, variables):
 
 @dataclass
 class Arguments:
+    target: str
+    platform: str = choice(*get_build_platforms(), default=guess_platform())
+    mode: str = choice(*get_build_modes(), default="Development")
+    profile: Optional[str] = None
+
+
+class Build(Command):
     """Execute UnrealBuildTool for a specified target
 
     Attributes
@@ -163,15 +170,6 @@ class Arguments:
     This was done as an exercice to learn about Unreal internals and might not get updated too often.
 
     """
-
-    target: str
-    platform: str = choice(*get_build_platforms(), default=guess_platform())
-    mode: str = choice(*get_build_modes(), default="Development")
-    profile: Optional[str] = None
-
-
-class Build(Command):
-    """Execute UnrealBuildTool for a specified target"""
 
     name: str = "build"
 

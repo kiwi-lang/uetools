@@ -14,6 +14,24 @@ actions = ["Gather", "Compile", "import", "export"]
 # fmt: off
 @dataclass
 class UATArguments:
+    project                         : str                    # Project name
+    UEProjectRoot                   : Optional[str] = None   # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
+    UEProjectDirectory              : str           = ''     # Sub-path to the project we're gathering for (relative to UEProjectRoot).
+    UEProjectName                   : Optional[str] = None   # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
+    LocalizationProjectNames        : Optional[str] = None   # Comma separated list of the projects to gather text from.
+    LocalizationBranch              : Optional[str] = None   # Optional suffix to use when uploading the new data to the localization provider.
+    LocalizationProvider            : Optional[str] = None   # Optional localization provide override."
+    LocalizationSteps               : Optional[str] = None   # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
+    IncludePlugins                  : bool          = False  # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
+    ExcludePlugins                  : Optional[str] = None   # Optional comma separated list of plugins to exclude from the gather.
+    IncludePlatforms                : bool          = False  # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
+    AdditionalCSCommandletArguments : Optional[str] = None   # Optional arguments to pass to the gather process.
+    ParallelGather                  : bool          = False  # Run the gather processes for a single batch in parallel rather than sequence.
+    OneSkyProjectGroupName          : Optional[str] = None
+# fmt: on
+
+
+class LocalUAT(Command):
     """Updates the external localization data using the arguments provided.
 
     Attributes
@@ -67,26 +85,6 @@ class UATArguments:
        uecli uat-local --project GamekitDev --IncludePlugins --ParallelGather --LocalizationSteps Gather --LocalizationProjectNames GamekitDev
 
     """
-
-    project                         : str                    # Project name
-    UEProjectRoot                   : Optional[str] = None   # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
-    UEProjectDirectory              : str           = ''     # Sub-path to the project we're gathering for (relative to UEProjectRoot).
-    UEProjectName                   : Optional[str] = None   # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
-    LocalizationProjectNames        : Optional[str] = None   # Comma separated list of the projects to gather text from.
-    LocalizationBranch              : Optional[str] = None   # Optional suffix to use when uploading the new data to the localization provider.
-    LocalizationProvider            : Optional[str] = None   # Optional localization provide override."
-    LocalizationSteps               : Optional[str] = None   # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
-    IncludePlugins                  : bool          = False  # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
-    ExcludePlugins                  : Optional[str] = None   # Optional comma separated list of plugins to exclude from the gather.
-    IncludePlatforms                : bool          = False  # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
-    AdditionalCSCommandletArguments : Optional[str] = None   # Optional arguments to pass to the gather process.
-    ParallelGather                  : bool          = False  # Run the gather processes for a single batch in parallel rather than sequence.
-    OneSkyProjectGroupName          : Optional[str] = None
-# fmt: on
-
-
-class LocalUAT(Command):
-    """Use the UAT to run localization gathering"""
 
     name: str = "localize"
 

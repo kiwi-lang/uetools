@@ -52,7 +52,9 @@ def main(argv=None):
         sys.exit(-1)
 
     cmd_name = parsed_args.command
+    print(cmd_name)
     command = commands.get(cmd_name)
+    print(command)
 
     if command is None:
         print(f"Action `{cmd_name}` not implemented")

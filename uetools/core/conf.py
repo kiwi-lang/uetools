@@ -23,7 +23,7 @@ logger = logging.getLogger()
 
 def get_build_modes():
     """Returns the build modes supported by UBT"""
-    return ["Tests", "Debug", "Development", "Shipping"]
+    return ["Development", "Tests", "Debug", "Shipping"]
 
 
 def build_platform_from_editor(editor_platform):

@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 from cookiecutter.main import cookiecutter
 
@@ -10,6 +11,14 @@ COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
 
 # pylint: disable=too-few-public-methods
 class Arguments:
+    # fmt: off
+    project : str                    # name of your project
+    no_input: bool          = False  # Do not show user prompts
+    config  : Optional[str] = None   # Configuration file used to initialize the project (json)
+    # fmt: on
+
+
+class Docs(Command):
     """Add a Sphinx + Doxygen documentation to a project
 
     Attributes
@@ -19,29 +28,23 @@ class Arguments:
 
     """
 
-    name: str
-
-
-class Docs(Command):
-    """Add a docs folder to your project"""
-
     name: str = "docs"
 
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Docs)
-        parser.add_argument("project", type=str, help="name of your project")
+        parser.add_argument("project", type=str, help="")
         parser.add_argument(
             "--no-input",
             action="store_true",
             default=False,
-            help="Do not show user prompts",
+            help="",
         )
         parser.add_argument(
             "--config",
             type=str,
             default=None,
-            help="Configuration file used to initialize the project (json)",
+            help="",
         )
 
     @staticmethod

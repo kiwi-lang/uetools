@@ -7,6 +7,11 @@ from uetools.core.conf import find_project
 
 @dataclass
 class Arguments:
+    name: str
+    plugin: str
+
+
+class Disable(Command):
     """Disable a plugin
 
     Attributes
@@ -26,13 +31,6 @@ class Arguments:
        uecli disable RTSGame RTSGamePlugin
 
     """
-
-    name: str
-    plugin: str
-
-
-class Disable(Command):
-    """Disable unused plugin that are loading by default"""
 
     name: str = "disable"
 

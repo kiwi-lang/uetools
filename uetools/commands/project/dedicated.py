@@ -9,6 +9,10 @@ from uetools.core.conf import find_project
 
 @dataclass
 class Arguments:
+    project: str
+
+
+class Dedicated(Command):
     """Create a dedicated server target for a given project
 
     Attributes
@@ -31,12 +35,6 @@ class Arguments:
        uecli build RTSGameServer
 
     """
-
-    project: str
-
-
-class Dedicated(Command):
-    """Create a dedicated server target for a given project"""
 
     name: str = "dedicated"
 

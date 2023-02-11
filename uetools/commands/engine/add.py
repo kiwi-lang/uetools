@@ -23,6 +23,14 @@ def get_engine_version(path):
 
 @dataclass
 class EngineAddArguments:
+    # fmt: off
+    version: Optional[str] = None   # Unreal Engine Version (5.1)
+    engine : Optional[str] = None   # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+    force  : bool          = False  # Allow version override
+    # fmt: on
+
+
+class EngineAdd(Command):
     """Register an engine version
 
     Attributes
@@ -41,16 +49,6 @@ class EngineAddArguments:
        uecli engine-add --version src --engine C:/opt/UnrealEngine/Engine
 
     """
-
-    # fmt: off
-    version: Optional[str] = None   # Unreal Engine Version (5.1)
-    engine : Optional[str] = None   # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    force  : bool          = False  # Allow version override
-    # fmt: on
-
-
-class EngineAdd(Command):
-    """Add an unreal engine version"""
 
     name: str = "engine-add"
 

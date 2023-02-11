@@ -10,6 +10,7 @@ skipif = pytest.mark.skipif
 
 @skipif(not ready(), reason="Unreal engine is not installed")
 def test_generate(project, project_name, project_root):
+    assert not os.path.exists(os.path.join(project, f"{project_name}.sln"))
 
     # Regenerate the project files
     main(

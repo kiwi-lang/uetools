@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import os
 from argparse import Namespace
 from contextlib import contextmanager
@@ -10,12 +11,12 @@ from uetools.core.argformat import HelpAction
 from uetools.core.plugin import discover_plugins
 
 
-def newparser(subparsers, commandcls: Command):
+def newparser(subparsers: argparse._SubParsersAction, commandcls: Command):
     """Add a subparser to the parser for the command"""
-    # The help text is not showing :/
-    line = commandcls.help().split("\n")[0]
     parser = subparsers.add_parser(
-        commandcls.name, description=line, help=commandcls.help(), add_help=False
+        commandcls.name,
+        description=commandcls.help(),
+        add_help=False,
     )
     parser.add_argument(
         "-h", "--help", action=HelpAction, help="show this help message and exit"
@@ -158,6 +159,7 @@ class ParentCommand(Command):
         parser = newparser(subparsers, cls)
         subsubparsers = parser.add_subparsers(dest="subcommand", help=cls.help())
 
+        name = cls.module().__name__
         for _, module in discover_plugins(cls.module()).items():
             if hasattr(module, "COMMANDS"):
                 commands = getattr(module, "COMMANDS")
@@ -167,13 +169,15 @@ class ParentCommand(Command):
 
                 for cmd in commands:
                     cmd.arguments(subsubparsers)
-                    cls.dispatch[cmd.name] = cmd
+                    assert (name, cmd.name) not in cls.dispatch
+                    cls.dispatch[(name, cmd.name)] = cmd
 
     @classmethod
     def execute(cls, args):
+        cmd = cls.module().__name__
         subcmd = vars(args).pop("subcommand")
 
-        cmd = cls.dispatch.get(subcmd, None)
+        cmd = cls.dispatch.get((cmd, subcmd), None)
         if cmd:
             cmd.execute(args)
             return

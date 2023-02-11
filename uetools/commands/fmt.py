@@ -20,6 +20,13 @@ profiles = {
 
 @dataclass
 class Arguments:
+    profile: str = None
+    file: str = None
+    fail_on_error: bool = False
+    col: int = 24
+
+
+class Format(Command):
     """Format UnrealEngine log output. It will attempt to align log output to make them more readable.
 
     Attributes
@@ -57,15 +64,6 @@ class Arguments:
        [  0][L][LogPluginManager     ] Mounting Engine plugin FastBuildController
 
     """
-
-    profile: str = None
-    file: str = None
-    fail_on_error: bool = False
-    col: int = 24
-
-
-class Format(Command):
-    """Format UnrealEngine log output. It will attempt to align log output to make them more easily readable."""
 
     name: str = "format"
 

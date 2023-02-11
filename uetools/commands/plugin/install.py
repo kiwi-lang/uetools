@@ -10,6 +10,15 @@ from uetools.core.run import run
 
 @dataclass
 class Arguments:
+    # fmt: off
+    name        : str                    # Name of the project to modify.
+    url         : str                    # url of the plugin to install.
+    destination : Optional[str] = None   # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
+    submodule   : bool          = False  # install the plugin as a git submodule (defaults to: ``False``)
+    # fmt: on
+
+
+class Install(Command):
     """Install a plugin to an unreal project.
 
     Attributes
@@ -44,15 +53,6 @@ class Arguments:
         # disable the plugin
         uecli disable RTSGame VoxelPlugin
     """
-
-    name: str
-    url: str
-    destination: Optional[str] = None
-    submodule: bool = False
-
-
-class Install(Command):
-    """Install a plugin to an unreal project."""
 
     name: str = "install"
 

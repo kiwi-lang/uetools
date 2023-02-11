@@ -28,8 +28,8 @@ def field(*args, choices=None, type=None, **kwargs):
     return dataclasses.field(*args, metadata=metadata, **kwargs)
 
 
-def choice(*args, default=None, **kwargs):
-    if default is None:
+def choice(*args, default=MISSING, **kwargs):
+    if default is MISSING:
         default = args[0]
 
     return field(default=default, choices=args, **kwargs)
@@ -110,7 +110,7 @@ def _add_argument(group, field, docstring):
         nargs = "+"
 
     # Optional + List = nargs=*
-    default = None
+    default = MISSING
     if field.default is not MISSING:
         default = field.default
         required = False
@@ -122,18 +122,33 @@ def _add_argument(group, field, docstring):
     if field.metadata:
         choices = field.metadata.get("choices")
 
-    group.add_argument(
-        "--" + name,  # Option Strings
-        dest=name,  # dest
+    positional = False
+    if default is MISSING:
+        positional = True
+        default = None
+
+    kwargs = dict(
         nargs=nargs,  # nargs
         const=None,  # Const
         default=default,
         type=leaf_type(type),
         choices=choices,
-        required=required,
         help=docstring,
         metavar=None,
     )
+
+    if positional:
+        group.add_argument(
+            name,
+            **kwargs,
+        )
+    else:
+        group.add_argument(
+            "--" + name,  # Option Strings
+            dest=name,  # dest
+            required=not positional and required,
+            **kwargs,
+        )
 
 
 def find_docstring(field, lines, start_index):
@@ -161,7 +176,8 @@ def add_arguments(parser: argparse.ArgumentParser, dataclass, create_group=True)
     group = parser
     if create_group:
         group = parser.add_argument_group(
-            title=dataclass.__name__, description=dataclass.__doc__ or ""
+            title=dataclass.__name__,
+            description=dataclass.__doc__ or "",
         )
 
     for field in fields(dataclass):
