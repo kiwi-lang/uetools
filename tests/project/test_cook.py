@@ -8,7 +8,7 @@ skipif = pytest.mark.skipif
 
 @skipif(not ready(), reason="Unreal engine is not installed")
 def test_editor_cook(project, project_name):
-    main(args("project", "cook", "--project", project_name, "--build", "Development"))
+    main(args("editor", "cook", "--project", project_name, "--build", "Development"))
 
 
 @skipif(not ready(), reason="Unreal engine is not installed")

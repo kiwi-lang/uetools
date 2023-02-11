@@ -37,32 +37,32 @@ Get Started
 
    # Saves common paths
    uecli init --engine C:/opt/UnrealEngine/Engine --projects C:/opt/Projects
-   uecli engine-add --version src --engine C:/opt/UnrealEngine/Engine
-   uecli engine-add --version 5.1 --engine C:/EpicGames/UE_5.1/Engine
-   uecli engine-add --version 5.0 --engine C:/EpicGames/UE_5.0/Engine
+   uecli engine add --version src --engine C:/opt/UnrealEngine/Engine
+   uecli engine add --version 5.1 --engine C:/EpicGames/UE_5.1/Engine
+   uecli engine add --version 5.0 --engine C:/EpicGames/UE_5.0/Engine
 
    # Install the plugin VoxelPlugin to the RTSGame project
    uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin
 
    # Rebuild the RTSGame project
-   uecli build RTSGame
+   uecli ubt build RTSGame
 
    # Open the project (located in C:/opt/Projects/RTSGame)
-   uecli open RTSGame
-   uecli --engine-version 5.1 open RTSGame
-   uecli --engine-version 5.0 open RTSGame
+   uecli editor open RTSGame
+   uecli -v 5.1 editor open RTSGame
+   uecli -v 5.0 editor open RTSGame
 
    # Cook the project
-   uecli cook RTSGame
+   uecli editor cook RTSGame
 
    # Start a server
-   uecli server RTSGame --dedicated --port 8123
+   uecli editor server RTSGame --dedicated --port 8123
 
    # start a client
-   uecli client RTSGame --address 127.0.0.1 --port  8123
+   uecli editor client RTSGame --address 127.0.0.1 --port  8123
 
    # Turn a blueprint Project into a C++ project
-   uecli cpp RTSGame
+   uecli project cpp RTSGame
 
 
 Make your own command
@@ -77,51 +77,35 @@ Help Example
 
 .. code-block::
 
-   $ uecli ml --help
-   usage:
+   Pattern:
+      uecli [-v version] command subcommand ...
 
-   description:
-      Launch a game setup for machine learning
+   Examples:
+      uecli -v 5.1 editor open RTSGame --help
 
-   positional arguments:
-      str                       Name of the the project to open
-      str                       Name of the map to open
 
-   optional arguments:
-      -h, --help                show this help message and exit
-      --dry                     Print the command it will execute without running it (default: False)
+   positional arguments
+      project: str                             Name of the the project to open
+      map: str                                 Name of the map to open
 
-   Arguments ['ml']:
-      Launch a game setup for machine learning
+   optional arguments
+      --dry: bool = False                      Print the command it will execute without running it
 
-         Attributes
-         ----------
-         project: str
-            Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
-
-         Examples
-         --------
-
-         .. code-block:: console
-
-            uecli ml RTSGame
-
-            # Launch your agent script that will connect and make the agents play the game
-
-      --resx int                resolution width (default: 320)
-      --resy int                resolution height (default: 240)
-      --fps int                 Max FPS (default: 20)
-      --windowed bool           Window mode (default: True)
-      --usefixedtimestep bool   Block until the ML agent replies with an action (default: True)
-      --game bool               (default: True)
-      --unattended bool         Close when the game finishes (default: True)
-      --onethread bool          Run on a single thread (default: False)
-      --reducethreadusage bool  (default: False)
-      --nosound bool            Disable sound (default: False)
-      --nullrhi bool            Disable rendering (default: False)
-      --deterministic bool      Set seeds ? (default: False)
-      --debug bool              (default: False)
-      --mladapterport int       RPC server listen port (default: 8123)
+   Arguments
+      --resx: int = 320                        resolution width
+      --resy: int = 240                        resolution height
+      --fps: int = 20                          Max FPS
+      --windowed = True                        Window mode
+      --usefixedtimestep = True                Block until the ML agent replies with an action
+      --game = True
+      --unattended = True                      Close when the game finishes
+      --onethread: bool = False                Run on a single thread
+      --reducethreadusage: bool = False
+      --nosound: bool = False                  Disable sound
+      --nullrhi: bool = False                  Disable rendering
+      --deterministic: bool = False            Set seeds ?
+      --debug: bool = False
+      --mladapterport: int = 8123              RPC server listen port
 
 
 Features
@@ -154,3 +138,53 @@ Unreal engine has 222 comandlets, 83 commands and more than
 
 ``uetools`` identifies the useful arguments and bundle them inside a command line utility,
 forming groups/set of arguments with a singular purpose.
+
+
+Commands
+--------
+
+.. code-block::
+
+      editor                                   Set of commands to launch the editors in different modes
+         client                                   Launch the editor as a client to an already running server
+         cook                                     Cook your main game
+         run                                      Runs Editor as is. This command exposes a lot of arguments.
+         localize                                 Generate localization files using unreal editor
+         ml                                       Launch a game setup for machine learning
+         open                                     Open the editor for a given project
+         resavepackages                           Resave assets, fixing some issues that can arise when using marketplace assets
+         server                                   Launch the editor as a server
+      engine                                   Set of commands to manage engine installation/source
+         update                                   Update the engine source code
+      format                                   Format UnrealEngine log output. It will attempt to align log output to make them more easily readable.
+      init                                     Initialize the configuration file for the command line interface
+      plugin                                   Set of commands to create, package and publish plugins
+         disable                                  Disable unused plugin that are loading by default
+         finalize                                 Finalize Plugin for redistribution
+         install                                  Install a plugin to an unreal project.
+         list                                     List installed plugin
+         new                                      Create a new plugin from a template
+         package                                  Builds and cook a plugin
+      project                                  Set of commands to manage an UnrealProject
+         cpp                                      Turn a blueprint project into a C++ project
+         new                                      WIP Create a new project
+         dedicated                                Create a dedicated server target for a given project
+         docs                                     Add a docs folder to your project
+         python                                   Tweak your project settings to enable python scripting in your project
+         vscode                                   Tweak your VSCode setting for this project to find python stub generated by Unreal Engine.
+      test                                     Set of commands to run automated tests
+         run                                      Execute automated tests for a given project
+      uat                                      Unreal Automation Tool Commands
+         cook                                     Cook your main game using UAT
+         localize                                 Use the UAT to run localization gathering
+         test                                     Execute automated tests for a given project using UAT
+         uat                                      Runs Unreal Automation tool.
+      ubt                                      Unreal Build Tool Commands
+         build                                    Execute UnrealBuildTool for a specified target
+         configure                                Disable unused plugin that are loading by default
+         regenerate                               Generate project files
+         ubt                                      Runs Unreal build tool as is.
+      asset-dumper                             Dump a UAsset
+      gamekit                                  Set of commands for Gamekit
+         gkscript                                 Convert a Blueprint into GKScript
+         gitversion                               Update a file with git version info

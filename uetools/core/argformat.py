@@ -13,7 +13,6 @@ def recursively_show_actions(parser: argparse.ArgumentParser):
     print("  Examples:")
     print("     uecli -v 5.1 editor open RTSGame --help")
     print("")
-    print("  Arguments:")
     _recursively_show_actions(parser, 2)
 
 
@@ -25,10 +24,7 @@ def _recursively_show_actions(parser: argparse.ArgumentParser, depth: int = 0):
 def format_group(group: argparse._ArgumentGroup, depth: int):
     indent = "  " * depth
 
-    if depth > 2:
-        return
-
-    if group._group_actions:
+    if group._group_actions and depth <= 2:
         print()
         print(f"{group.title}")
 
@@ -40,8 +36,6 @@ def format_group(group: argparse._ArgumentGroup, depth: int):
                 if isinstance(choice, argparse.ArgumentParser):
                     print(f"{indent}{name:<40} {choice.description}")
                     _recursively_show_actions(choice, depth + 1)
-
-            print()
         else:
             format_action(action, depth)
 

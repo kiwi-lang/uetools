@@ -19,7 +19,7 @@ def test_plugin(project, project_name, tmp_path):
 
     main(
         args(
-            "project",
+            "ubt",
             "build",
             "--target",
             f"{project_name}Editor",
@@ -31,6 +31,7 @@ def test_plugin(project, project_name, tmp_path):
     main(
         args(
             "plugin",
+            "package",
             project_name,
             "Plugins/ExamplePlugin/ExamplePlugin.uplugin",
             "--output",

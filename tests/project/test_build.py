@@ -21,7 +21,7 @@ def test_build(project, project_name):
 
     main(
         args(
-            "project",
+            "ubt",
             "build",
             "--target",
             f"{project_name}Editor",
@@ -50,7 +50,7 @@ def test_multi_build(project, project_name):
     )
     main(
         args(
-            "project",
+            "ubt",
             "build",
             "--target",
             project_name,
