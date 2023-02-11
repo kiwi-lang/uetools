@@ -12,7 +12,7 @@ from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 class Arguments:
     # fmt: off
     engine  : Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    projects: Optional[str] = None  # Path to the unreal project folder (C:/Projects)
+    project : Optional[str] = None  # Path to the unreal project folder (C:/Projects)
     version : Optional[str] = None  # Unreal Engine Version (5.1)
     # fmt: on
 
@@ -53,29 +53,33 @@ class Init(Command):
         config = os.path.join(CONFIG, CONFIGNAME)
         conf = {}
 
+        project_paths = conf.get("project_path", [])
         default_engine = "/UnrealEngine/Engine"
         default_project = os.path.abspath(os.path.join("..", default_engine))
 
         if os.path.exists(config):
             conf = load_conf()
+            project_paths = conf.get("project_path", [])
             default_engine = conf.get("engine_path", default_engine)
-            default_project = conf.get("project_path", default_project)
+            default_project = project_paths[0]
 
         if args.engine is None:
             engine_path = input(f"Engine Folder [{default_engine}]: ")
         else:
             engine_path = args.engine
 
-        if args.projects is None:
-            project_folders = input(f"Project Folder [{default_project}]: ")
+        if args.project is None:
+            project_folder = input(f"Project Folder [{default_project}]: ")
         else:
-            project_folders = args.projects
+            project_folder = args.project
 
         engine_path = engine_path or default_engine
-        project_folders = project_folders or default_project
+        project_folder = project_folder or default_project
+
+        project_paths.append(project_folder)
 
         conf["engine_path"] = engine_path
-        conf["project_path"] = project_folders
+        conf["project_path"] = project_paths
 
         EngineAdd.addengine(conf, args.version, engine_path)
 

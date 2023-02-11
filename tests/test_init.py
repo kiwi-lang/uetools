@@ -18,6 +18,6 @@ def test_init():
 
     new_conf = load_conf()
     assert new_conf["engine_path"] == "ENGINE_FOLDER_TEST"
-    assert new_conf["project_path"] == "PROJECT_FOLDER_TEST"
+    assert new_conf["project_path"] == ["PROJECT_FOLDER_TEST"]
 
     save_conf(previous_conf)

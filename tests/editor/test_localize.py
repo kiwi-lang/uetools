@@ -23,9 +23,8 @@ def test_local(project, project_name):
         args(
             "editor",
             "localize",
-            "--bootstrap",
-            "--project",
             project_name,
+            "--bootstrap",
             "--run",
             "GatherText",
             "--target",
@@ -58,7 +57,6 @@ def test_uatlocal(project, project_name):
         args(
             "uat",
             "localize",
-            "--project",
             project_name,
             "--IncludePlugins",
             "--ParallelGather",

@@ -8,4 +8,4 @@ skipif = pytest.mark.skipif
 
 @skipif(not ready(), reason="Unreal engine is not installed")
 def test_uat_cook(project, project_name):
-    main(args("uat", "cook", "--project", project_name))
+    main(args("uat", "cook", project_name))

@@ -26,8 +26,7 @@ def fake_project(path, name):
 @skipif(not ready(), reason="Unreal engine is installed")
 def test_find_project():
 
-    project = project_folder()
-
+    project = project_folder()[0]
     target = os.path.join(project, "ExampleProject", "ExampleProject.uproject")
 
     assert find_project("ExampleProject") == target

@@ -91,9 +91,9 @@ class PackagePlugin(Command):
 
     @staticmethod
     def execute(args):
-        project = args.project
-        plugin = args.plugin
-        platforms = "+".join(args.platforms)
+        project = vars(args).pop("project")
+        plugin = vars(args).pop("plugin")
+        platforms = "+".join(vars(args).pop("platforms"))
 
         if project is not None and not os.path.isabs(plugin):
             project = find_project(args.project)
@@ -113,10 +113,10 @@ class PackagePlugin(Command):
                 uat(),
                 "BuildPlugin",
                 f"-Plugin={plugin_path}",
-                f"-Package={args.output}",
+                f"-Package={vars(args).pop('output')}",
                 f"-TargetPlatforms={platforms}",
             ]
-            + command_builder(args.pkg)
+            + command_builder(args)
             + ["-nocompileuat"]
         )
 
