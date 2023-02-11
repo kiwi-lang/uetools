@@ -1,10 +1,11 @@
 import os
-import re
 from dataclasses import dataclass
 from typing import Optional
 
+from uetools.commands.engine.add import EngineAdd
+from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, newparser
-from uetools.core.conf import CONFIG, CONFIGNAME, get_version_tag, load_conf, save_conf
+from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 
 
 @dataclass
@@ -38,20 +39,6 @@ class Arguments:
     # fmt: on
 
 
-BUILTIN_PATTERN = re.compile(r"UE_(?P<version>(([0-9]*)\.[0-9]*))")
-
-
-def get_engine_version(path):
-    # Prebuild installs have a path that contains UEM.MIN/
-    result = BUILTIN_PATTERN.search(path)
-    if result:
-        version = result.groupdict().get("version")
-        if version:
-            return version
-
-    return get_version_tag(path, "archive")
-
-
 class Init(Command):
     """Initialize the configuration file for the command line interface"""
 
@@ -60,13 +47,11 @@ class Init(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Init)
-        parser.add_arguments(Arguments, dest="init")
+        add_arguments(parser, Arguments)
 
     @staticmethod
     def execute(args):
         """Initialize the engine and projects folders"""
-        args = args.init
-
         config = os.path.join(CONFIG, CONFIGNAME)
         conf = {}
 
@@ -101,72 +86,4 @@ class Init(Command):
         return 0
 
 
-@dataclass
-class EngineAddArguments:
-    """Add an engine version
-
-    Attributes
-    ----------
-    version: str
-        Version of name of the engine version
-
-    engine: str
-        Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-
-    Examples
-    --------
-
-    .. code-block:: console
-
-       uecli engine-add --version src --engine C:/opt/UnrealEngine/Engine
-
-    """
-
-    # fmt: off
-    version: Optional[str] = None   # Unreal Engine Version (5.1)
-    engine : Optional[str] = None   # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    force  : bool          = False  # Allow version override
-    # fmt: on
-
-
-class EngineAdd(Command):
-    """Add an unreal engine version"""
-
-    name: str = "engine-add"
-
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, EngineAdd)
-        parser.add_arguments(EngineAddArguments, dest="args")
-
-    @staticmethod
-    def execute(args):
-        config = os.path.join(CONFIG, CONFIGNAME)
-        conf = {}
-
-        if os.path.exists(config):
-            conf = load_conf()
-
-        EngineAdd.addengine(conf, args.args.version, args.args.engine, args.args.force)
-
-        save_conf(conf)
-        return 0
-
-    @staticmethod
-    def addengine(conf, version, path, force=False):
-        if version is None:
-            version = get_engine_version(path)
-
-        engines = conf.get("engines", dict())
-
-        if version not in engines or force:
-            engines[version] = path
-        else:
-            print(
-                f"{version} already exists `{engines[version]}` use --force to override"
-            )
-
-        conf["engines"] = engines
-
-
-COMMANDS = [Init, EngineAdd]
+COMMANDS = [Init]

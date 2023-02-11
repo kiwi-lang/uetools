@@ -1,8 +1,8 @@
 import glob
-import importlib
 import os
-import pkgutil
 import traceback
+
+from uetools.core.plugin import discover_plugins
 
 try:
     import uetools.plugins
@@ -20,7 +20,9 @@ def fetch_factories(registry, base_module, base_file_name, function_name="COMMAN
     """Loads all the defined commands"""
     module_path = os.path.dirname(os.path.abspath(base_file_name))
 
-    for module_path in glob.glob(os.path.join(module_path, "[A-Za-z]*.py")):
+    for module_path in glob.glob(
+        os.path.join(module_path, "[A-Za-z]*"), recursive=False
+    ):
         module_file = module_path.split(os.sep)[-1]
 
         if module_file == base_file_name:
@@ -37,19 +39,6 @@ def fetch_factories(registry, base_module, base_file_name, function_name="COMMAN
         if hasattr(module, function_name):
             cmd = getattr(module, function_name)
             registry.insert_commands(cmd)
-
-
-def discover_plugins(module):
-    """Discover uetools plugins"""
-    path = module.__path__
-    name = module.__name__
-
-    plugins = {}
-
-    for _, name, _ in pkgutil.iter_modules(path, name + "."):
-        plugins[name] = importlib.import_module(name)
-
-    return plugins
 
 
 def discover_from_plugins_commands(registry, module, function_name="COMMANDS"):

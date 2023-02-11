@@ -1,112 +1,89 @@
-"""Argument formatting experimentation"""
-from __future__ import annotations
-
-from argparse import Action, _SubParsersAction
-from dataclasses import dataclass, field
-from functools import singledispatch
+import argparse
 
 
-class BaseArgumentHelpFormatter:
-    def _format_args(self, action, default_metavar):
-        # print("_format_args", args, kwargs)
-        return ""
-
-    def add_usage(self, usage, actions, groups, prefix=None):
-        print("add_usage", usage, actions, groups, prefix)
-        return ""
-
-    def format_help(self):
-        print("format_help")
-        return ""
-
-    # Argument groups
-    # start_section
-    #  add_text
-    #  add_arguments
-    # end_section
-
-    def start_section(self, heading: str) -> None:
-        print("start_section", heading)
-        return ""
-
-    def add_text(self, text: str) -> None:
-        print("add_text", text)
-        return ""
-
-    def add_arguments(self, actions: list[Action]) -> None:
-        print("add_arguments", actions)
-        return ""
-
-    def end_section(self) -> None:
-        print("end_section")
-        return ""
+def recursively_show_actions(parser: argparse.ArgumentParser):
+    print()
+    print("=======================")
+    print("  Exhaustive Commands")
+    print("=======================")
+    print("")
+    print("  Pattern:")
+    print("     uecli [-v version] command subcommand ...")
+    print("")
+    print("  Examples:")
+    print("     uecli -v 5.1 editor open RTSGame --help")
+    print("")
+    _recursively_show_actions(parser, 2)
 
 
-@singledispatch
-def format_action(action, level):
-    return repr(action)
+def _recursively_show_actions(parser: argparse.ArgumentParser, depth: int = 0):
+    for group in parser._action_groups:
+        format_group(group, depth)
 
 
-def _(action: _SubParsersAction):
+def format_group(group: argparse._ArgumentGroup, depth: int):
+    indent = "  " * depth
 
-    frags = []
+    if group._group_actions and depth <= 2:
+        print()
+        print(f"{group.title}")
 
-    for name, _ in action.choices.items():
-        helpstr = ""
-        frags.append((name, helpstr))
+    for action in group._group_actions:
+        if isinstance(action, argparse._SubParsersAction):
+            choices = action.choices
 
-    return
-
-
-@dataclass
-class ArgumentSection:
-    name: str = None
-    description: str = None
-    actions: list[Action] = field(default_factory=list)
-    level: int = 0
-
-    def __repr__(self):
-        idt = "  "
-        idt1 = idt * self.level
-        frags = [
-            f"{idt1}{self.name}: {self.description}",
-        ] + [f"{idt1}{idt}{a}" for a in self.actions]
-
-        return "\n".join(frags)
+            for name, choice in choices.items():
+                if isinstance(choice, argparse.ArgumentParser):
+                    print(f"{indent}{name:<40} {choice.description}")
+                    _recursively_show_actions(choice, depth + 1)
+        else:
+            format_action(action, depth)
 
 
-class ArgumentHelpFormatter(BaseArgumentHelpFormatter):
-    def __init__(self):
-        self.sections = []
-        self.generated = []
+def format_action(action: argparse.Action, depth: int):
+    """Format an argparse action"""
+    indent = "  " * depth
 
-    def _format_args(self, action, default_metavar):
-        # print("_format_args", args, kwargs)
+    if depth > 2:
         return
 
-    def add_usage(self, usage, actions, groups, prefix=None):
-        print("add_usage", usage, actions, groups, prefix)
-        return ""
+    if isinstance(action, argparse._HelpAction):
+        return
 
-    def format_help(self):
-        print("format_help")
-        frags = []
-        for g in self.generated:
-            frags.append(repr(g))
+    # print(f'{indent}{action}')
 
-        return "\n\n".join(frags)
+    names = action.dest
+    if action.option_strings:
+        names = ", ".join(action.option_strings)
 
-    def start_section(self, heading: str) -> None:
-        self.sections.append(ArgumentSection(name=heading, level=len(self.sections)))
+    type = ""
+    if action.type:
+        type = f": {action.type.__name__}"
 
-    def add_text(self, text: str) -> None:
-        if self.sections:
-            self.sections[-1].description = text
+    if isinstance(action, argparse._StoreTrueAction):
+        type = ": bool"
 
-    def add_arguments(self, actions: list[Action]) -> None:
-        if self.sections:
-            self.sections[-1].actions = actions
+    if action.nargs and action.nargs != 0:
+        type += str(action.nargs)
 
-    def end_section(self) -> None:
-        if self.sections:
-            self.generated.append(self.sections.pop())
+    default = ""
+    if action.default is not None:
+        default = " = " + str(action.default)
+
+    help = ""
+    if action.help:
+        help = action.help
+
+    arg = f"{names}{type}{default}"
+    print(f"{indent}{arg:<40} {help}")
+
+    choices = action.choices
+    if choices is not None:
+        print(f'{indent}{"":<40}   Options: ({", ".join(choices)})')
+
+
+class HelpAction(argparse._HelpAction):
+    def __call__(self, parser, namespace, values, option_string=None):
+        # parser.print_help()
+        recursively_show_actions(parser)
+        parser.exit()

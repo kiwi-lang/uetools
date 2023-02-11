@@ -19,11 +19,11 @@ almost no boilerplate code is needed.
    """My new command"""
    from dataclasses import dataclass
 
-   from simple_parsing import choice
    from uetools.core.command import Command, command_builder
    from uetools.core.conf import editor_cmd, find_project, uat
    from uetootls.run import popen_with_format
    from uetools.format.base import Formatter
+   from uetools.core.arguments import choice, add_arguments
 
 
    @dataclass
@@ -45,14 +45,14 @@ almost no boilerplate code is needed.
       def arguments(subparsers):
          """Add arguments to the parser"""
          parser = subparsers.add_parser(MyNewCommand.name, help="Run my custom command")
-         parser.add_arguments(Arguments, dest="args")
+         add_arguments(parser, Arguments)
 
       @staticmethod
       def execute(args):
          """Execute the command"""
          cmd = command_builder(args)
 
-         uproject = find_project(args.args.project)
+         uproject = find_project(args.project)
 
          fmt = Formatter()
          popen_with_format(fmt, [uat(), uproject] + cmd)
