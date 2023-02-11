@@ -1,8 +1,11 @@
 global-exclude *.pyc
 global-exclude __pycache__
+
 recursive-include uetools/* *.yaml
 recursive-include uetools *.Target
 recursive-include uetools *.ini
+recursive-include uetools *.py
+
 graft uetools/templates
 
 exclude tox.ini

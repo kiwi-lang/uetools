@@ -28,6 +28,9 @@ jobs:
     - name: Test with tox
       run: tox -e py
 
+    - name: Test Packaging
+      run: tox -e packaging
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
