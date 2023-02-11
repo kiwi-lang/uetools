@@ -53,7 +53,7 @@ setup_kwargs = dict(
         "cookiecutter",
         "GitPython",
     ],
-    python_requires=">=3.7.*",
+    python_requires=">=3.8",
     namespace_packages=["uetools", "uetools.plugins"],
     entry_points={
         "console_scripts": [
