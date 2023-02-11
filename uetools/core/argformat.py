@@ -81,6 +81,5 @@ class HelpAction(argparse._HelpAction):
         self.docstring = docstring
 
     def __call__(self, parser, namespace, values, option_string=None):
-        # parser.print_help()
         recursively_show_actions(parser)
         parser.exit()

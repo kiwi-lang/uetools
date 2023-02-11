@@ -23,7 +23,6 @@ def test_build(project, project_name):
         args(
             "ubt",
             "build",
-            "--target",
             f"{project_name}Editor",
             "--mode",
             "Development",
@@ -52,7 +51,6 @@ def test_multi_build(project, project_name):
         args(
             "ubt",
             "build",
-            "--target",
             project_name,
             "--mode",
             "Development",

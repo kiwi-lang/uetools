@@ -307,11 +307,12 @@ def find_project(name):
     elif name.endswith("Client"):
         name = name[:-6]
 
-    folder = os.path.join(project_folder(), name)
-    uproject_project = os.path.join(folder, f"{name}.uproject")
+    for base in project_folder():
+        folder = os.path.join(base, name)
+        uproject_project = os.path.join(folder, f"{name}.uproject")
 
-    if os.path.exists(uproject_project):
-        return uproject_project
+        if os.path.exists(uproject_project):
+            return uproject_project
 
     uproject_engine = os.path.join(engine_root(), name, f"{name}.uproject")
 
@@ -335,7 +336,10 @@ def project_folder():
         )
         return engine_root()
 
-    return p
+    if isinstance(p, list):
+        return p
+    update_conf(project_path=[p])
+    return [p]
 
 
 PRECOMPILED_UE_VERSION = re.compile(r"UE_(?P<Major>[0-9]*)\.(?P<Minor>\d{1,})")

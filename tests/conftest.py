@@ -9,7 +9,8 @@ from uetools.core.conf import load_conf
 original_name = "ExampleProject"
 clean_project = "https://github.com/kiwi-lang/ExampleProject"
 
-PROJECT_ROOT = load_conf().get("project_path")
+PROJECT_PATHS = load_conf().get("project_path")
+PROJECT_ROOT = PROJECT_PATHS[0] if PROJECT_PATHS else None
 HAS_UNREAL_ENGINE = PROJECT_ROOT is not None
 
 

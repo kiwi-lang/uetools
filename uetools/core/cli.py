@@ -5,6 +5,7 @@ import argparse
 
 from uetools.commands import commands
 from uetools.core.argformat import HelpAction
+from uetools.core.command import ParentCommand
 from uetools.core.conf import BadConfig, select_engine_version
 
 
@@ -25,6 +26,7 @@ def parse_args(argv):
 
     subparsers = parser.add_subparsers(dest="command")
 
+    ParentCommand.dispatch = dict()
     for _, command in commands.items():
         command.arguments(subparsers)
 
@@ -52,9 +54,7 @@ def main(argv=None):
         sys.exit(-1)
 
     cmd_name = parsed_args.command
-    print(cmd_name)
     command = commands.get(cmd_name)
-    print(command)
 
     if command is None:
         print(f"Action `{cmd_name}` not implemented")

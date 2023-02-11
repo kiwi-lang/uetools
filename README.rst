@@ -42,7 +42,7 @@ Get Started
    uecli engine add --version 5.0 --engine C:/EpicGames/UE_5.0/Engine
 
    # Install the plugin VoxelPlugin to the RTSGame project
-   uecli install RTSGame https://github.com/Phyronnaz/VoxelPlugin
+   uecli plugin install RTSGame https://github.com/Phyronnaz/VoxelPlugin
 
    # Rebuild the RTSGame project
    uecli ubt build RTSGame

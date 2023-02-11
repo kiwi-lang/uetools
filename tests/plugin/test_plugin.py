@@ -21,7 +21,6 @@ def test_plugin(project, project_name, tmp_path):
         args(
             "ubt",
             "build",
-            "--target",
             f"{project_name}Editor",
             "--mode",
             "Development",
