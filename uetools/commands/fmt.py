@@ -2,6 +2,7 @@ import logging
 import sys
 from dataclasses import dataclass
 
+from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, newparser
 from uetools.format.base import Formatter
 from uetools.format.cooking import CookingFormatter
@@ -71,7 +72,7 @@ class Format(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Format)
-        parser.add_arguments(Arguments, dest="args")
+        add_arguments(parser, Arguments)
 
     def __init__(self, profile=None):
         self.profile = profile

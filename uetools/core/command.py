@@ -6,11 +6,21 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict, is_dataclass
 
+from uetools.core.argformat import HelpAction
+from uetools.core.plugin import discover_plugins
+
 
 def newparser(subparsers, commandcls: Command):
     """Add a subparser to the parser for the command"""
     # The help text is not showing :/
-    return subparsers.add_parser(commandcls.name, help=commandcls.help())
+    line = commandcls.help().split("\n")[0]
+    parser = subparsers.add_parser(
+        commandcls.name, description=line, help=commandcls.help(), add_help=False
+    )
+    parser.add_argument(
+        "-h", "--help", action=HelpAction, help="show this help message and exit"
+    )
+    return parser
 
 
 @contextmanager
@@ -31,7 +41,7 @@ class Command:
     @classmethod
     def help(cls) -> str:
         """Return the help text for the command"""
-        return cls.__doc__
+        return cls.__doc__ or ""
 
     @staticmethod
     def arguments(subparsers):
@@ -132,3 +142,40 @@ def _command_builder(cmd, args, ignore):
 
         elif is_dataclass(v):
             _command_builder(cmd, asdict(v), ignore)
+
+
+class ParentCommand(Command):
+    """Loads child module as subcommands"""
+
+    dispatch: dict = dict()
+
+    @staticmethod
+    def module():
+        return None
+
+    @classmethod
+    def arguments(cls, subparsers):
+        parser = newparser(subparsers, cls)
+        subsubparsers = parser.add_subparsers(dest="subcommand", help=cls.help())
+
+        for _, module in discover_plugins(cls.module()).items():
+            if hasattr(module, "COMMANDS"):
+                commands = getattr(module, "COMMANDS")
+
+                if not isinstance(commands, list):
+                    commands = [commands]
+
+                for cmd in commands:
+                    cmd.arguments(subsubparsers)
+                    cls.dispatch[cmd.name] = cmd
+
+    @classmethod
+    def execute(cls, args):
+        subcmd = vars(args).pop("subcommand")
+
+        cmd = cls.dispatch.get(subcmd, None)
+        if cmd:
+            cmd.execute(args)
+            return
+
+        raise RuntimeError(f"Subcommand {cls.name} {subcmd} is not defined")
