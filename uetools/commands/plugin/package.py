@@ -14,34 +14,34 @@ from uetools.format.cooking import CookingFormatter
 class Arguments:
     """Builds and cook a plugin"""
 
-    # project             : str # Name of the project
-    # plugin              : str # Path to the plugin (relative to project folder)
+    # project             : str #: Name of the project
+    # plugin              : str #: Path to the plugin (relative to project folder)
     # platforms           : List[str] = field(default_factory=list)
-    # output              : str  = None  # Packaged plugin destination
-    StrictIncludes      : bool = False  # Disables precompiled headers and unity build in order to check all source files have self-contained headers.
-    NoHostPlatform      : bool = False  # Prevent compiling for the editor platform on the host
-    verbose             : bool = False  # Enables verbose logging
-    veryverbose         : bool = False  # Enables very verbose logging
-    submit              : bool = False  # Allows UAT command to submit changes
-    nosubmit            : bool = False  # Prevents any submit attempts
-    np4                 : bool = False  # Disables Perforce functionality
-    nonp4               : bool = False  # Enables Perforce functionality
-    NoKill              : bool = False  # Does not kill any spawned processes on exit
-    Compile             : bool = False  # Force all script modules to be compiled
-    NoCompile           : bool = False  # Do not attempt to compile any script modules
-    IgnoreBuildRecords  : bool = False  # Ignore build records (Intermediate/ScriptModule/ProjectName.json)
-    UseLocalBuildStorage: bool = False  # Allows you to use local storage for your root build storage dir
-    WaitForDebugger     : bool = False  # Waits for a debugger to be attached, and breaks once debugger successfully attached.
-    Unversioned         : bool = False  # Do not embed the current engine version into the descriptor
-    Rocket              : bool = True   # Undocumented argument
-    EngineDir           : Optional[str] = None  # Engine directory
-    CreateSubFolder     : bool = False  # Create a subfolder for the plugin
-    NoPCH               : bool = False  # No Precompiled Header
-    NoSharedPCH         : bool = False  # No Shared Precompiled Header
-    DisableUnity        : bool = False  # Disable Unity Build
-    NoDeleteHostProject : bool = False  # Do not delete host project (which was created to prepare the plugin)
+    # output              : str  = None  #: Packaged plugin destination
+    StrictIncludes      : bool = False  #: Disables precompiled headers and unity build in order to check all source files have self-contained headers.
+    NoHostPlatform      : bool = False  #: Prevent compiling for the editor platform on the host
+    verbose             : bool = False  #: Enables verbose logging
+    veryverbose         : bool = False  #: Enables very verbose logging
+    submit              : bool = False  #: Allows UAT command to submit changes
+    nosubmit            : bool = False  #: Prevents any submit attempts
+    np4                 : bool = False  #: Disables Perforce functionality
+    nonp4               : bool = False  #: Enables Perforce functionality
+    NoKill              : bool = False  #: Does not kill any spawned processes on exit
+    Compile             : bool = False  #: Force all script modules to be compiled
+    NoCompile           : bool = False  #: Do not attempt to compile any script modules
+    IgnoreBuildRecords  : bool = False  #: Ignore build records (Intermediate/ScriptModule/ProjectName.json)
+    UseLocalBuildStorage: bool = False  #: Allows you to use local storage for your root build storage dir
+    WaitForDebugger     : bool = False  #: Waits for a debugger to be attached, and breaks once debugger successfully attached.
+    Unversioned         : bool = False  #: Do not embed the current engine version into the descriptor
+    Rocket              : bool = True   #: Undocumented argument
+    EngineDir           : Optional[str] = None  #: Engine directory
+    CreateSubFolder     : bool = False  #: Create a subfolder for the plugin
+    NoPCH               : bool = False  #: No Precompiled Header
+    NoSharedPCH         : bool = False  #: No Shared Precompiled Header
+    DisableUnity        : bool = False  #: Disable Unity Build
+    NoDeleteHostProject : bool = False  #: Do not delete host project (which was created to prepare the plugin)
     # this does not exist when calling BuildPlugin
-    # UbtArgs             : Optional[str]     = None  # extra options to pass to ubt
+    # UbtArgs             : Optional[str]     = None  #: extra options to pass to ubt
 # fmt: on
 
 

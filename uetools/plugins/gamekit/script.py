@@ -25,8 +25,11 @@ class Arguments:
        uecli gkscript RTSGame
 
     """
+
     project: str
     no_input: bool = True
+
+
 # fmt: on
 
 

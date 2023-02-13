@@ -14,14 +14,6 @@ class Arguments:
 class Disable(Command):
     """Disable a plugin
 
-    Attributes
-    ----------
-    name: str
-        Name of the project to modify
-
-    plugin: str
-        Name of the plugin to disable
-
     Examples
     --------
 

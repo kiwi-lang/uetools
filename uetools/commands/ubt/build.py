@@ -126,30 +126,18 @@ def replace_variables(command, variables):
     return cmd
 
 
+# fmt: off
 @dataclass
 class Arguments:
-    target: str
-    platform: str = choice(*get_build_platforms(), default=guess_platform())
-    mode: str = choice(*get_build_modes(), default="Development")
-    profile: Optional[str] = None
+    target  : str                        #: Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
+    platform: str = choice(*get_build_platforms(), default=guess_platform())  #: Platform to build for, defaults to current platform (Win64, Linux, etc..)
+    mode    : str = choice(*get_build_modes(), default="Development")  #: Build mode (Tests, Debug, Development, Shipping)
+    profile : Optional[str] = None  #: Build multiple targets using a configuration
+# fmt: on
 
 
 class Build(Command):
     """Execute UnrealBuildTool for a specified target
-
-    Attributes
-    ----------
-    target: str
-        Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
-
-    platform: str
-        Platform to build for, defaults to current platform (Win64, Linux, etc..)
-
-    mode: str
-        Build mode (Tests, Debug, Development, Shipping)
-
-    profile: str
-        Build multiple targets using a configuration
 
     Examples
     --------

@@ -7,13 +7,8 @@ from uetools.core.run import popen_with_format
 from uetools.format.tests import TestFormatter
 
 
-@dataclass
-class UATArguments:
-    """Arguments for the UAT command"""
-
-    project: str
-    test: str
-    run: str = choice(
+def commands():
+    return choice(
         "RunEditorTests",
         "RunUnreal",
         "RunUnrealTests",
@@ -21,6 +16,15 @@ class UATArguments:
         type=str,
         default="RunUnrealTests",
     )
+
+
+@dataclass
+class UATArguments:
+    """Arguments for the UAT command"""
+
+    project: str
+    test: str
+    run: str = commands()
     platform: str = choice(*get_build_modes(), type=str, default=guess_platform())
     configuration: str = choice(*get_build_modes(), type=str, default="Development")
     build: str = "local"

@@ -31,7 +31,7 @@ with Unreal Engine projects and automate common tasks.
 Get Started
 -----------
 
-.. code-block::
+.. code-block:: bash
 
    pip install uetools
 
@@ -75,7 +75,7 @@ A `template <https://github.com/kiwi-lang/uetools.plugins.myplugin>`_ is provide
 Help Example
 ------------
 
-.. code-block::
+.. code-block:: bash
 
    Pattern:
       uecli [-v version] command subcommand ...
@@ -143,7 +143,7 @@ forming groups/set of arguments with a singular purpose.
 Commands
 --------
 
-.. code-block::
+.. code-block:: bash
 
       editor                                   Set of commands to launch the editors in different modes
          client                                   Launch the editor as a client to an already running server

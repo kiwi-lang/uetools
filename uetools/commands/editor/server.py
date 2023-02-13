@@ -11,20 +11,20 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    project     : str           # Name of the project to serve
-    map         : str           # Name of the map to serve
-    dedicated   : bool = False  # If true will start a dedicated server, otherwise a listen server (one local player that can host remote players)
-    port        : int = 8123    # Server port
-    dry         : bool = False  # Print the command it will execute without running it
+    project     : str           #: Name of the project to serve
+    map         : str           #: Name of the map to serve
+    dedicated   : bool = False  #: If true will start a dedicated server, otherwise a listen server (one local player that can host remote players)
+    port        : int = 8123    #: Server port
+    dry         : bool = False  #: Print the command it will execute without running it
 
 @dataclass
 class MapParameters:
     """Parameters added to the Map URL"""
-
     bIsLanMatch  : bool          = False
     bIsFromInvite: bool          = False
     spectatoronly: bool          = False
     gameinfo     : Optional[str] = None
+
 # fmt: on
 
 

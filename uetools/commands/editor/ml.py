@@ -10,20 +10,20 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    resx                : int = 320     # resolution width
-    resy                : int = 240     # resolution height
-    fps                 : int = 20      # Max FPS
-    windowed            : bool = True   # Window mode
-    usefixedtimestep    : bool = True   # Block until the ML agent replies with an action
-    game                : bool = True   #
-    unattended          : bool = True   # Close when the game finishes
-    onethread           : bool = False  # Run on a single thread
-    reducethreadusage   : bool = False  #
-    nosound             : bool = False  # Disable sound
-    nullrhi             : bool = False  # Disable rendering
-    deterministic       : bool = False  # Set seeds ?
-    debug               : bool = False  #
-    mladapterport       : int = 8123    # RPC server listen port
+    resx                : int = 320     #: resolution width
+    resy                : int = 240     #: resolution height
+    fps                 : int = 20      #: Max FPS
+    windowed            : bool = True   #: Window mode
+    usefixedtimestep    : bool = True   #: Block until the ML agent replies with an action
+    game                : bool = True   #:
+    unattended          : bool = True   #: Close when the game finishes
+    onethread           : bool = False  #: Run on a single thread
+    reducethreadusage   : bool = False  #:
+    nosound             : bool = False  #: Disable sound
+    nullrhi             : bool = False  #: Disable rendering
+    deterministic       : bool = False  #: Set seeds ?
+    debug               : bool = False  #:
+    mladapterport       : int = 8123    #: RPC server listen port
 # fmt: on
 
 

@@ -53,7 +53,7 @@ class NewPlugin(Command):
             **kwargs,
         )
 
-        # Windows have permission issues on reading a temporary files
+        #: Windows have permission issues on reading a temporary files
         configfile.close()
         os.remove(configfile.name)
 

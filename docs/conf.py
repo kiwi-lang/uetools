@@ -56,8 +56,24 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.extlinks",
     "sphinx.ext.autosummary",
-    "numpydoc",
+    "sphinx.ext.napoleon",
+    # "numpydoc",
 ]
+
+# -- Autodoc configuration -----------------------------------------------
+
+autodoc_mock_imports = ["_version", "utils._appdirs"]
+autodoc_member_order = "bysource"
+autodoc_class_signature = "separated"
+autodoc_inherit_docstrings = True
+autodoc_typehints = "both"
+autodoc_default_options = {
+    "members": True,
+    "undoc-members": False,
+    "member-order": "bysource",
+    "exclude-members": "__init__",
+    "special-members": False,
+}
 
 from uetools.commands import commands
 
@@ -74,7 +90,6 @@ for name, cls in commands.items():
     print(nitpick)
     nitpick_ignore.append(nitpick)
 
-autodoc_inherit_docstrings = True
 
 # General information about the project.
 project = "uetools"
@@ -225,10 +240,6 @@ texinfo_documents = [
         "Miscellaneous",
     ),
 ]
-
-# -- Autodoc configuration -----------------------------------------------
-
-autodoc_mock_imports = ["_version", "utils._appdirs"]
 
 ################################################################################
 #                             Numpy Doc Extension                              #

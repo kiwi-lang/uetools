@@ -11,9 +11,9 @@ from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 @dataclass
 class Arguments:
     # fmt: off
-    engine  : Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    project : Optional[str] = None  # Path to the unreal project folder (C:/Projects)
-    version : Optional[str] = None  # Unreal Engine Version (5.1)
+    engine : Optional[str] = None  #: Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+    project: Optional[str] = None  #: Path to the unreal project folder (C:/Projects)
+    version: Optional[str] = None  #: Unreal Engine Version (5.1)
     # fmt: on
 
 

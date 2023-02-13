@@ -25,6 +25,7 @@ setup_kwargs = dict(
     url="https://uetools.readthedocs.io",
     packages=[
         "uetools.core",
+        "uetools.commands",
         "uetools.commands.editor",
         "uetools.commands.engine",
         "uetools.commands.game",

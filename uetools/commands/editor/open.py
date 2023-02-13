@@ -8,16 +8,11 @@ from uetools.core.run import run
 
 @dataclass
 class Arguments:
-    project: str  # Name of the the project to open
+    project: str  #: Name of the the project to open
 
 
 class Open(Command):
     """Open the editor for a given project
-
-    Attributes
-    ----------
-    name: str
-        Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
 
     Examples
     --------

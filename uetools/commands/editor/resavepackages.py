@@ -18,11 +18,6 @@ class Arguments:
 class ReSavePackages(Command):
     """Resave assets, fixing some issues that can arise when using marketplace assets
 
-    Attributes
-    ----------
-    project: str
-        Name of the project
-
     Examples
     --------
 

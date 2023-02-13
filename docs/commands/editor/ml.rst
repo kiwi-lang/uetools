@@ -1,5 +1,5 @@
 Machine learning
 ================
 
-.. automodule:: uetools.plugins.ml
+.. automodule:: uetools.commands.editor.ml
    :members:

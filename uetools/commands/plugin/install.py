@@ -11,29 +11,15 @@ from uetools.core.run import run
 @dataclass
 class Arguments:
     # fmt: off
-    name        : str                    # Name of the project to modify.
-    url         : str                    # url of the plugin to install.
-    destination : Optional[str] = None   # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
-    submodule   : bool          = False  # install the plugin as a git submodule (defaults to: ``False``)
+    name        : str                    #: Name of the project to modify.
+    url         : str                    #: url of the plugin to install.
+    destination : Optional[str] = None   #: installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
+    submodule   : bool          = False  #: install the plugin as a git submodule (defaults to: ``False``)# fmt: on
     # fmt: on
 
 
 class Install(Command):
     """Install a plugin to an unreal project.
-
-    Attributes
-    ----------
-    name: str
-        Name of the project to modify.
-
-    url: str
-        url of the plugin to install.
-
-    destination:str
-        installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
-
-    submodule: bool
-        install the plugin as a git submodule (defaults to: ``False``)
 
     Examples
     --------
