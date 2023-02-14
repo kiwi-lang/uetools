@@ -4,7 +4,7 @@ import subprocess
 import pytest
 
 from uetools.core import args, main
-from uetools.core.conf import find_project, is_ci
+from uetools.core.conf import find_project
 
 skipif = pytest.mark.skipif
 
@@ -18,7 +18,6 @@ def get_project_conf(name):
     return project_conf
 
 
-@skipif(is_ci(), reason="Unreal engine is not installed")
 def test_install(project, project_name):
     # Regenerate the project files
     main(
@@ -49,7 +48,6 @@ def test_install(project, project_name):
         assert False, "Plugin not found or it was not disabled"
 
 
-@skipif(is_ci(), reason="Unreal engine is not installed")
 def test_install_submodule(project, project_name, capsys):
     # Regenerate the project files
     with capsys.disabled():

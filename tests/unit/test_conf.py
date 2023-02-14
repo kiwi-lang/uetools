@@ -23,7 +23,10 @@ def fake_project(path, name):
     shutil.rmtree(project)
 
 
-def test_find_project(project_root, project, project_name):
+def test_find_project(monkeypatch, project_root, project, project_name):
+    monkeypatch.setattr(
+        "uetools.core.conf.project_folder", lambda *a, **b: [project_root]
+    )
 
     target = os.path.abspath(
         os.path.join(project_root, project_name, f"{project_name}.uproject")
@@ -33,11 +36,19 @@ def test_find_project(project_root, project, project_name):
     assert find_project(target) == target, "Accept absolute path"
 
     # project name is extracted from target
+    assert find_project(f"{project_name}.uproject") == target
     assert find_project(f"{project_name}Editor") == target
-    assert find_project(f"{project_name}tServer") == target
+    assert find_project(f"{project_name}Server") == target
+    assert find_project(f"{project_name}Client") == target
 
 
-def test_find_project_engine(engine_test_root):
+def test_find_project_engine(monkeypatch, engine_test_root, project_root):
+    monkeypatch.setattr(
+        "uetools.core.conf.project_folder", lambda *a, **b: [project_root]
+    )
+    monkeypatch.setattr(
+        "uetools.core.conf.engine_root", lambda *a, **b: engine_test_root
+    )
 
     target = os.path.abspath(
         os.path.join(engine_test_root, "RootProject", "RootProject.uproject")

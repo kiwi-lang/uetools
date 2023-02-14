@@ -4,18 +4,17 @@ import subprocess
 
 import pytest
 
-import uetools.core.conf
-import uetools.core.run
 from uetools.core import args, main
 from uetools.core.conf import load_conf
 
 original_name = "ExampleProject"
 clean_project = "https://github.com/kiwi-lang/ExampleProject"
 
+folder = os.path.dirname(__file__)
 
 if os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("CI") == "true":
-    PROJECT_ROOT = "./projects"
-    ENGINE_ROOT = "./engine"
+    PROJECT_ROOT = os.path.join(folder, "fake/projects")
+    ENGINE_ROOT = os.path.join(folder, "fake/engine")
     HAS_UNREAL_ENGINE = False
 
     main(args("init", "--engine", ENGINE_ROOT, "--project", PROJECT_ROOT))
@@ -48,27 +47,6 @@ def has_engine():
     return HAS_UNREAL_ENGINE
 
 
-def mock_popen_with_format(fmt, xargs, shell=False):
-    return 0
-
-
-def mock_popen_with_format_failure(fmt, xargs, shell=False):
-    return -1
-
-
-@pytest.fixture
-def mock_pwf_success(monkeypatch):
-    monkeypatch.setattr("uetools.core.run.popen_with_format", mock_popen_with_format)
-    print(uetools.core.run.popen_with_format)
-
-
-@pytest.fixture
-def mock_pwf_failure(monkeypatch):
-    monkeypatch.setattr(
-        uetools.core.run, "popen_with_format", mock_popen_with_format_failure
-    )
-
-
 @pytest.fixture
 def project_name(project_root):
     # i = 0
@@ -84,6 +62,7 @@ def project_name(project_root):
 def project(project_name, project_root, monkeypatch):
     """Create a new empty project to test commands"""
 
+    # Avoid configuration change during tests
     monkeypatch.setattr("uetools.core.conf.engine_folder", lambda: ENGINE_ROOT)
     monkeypatch.setattr("uetools.core.conf.project_folder", lambda: [PROJECT_ROOT])
 

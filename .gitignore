@@ -26,3 +26,7 @@ build/
 build/
 dist/
 out.txt
+
+
+tests/fake
+projects/

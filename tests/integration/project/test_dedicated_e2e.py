@@ -9,7 +9,7 @@ skipif = pytest.mark.skipif
 
 
 @skipif(is_ci(), reason="Unreal engine is not installed")
-def test_dedicated(project, project_name):
+def test_dedicated_e2e(project, project_name):
 
     assert (
         os.path.exists(os.path.join(project, "Source/ExampleProjectServer.Target.cs"))

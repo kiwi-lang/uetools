@@ -74,6 +74,7 @@ class RunTests(Command):
             "-Unattended",
             "-NullRHI",
             "-NoSplash",
+            # "-abslog=E:/uetools/tests/format/samples/tests_in.txt",
             "-NoSound",
             "-NoPause",
             "-noP4",

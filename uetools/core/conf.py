@@ -312,12 +312,12 @@ def find_project(name):
         uproject_project = os.path.join(folder, f"{name}.uproject")
 
         if os.path.exists(uproject_project):
-            return uproject_project
+            return os.path.abspath(uproject_project)
 
     uproject_engine = os.path.join(engine_root(), name, f"{name}.uproject")
 
     if os.path.exists(uproject_engine):
-        return uproject_engine
+        return os.path.abspath(uproject_engine)
 
     raise RuntimeError(f"None of {uproject_project}, {uproject_engine} exist")
 

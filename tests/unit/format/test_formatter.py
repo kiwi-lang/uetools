@@ -51,7 +51,7 @@ def test_formatter(capsys):
 @pytest.mark.skipif(os.name == "nt", reason="Not supported")
 def test_formatter_cook(capsys, tmp_path):
 
-    result = os.path.join(tmp_path, "output.txt")
+    result = os.path.join(".", "output.txt")
     target = os.path.join(folder, "cooking_out.txt")
     input = os.path.join(folder, "cooking_in.txt")
 
@@ -98,7 +98,7 @@ def test_formatter_test(capsys, tmp_path):
 
     cmd = ["diff", "-Z", target, result]
     print(" ".join(cmd))
-    result = subprocess.run(cmd, capture_output=True, encoding="utf-8", check=True)
+    result = subprocess.run(cmd, capture_output=True, encoding="utf-8", check=False)
 
     assert result.stdout == ""
 
