@@ -60,6 +60,9 @@ class Init(Command):
         if os.path.exists(config):
             conf = load_conf()
             project_paths = conf.get("project_path", [])
+            if isinstance(project_paths, str):
+                project_paths = [project_paths]
+
             default_engine = conf.get("engine_path", default_engine)
             default_project = project_paths[0]
 
