@@ -272,6 +272,11 @@ class Configure(Command):
             engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
         )
         if os.name != "nt":
+            # Configuration will be read from:
+            # /opt/UnrealEngine/Engine/Saved/UnrealBuildTool/BuildConfiguration.xml
+            # /home/gitlab-runner/.config/Unreal Engine/UnrealBuildTool/BuildConfiguration.xml
+            # /home/gitlab-runner/Unreal Engine/UnrealBuildTool/BuildConfiguration.xml
+
             # this is not loaded by UBT
             # UnrealEngine\Engine\Source\Programs\UnrealBuildTool\System\XmlConfig.cs
             #   this one is ignored if touch /opt/UnrealEngine/Engine/Build/InstalledBuild.txt exists

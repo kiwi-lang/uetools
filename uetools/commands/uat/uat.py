@@ -290,7 +290,7 @@ class UAT(Command):
 
         uat_cmd = vars(args).pop("cmd")
 
-        uproject = find_project(args.uat.project)
+        uproject = find_project(vars(args).pop("project"))
 
         if uat_cmd.lower() in ("localize", "localise"):
             uproject_folder = os.path.dirname(uproject)
@@ -307,6 +307,7 @@ class UAT(Command):
 
         args = command_builder(args)
         cmd = [uat()] + [uat_cmd] + args + ["-nocompileuat"]
+        # cmd = [uat(), "BuildPlugin", "-Help"]
 
         print(" ".join(cmd))
         return run(

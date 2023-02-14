@@ -115,9 +115,11 @@ class PackagePlugin(Command):
                 f"-Plugin={plugin_path}",
                 f"-Package={vars(args).pop('output')}",
                 f"-TargetPlatforms={platforms}",
+                "-unattended",
+                "-crash",
             ]
             + command_builder(args)
-            + ["-nocompileuat"]
+            # + ["-nocompileuat"]
         )
 
         print(" ".join(cmdargs))

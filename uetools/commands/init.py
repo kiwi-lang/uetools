@@ -82,7 +82,7 @@ class Init(Command):
         project_paths.append(project_folder)
 
         conf["engine_path"] = engine_path
-        conf["project_path"] = project_paths
+        conf["project_path"] = list(set(project_paths))
 
         EngineAdd.addengine(conf, args.version, engine_path)
 

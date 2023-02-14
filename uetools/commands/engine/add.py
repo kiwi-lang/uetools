@@ -50,7 +50,7 @@ class EngineAdd(Command):
 
     """
 
-    name: str = "engine-add"
+    name: str = "add"
 
     @staticmethod
     def arguments(subparsers):
@@ -65,7 +65,7 @@ class EngineAdd(Command):
         if os.path.exists(config):
             conf = load_conf()
 
-        EngineAdd.addengine(conf, args.args.version, args.args.engine, args.args.force)
+        EngineAdd.addengine(conf, args.version, args.engine, args.force)
 
         save_conf(conf)
         return 0
@@ -85,3 +85,6 @@ class EngineAdd(Command):
             )
 
         conf["engines"] = engines
+
+
+COMMANDS = EngineAdd
