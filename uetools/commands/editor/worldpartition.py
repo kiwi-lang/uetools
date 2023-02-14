@@ -7,7 +7,8 @@ from typing import Optional
 from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import editor_cmd
-from uetools.core.run import run
+from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
 
 
 # fmt: off
@@ -32,6 +33,8 @@ class Arguments:
 class WorldPartition(Command):
     """Convert a UE4 map using world partition"""
 
+    name: str = "worldpartition"
+
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, WorldPartition)
@@ -40,4 +43,8 @@ class WorldPartition(Command):
     @staticmethod
     def execute(args):
         cmd = [editor_cmd()] + command_builder(args)
-        return run(cmd, check=True).returncode
+        fmt = Formatter()
+        return popen_with_format(fmt, cmd)
+
+
+COMMANDS = WorldPartition

@@ -4,7 +4,8 @@ from dataclasses import dataclass
 from uetools.core.arguments import add_arguments, choice
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, ubt
-from uetools.core.run import run
+from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
 
 NONE = object()
 
@@ -93,11 +94,8 @@ class Generate(Command):
 
         root = os.path.dirname(project)
 
-        return run(
-            cmd,
-            check=True,
-            cwd=root,
-        ).returncode
+        fmt = Formatter()
+        return popen_with_format(fmt, cmd)
 
 
 COMMANDS = Generate

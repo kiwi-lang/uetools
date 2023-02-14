@@ -1,7 +1,7 @@
 import pytest
 
 from uetools.core import args, main
-from uetools.core.conf import ready
+from uetools.core.conf import is_ci
 from uetools.core.testing import git_diff, git_status
 
 skipif = pytest.mark.skipif
@@ -28,7 +28,7 @@ index 2556b01..35344b6 100644
 )
 
 
-@skipif(not ready(), reason="Unreal engine is not installed")
+@skipif(is_ci(), reason="Unreal engine is not installed")
 def test_python(project, project_name):
 
     main(args("project", "python", project_name))

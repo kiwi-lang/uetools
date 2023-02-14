@@ -5,13 +5,13 @@ import subprocess
 import pytest
 
 from uetools.core import args, main
-from uetools.core.conf import ready
+from uetools.core.conf import is_ci
 
 skipif = pytest.mark.skipif
 
 
 @skipif(os.name == "nt", reason="This does not run on my machine because of bs4")
-@skipif(not ready(), reason="Unreal engine is not installed")
+@skipif(is_ci(), reason="Unreal engine is not installed")
 def test_docs(project, project_name, tmp_path):
 
     assert os.path.exists(os.path.join(project, "Docs")) is False

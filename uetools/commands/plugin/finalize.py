@@ -38,7 +38,6 @@ class FinalizePlugin(Command):
 
     @staticmethod
     def execute(args):
-        args = args.args
         base_url = "com.epicgames.launcher://ue/marketplace/product/"
         plugin_dir = os.path.dirname(os.path.abspath(args.plugin))
 

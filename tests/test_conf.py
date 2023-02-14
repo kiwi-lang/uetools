@@ -4,7 +4,7 @@ from contextlib import contextmanager
 
 import pytest
 
-from uetools.core.conf import engine_root, find_project, project_folder, ready
+from uetools.core.conf import find_project
 
 skipif = pytest.mark.skipif
 
@@ -16,32 +16,32 @@ def fake_project(path, name):
     uproject = os.path.join(project, f"{name}.uproject")
 
     with open(uproject, "w", encoding="utf-8") as file:
-        pass
+        file.write("{}")
 
     yield
 
     shutil.rmtree(project)
 
 
-@skipif(not ready(), reason="Unreal engine is installed")
-def test_find_project():
+def test_find_project(project_root, project, project_name):
 
-    project = project_folder()[0]
-    target = os.path.join(project, "ExampleProject", "ExampleProject.uproject")
+    target = os.path.abspath(
+        os.path.join(project_root, project_name, f"{project_name}.uproject")
+    )
 
-    assert find_project("ExampleProject") == target
+    assert find_project(project_name) == target
     assert find_project(target) == target, "Accept absolute path"
 
     # project name is extracted from target
-    assert find_project("ExampleProjectEditor") == target
-    assert find_project("ExampleProjectServer") == target
+    assert find_project(f"{project_name}Editor") == target
+    assert find_project(f"{project_name}tServer") == target
 
 
-@skipif(not ready(), reason="Unreal engine is installed")
-def test_find_project_engine():
+def test_find_project_engine(engine_test_root):
 
-    engine = engine_root()
-    target = os.path.join(engine, "RootProject", "RootProject.uproject")
+    target = os.path.abspath(
+        os.path.join(engine_test_root, "RootProject", "RootProject.uproject")
+    )
 
-    with fake_project(engine, "RootProject"):
+    with fake_project(engine_test_root, "RootProject"):
         assert find_project("RootProject") == target

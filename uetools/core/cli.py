@@ -46,28 +46,31 @@ def args(*a):
 
 def main(argv=None):
     """Entry point for the command line interface"""
-    import sys
-
     try:
         parsed_args = parse_args(argv)
     except BadConfig:
-        sys.exit(-1)
+        return -1
 
     cmd_name = parsed_args.command
     command = commands.get(cmd_name)
 
     if command is None:
         print(f"Action `{cmd_name}` not implemented")
-        return
+        return -1
 
     returncode = command.execute(parsed_args)
 
     if returncode is None:
-        return
+        return 0
 
-    if returncode != 0:
-        sys.exit(returncode)
+    return returncode
+
+
+def main_force(argv=None):
+    import sys
+
+    sys.exit(main())
 
 
 if __name__ == "__main__":
-    main()
+    main_force()

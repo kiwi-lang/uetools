@@ -70,28 +70,28 @@ class Server(Command):
 
         map_options = []
 
-        if not args.args.dedicated:
+        if not args.dedicated:
             map_options.append("?listen")
 
-        if args.params.bIsLanMatch:
+        if args.bIsLanMatch:
             map_options.append("?bIsLanMatch=1")
 
-        if args.params.bIsFromInvite:
+        if args.bIsFromInvite:
             map_options.append("?bIsFromInvite=1")
 
-        if args.params.spectatoronly:
+        if args.spectatoronly:
             map_options.append("?spectatoronly")
 
-        if args.params.gameinfo:
-            map_options.append(f"?game={args.params.gameinfo}")
+        if args.gameinfo:
+            map_options.append(f"?game={args.gameinfo}")
 
         mapname = args.map + "&".join(map_options)
         cmd.append(mapname)
 
-        cmd.append(f"-port={args.args.port}")
+        cmd.append(f"-port={args.port}")
         cmd.append("-game")
 
-        if args.args.dedicated:
+        if args.dedicated:
             cmd.append("-server")
 
         cmd.append("-FullStdOutLogOutput")

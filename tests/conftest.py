@@ -4,15 +4,30 @@ import subprocess
 
 import pytest
 
+import uetools.core.conf
+import uetools.core.run
+from uetools.core import args, main
 from uetools.core.conf import load_conf
 
 original_name = "ExampleProject"
 clean_project = "https://github.com/kiwi-lang/ExampleProject"
 
-PROJECT_PATHS = load_conf().get("project_path")
-PROJECT_ROOT = PROJECT_PATHS[0] if PROJECT_PATHS else None
-HAS_UNREAL_ENGINE = PROJECT_ROOT is not None
 
+if os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("CI") == "true":
+    PROJECT_ROOT = "./projects"
+    ENGINE_ROOT = "./engine"
+    HAS_UNREAL_ENGINE = False
+
+    main(args("init", "--engine", ENGINE_ROOT, "--project", PROJECT_ROOT))
+
+else:
+    PROJECT_PATHS = load_conf().get("project_path")
+    PROJECT_ROOT = PROJECT_PATHS[0] if PROJECT_PATHS else "./projects"
+    ENGINE_ROOT = load_conf().get("engine_path") or "./engine"
+    HAS_UNREAL_ENGINE = load_conf().get("engine_path") is not None
+
+os.makedirs(PROJECT_ROOT, exist_ok=True)
+os.makedirs(ENGINE_ROOT, exist_ok=True)
 
 # Because fixtures are cached per test we can add any of the child fixture to get the data
 # we need
@@ -21,6 +36,37 @@ HAS_UNREAL_ENGINE = PROJECT_ROOT is not None
 @pytest.fixture
 def project_root():
     return PROJECT_ROOT
+
+
+@pytest.fixture
+def engine_test_root():
+    return ENGINE_ROOT
+
+
+@pytest.fixture
+def has_engine():
+    return HAS_UNREAL_ENGINE
+
+
+def mock_popen_with_format(fmt, xargs, shell=False):
+    return 0
+
+
+def mock_popen_with_format_failure(fmt, xargs, shell=False):
+    return -1
+
+
+@pytest.fixture
+def mock_pwf_success(monkeypatch):
+    monkeypatch.setattr("uetools.core.run.popen_with_format", mock_popen_with_format)
+    print(uetools.core.run.popen_with_format)
+
+
+@pytest.fixture
+def mock_pwf_failure(monkeypatch):
+    monkeypatch.setattr(
+        uetools.core.run, "popen_with_format", mock_popen_with_format_failure
+    )
 
 
 @pytest.fixture
@@ -35,10 +81,13 @@ def project_name(project_root):
 
 
 @pytest.fixture
-def project(project_name, project_root):
+def project(project_name, project_root, monkeypatch):
     """Create a new empty project to test commands"""
 
-    path = os.path.join(PROJECT_ROOT, project_name)
+    monkeypatch.setattr("uetools.core.conf.engine_folder", lambda: ENGINE_ROOT)
+    monkeypatch.setattr("uetools.core.conf.project_folder", lambda: [PROJECT_ROOT])
+
+    path = os.path.join(project_root, project_name)
     original = os.path.join(project_root, original_name)
 
     # if the original projet does not exist yet, copy it

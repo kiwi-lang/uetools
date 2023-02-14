@@ -96,7 +96,7 @@ class PackagePlugin(Command):
         platforms = "+".join(vars(args).pop("platforms"))
 
         if project is not None and not os.path.isabs(plugin):
-            project = find_project(args.project)
+            project = find_project(project)
             folder = os.path.dirname(project)
             plugin_path = os.path.join(folder, plugin)
 

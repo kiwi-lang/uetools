@@ -5,7 +5,8 @@ from dataclasses import dataclass
 from uetools.core.arguments import add_arguments, choice
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_modes, get_build_platforms, ubt
-from uetools.core.run import run
+from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
 
 modes = [
     "AggregateParsedTimingInfo",
@@ -167,7 +168,8 @@ class UBT(Command):
 
         pargs += command_builder(args)
 
-        return run(pargs, check=True).returncode
+        fmt = Formatter()
+        return popen_with_format(fmt, pargs)
 
 
 COMMANDS = UBT

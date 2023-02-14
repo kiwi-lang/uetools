@@ -3,7 +3,7 @@ import subprocess
 import pytest
 
 from uetools.core import args, main
-from uetools.core.conf import ready
+from uetools.core.conf import is_ci
 
 skipif = pytest.mark.skipif
 
@@ -14,7 +14,7 @@ skipif = pytest.mark.skipif
 
 
 @skipif(True, reason="Failing on the example plugin")
-@skipif(not ready(), reason="Unreal engine is not installed")
+@skipif(is_ci(), reason="Unreal engine is not installed")
 def test_plugin(project, project_name, tmp_path):
 
     main(

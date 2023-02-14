@@ -6,7 +6,8 @@ from dataclasses import dataclass
 from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_modes, uat
-from uetools.core.run import run
+from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
 
 commands = [
     "AnalyzeThirdPartyLibs",
@@ -310,10 +311,8 @@ class UAT(Command):
         # cmd = [uat(), "BuildPlugin", "-Help"]
 
         print(" ".join(cmd))
-        return run(
-            cmd,
-            check=True,
-        ).returncode
+        fmt = Formatter()
+        return popen_with_format(fmt, cmd)
 
 
 COMMANDS = UAT
@@ -385,4 +384,5 @@ def execute_uat_test(args):
         # f'-ExecCmds=Automation RunTests {args.test}',
     ] + ["-nocompileuat"]
 
-    run(cmd_args, check=True)
+    fmt = Formatter()
+    return popen_with_format(fmt, cmd_args)

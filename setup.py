@@ -58,7 +58,7 @@ setup_kwargs = dict(
     namespace_packages=["uetools", "uetools.plugins"],
     entry_points={
         "console_scripts": [
-            "uecli = uetools.core.cli:main",
+            "uecli = uetools.core.cli:main_force",
         ],
         "UECLICommands": [
             "ml = uetools.plugins.ml:ML",

@@ -3,13 +3,13 @@ import os
 import pytest
 
 from uetools.core import args, main
-from uetools.core.conf import ready
+from uetools.core.conf import is_ci
 
 skipif = pytest.mark.skipif
 
 
 # @skipif(True, reason="Takes too much ram")
-@skipif(not ready(), reason="Unreal engine is not installed")
+@skipif(is_ci(), reason="Unreal engine is not installed")
 def test_build(project, project_name):
 
     # Repo is clean
@@ -39,7 +39,7 @@ def test_build(project, project_name):
 
 # This takes a bit too long to tests specially because it always start from scratch
 # @skipif(True, reason="Takes too much ram")
-@skipif(not ready(), reason="Unreal engine is not installed")
+@skipif(is_ci(), reason="Unreal engine is not installed")
 def test_multi_build(project, project_name):
 
     # Repo is clean

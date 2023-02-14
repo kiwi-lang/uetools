@@ -437,7 +437,7 @@ def select_engine_version(version):
     if p is None:
         print(
             f"Engine version {version} does not exist, call first:\n\t"
-            f"`uecli engine-add --version {version} --engine <...>`"
+            f"`uecli engine add --version {version} --engine <...>`"
         )
         raise BadConfig()
 
@@ -466,6 +466,10 @@ def engine_root():
 def ready():
     """Returns true if uetools was initialized"""
     return load_conf().get("engine_path") is not None
+
+
+def is_ci() -> bool:
+    return os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("CI") == "true"
 
 
 def get_version_tag(path, default="1.0"):

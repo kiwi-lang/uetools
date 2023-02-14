@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, newparser
 from uetools.core.conf import editor, find_project
-from uetools.core.run import run
+from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
 
 
 @dataclass
@@ -32,9 +33,10 @@ class Open(Command):
 
     @staticmethod
     def execute(args):
-        project = find_project(args.name)
+        project = find_project(args.project)
 
-        return run([editor(), project], check=True).returncode
+        fmt = Formatter()
+        return popen_with_format(fmt, [editor(), project])
 
 
 COMMANDS = Open

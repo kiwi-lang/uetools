@@ -49,7 +49,6 @@ class RunTestsUAT(Command):
     @staticmethod
     def execute(args):
         """Execute the UAT command"""
-        args = args.test
         uat_cmd = vars(args).pop("run")
 
         uat_args = command_builder(args)

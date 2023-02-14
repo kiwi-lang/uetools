@@ -7,7 +7,8 @@ import pkg_resources
 from uetools.core.arguments import add_arguments, choice
 from uetools.core.command import Command, command_builder, newparser
 from uetools.core.conf import editor_cmd, find_project
-from uetools.core.run import run
+from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
 
 actions = ["Gather", "Compile", "import", "export"]
 
@@ -103,7 +104,7 @@ class LocalEditor(Command):
         os.makedirs(localization_config, exist_ok=True)
 
         template = pkg_resources.resource_filename(
-            __name__, "../templates/Localization/TargetName.ini"
+            __name__, "../../templates/Localization/TargetName.ini"
         )
 
         with open(template, encoding="utf-8") as template:
@@ -119,8 +120,8 @@ class LocalEditor(Command):
     @staticmethod
     def execute(args):
         """Execute localization gathering"""
-        name = args.args.project
-        target = args.args.target or name
+        name = vars(args).pop('project')
+        target = vars(args).pop('target') or name
 
         bootstrap = vars(args).pop("bootstrap")
         if bootstrap:
@@ -135,8 +136,8 @@ class LocalEditor(Command):
             f"-config={folder}/Config/Localization/{target}.ini",
         ] + command_builder(args)
 
-        print(" ".join(cmd))
-        return run(cmd, check=True).returncode
+        fmt = Formatter()
+        return popen_with_format(fmt, cmd)
 
 
 COMMANDS = LocalEditor

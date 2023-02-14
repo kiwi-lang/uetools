@@ -12,7 +12,8 @@ from uetools.core.conf import (
     guess_platform,
     ubt,
 )
-from uetools.core.run import run
+from uetools.core.run import popen_with_format
+from uetools.format.base import Formatter
 
 project_uht = [
     "UnrealHeaderTool",
@@ -186,6 +187,7 @@ class Build(Command):
             "ENGINE_FOLDER": engine_folder(),
         }
 
+        rc = 0
         for command in commands:
             # Temporary fix `BootstrapPackagedGame` is Windows only
             if "BootstrapPackagedGame" in command and args.platform != "Windows":
@@ -195,9 +197,11 @@ class Build(Command):
 
             cmd = [ubt()] + cmd
             print(" ".join(cmd), flush=True)
-            run(cmd, check=True)
 
-        return 0
+            fmt = Formatter()
+            rc += popen_with_format(fmt, cmd)
+
+        return rc
 
     @staticmethod
     def execute(args):
@@ -250,7 +254,8 @@ class Build(Command):
         cmd = [ubt()] + cmd
         print(" ".join(cmd), flush=True)
 
-        return run(cmd, check=True).returncode
+        fmt = Formatter()
+        return popen_with_format(fmt, cmd)
 
 
 COMMANDS = Build
