@@ -101,3 +101,17 @@ def test_formatter_test(capsys, tmp_path):
     result = subprocess.run(cmd, capture_output=True, encoding="utf-8", check=True)
 
     assert result.stdout == ""
+
+
+sample = os.path.join(folder, "error_code.txt")
+
+
+def test_formater_return_exit_code():
+    with open(sample) as file:
+        input = file.readlines()
+
+    fmt = Formatter(24)
+    for line in input:
+        fmt.match_regex(line)
+
+    assert fmt.returncode() == 139

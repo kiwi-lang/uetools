@@ -179,7 +179,6 @@ class ParentCommand(Command):
 
         cmd = cls.dispatch.get((cmd, subcmd), None)
         if cmd:
-            cmd.execute(args)
-            return
+            return cmd.execute(args)
 
         raise RuntimeError(f"Subcommand {cls.name} {subcmd} is not defined")

@@ -23,7 +23,7 @@ def popen_with_format(fmt, args, shell=False):
                 if len(line) > 0:
                     fmt.match_regex(line)
 
-            return process.poll()
+            return process.poll() + fmt.returncode()
         except KeyboardInterrupt:
             print("Stopping due to user interrupt")
             process.kill()

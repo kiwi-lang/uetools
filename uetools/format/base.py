@@ -20,6 +20,18 @@ UE_STDOUT_FORMAT = re.compile(
     r"^(?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)"
 )
 
+UAT_ERROR_1 = re.compile(
+    r"^RunUAT ERROR: AutomationTool was unable to run successfully. Exited with code: (?P<returncode>[0-9]*)"
+)
+UAT_ERROR_2 = re.compile(
+    r"^AutomationTool exiting with ExitCode=(?P<returncode>[0-9]*) \((?P<message>[a-zA-Z0-9]*)\)"
+)
+
+ERROR_PATERNS = [
+    UAT_ERROR_1,
+    UAT_ERROR_2,
+]
+
 log_verbosity = [
     "Fatal",
     "Error",
@@ -86,6 +98,7 @@ class Formatter:
         self.bad_logs = []
         self.ignore = set()
         self.only = set()
+        self.return_codes = []
 
         if self.col is not None:
             self.longest_category = self.col
@@ -138,6 +151,22 @@ class Formatter:
             else:
                 log.debug("    Line did not match anything")
                 log.debug("        - `%s`", line)
+
+        # Error detection
+        for error_pat in ERROR_PATERNS:
+            result = error_pat.search(line)
+
+            if result:
+                data = result.groupdict()
+
+                rc = data.get("returncode", 0)
+                if rc != 0:
+                    self.return_codes.append(int(rc))
+
+    def returncode(self):
+        if self.return_codes:
+            return self.return_codes[0]
+        return 0
 
     # pylint: disable=too-many-arguments
     def format(

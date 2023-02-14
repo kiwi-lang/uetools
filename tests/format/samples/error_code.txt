@@ -1,0 +1,11 @@
+Took 43.0452803s to run dotnet, ExitCode=0
+[L][Running                 ] /opt/UnrealEngine/Engine/Binaries/ThirdParty/DotNet/6.0.302/linux/dotnet "/opt/UnrealEngine/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll" UnrealGame Linux Shipping -Project=/opt/Temporary/GKFogOfWar/HostProject/HostProject.uproject -plugin=/opt/Temporary/GKFogOfWar/HostProject/Plugins/GKFogOfWar/GKFogOfWar.uplugin -iwyu -noubtmakefiles -manifest=/opt/Temporary/GKFogOfWar/HostProject/Saved/Manifest-UnrealGame-Linux-Shipping.xml -nohotreload -log="/home/gitlab-runner/Library/Logs/Unreal Engine/LocalBuildLogs/UBT-UnrealGame-Linux-Shipping.txt"
+Log file: /home/gitlab-runner/Library/Logs/Unreal Engine/LocalBuildLogs/UBT-UnrealGame-Linux-Shipping.txt
+Using 'git status' to determine working set for adaptive non-unity build (/opt/UnrealEngine).
+Parsing headers for UnrealGame
+  Running Internal UnrealHeaderTool /opt/Temporary/GKFogOfWar/HostProject/HostProject.uproject /opt/Temporary/GKFogOfWar/HostProject/Intermediate/Build/Linux/B4D820EA/UnrealGame/Shipping/UnrealGame.uhtmanifest -WarningsAsErrors
+Took 3.8497052s to run dotnet, ExitCode=139
+UnrealBuildTool failed. See log for more details. (/home/gitlab-runner/Library/Logs/Unreal Engine/LocalBuildLogs/UBT-UnrealGame-Linux-Shipping.txt)
+AutomationTool executed for 0h 1m 37s
+AutomationTool exiting with ExitCode=139 (139)
+RunUAT ERROR: AutomationTool was unable to run successfully. Exited with code: 139
