@@ -28,8 +28,8 @@ development:
   script:
     - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
     - conda activate "$ANACONDA_FOLDER"
-    - uecli init --engine $ENGINE_FOLDER --projects $PROJECT_FOLDER
-    - uecli cook $PROJECT_NAME --platform Windows --build Development
+    - uecli init --engine $ENGINE_FOLDER --project $PROJECT_FOLDER
+    - uecli editor cook $PROJECT_NAME --platform Windows --build Development
 
 
 test:
@@ -41,8 +41,8 @@ test:
   script:
     - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
     - conda activate "$ANACONDA_FOLDER"
-    - uecli tests $PROJECT_NAME /Game/Maps/AbilityTest/AbilityTest Gamekit
-    - uecli tests $PROJECT_NAME /Game/Maps/AbilityTest/AbilityTest Project.Functional
+    - uecli test run $PROJECT_NAME /Game/Maps/AbilityTest/AbilityTest Gamekit
+    - uecli test run $PROJECT_NAME /Game/Maps/AbilityTest/AbilityTest Project.Functional
 
 cook:
   stage: cook
@@ -57,7 +57,7 @@ cook:
     - $LATEST_TAG = git describe --tags --abbrev=0
     - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
     - conda activate "$ANACONDA_FOLDER"
-    - uecli cook $PROJECT_NAME --platform Windows --build Shipping --output $OUTPUT
+    - uecli editor cook $PROJECT_NAME --platform Windows --build Shipping --output $OUTPUT
     - Compress-Archive -Force -CompressionLevel Optimal -Path $OUTPUT -DestinationPath $ARCHIVE/${OUTPUT_NAME}_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip
 
 
