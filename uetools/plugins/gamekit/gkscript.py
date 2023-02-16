@@ -45,7 +45,6 @@ class GKScript(Command):
 
     @staticmethod
     def execute(args):
-        args = args.gkscript
         project = find_project(args.project)
 
         cmd = editor_commandlet(project, "GKScript") + [

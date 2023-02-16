@@ -37,7 +37,9 @@ class GitVersion(Command):
             )
 
         commit = execcmd("git --no-optional-locks rev-parse HEAD", directory)
-        tag = execcmd("git --no-optional-locks describe --tags --abbrev=0", directory)
+        tag = execcmd(
+            "git --no-optional-locks describe --tags --abbrev=0 --always", directory
+        )[:9]
         date = execcmd(
             "git --no-optional-locks show -s --format=%ci " + commit, directory
         )

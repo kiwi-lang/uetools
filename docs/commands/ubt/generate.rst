@@ -1,5 +1,5 @@
 Generate
 ========
 
-.. automodule:: uetools.commands.ubt.generate
+.. automodule:: uetools.commands.ubt.regenerate
    :members:
