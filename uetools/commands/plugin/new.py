@@ -28,8 +28,9 @@ class NewPlugin(Command):
         project_dir = os.path.dirname(project)
 
         template = pkg_resources.resource_filename(
-            __name__, "../templates/PluginTemplate/cookiecutter.json"
+            __name__, "templates/PluginTemplate/cookiecutter.json"
         )
+
         assert os.path.exists(template)
         template = os.path.dirname(template)
         assert os.path.exists(template)

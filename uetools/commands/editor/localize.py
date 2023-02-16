@@ -104,7 +104,7 @@ class LocalEditor(Command):
         os.makedirs(localization_config, exist_ok=True)
 
         template = pkg_resources.resource_filename(
-            __name__, "../../templates/Localization/TargetName.ini"
+            __name__, "templates/Localization/TargetName.ini"
         )
 
         with open(template, encoding="utf-8") as template:

@@ -51,7 +51,7 @@ class CPP(Command):
         project = find_project(args.project)
 
         template = pkg_resources.resource_filename(
-            __name__, "../../templates/CPPTemplate/cookiecutter.json"
+            __name__, "templates/CPPTemplate/cookiecutter.json"
         )
 
         template = os.path.dirname(template)

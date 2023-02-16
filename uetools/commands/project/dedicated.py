@@ -65,7 +65,7 @@ class Dedicated(Command):
     def generate_server_target(project, server_target):
         """Add the UBT server target to a given project"""
         template = pkg_resources.resource_filename(
-            __name__, "../../templates/TemplateServer.Target"
+            __name__, "templates/TemplateServer.Target"
         )
 
         with open(template, encoding="utf-8") as template_file:

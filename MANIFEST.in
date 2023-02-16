@@ -7,6 +7,9 @@ recursive-include uetools *.ini
 recursive-include uetools *.py
 
 graft uetools/templates
+graft uetools/commands/plugin/templates
+graft uetools/commands/project/templates
+graft uetools/commands/editor/templates
 
 exclude tox.ini
 exclude Makefile
