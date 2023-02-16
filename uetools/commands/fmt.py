@@ -77,7 +77,6 @@ class Format(Command):
 
     @staticmethod
     def execute(args):
-        args = args.args
         fmt = profiles.get(args.profile, Formatter)(args.col)
 
         if args.file is not None:

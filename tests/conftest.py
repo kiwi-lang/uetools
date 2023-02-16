@@ -19,6 +19,8 @@ if os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("CI") == "true":
 
     main(args("init", "--engine", ENGINE_ROOT, "--project", PROJECT_ROOT))
 
+    main(args("engine", "add", "--version", "src", "--engine", ENGINE_ROOT))
+
 else:
     PROJECT_PATHS = load_conf().get("project_path")
     PROJECT_ROOT = PROJECT_PATHS[0] if PROJECT_PATHS else "./projects"

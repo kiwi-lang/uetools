@@ -1,11 +1,29 @@
-import pytest
+import os
 
-from uetools.core.conf import is_ci
+from uetools.core import args, main
 
-skipif = pytest.mark.skipif
+samples = os.path.join(os.path.dirname(__file__), "format", "samples")
 
 
-@skipif(is_ci(), reason="Unreal engine is not installed")
-def test_fmt(project):
-    # Not tested, but the Formatter is tested by itself
-    pass
+def test_fmt_cooking():
+    main(
+        args(
+            "format",
+            "--profile",
+            "cooking",
+            "--file",
+            os.path.join(samples, "cooking_in.txt"),
+        )
+    )
+
+
+def test_fmt_tests():
+    main(
+        args(
+            "format",
+            "--profile",
+            "tests",
+            "--file",
+            os.path.join(samples, "tests_in.txt"),
+        )
+    )

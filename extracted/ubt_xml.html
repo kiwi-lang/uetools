@@ -1,0 +1,1392 @@
+<div>
+    <h3 id="buildconfiguration">BuildConfiguration</h3>
+    <dl>
+       <dt>bIgnoreOutdatedImportLibraries </dt>
+       <dd>
+          <p>Whether to ignore import library files that are out of date when building targets. Set this to true to improve iteration time. By default, we do not bother re-linking targets if only a dependent <code>.lib</code> file has changed, as chances are that the import library was not actually different unless a dependent header file of this target was also changed, in which case the target would automatically be rebuilt.</p>
+       </dd>
+       <dt>bPrintDebugInfo </dt>
+       <dd>
+          <p>Whether debug info should be written to the console.</p>
+       </dd>
+       <dt>bAllowHybridExecutor </dt>
+       <dd>
+          <p>Whether the hybrid executor will be used (a remote executor and local executor).</p>
+       </dd>
+       <dt>bAllowHordeCompute </dt>
+       <dd>
+          <p>Whether Horde remote compute may be used. (Highly experimental, disabled by default.)</p>
+       </dd>
+       <dt>bAllowXGE </dt>
+       <dd>
+          <p>Whether XGE may be used.</p>
+       </dd>
+       <dt>bAllowFASTBuild </dt>
+       <dd>
+          <p>Whether FASTBuild may be used.</p>
+       </dd>
+       <dt>bAllowSNDBS </dt>
+       <dd>
+          <p>Whether SN-DBS may be used.</p>
+       </dd>
+       <dt>bUseUBTMakefiles </dt>
+       <dd>
+          <p>Enables support for very fast iterative builds by caching target data. Turning this on causes Unreal Build Tool (UBT) to emit 'UBT Makefiles' for targets when they are built the first time. Subsequent builds will load these Makefiles and begin outdatedness checking and build invocation very quickly. The caveat is that if source files are added or removed to the project, UBT will need to gather information about those in order for your build to complete successfully. Currently, you must run the project file generator after adding/removing source files to tell UBT to re-gather this information. </p>
+       </dd>
+       <dt>MaxParallelActions </dt>
+       <dd>
+          <p>Number of actions that can be executed in parallel. If 0 then code will pick a default based on the number of cores and memory available. Applies to the ParallelExecutor, HybridExecutor, and LocalExecutor.</p>
+       </dd>
+       <dt>bAllCores </dt>
+       <dd>
+          <p>Consider logical cores when determining how many total CPU cores are available.</p>
+       </dd>
+       <dt>bCompactOutput </dt>
+       <dd>
+          <p>Instruct the executor to write compact output (for example, only errors), if supported by the executor. This field is used to hold the value when specified from the command line or XML.</p>
+       </dd>
+       <dt>bDebugBuildsActuallyUseDebugCRT </dt>
+       <dd>
+          <p>Enables the debug C++ runtime (CRT) for debug builds. By default we always use the release runtime, since the debug version isn't particularly useful when debugging Unreal Engine projects, and linking against the debug CRT libraries forces our third party library dependencies to also be compiled using the debug CRT (and often perform more slowly). Often it can be inconvenient to require a separate copy of the debug versions of third party static libraries simply so that you can debug your program's code.</p>
+       </dd>
+       <dt>bLegalToDistributeBinary </dt>
+       <dd>
+          <p>Whether the output from this target can be publicly distributed, even if it has dependencies on modules that are in folders with special restrictions (for example, CarefullyRedist, NotForLicensees, NoRedist).</p>
+       </dd>
+    </dl>
+    <dl>
+       <dt>bUseInlining </dt>
+       <dd>
+          <p>Enable inlining for all modules.</p>
+       </dd>
+       <dt>bUseDebugLiveCodingConsole </dt>
+       <dd>
+          <p>Whether to enable support for live coding.</p>
+       </dd>
+       <dt>bUseXGEController </dt>
+       <dd>
+          <p>Whether the XGE controller worker and modules should be included in the engine build. These are required for distributed shader compilation using the XGE interception interface.</p>
+       </dd>
+       <dt>bUseUnityBuild </dt>
+       <dd>
+          <p>Whether to unify C++ code into larger files for faster compilation.</p>
+       </dd>
+       <dt>bForceUnityBuild </dt>
+       <dd>
+          <p>Whether to force C++ source files to be combined into larger files for faster compilation.</p>
+       </dd>
+       <dt>bMergeModuleAndGeneratedUnityFiles </dt>
+       <dd>
+          <p>Whether to merge the module and generated unity files for faster compilation.</p>
+       </dd>
+       <dt>bUseAdaptiveUnityBuild </dt>
+       <dd>
+          <p>Use a heuristic to determine which files are currently being iterated on and exclude them from unity blobs, resulting in faster incremental compile times. The current implementation uses the read-only flag to distinguish the working set, assuming that files will be made writable by the source control system if they are being modified. This is true for Perforce, but not for Git.</p>
+       </dd>
+       <dt>bAdaptiveUnityDisablesOptimizations </dt>
+       <dd>
+          <p>Disable optimization for files that are in the adaptive non-unity working set.</p>
+       </dd>
+       <dt>bAdaptiveUnityDisablesPCH </dt>
+       <dd>
+          <p>Disables force-included Precompiled Headers (PCHs) for files that are in the adaptive non-unity working set.</p>
+       </dd>
+       <dt>bAdaptiveUnityDisablesProjectPCHForProjectPrivate </dt>
+       <dd>
+          <p>Backing storage for <code>bAdaptiveUnityDisablesProjectPCH</code>.</p>
+       </dd>
+       <dt>bAdaptiveUnityCreatesDedicatedPCH </dt>
+       <dd>
+          <p>Creates a dedicated PCH for each source file in the working set, allowing faster iteration on cpp-only changes.</p>
+       </dd>
+       <dt>bAdaptiveUnityEnablesEditAndContinue </dt>
+       <dd>
+          <p>Creates a dedicated PCH for each source file in the working set, allowing faster iteration on cpp-only changes.</p>
+       </dd>
+       <dt>bAdaptiveUnityCompilesHeaderFiles </dt>
+       <dd>
+          <p>Creates a dedicated source file for each header file in the working set to detect missing includes in headers.</p>
+       </dd>
+       <dt>MinGameModuleSourceFilesForUnityBuild </dt>
+       <dd>
+          <p>The number of source files in a game module before unity build will be activated for that module.  This allows small game modules to have faster iterative compile times for single files, at the expense of slower full rebuild times.  This setting can be overridden by the <code>bFasterWithoutUnity</code> option in a module's <code>.Build.cs</code> file.</p>
+       </dd>
+       <dt>DefaultWarningLevel </dt>
+       <dd>
+          <p>Default treatment of uncategorized warnings</p>
+       </dd>
+       <dt>DeprecationWarningLevel </dt>
+       <dd>
+          <p>Level to report deprecation warnings as errors</p>
+       </dd>
+       <dt>bWarningsAsErrors </dt>
+       <dd>
+          <p>Whether to enable all warnings as errors. UE enables most warnings as errors already, but disables a few (such as deprecation warnings).</p>
+       </dd>
+       <dt>UnsafeTypeCastWarningLevel </dt>
+       <dd>
+          <p>Indicates what warning/error level to treat unsafe type casts as on platforms that support it (for example, <code>double-&gt;float</code> or <code>int64-&gt;int32</code>).</p>
+       </dd>
+       <dt>bUndefinedIdentifierErrors </dt>
+       <dd>
+          <p>Forces the use of undefined identifiers in conditional expressions to be treated as errors.</p>
+       </dd>
+       <dt>bRetainFramePointers </dt>
+       <dd>
+          <p>Forces frame pointers to be retained. This is usually required when you want reliable callstacks (for example, <code>mallocframeprofiler</code>).</p>
+       </dd>
+       <dt>bUseFastMonoCalls </dt>
+       <dd>
+          <p>New Monolithic Graphics drivers have optional "fast calls" replacing various D3d functions.</p>
+       </dd>
+       <dt>NumIncludedBytesPerUnityCPP </dt>
+       <dd>
+          <p>An approximate number of bytes of C++ code to target for inclusion in a single unified C++ file.</p>
+       </dd>
+       <dt>bStressTestUnity </dt>
+       <dd>
+          <p>Whether to stress test the C++ unity build robustness by including all C++ files files in a project from a single unified file.</p>
+       </dd>
+       <dt>bDetailedUnityFiles </dt>
+       <dd>
+          <p>Whether to add additional information to the unity files, such as '_of_X' in the file name.</p>
+       </dd>
+       <dt>bDisableDebugInfo </dt>
+       <dd>
+          <p>Whether to globally disable debug info generation; see <code>DebugInfoHeuristics.cs</code> for per-config and per-platform options.</p>
+       </dd>
+       <dt>bDisableDebugInfoForGeneratedCode </dt>
+       <dd>
+          <p>Whether to disable debug info generation for generated files. This improves link times for modules that have a lot of generated glue code.</p>
+       </dd>
+       <dt>bOmitPCDebugInfoInDevelopment </dt>
+       <dd>
+          <p>Whether to disable debug info on PC/Mac in development builds (for faster developer iteration, as link times are extremely fast with debug info disabled).</p>
+       </dd>
+       <dt>bUsePDBFiles </dt>
+       <dd>
+          <p>Whether PDB files should be used for Visual C++ builds.</p>
+       </dd>
+       <dt>bUsePCHFiles </dt>
+       <dd>
+          <p>Whether PCH files should be used.</p>
+       </dd>
+       <dt>bDeterministic </dt>
+       <dd>
+          <p>Set flags required for deterministic linking (experimental, may not be fully supported). Deterministic compiling is controlled via <code>ModuleRules.cs</code>.</p>
+       </dd>
+       <dt>bForceDeterministic </dt>
+       <dd>
+          <p>Force set flags required for deterministic compiling and linking (experimental, may not be fully supported). This setting is only recommended for testing, instead:</p>
+       </dd>
+       <dt>bPreprocessDepends </dt>
+       <dd>
+          <p>Generate dependency files by preprocessing. This is only recommended when distributing builds as it adds additional overhead.</p>
+       </dd>
+       <dt>StaticAnalyzer </dt>
+       <dd>
+          <p>Whether static code analysis should be enabled.</p>
+       </dd>
+       <dt>StaticAnalyzerOutputType </dt>
+       <dd>
+          <p>The output type to use for the static analyzer. This is only supported for Clang.</p>
+       </dd>
+       <dt>StaticAnalyzerMode </dt>
+       <dd>
+          <p>The mode to use for the static analyzer. This is only supported for Clang. Shallow mode completes quicker but is generally not recommended.</p>
+       </dd>
+       <dt>MinFilesUsingPrecompiledHeader </dt>
+       <dd>
+          <p>The minimum number of files that must use a pre-compiled header before it will be created and used.</p>
+       </dd>
+       <dt>bForcePrecompiledHeaderForGameModules </dt>
+       <dd>
+          <p>When enabled, a precompiled header is always generated for game modules, even if there are only a few source files in the module.  This greatly improves compile times for iterative changes on a few files in the project, at the expense of slower full rebuild times for small game projects.  This can be overridden by setting <code>MinFilesUsingPrecompiledHeaderOverride</code> in a module's <code>Build.cs</code> file.</p>
+       </dd>
+       <dt>bUseIncrementalLinking </dt>
+       <dd>
+          <p>Whether to use incremental linking or not. Incremental linking can yield faster iteration times when making small changes. Currently disabled by default because it tends to behave a bit buggy on some computers (PDB-related compile errors).</p>
+       </dd>
+       <dt>bAllowLTCG </dt>
+       <dd>
+          <p>Whether to allow the use of link time code generation (LTCG).</p>
+       </dd>
+       <dt>bPreferThinLTO </dt>
+       <dd>
+          <p>When Link Time Code Generation (LTCG) is enabled, whether to prefer using the lighter weight version on supported platforms.</p>
+       </dd>
+       <dt>bPGOProfile </dt>
+       <dd>
+          <p>Whether to enable Profile Guided Optimization (PGO) instrumentation in this build.</p>
+       </dd>
+       <dt>bPGOOptimize </dt>
+       <dd>
+          <p>Whether to optimize this build with Profile Guided Optimization (PGO).</p>
+       </dd>
+       <dt>bSupportEditAndContinue </dt>
+       <dd>
+          <p>Whether to support edit and continue.  Only works on Microsoft compilers.</p>
+       </dd>
+       <dt>bOmitFramePointers </dt>
+       <dd>
+          <p>Whether to omit frame pointers or not. Disabling is useful, for example, for memory profiling on the PC.</p>
+       </dd>
+       <dt>bUseMallocProfiler </dt>
+       <dd>
+          <p>If true, then enable memory profiling in the build (defines <code>USE_MALLOC_PROFILER=1</code> and forces <code>bOmitFramePointers=false</code>).</p>
+       </dd>
+       <dt>bUseSharedPCHs </dt>
+       <dd>
+          <p>Enables "Shared PCHs", a feature which significantly speeds up compile times by attempting to share certain PCH files between modules that UBT detects are including those PCH's header files.</p>
+       </dd>
+       <dt>bUseShippingPhysXLibraries </dt>
+       <dd>
+          <p>True if Development and Release builds should use the release configuration of PhysX/APEX.</p>
+       </dd>
+       <dt>bUseCheckedPhysXLibraries </dt>
+       <dd>
+          <p>True if Development and Release builds should use the checked configuration of PhysX/APEX. if <code>bUseShippingPhysXLibraries</code> is true this is ignored.</p>
+       </dd>
+       <dt>bCheckLicenseViolations </dt>
+       <dd>
+          <p>Tells the UBT to check if the module currently being built is violating EULA.</p>
+       </dd>
+       <dt>bBreakBuildOnLicenseViolation </dt>
+       <dd>
+          <p>Tells the UBT to break build if the module currently being built is violating EULA.</p>
+       </dd>
+       <dt>bUseFastPDBLinking </dt>
+       <dd>
+          <p>Whether to use the <code>:FASTLINK</code> option when building with /DEBUG to create local PDBs on Windows. Fast, but currently seems to have problems finding symbols in the debugger.</p>
+       </dd>
+       <dt>bCreateMapFile </dt>
+       <dd>
+          <p>Outputs a map file as part of the build.</p>
+       </dd>
+       <dt>bAllowRuntimeSymbolFiles </dt>
+       <dd>
+          <p>True if runtime symbols files should be generated as a post build step for some platforms. These files are used by the engine to resolve symbol names of callstack backtraces in logs.</p>
+       </dd>
+       <dt>PackagePath </dt>
+       <dd>
+          <p>Package full path (directory + filename) where to store input files used at link time. Normally used to debug a linker crash for platforms that support it.</p>
+       </dd>
+       <dt>CrashDiagnosticDirectory </dt>
+       <dd>
+          <p>Directory where to put crash report files for platforms that support it.</p>
+       </dd>
+       <dt>bCheckSystemHeadersForModification </dt>
+       <dd>
+          <p>Whether headers in system paths should be checked for modification when determining outdated actions.</p>
+       </dd>
+       <dt>bFlushBuildDirOnRemoteMac </dt>
+       <dd>
+          <p>Whether to clean <code>Builds</code> directory on a remote Mac before building.</p>
+       </dd>
+       <dt>bPrintToolChainTimingInfo </dt>
+       <dd>
+          <p>Whether to write detailed timing info from the compiler and linker.</p>
+       </dd>
+       <dt>bParseTimingInfoForTracing </dt>
+       <dd>
+          <p>Whether to parse timing data into a tracing file compatible with <code>chrome://tracing</code>.</p>
+       </dd>
+       <dt>bPublicSymbolsByDefault </dt>
+       <dd>
+          <p>Whether to expose all symbols as public by default on POSIX platforms.</p>
+       </dd>
+       <dt>CppStandard </dt>
+       <dd>
+          <p>Which C++ standard to use for compiling this target.</p>
+       </dd>
+       <dt>CStandard </dt>
+       <dd>
+          <p>Which C standard to use for compiling this target.</p>
+       </dd>
+       <dt>bStopSNDBSCompilationAfterErrors </dt>
+       <dd>
+          <p>When enabled, SN-DBS will stop compiling targets after a compile error occurs.  Recommended, as it saves computing resources for others.</p>
+       </dd>
+       <dt>bXGENoWatchdogThread </dt>
+       <dd>
+          <p>Whether to use the <code>no_watchdog_thread</code> option to prevent VS2015 toolchain stalls.</p>
+       </dd>
+       <dt>bShowXGEMonitor </dt>
+       <dd>
+          <p>Whether to display the XGE build monitor.</p>
+       </dd>
+       <dt>bStopXGECompilationAfterErrors </dt>
+       <dd>
+          <p>When enabled, XGE will stop compiling targets after a compile error occurs.  Recommended, as it saves computing resources for others.</p>
+       </dd>
+       <dt>BaseLogFileName </dt>
+       <dd>
+          <p>Specifies the file to use for logging.</p>
+       </dd>
+       <dt>bStripSymbols </dt>
+       <dd>
+          <p>Whether to strip iOS symbols or not (implied by Shipping config).</p>
+       </dd>
+       <dt>bEnableAddressSanitizer </dt>
+       <dd>
+          <p>Enables address sanitizer (ASan). Only supported for Visual Studio 2019 16.7.0 and up.</p>
+       </dd>
+       <dt>bEnableThreadSanitizer </dt>
+       <dd>
+          <p>Enables thread sanitizer (TSan).</p>
+       </dd>
+       <dt>bEnableUndefinedBehaviorSanitizer </dt>
+       <dd>
+          <p>Enables undefined behavior sanitizer (UBSan).</p>
+       </dd>
+       <dt>bEnableMemorySanitizer </dt>
+       <dd>
+          <p>Enables memory sanitizer (MSan).</p>
+       </dd>
+       <dt>bTuneDebugInfoForLLDB </dt>
+       <dd>
+          <p>Turns on tuning of debug info for LLDB.</p>
+       </dd>
+       <dt>bUseDSYMFiles </dt>
+       <dd>
+          <p>Enables the generation of <code>.dsym</code> files. This can be disabled to enable faster iteration times during development.</p>
+       </dd>
+       <dt>bWriteSolutionOptionFile </dt>
+       <dd>
+          <p>Whether to write a solution option (suo) file for the <code>.sln</code>.</p>
+       </dd>
+       <dt>bVsConfigFile </dt>
+       <dd>
+          <p>Whether to write a .vsconfig file next to the sln to suggest components to install.</p>
+       </dd>
+       <dt>bAddFastPDBToProjects </dt>
+       <dd>
+          <p>Whether to add the <code>-FastPDB</code> option to build command lines by default.</p>
+       </dd>
+       <dt>bUsePerFileIntellisense </dt>
+       <dd>
+          <p>Whether to generate per-file intellisense data.</p>
+       </dd>
+       <dt>bEditorDependsOnShaderCompileWorker </dt>
+       <dd>
+          <p>Whether to include a dependency on ShaderCompileWorker when generating project files for the editor.</p>
+       </dd>
+    </dl>
+    <h3 id="uebuildconfiguration">UEBuildConfiguration</h3>
+    <dl>
+       <dt>bForceHeaderGeneration </dt>
+       <dd>
+          <p>If true, force header regeneration. Intended for the build machine.</p>
+       </dd>
+       <dt>bDoNotBuildUHT </dt>
+       <dd>
+          <p>If true, do not build Unreal Header Tool (UHT), assume it is already built.</p>
+       </dd>
+       <dt>bFailIfGeneratedCodeChanges </dt>
+       <dd>
+          <p>If true, fail if any of the generated header files is out of date.</p>
+       </dd>
+       <dt>bAllowHotReloadFromIDE </dt>
+       <dd>
+          <p>True if hot-reload from IDE is allowed.</p>
+       </dd>
+       <dt>bForceDebugUnrealHeaderTool </dt>
+       <dd>
+          <p>If true, the Debug version of Unreal Header Tool (UHT) will be built and run instead of the Development version.</p>
+       </dd>
+       <dt>bUseBuiltInUnrealHeaderTool </dt>
+       <dd>
+          <p>If true, use Unreal Header Tool (UHT) internal to Unreal Build Tool (UBT).</p>
+       </dd>
+    </dl>
+    <h3 id="windowsplatform">WindowsPlatform</h3>
+    <dl>
+       <dt>MaxRootPathLength </dt>
+       <dd>
+          <p>Maximum recommended root path length.</p>
+       </dd>
+       <dt>MaxNestedPathLength </dt>
+       <dd>
+          <p>Maximum length of a path relative to the root directory. Used on Windows to ensure paths are portable between machines. Defaults to off.</p>
+       </dd>
+       <dt>Compiler </dt>
+       <dd>
+          <p>Version of the compiler toolchain to use on Windows platform. A value of "default" will be changed to a specific version at UBT start up.</p>
+       </dd>
+       <dt>CompilerVersion </dt>
+       <dd>
+          <p>The specific toolchain version to use. This may be a specific version number (for example, "14.13.26128"), the string "Latest" to select the newest available version, or the string "Preview" to select the newest available preview version. By default, and if it is available, we use the toolchain version indicated by <code>WindowsPlatform.DefaultToolChainVersion</code> (otherwise, we use the latest version).</p>
+       </dd>
+       <dt>WindowsSdkVersion </dt>
+       <dd>
+          <p>The specific Windows SDK version to use. This may be a specific version number (for example, "8.1", "10.0" or "10.0.10150.0"), or the string "Latest", to select the newest available version. By default, and if it is available, we use the Windows SDK version indicated by <code>WindowsPlatform.DefaultWindowsSdkVersion</code> (otherwise, we use the latest version).</p>
+       </dd>
+       <dt>StaticAnalyzer </dt>
+       <dd>
+          <p>The static analyzer to use.</p>
+       </dd>
+       <dt>StaticAnalyzerOutputType </dt>
+       <dd>
+          <p>The output type to use for the static analyzer.</p>
+       </dd>
+       <dt>bStrictConformanceMode </dt>
+       <dd>
+          <p>Enables strict standard conformance mode (/permissive-) in Visual Studio 2017 or higher.</p>
+       </dd>
+       <dt>PCHMemoryAllocationFactor </dt>
+       <dd>
+          <p>Determines the amount of memory that the compiler allocates to construct precompiled headers (/Zm).</p>
+       </dd>
+       <dt>AdditionalLinkerOptions </dt>
+       <dd>
+          <p>Allow the target to specify extra options for linking that are not otherwise noted here.</p>
+       </dd>
+       <dt>bClangTimeTrace </dt>
+       <dd>
+          <p>(Experimental) Appends the -ftime-trace argument to the command line for Clang to output a JSON file containing a timeline for the compile. See the <a id="content_link" href="http://aras-p.info/blog/2019/01/16/time-trace-timeline-flame-chart-profiler-for-Clang/"><span>Clang Time Trace</span></a> documentation for more info.</p>
+       </dd>
+       <dt>bCompilerTrace </dt>
+       <dd>
+          <p>Outputs compile timing information so that it can be analyzed.</p>
+       </dd>
+       <dt>bShowIncludes </dt>
+       <dd>
+          <p>Print out files that are included by each source file.</p>
+       </dd>
+    </dl>
+    <h3 id="moduleconfiguration">ModuleConfiguration</h3>
+    <dl>
+       <dt>DisableUnityBuild </dt>
+       <dd>
+          <p>List of modules for which to disable unity builds.</p>
+       </dd>
+       <dt>EnableOptimizeCode </dt>
+       <dd>
+          <p>List of modules for which to enable optimizations.</p>
+       </dd>
+       <dt>DisableOptimizeCode </dt>
+       <dd>
+          <p>List of modules for which to disable optimizations.</p>
+       </dd>
+    </dl>
+    <h3 id="fastbuild">FASTBuild</h3>
+    <dl>
+       <dt>FBuildExecutablePath </dt>
+       <dd>
+          <p>Used to specify the location of <code>fbuild.exe</code> if the distributed binary isn't being used.</p>
+       </dd>
+       <dt>bEnableDistribution </dt>
+       <dd>
+          <p>Controls network build distribution.</p>
+       </dd>
+       <dt>FBuildBrokeragePath </dt>
+       <dd>
+          <p>Used to specify the location of the brokerage. If null, <code>FASTBuild</code> will fall back to checking <code>FASTBUILD_BROKERAGE_PATH</code>.</p>
+       </dd>
+       <dt>FBuildCoordinator </dt>
+       <dd>
+          <p>Used to specify the <code>FASTBuild</code> coordinator IP or network name. If null, <code>FASTBuild</code> will fall back to checking <code>FASTBUILD_COORDINATOR</code>.</p>
+       </dd>
+       <dt>bEnableCaching </dt>
+       <dd>
+          <p>Controls whether to use caching at all. <code>CachePath</code> and <code>FASTCacheMode</code> are only relevant if this is enabled.</p>
+       </dd>
+       <dt>CacheMode </dt>
+       <dd>
+          <p>Cache access mode - only relevant if <code>bEnableCaching</code> is true.</p>
+       </dd>
+       <dt>FBuildCachePath </dt>
+       <dd>
+          <p>Used to specify the location of the cache. If null, <code>FASTBuild</code> will fall back to checking <code>FASTBUILD_CACHE_PATH</code>.</p>
+       </dd>
+       <dt>bForceRemote </dt>
+       <dd>
+          <p>Whether to force remote.</p>
+       </dd>
+       <dt>bStopOnError </dt>
+       <dd>
+          <p>Whether to stop on error.</p>
+       </dd>
+       <dt>MsvcCRTRedistVersion </dt>
+       <dd>
+          <p>Which Microsoft Visual C++ (MSVC) C++ Runtime (CRT) Redist version to use.</p>
+       </dd>
+    </dl>
+    <h3 id="hordeexecutor">HordeExecutor</h3>
+    <dl>
+       <dt>NumRemoteParallelProcesses </dt>
+       <dd>
+          <p>How many processes that will be executed in parallel remotely.</p>
+       </dd>
+       <dt>RemoteProcessOnly </dt>
+       <dd>
+          <p>Only run work remotely, for testing.</p>
+       </dd>
+       <dt>RetryFailedRemote </dt>
+       <dd>
+          <p>Retry actions locally when failed remotely.</p>
+       </dd>
+    </dl>
+    <h3 id="parallelexecutor">ParallelExecutor</h3>
+    <dl>
+       <dt>MaxProcessorCount </dt>
+       <dd>
+          <p>Maximum processor count for local execution.</p>
+       </dd>
+       <dt>ProcessorCountMultiplier </dt>
+       <dd>
+          <p>Processor count multiplier for local execution. Can be below 1 to reserve CPU for other tasks. When using the local executor (not XGE), run a single action on each CPU core. Note that you can set this to a larger value to get slightly faster build times in many cases, but your computer's responsiveness during compiling may be much worse. This value is ignored if the CPU does not support hyper-threading.</p>
+       </dd>
+       <dt>MemoryPerActionBytes </dt>
+       <dd>
+          <p>Free memory per action in bytes, used to limit the number of parallel actions if the machine is memory starved. Set to 0 to disable free memory checking.</p>
+       </dd>
+       <dt>ProcessPriority </dt>
+       <dd>
+          <p>The priority to set for spawned processes. Valid Settings: <code>Idle</code>, <code>BelowNormal</code>, <code>Normal</code>, <code>AboveNormal</code>, <code>High</code>. Default Setting: <code>BelowNormal</code>.</p>
+       </dd>
+       <dt>bStopCompilationAfterErrors </dt>
+       <dd>
+          <p>When enabled, will stop compiling targets after a compile error occurs.</p>
+       </dd>
+       <dt>bShowCompilationTimes </dt>
+       <dd>
+          <p>Whether to show compilation times along with the worst offenders or not.</p>
+       </dd>
+       <dt>bShowPerActionCompilationTimes </dt>
+       <dd>
+          <p>Whether to show compilation times for each executed action.</p>
+       </dd>
+       <dt>bLogActionCommandLines </dt>
+       <dd>
+          <p>Whether to log command lines for actions being executed.</p>
+       </dd>
+       <dt>bPrintActionTargetNames </dt>
+       <dd>
+          <p>Add target names for each action executed.</p>
+       </dd>
+    </dl>
+    <h3 id="sndbs">SNDBS</h3>
+    <dl>
+       <dt>bAllowOverVpn </dt>
+       <dd>
+          <p>When set to false, SNDBS will not be enabled when running connected to the coordinator over VPN. Configure VPN-assigned subnets via the VpnSubnets parameter.</p>
+       </dd>
+       <dt>VpnSubnets </dt>
+       <dd>
+          <p>List of subnets containing IP addresses assigned by VPN.</p>
+       </dd>
+    </dl>
+    <h3 id="xge">XGE</h3>
+    <dl>
+       <dt>bAllowOverVpn </dt>
+       <dd>
+          <p>When set to false, XGE will not be enabled when running connected to the coordinator over VPN. Configure VPN-assigned subnets via the VpnSubnets parameter.</p>
+       </dd>
+       <dt>VpnSubnets </dt>
+       <dd>
+          <p>List of subnets containing IP addresses assigned by VPN.</p>
+       </dd>
+       <dt>bAllowRemoteLinking </dt>
+       <dd>
+          <p>Whether to allow remote linking.</p>
+       </dd>
+       <dt>bUseVCCompilerMode </dt>
+       <dd>
+          <p>Whether to enable the <code>VCCompiler=true</code> setting. This requires an additional license for VC tools.</p>
+       </dd>
+       <dt>MinActions </dt>
+       <dd>
+          <p>Minimum number of actions to use XGE execution.</p>
+       </dd>
+       <dt>bUnavailableIfInUse </dt>
+       <dd>
+          <p>Check for a concurrent XGE build and treat the XGE executor as unavailable if it's in use. This will allow UBT to fall back to another executor such as the parallel executor.</p>
+       </dd>
+    </dl>
+    <h3 id="buildmode">BuildMode</h3>
+    <dl>
+       <dt>bIgnoreJunk </dt>
+       <dd>
+          <p>Whether to skip checking for files identified by the junk manifest.</p>
+       </dd>
+    </dl>
+    <h3 id="projectfilegenerator">ProjectFileGenerator</h3>
+    <dl>
+       <dt>DisablePlatformProjectGenerators </dt>
+       <dd>
+          <p>Disable native project file generators for platforms. Platforms with native project file generators typically require IDE extensions to be installed.</p>
+       </dd>
+       <dt>Format </dt>
+       <dd>
+          <p>Default list of project file formats to generate.</p>
+       </dd>
+       <dt>bGenerateIntelliSenseData </dt>
+       <dd>
+          <p>True if intellisense data should be generated (takes a while longer).</p>
+       </dd>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bAllDocumentationLanguages </dt>
+       <dd>
+          <p>True if all documentation languages should be included in generated projects, otherwise only INT files will be included.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeBuildSystemFiles </dt>
+       <dd>
+          <p>True if build system files should be included.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeLocalizationFiles </dt>
+       <dd>
+          <p>True if we should include localization files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass <code>-DotNet</code> to enable this.</p>
+       </dd>
+       <dt>bIncludeTempTargets </dt>
+       <dd>
+          <p>Whether to include temporary targets generated by Unreal Automation Tool (UAT) to support content only projects with non-default settings.</p>
+       </dd>
+       <dt>bKeepSourceSubDirectories </dt>
+       <dd>
+          <p>True if we should reflect <code>Source</code> sub-directories on disk in the primary project as project directories. This adds some visual clutter to the primary project but it is truer to the on-disk file organization.</p>
+       </dd>
+       <dt>Platforms </dt>
+       <dd>
+          <p>Names of platforms to include in the generated project files.</p>
+       </dd>
+       <dt>Configurations </dt>
+       <dd>
+          <p>Names of configurations to include in the generated project files. See <code>UnrealTargetConfiguration</code> for valid entries.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+       <dt>bIncludeTestAndShippingConfigs </dt>
+       <dd>
+          <p>Whether we should include configurations for "Test" and "Shipping" in generated projects. Pass <code>-NoShippingConfigs</code> to disable this.</p>
+       </dd>
+       <dt>bIncludeDebugConfigs </dt>
+       <dd>
+          <p>Whether we should include configurations for "Debug" and "DebugGame" in generated projects. Pass <code>-NoDebugConfigs</code> to disable this.</p>
+       </dd>
+       <dt>bIncludeDevelopmentConfigs </dt>
+       <dd>
+          <p>Whether we should include configurations for "Development" in generated projects. Pass <code>-NoDevelopmentConfigs</code> to disable this.</p>
+       </dd>
+    </dl>
+    <h3 id="iostoolchain">IOSToolChain</h3>
+    <dl>
+       <dt>IOSSDKVersion </dt>
+       <dd>
+          <p>The version of the iOS SDK to target at build time.</p>
+       </dd>
+       <dt>BuildIOSVersion </dt>
+       <dd>
+          <p>The version of the iOS to allow at build time.</p>
+       </dd>
+       <dt>bUseDangerouslyFastMode </dt>
+       <dd>
+          <p>If this is set, then we do not do any post-compile steps - except moving the executable into the proper spot on Mac.</p>
+       </dd>
+    </dl>
+    <h3 id="windowstargetrules">WindowsTargetRules</h3>
+    <dl>
+       <dt>ObjSrcMapFile </dt>
+       <dd>
+          <p>Whether we should export a file containing <code>.obj</code> to source file mappings.</p>
+       </dd>
+    </dl>
+    <h3 id="cliongenerator">CLionGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass <code>-DotNet</code> to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="cmakefilegenerator">CMakefileGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass <code>-DotNet</code> to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="codelitegenerator">CodeLiteGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include C# program projects in the generated solution. Pass <code>-DotNet</code> to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="eddieprojectfilegenerator">EddieProjectFileGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="kdevelopgenerator">KDevelopGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="makefilegenerator">MakefileGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="qmakefilegenerator">QMakefileGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="riderprojectfilegenerator">RiderProjectFileGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="vscodeprojectfilegenerator">VSCodeProjectFileGenerator</h3>
+    <dl>
+       <dt>IncludeAllFiles </dt>
+       <dd>
+          <p>Includes all files in the generated workspace.</p>
+       </dd>
+       <dt>AddDebugAttachConfig </dt>
+       <dd>
+          <p>Whether VS Code project generation should include debug configurations to allow attaching to already running processes</p>
+       </dd>
+       <dt>AddDebugCoreConfig </dt>
+       <dd>
+          <p>Whether VS Code project generation should include debug configurations to allow core dump debugging</p>
+       </dd>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="vcmacprojectfilegenerator">VCMacProjectFileGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="vcprojectfilegenerator">VCProjectFileGenerator</h3>
+    <dl>
+       <dt>Version </dt>
+       <dd>
+          <p>The version of Visual Studio to generate project files for.</p>
+       </dd>
+       <dt>MaxSharedIncludePaths </dt>
+       <dd>
+          <p>Puts the most common include paths in the <code>IncludePath</code> property in the <code>MSBuild</code> project. This significantly reduces Visual Studio memory usage (measured <code>1.1GB -&gt; 500mb</code>), but seems to be causing issues with Visual Assist. Value here specifies maximum length of the include path list in KB.</p>
+       </dd>
+       <dt>ExcludedIncludePaths </dt>
+       <dd>
+          <p>Semi-colon separated list of paths that should not be added to the projects include paths. Useful for omitting third-party headers (for example, <code>ThirdParty/WebRTC</code>) from intellisense suggestions and reducing memory footprints.</p>
+       </dd>
+       <dt>ExcludedFilePaths </dt>
+       <dd>
+          <p>Semi-colon separated list of paths that should not be added to the projects. Useful for omitting third-party files (for example, <code>ThirdParty/WebRTC</code>) from intellisense suggestions and reducing memory footprints.</p>
+       </dd>
+       <dt>bBuildUBTInDebug </dt>
+       <dd>
+          <p>Forces Unreal Build Tool (UBT) to be built in debug configuration, regardless of the solution configuration.</p>
+       </dd>
+       <dt>bBuildLiveCodingConsole </dt>
+       <dd>
+          <p>Whether to include a dependency on <code>LiveCodingConsole</code> when building targets that support live coding.</p>
+       </dd>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the <code>-useprecompiled</code> argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (<code>.ini</code>) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets.</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass "-DotNet" to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="xcodeprojectfilegenerator">XcodeProjectFileGenerator</h3>
+    <dl>
+       <dt>bIncludeDocumentation </dt>
+       <dd>
+          <p>True if we should include documentation in the generated projects.</p>
+       </dd>
+       <dt>bUsePrecompiled </dt>
+       <dd>
+          <p>True if build targets should pass the -useprecompiled argument.</p>
+       </dd>
+       <dt>bIncludeEngineSource </dt>
+       <dd>
+          <p>True if we should include engine source in the generated solution.</p>
+       </dd>
+       <dt>bIncludeShaderSource </dt>
+       <dd>
+          <p>True if shader source files should be included in generated projects.</p>
+       </dd>
+       <dt>bIncludeConfigFiles </dt>
+       <dd>
+          <p>True if we should include config (.ini) files in the generated project.</p>
+       </dd>
+       <dt>bIncludeTemplateFiles </dt>
+       <dd>
+          <p>True if we should include template files in the generated project.</p>
+       </dd>
+       <dt>bIncludeEnginePrograms </dt>
+       <dd>
+          <p>True if we should include program projects in the generated solution.</p>
+       </dd>
+       <dt>IncludeCppSource </dt>
+       <dd>
+          <p>Whether to include C++ targets</p>
+       </dd>
+       <dt>bIncludeDotNetPrograms </dt>
+       <dd>
+          <p>True if we should include csharp program projects in the generated solution. Pass <code>-DotNet</code> to enable this.</p>
+       </dd>
+       <dt>PrimaryProjectName </dt>
+       <dd>
+          <p>Name of the primary project file - for example, the base file name for the Visual Studio solution file, or the Xcode project file on Mac.</p>
+       </dd>
+       <dt>bPrimaryProjectNameFromFolder </dt>
+       <dd>
+          <p>If true, sets the primary project name according to the name of the folder it is in.</p>
+       </dd>
+    </dl>
+    <h3 id="sourcefileworkingset">SourceFileWorkingSet</h3>
+    <dl>
+       <dt>Provider </dt>
+       <dd>
+          <p>Sets the provider to use for determining the working set.</p>
+       </dd>
+       <dt>RepositoryPath </dt>
+       <dd>
+          <p>Sets the path to use for the repository. Interpreted relative to the Unreal Engine root directory (the folder above the <code>Engine</code> folder) - if relative.</p>
+       </dd>
+       <dt>GitPath </dt>
+       <dd>
+          <p>Sets the path to use for the Git executable. Defaults to "git" (assuming it is in the <code>PATH</code>).</p>
+       </dd>
+    </dl>
+    <h3 id="remotemac">RemoteMac</h3>
+    <dl>
+       <dt>ServerName </dt>
+       <dd>
+          <p>These two variables will be loaded from the XML config file in <code>XmlConfigLoader.Init()</code>.</p>
+       </dd>
+       <dt>UserName </dt>
+       <dd>
+          <p>The remote username.</p>
+       </dd>
+       <dt>SshPrivateKey </dt>
+       <dd>
+          <p>If set, instead of looking for <code>RemoteToolChainPrivate.key</code> in the usual places (<code>Documents/Unreal</code>, <code>Engine/UnrealBuildTool/SSHKeys</code> or <code>Engine/Build/SSHKeys</code>), this private key will be used.</p>
+       </dd>
+       <dt>RsyncAuthentication </dt>
+       <dd>
+          <p>The authentication used for Rsync (for the -e rsync flag).</p>
+       </dd>
+       <dt>SshAuthentication </dt>
+       <dd>
+          <p>The authentication used for SSH (similar to RsyncAuthentication).</p>
+       </dd>
+    </dl>
+    <h3 id="hololensplatform">HoloLensPlatform</h3>
+    <dl>
+       <dt>Compiler </dt>
+       <dd>
+          <p>Version of the compiler toolchain to use on HoloLens. A value of "default" will be changed to a specific version at UBT startup.</p>
+       </dd>
+    </dl>
+    <h3 id="log">Log</h3>
+    <dl>
+       <dt>bBackupLogFiles </dt>
+       <dd>
+          <p>Whether to backup an existing log file, rather than overwriting it.</p>
+       </dd>
+       <dt>LogFileBackupCount </dt>
+       <dd>
+          <p>The number of log file backups to preserve. Older backups will be deleted.</p>
+       </dd>
+    </dl>
+ </div>
+ 

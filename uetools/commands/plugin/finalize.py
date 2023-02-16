@@ -38,6 +38,8 @@ class FinalizePlugin(Command):
 
     @staticmethod
     def execute(args):
+        errors = []
+
         base_url = "com.epicgames.launcher://ue/marketplace/product/"
         plugin_dir = os.path.dirname(os.path.abspath(args.plugin))
 
@@ -50,21 +52,20 @@ class FinalizePlugin(Command):
         with open(args.output) as f:
             uplugin = json.load(f)
 
-        version_old = uplugin["VersionName"]
-        installed_old = uplugin["Installed"]
-        engine_old = uplugin["EngineVersion"]
+        version_old = uplugin.get("VersionName") or ""
+        installed_old = uplugin.get("Installed") or ""
+        engine_old = uplugin.get("EngineVersion") or ""
 
         uplugin["VersionName"] = plugin_version
         uplugin["Installed"] = False
         uplugin["EngineVersion"] = engine_version
 
-        print("Plugin Version:", version_old, " => ", plugin_version)
-        print("     Installed:", installed_old, " => ", False)
-        print(" EngineVersion:", engine_old, " => ", engine_version)
+        print(f"Plugin Version: {version_old:<10} => ", plugin_version)
+        print(f"     Installed: {installed_old:<10} => ", False)
+        print(f" EngineVersion: {engine_old:<10} => ", engine_version)
 
-        assert (
-            len(uplugin["MarketplaceURL"][len(base_url) :]) > 0
-        ), "MarketPlace URL missing"
+        if len(uplugin["MarketplaceURL"][len(base_url) :]) <= 0:
+            errors.append("MarketPlace URL missing")
 
         with open(args.output, "w") as f:
             json.dump(uplugin, f, indent=2)
@@ -72,14 +73,25 @@ class FinalizePlugin(Command):
         # Copy files
         # ----------
         config_folder = os.path.join(plugin_dir, "Config")
-        output_folder = os.path.dirname(args.output)
 
-        shutil.copytree(
-            config_folder, os.path.join(output_folder, "Config"), dirs_exist_ok=True
-        )
+        if os.path.exists(config_folder):
+            output_folder = os.path.dirname(args.output)
+            shutil.copytree(
+                config_folder, os.path.join(output_folder, "Config"), dirs_exist_ok=True
+            )
 
+        # Remove build files
+        # ------------------
         if args.marketplace:
             FinalizePlugin.remove_temp_folders(output_folder)
+
+        print()
+        print("Errors:")
+        print("-------")
+        for err in errors:
+            print(f" - {err}")
+
+        return len(errors)
 
     @staticmethod
     def remove_temp_folders(output_folder):

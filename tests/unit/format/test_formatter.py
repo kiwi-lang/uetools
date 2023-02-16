@@ -115,3 +115,27 @@ def test_formater_return_exit_code():
         fmt.match_regex(line)
 
     assert fmt.returncode() == 139
+
+
+# callstack = """
+# [2023.02.14-18.44.10:267][  0]LogClass: Warning: Short type name "ETeamAttitude" provided for TryFindType. Please convert it to a path name (suggested: "/Script/AIModule.ETeamAttitude"). Callstack:
+
+# FWindowsPlatformStackWalk::CaptureStackBackTrace() [E:/UnrealEngine/Engine/Source/Runtime/Core/Private/Windows/WindowsPlatformStackWalk.cpp:380]
+# UClass::TryFindTypeSlow() [E:/UnrealEngine/Engine/Source/Runtime/CoreUObject/Private/UObject/Class.cpp:6031]
+# UEdGraphSchema_K2::ConvertPropertyToPinType() [E:/UnrealEngine/Engine/Source/Editor/BlueprintGraph/Private/EdGraphSchema_K2.cpp:3571]
+# CanCreatePinForProperty() [E:/UnrealEngine/Engine/Source/Editor/BlueprintGraph/Private/K2Node_BreakStruct.cpp:178]
+# FOptionalPinManager::RebuildPropertyList() [E:/UnrealEngine/Engine/Source/Editor/BlueprintGraph/Private/K2Node.cpp:1540]
+# UK2Node_BreakStruct::AllocateDefaultPins() [E:/UnrealEngine/Engine/Source/Editor/BlueprintGraph/Private/K2Node_BreakStruct.cpp:219]
+# UK2Node::ReallocatePinsDuringReconstruction() [E:/UnrealEngine/Engine/Source/Editor/BlueprintGraph/Private/K2Node.cpp:640]
+# UK2Node::ReconstructNode() [E:/UnrealEngine/Engine/Source/Editor/BlueprintGraph/Private/K2Node.cpp:741]
+# UEdGraphSchema_K2::ReconstructNode() [E:/UnrealEngine/Engine/Source/Editor/BlueprintGraph/Private/EdGraphSchema_K2.cpp:4655]
+# FBlueprintEditorUtils::ReconstructAllNodes() [E:/UnrealEngine/Engine/Source/Editor/UnrealEd/Private/Kismet2/BlueprintEditorUtils.cpp:601]
+# """
+
+
+# def test_format_callstack():
+
+#     fmt = Formatter(24)
+#     fmt.print_non_matching = True
+#     for line in callstack.splitlines():
+#         fmt.match_regex(line)

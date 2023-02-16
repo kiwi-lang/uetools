@@ -1,80 +1,24 @@
-import json
-import subprocess
-
-import pytest
+import os
 
 from uetools.core import args, main
-from uetools.core.conf import find_project
-
-skipif = pytest.mark.skipif
 
 
-def get_project_conf(name):
-    project = find_project(name)
+def test_plugin_finalize(project, project_name):
 
-    with open(project, encoding="utf-8") as project_file:
-        project_conf = json.load(project_file)
+    p1 = os.path.join(project, "Plugins", "ExamplePlugin", "ExamplePlugin.uplugin")
+    p2 = os.path.join(project, "Plugins", "ExamplePlugin2", "ExamplePlugin2.uplugin")
 
-    return project_conf
-
-
-def test_install(project, project_name):
-    # Regenerate the project files
+    # Add a new plugin
     main(
         args(
             "plugin",
             "install",
-            project_name,
+            os.path.join(project, project_name + ".uproject"),
             "ExamplePlugin2",
             "https://github.com/kiwi-lang/ExamplePlugin",
-            "--enable",
         )
     )
 
-    for plugin in get_project_conf(project_name)["Plugins"]:
-        if plugin["Name"] == "ExamplePlugin2":
-            assert plugin["Enabled"] is True
-            break
-    else:
-        assert False, "Plugin not found"
+    rc = main(args("plugin", "finalize", p1, p2))
 
-    main(args("plugin", "disable", project_name, "ExamplePlugin2"))
-
-    for plugin in get_project_conf(project_name)["Plugins"]:
-        if plugin["Name"] == "ExamplePlugin2":
-            assert plugin["Enabled"] is False
-            break
-    else:
-        assert False, "Plugin not found or it was not disabled"
-
-
-def test_install_submodule(project, project_name, capsys):
-    # Regenerate the project files
-    with capsys.disabled():
-        main(
-            args(
-                "plugin",
-                "install",
-                project_name,
-                "ExamplePlugin2",
-                "https://github.com/kiwi-lang/ExamplePlugin",
-                "--submodule",
-                "--enable",
-                "--force",
-            )
-        )
-
-    main(args("plugin", "list", project_name))
-    capture = capsys.readouterr().out.splitlines()
-
-    # Plugins:
-    #   - ExamplePlugin
-    #   - ExamplePlugin2
-    assert len(capture) == 3
-
-    output = subprocess.check_output(
-        "git config --file .gitmodules --name-only --get-regexp path".split(" "),
-        text=True,
-        cwd=project,
-    )
-    assert output.strip() == "submodule.Plugins/ExamplePlugin2.path"
+    assert rc == 1

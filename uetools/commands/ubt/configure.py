@@ -1,7 +1,8 @@
+import argparse
 import os
 import xml.etree.ElementTree as ET
 from copy import deepcopy
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, fields, is_dataclass
 
 from uetools.core.command import Command, newparser
 from uetools.core.conf import engine_folder
@@ -19,216 +20,7 @@ valid_file = """
 </Configuration>
 """
 
-
-# Can I make a Dataclass of the UBT config and initialize it using the XML
-# and save the XML from the dataclass ?
-# 100% it is possible, just might take some time
-# I can just save the dataclass as a dict and save the values as
-#
-# <dict>
-#   <key>value</key>
-# </dict>
-
-
-@dataclass
-class WindowsPlatformT:
-    """Windows Platform"""
-
-
-@dataclass
-class ModuleConfigurationT:
-    """Module Configuration"""
-
-
-@dataclass
-class FASTBuildT:
-    """FAST Build"""
-
-
-@dataclass
-class TaskExecutorT:
-    """TaskExecutor"""
-
-
-@dataclass
-class HybridExecutorT:
-    """HybridExecutor"""
-
-
-@dataclass
-class ParallelExecutorT:
-    """ParallelExecutor"""
-
-    bStopCompilationAfterErrors: bool = False
-    bShowCompilationTimes: bool = False
-    bShowPerActionCompilationTimes: bool = True
-    bLogActionCommandLines: bool = True
-    bPrintActionTargetNames: bool = True
-    MaxProcessorCount: int = 32
-    ProcessorCountMultiplier: float = 1
-    MemoryPerActionBytes: int = 0
-
-
-@dataclass
-class SNDBST:
-    """SNDBS"""
-
-
-@dataclass
-class XGET:
-    """XGE"""
-
-
-@dataclass
-class BuildModeT:
-    """BuildMode"""
-
-
-@dataclass
-class ProjectFileGeneratorT:
-    """ProjectFileGenerator"""
-
-
-@dataclass
-class HoloLensPlatformT:
-    """HoloLensPlatform"""
-
-
-@dataclass
-class IOSToolChainT:
-    """IOSToolChain"""
-
-
-@dataclass
-class WindowsTargetRulesT:
-    """WindowsTargetRules"""
-
-
-@dataclass
-class CLionGeneratorT:
-    """CLionGenerator"""
-
-
-@dataclass
-class CMakeFileGeneratorT:
-    """CMakeFileGenerator"""
-
-
-@dataclass
-class CodeLiteGeneratorT:
-    """CodeLiteGenerator"""
-
-
-@dataclass
-class EddieProjectFileGeneratorT:
-    """EddieProjectFileGenerator"""
-
-
-@dataclass
-class KDevelopGeneratorT:
-    """KDevelopGenerator"""
-
-
-@dataclass
-class MakefileGeneratorT:
-    """MakefileGenerator"""
-
-
-@dataclass
-class QMakefileGeneratorT:
-    """QMakefileGenerator"""
-
-
-@dataclass
-class RiderProjectGeneratorT:
-    """RiderProjectGenerator"""
-
-
-@dataclass
-class VSCodeProjectFileGeneratorT:
-    """VSCodeProjectFileGenerator"""
-
-
-@dataclass
-class VCMakeProjectFileGeneratorT:
-    """VCMakeProjectFileGenerator"""
-
-
-@dataclass
-class VCProjetFileGeneratorT:
-    """VCProjetFileGenerator"""
-
-
-@dataclass
-class XCodeProjectFileGeneratorT:
-    """XCodeProjectFileGenerator"""
-
-
-@dataclass
-class SourceFileWorkingSetT:
-    """SourceFileWorkingSet"""
-
-
-@dataclass
-class RemoteMacT:
-    """RemoteMac"""
-
-
-@dataclass
-class LogT:
-    """Log"""
-
-
-@dataclass
-class Configuration:
-    """Configuration"""
-
-    WindowsPlatform: WindowsPlatformT = field(default_factory=WindowsPlatformT)
-    ModuleConfiguration: ModuleConfigurationT = field(
-        default_factory=ModuleConfigurationT
-    )
-    FASTBuild: FASTBuildT = field(default_factory=FASTBuildT)
-    TaskExecutor: TaskExecutorT = field(default_factory=TaskExecutorT)
-    HybridExecutor: HybridExecutorT = field(default_factory=HybridExecutorT)
-    ParallelExecutor: ParallelExecutorT = field(default_factory=ParallelExecutorT)
-    SNDBS: SNDBST = field(default_factory=SNDBST)
-    XGE: XGET = field(default_factory=XGET)
-    BuildMode: BuildModeT = field(default_factory=BuildModeT)
-    ProjectFileGenerator: ProjectFileGeneratorT = field(
-        default_factory=ProjectFileGeneratorT
-    )
-    HoloLensPlatform: HoloLensPlatformT = field(default_factory=HoloLensPlatformT)
-    IOSToolChain: IOSToolChainT = field(default_factory=IOSToolChainT)
-    WindowsTargetRules: WindowsTargetRulesT = field(default_factory=WindowsTargetRulesT)
-    CLionGenerator: CLionGeneratorT = field(default_factory=CLionGeneratorT)
-    CMakeFileGenerator: CMakeFileGeneratorT = field(default_factory=CMakeFileGeneratorT)
-    CodeLiteGenerator: CodeLiteGeneratorT = field(default_factory=CodeLiteGeneratorT)
-    EddieProjectFileGenerator: EddieProjectFileGeneratorT = field(
-        default_factory=EddieProjectFileGeneratorT
-    )
-    KDevelopGenerator: KDevelopGeneratorT = field(default_factory=KDevelopGeneratorT)
-    MakefileGenerator: MakefileGeneratorT = field(default_factory=MakefileGeneratorT)
-    QMakefileGenerator: QMakefileGeneratorT = field(default_factory=QMakefileGeneratorT)
-    RiderProjectGenerator: RiderProjectGeneratorT = field(
-        default_factory=RiderProjectGeneratorT
-    )
-    VSCodeProjectFileGenerator: VSCodeProjectFileGeneratorT = field(
-        default_factory=VSCodeProjectFileGeneratorT
-    )
-    VCMakeProjectFileGenerator: VCMakeProjectFileGeneratorT = field(
-        default_factory=VCMakeProjectFileGeneratorT
-    )
-    VCProjetFileGenerator: VCProjetFileGeneratorT = field(
-        default_factory=VCProjetFileGeneratorT
-    )
-    XCodeProjectFileGenerator: XCodeProjectFileGeneratorT = field(
-        default_factory=XCodeProjectFileGeneratorT
-    )
-    SourceFileWorkingSet: SourceFileWorkingSetT = field(
-        default_factory=SourceFileWorkingSetT
-    )
-    RemoteMac: RemoteMacT = field(default_factory=RemoteMacT)
-    Log: LogT = field(default_factory=LogT)
+from .xmldef import Configuration
 
 
 def find_or_insert(root, *paths, namespaces=None):
@@ -246,8 +38,26 @@ def find_or_insert(root, *paths, namespaces=None):
     return val
 
 
+def get_ubt_configfile():
+    engine = engine_folder()
+    global_ubt_config = os.path.join(
+        engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
+    )
+    return global_ubt_config
+
+
 class Configure(Command):
-    """Disable unused plugin that are loading by default"""
+    """Configure UBT by modifying its XML configuration file
+
+    Examples
+    --------
+
+    .. code-block:: python
+
+        $ ubt configure ParallelExecutor.MaxProcessorCount=16
+        ParallelExecutor.MaxProcessorCount: 16 => 16
+
+    """
 
     name: str = "configure"
 
@@ -255,93 +65,128 @@ class Configure(Command):
     def arguments(subparsers):
         parser = newparser(subparsers, Configure)
         parser.add_argument(
-            "--cpu", default=32, type=int, help="Limit the number of cpu to use"
+            "--show", action="store_true", help="Show the generated XML"
+        )
+        parser.add_argument(
+            "--dry",
+            action="store_true",
+            help="Do not persist the configuration change to disk",
+        )
+        parser.add_argument(
+            "--list", action="store_true", help="Show all the possible keys"
+        )
+        parser.add_argument(
+            "items",
+            nargs=argparse.REMAINDER,
+            help="Configuration values to change, format is <key>.<key>=<value>",
         )
 
     @staticmethod
+    def error(node, p):
+        attr = ", ".join(list(asdict(node).keys()))
+        name = node.__class__.__name__
+        return RuntimeError(
+            f"Node {name} does not have a '{p}' attribute choose between: {attr}"
+        )
+
+    @staticmethod
+    def change_config(configuration, items):
+        # Change Configuration
+        for pair in items:
+            try:
+                key, value = pair.split("=")
+                path = key.split(".")
+
+                node = configuration
+                for p in path[:-1]:
+                    if hasattr(node, p):
+                        node = getattr(node, p)
+                    else:
+                        raise Configure.error(node, p)
+
+                p = path[-1]
+                if hasattr(node, p):
+                    setattr(node, p, value)
+                    print(f"{key}: {getattr(node, p)} => {value}")
+                else:
+                    raise Configure.error(node, p)
+            except Exception as err:
+                raise RuntimeError(
+                    f"Pair {pair} does not follow the expected format <key>.<key>=<value>"
+                ) from err
+
+    @staticmethod
     def execute(args):
-        #
-        # https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/DevelopmentSetup/BuildConfigurations/
-        # https://docs.unrealengine.com/5.0/en-US/build-configuration-for-unreal-engine/
-        #
-        engine = engine_folder()
-        namespaces = {"ue": "https://www.unrealengine.com/BuildConfiguration"}
+        configfile = get_ubt_configfile()
+        configuration = from_xml(configfile)
 
-        # this should work for everybody but it doesn't
-        global_ubt_config = os.path.join(
-            engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
-        )
-        if os.name != "nt":
-            # Configuration will be read from:
-            # /opt/UnrealEngine/Engine/Saved/UnrealBuildTool/BuildConfiguration.xml
-            # /home/gitlab-runner/.config/Unreal Engine/UnrealBuildTool/BuildConfiguration.xml
-            # /home/gitlab-runner/Unreal Engine/UnrealBuildTool/BuildConfiguration.xml
+        if args.list:
+            print("    " + Configure.help())
+            list_commands()
+            return
 
-            # this is not loaded by UBT
-            # UnrealEngine\Engine\Source\Programs\UnrealBuildTool\System\XmlConfig.cs
-            #   this one is ignored if touch /opt/UnrealEngine/Engine/Build/InstalledBuild.txt exists
-            #   creating the file triggers a bunch of other issues
-            #
-            #   FileReference UserConfigLocation = FileReference.Combine(Unreal.EngineDirectory, "Saved", "UnrealBuildTool", "BuildConfiguration.xml");
-            #   FileReference.Combine(new DirectoryReference(AppDataFolder), "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml");
-            #   FileReference.Combine(new DirectoryReference(PersonalFolder), "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml");
-            #
-            #   AppDataFolder = ''              <= this should be ~/.config # XDG_CONFIG_HOME
-            #   PersonalFolder = /home/runner   <= this
+        Configure.change_config(configuration, args.items)
 
-            home = os.path.expanduser("~")
-            app_data = os.path.join(home, ".config")
-            if "XDG_CONFIG_HOME" not in os.environ:
-                os.environ["XDG_CONFIG_HOME"] = app_data
-            else:
-                app_data = os.environ["XDG_CONFIG_HOME"]
+        output = to_xml(configuration)
 
-            app_ubt_config = os.path.join(
-                app_data,
-                "Unreal Engine",
-                "UnrealBuildTool",
-                "BuildConfiguration.xml",
-            )
+        if args.show:
+            print(output)
 
-            user_ubt_config = os.path.join(
-                home,
-                "Unreal Engine",
-                "UnrealBuildTool",
-                "BuildConfiguration.xml",
-            )
+        if not args.dry:
+            with open(configfile, "w") as file:
+                file.write(output)
 
-        # user_ubt_config = os.path.join(home, "AppData", "Roaming", "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml")
-        # local_ubt_config = os.path.join(home, "Documents", "Unreal Engine", "UnrealBuildTool", "BuildConfiguration.xml")
-
-        ET.register_namespace("", "https://www.unrealengine.com/BuildConfiguration")
-        tree = ET.parse(global_ubt_config)
-
-        root = tree.getroot()
-        node = find_or_insert(
-            root, "ParallelExecutor", "MaxProcessorCount", namespaces=namespaces
-        )
-
-        oldval = node.text
-        node.text = str(args.cpu)
-
-        print(f"CPU {oldval} => {args.cpu}")
-
-        ET.indent(tree, space="  ", level=0)
-        tree.write(global_ubt_config, xml_declaration=True, encoding="utf-8")
         return 0
 
 
 COMMANDS = Configure
 
 
+def list_commands():
+    output = []
+
+    print("Keys:")
+    _list_commands(Configuration(), output, [], 1)
+
+    print("\n".join(output))
+
+
+def _list_commands(config, output, namespaces, depth):
+    import copy
+
+    indent = "  " * depth
+
+    for ffield in fields(config):
+        nm = copy.deepcopy(namespaces) + [ffield.name]
+
+        value = getattr(config, ffield.name)
+        if is_dataclass(value):
+            items = []
+            _list_commands(value, items, nm, depth + 1)
+
+            if items:
+                # output.append(f'{indent}{field.name}')
+                output.extend(items)
+
+        else:
+            key = ".".join(nm)
+            type = ffield.type.__name__
+            value = getattr(config, ffield.name)
+            output.append(f"{indent}{key:<50}: {type:<5} = {value}")
+
+
 def from_xml(filename: str) -> Configuration:
     """Parse UBT XML Configuration file"""
+
+    if not os.path.exists(filename):
+        return Configuration()
+
     namespaces = {"ue": "https://www.unrealengine.com/BuildConfiguration"}
     ET.register_namespace("", "https://www.unrealengine.com/BuildConfiguration")
     tree = ET.parse(filename)
 
     root = tree.getroot()
-    config = asdict(Configuration())
+    config = Configuration()
 
     path = []
     _from_xml(config, path, root, namespaces, 0)
@@ -362,7 +207,9 @@ def _from_xml(config, path: list, tree, namespaces, depth):
         else:
             fullpath = "/".join([f"ue:{p}" for p in fullpath])
             node = tree.find(fullpath, namespaces)
-            setattr(config, k, node.text)
+
+            if node is not None:
+                setattr(config, k, node.text)
 
 
 def to_xml(config: Configuration) -> str:
@@ -389,20 +236,15 @@ def _to_xml(dictionary: dict, output: list, depth: int) -> None:
             continue
 
         if isinstance(v, dict):
-            output.append(f"\n{idt}<{k}>")
-            _to_xml(v, output, depth + 1)
-            output.append(f"\n{idt}</{k}>\n")
+            child = []
+            _to_xml(v, child, depth + 1)
+
+            if child:
+                output.append(f"\n{idt}<{k}>")
+                output.extend(child)
+                output.append(f"\n{idt}</{k}>\n")
+
         else:
             output.append(f"\n{idt}<{k}>")
             output.append(f"{v}")
             output.append(f"</{k}>")
-
-
-def check():
-    """check POC"""
-    config = Configuration()
-    print(to_xml(config))
-
-
-if __name__ == "__main__":
-    check()
