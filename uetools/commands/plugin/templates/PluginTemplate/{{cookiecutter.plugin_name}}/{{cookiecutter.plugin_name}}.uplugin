@@ -34,6 +34,26 @@
 				"Win64",
 				"Linux"
 			]
+		},
+		{
+			"Name": "{{cookiecutter.plugin_name}}Ed",
+			"Type": "Runtime",
+			"LoadingPhase": "Editor",
+			"WhitelistPlatforms": [ "Win64", "Linux" ],
+			"PlatformAllowList": [
+				"Win64",
+				"Linux"
+			]
+		},
+		{
+			"Name": "{{cookiecutter.plugin_name}}Test",
+			"Type": "Runtime",
+			"LoadingPhase": "Editor",
+			"WhitelistPlatforms": [ "Win64", "Linux" ],
+			"PlatformAllowList": [
+				"Win64",
+				"Linux"
+			]
 		}
 	]
 }
