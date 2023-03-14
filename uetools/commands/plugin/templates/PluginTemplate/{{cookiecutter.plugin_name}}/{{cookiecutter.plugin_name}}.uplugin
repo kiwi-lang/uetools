@@ -3,13 +3,13 @@
 	"Version": 1,
 	"VersionName": "1.0",
 	"FriendlyName": "{{cookiecutter.plugin_name}}",
-	"Description": "Fog of War",
+	"Description": "{{cookiecutter.plugin_description}}",
 	"Category": "Other",
-	"CreatedBy": "Pierre Delaunay",
-	"CreatedByURL": "https://gitlab.com/mischievousgame",
-	"DocsURL": "https://mischievousgame.gitlab.io/{{cookiecutter.plugin_name}}/",
-	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/",
-	"SupportURL": "https://gitlab.com/mischievousgame/{{cookiecutter.plugin_name}}/-/issues",
+	"CreatedBy": "{{cookiecutter.plugin_author}}",
+	"CreatedByURL": "https://gitlab.com/{{cookiecutter.gitlab_org}}",
+	"DocsURL": "https://{{cookiecutter.gitlab_org}}.gitlab.io/{{cookiecutter.plugin_name}}/",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/{{cookiecutter.market_place_id}}",
+	"SupportURL": "https://gitlab.com/{{cookiecutter.gitlab_org}}/{{cookiecutter.plugin_name}}/-/issues",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
@@ -19,7 +19,6 @@
 			"Name": "{{cookiecutter.plugin_name}}",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"WhitelistPlatforms": [ "Win64", "Linux" ],
 			"PlatformAllowList": [
 				"Win64",
 				"Linux"
@@ -29,7 +28,6 @@
 			"Name": "{{cookiecutter.plugin_name}}Shader",
 			"Type": "Runtime",
 			"LoadingPhase": "PostConfigInit",
-			"WhitelistPlatforms": [ "Win64", "Linux" ],
 			"PlatformAllowList": [
 				"Win64",
 				"Linux"
@@ -39,7 +37,6 @@
 			"Name": "{{cookiecutter.plugin_name}}Ed",
 			"Type": "Runtime",
 			"LoadingPhase": "Editor",
-			"WhitelistPlatforms": [ "Win64", "Linux" ],
 			"PlatformAllowList": [
 				"Win64",
 				"Linux"
@@ -49,7 +46,6 @@
 			"Name": "{{cookiecutter.plugin_name}}Test",
 			"Type": "Runtime",
 			"LoadingPhase": "Editor",
-			"WhitelistPlatforms": [ "Win64", "Linux" ],
 			"PlatformAllowList": [
 				"Win64",
 				"Linux"

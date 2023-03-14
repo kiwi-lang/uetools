@@ -1,12 +1,15 @@
 
+from pathlib import Path
+
 setup_kwargs = dict(
     name='{{cookiecutter.plugin_name}}',
     version='0.0.0',
-    description='',
-    author='',
+    description='{{cookiecutter.plugin_description}}',
+    long_description=(Path(__file__).parent / "README.rst").read_text(),
+    author='{{cookiecutter.plugin_author}}',
     author_email='@',
     license='BSD-3-Clause',
-    url="https://gamekit.readthedocs.io",
+    url="https://{{cookiecutter.gitlab_org}}.gitlab.io/{{cookiecutter.gitlab_repo}}/o",
     packages=[
         '{{cookiecutter.plugin_name}}',
     ],
@@ -17,7 +20,7 @@ setup_kwargs = dict(
     zip_safe=True,
     setup_requires=['setuptools'],
     install_requires=[],
-    python_requires='>=3.7.*',
+    python_requires='>=3.8',
 )
 
 

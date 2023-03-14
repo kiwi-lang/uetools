@@ -8,6 +8,7 @@ from copy import deepcopy
 from dataclasses import asdict, is_dataclass
 
 from uetools.core.argformat import HelpAction
+from uetools.core.arguments import add_arguments
 from uetools.core.plugin import discover_plugins
 
 
@@ -44,11 +45,16 @@ class Command:
         """Return the help text for the command"""
         return cls.__doc__ or ""
 
-    @staticmethod
-    def arguments(subparsers):
-        """Define the arguments of this command"""
-        raise NotImplementedError()
+    @classmethod
+    def argument_class(cls):
+        return cls.Arguments
 
+    @classmethod
+    def arguments(cls, subparsers):
+        """Define the arguments of this command"""        
+        parser = newparser(subparsers, cls)
+        add_arguments(parser, cls.argument_class())
+        
     @staticmethod
     def execute(args) -> int:
         """Execute the command"""
@@ -153,13 +159,28 @@ class ParentCommand(Command):
     @staticmethod
     def module():
         return None
+    
+    @staticmethod
+    def command_field():
+        return "subcommand"
 
     @classmethod
     def arguments(cls, subparsers):
         parser = newparser(subparsers, cls)
-        subsubparsers = parser.add_subparsers(dest="subcommand", help=cls.help())
+        cls.shared_arguments(parser)
+        subparsers = parser.add_subparsers(dest=cls.command_field(), help=cls.help())
+        cmds = cls.fetch_commands()
+        cls.register(cls, subparsers, cmds)
 
-        name = cls.module().__name__
+    @classmethod
+    def shared_arguments(cls, subparsers):
+        pass
+
+    @classmethod
+    def fetch_commands(cls):
+        """Fetch commands using importlib, assume each command is inside its own module"""
+
+        all_commands = []
         for _, module in discover_plugins(cls.module()).items():
             if hasattr(module, "COMMANDS"):
                 commands = getattr(module, "COMMANDS")
@@ -167,15 +188,21 @@ class ParentCommand(Command):
                 if not isinstance(commands, list):
                     commands = [commands]
 
-                for cmd in commands:
-                    cmd.arguments(subsubparsers)
-                    assert (name, cmd.name) not in cls.dispatch
-                    cls.dispatch[(name, cmd.name)] = cmd
+                all_commands.extend(commands)
+        return all_commands
+
+    @staticmethod
+    def register(cls, subsubparsers, commands):
+        name = cls.module().__name__
+        for cmd in commands:
+            cmd.arguments(subsubparsers)
+            assert (name, cmd.name) not in cls.dispatch
+            cls.dispatch[(name, cmd.name)] = cmd
 
     @classmethod
     def execute(cls, args):
         cmd = cls.module().__name__
-        subcmd = vars(args).pop("subcommand")
+        subcmd = vars(args).pop(cls.command_field())
 
         cmd = cls.dispatch.get((cmd, subcmd), None)
         if cmd:

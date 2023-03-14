@@ -18,20 +18,24 @@ public class {{cookiecutter.plugin_name}}Ed : ModuleRules
         // ... add other public dependencies that you statically link with here ...
         PublicDependencyModuleNames.AddRange(new string[] {
                 "Core",
-                "{{cookiecutter.plugin_name}}",
-                "{{cookiecutter.plugin_name}}Shader",
-        });
-
-        PrivateDependencyModuleNames.AddRange(new string[] {
                 "CoreUObject",
                 "Engine",
                 "Slate",
                 "SlateCore",
 
+                "{{cookiecutter.plugin_name}}",
+                "{{cookiecutter.plugin_name}}Shader",
+
+                "UnrealEd",
+        
                 "RenderCore",   // Custom Shader
 				"AIModule",	    // TeamAgent Interface
 				"Landscape",    // Landscape
                 "RHI",          // Shader
+        });
+
+        PrivateDependencyModuleNames.AddRange(new string[] {
+
         });
 
     }

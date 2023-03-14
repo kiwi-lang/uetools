@@ -1,3 +1,28 @@
 {
-    "plugin_name": "myplugin"
+    "plugin_name": "myplugin",
+    "plugin_author": "",
+    "plugin_description": "",
+    "plugin_namespace": "{{ cookiecutter.project_name|upper|replace('-', '_')|replace(' ', '_') }}",
+    
+    "win64_anaconda_path": "C:/opt/anaconda",
+    "win64_engine_path": "C:/opt/UnrealEngine/Engine",
+    "win64_project_folder": "C:/opt/Projects",
+    "win64_archive_path": "C:/opt/Archive/",
+    "win64_build_path": "C:/opt/Temporary",
+    
+    "linux_anaconda_path": "/opt/anaconda",
+    "linux_engine_path": "/opt/UnrealEngine/Engine",
+    "linux_project_folder": "/opt/Projects",
+    "linux_archive_path": "/opt/Archive/",
+    "linux_build_path": "/opt/Temporary/",
+
+    "market_place_id": "",
+    "twitter_handle": "{{ cookiecutter.plugin_author }}",
+    "patron_handle": "{{ cookiecutter.plugin_author }}",
+    "itch_tag": "{{ cookiecutter.plugin_author }}",
+    "youtube_tag": "{{ cookiecutter.plugin_author }}",
+    "gitlab_org": "{{ cookiecutter.plugin_author }}",
+
+    "discord_server": "https://discord.gg/eqb4Egv9b3",
+    "gitlab_repo": "{{ cookiecutter.project_name }}"
 }

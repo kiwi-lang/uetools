@@ -1,25 +1,19 @@
 stages:
-  - setup
   - build
   - deploy
 
+variables:
+  LINUX_ANACONDA_FOLDER: "/opt/anaconda"
+  LINUX_BUILD: "/opt/Temporary/"
+  LINUX_ARCHIVE: "/opt/Archive/"
+  WIN64_ENGINE_FOLDER: "{{cookiecutter.win64_engine_path}}"
+  WIN64_PROJECT_FOLDER: "{{cookiecutter.win64_project_folder}}"
+  WIN64_ANACONDA_FOLDER: "{{cookiecutter.win64_anaconda_path}}"
+  WIN64_BUILD: "{{cookiecutter.win64_build_path}}"
+  WIN64_ARCHIVE: "{{cookiecutter.win64_archive_path}}"
+  PROJECT_NAME: "{{cookiecutter.plugin_name}}"
+  NAMESPACE: "{{cookiecutter.plugin_namespace}}"
 
-setup-win64:
-  tags:
-    - windows-ue5
-
-  stage: setup
-
-  variables:
-    ENGINE_FOLDER: "C:/opt/UnrealEngine/Engine"
-    PROJECT_FOLDER: "C:/opt/Projects"
-    ANACONDA_FOLDER: "C:/opt/anaconda"
-
-  script:
-    - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
-    - conda activate "$ANACONDA_FOLDER"
-    - pip install --upgrade uetools
-    - uecli init --engine $ENGINE_FOLDER --projects $PROJECT_FOLDER
 
 build-win64:
   stage: build
@@ -31,16 +25,20 @@ build-win64:
     - setup-win64
 
   variables:
-    OUTPUT: "C:/opt/Temporary/{{cookiecutter.plugin_name}}"
-    ARCHIVE: "C:/opt/Archive/"
-    ANACONDA_FOLDER: "C:/opt/anaconda"
+    OUTPUT: "${WIN64_BUILD}/{{cookiecutter.plugin_name}}"
 
   script:
-    - $LATEST_TAG = git describe --tags --abbrev=0
-    - . "$ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
-    - conda activate "$ANACONDA_FOLDER"
-    - uecli plugin {{cookiecutter.plugin_name}}.uplugin --StrictIncludes --output $OUTPUT --platforms Win64
-    - Compress-Archive -Force -CompressionLevel Optimal -Path $OUTPUT -DestinationPath $ARCHIVE/{{cookiecutter.plugin_name}}_Win64_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip
+    - echo "-- UPDATE --"
+    - $LATEST_TAG = git describe --tags --abbrev=0 --always
+    - . "$WIN64_ANACONDA_FOLDER/shell/condabin/conda-hook.ps1"
+    - conda activate "$WIN64_ANACONDA_FOLDER"
+    - pip install --upgrade uetools
+    - uecli init --engine $WIN64_ENGINE_FOLDER --project $WIN64_PROJECT_FOLDER
+    - echo "-- BUILD --"
+    - uecli gamekit gitversion --namespace $NAMESPACE --file ./Source/${PROJECT_NAME}/${PROJECT_NAME}.Build.cs
+    - uecli plugin package ${PROJECT_NAME}.uplugin --StrictIncludes --output $OUTPUT --platforms Win64
+    - uecli plugin finalize ${PROJECT_NAME}.uplugin $OUTPUT/${PROJECT_NAME}.uplugin --marketplace
+    - Compress-Archive -Force -CompressionLevel Optimal -Path $OUTPUT -DestinationPath $WIN64_ARCHIVE/${PROJECT_NAME}_Win64_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip
 
 
 build-linux:
@@ -50,17 +48,19 @@ build-linux:
     - linux-ue5
 
   variables:
-    ANACONDA_FOLDER: "/opt/anaconda"
-    OUTPUT: "/opt/Temporary/{{cookiecutter.plugin_name}}"
-    ARCHIVE: "/opt/Archive/"
-
+    OUTPUT: "${LINUX_ANACONDA_FOLDER}/{{cookiecutter.plugin_name}}"
+  
   script:
+    - echo "-- UPDATE --"
     - LATEST_TAG=$(git describe --tags --abbrev=0)
-    - eval "$($ANACONDA_FOLDER/bin/conda shell.bash hook)"
+    - eval "$($LINUX_ANACONDA_FOLDER/bin/conda shell.bash hook)"
     - PATH="$PATH:$HOME/.local/bin/"
     - pip install --upgrade uetools
-    - uecli plugin {{cookiecutter.plugin_name}}.uplugin --output $OUTPUT --platforms Linux
-    - zip -r $ARCHIVE/GamekitPlugin_Linux_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip $OUTPUT
+    - echo "-- BUILD --"
+    - uecli gamekit gitversion --namespace $NAMESPACE --file ./Source/${PROJECT_NAME}/${PROJECT_NAME}.Build.cs
+    - uecli plugin package ${PROJECT_NAME}.uplugin --output $OUTPUT --platforms Linux
+    - zip -r $LINUX_ARCHIVE/${PROJECT_NAME}_Linux_${LATEST_TAG}_${CI_COMMIT_SHORT_SHA}.zip $OUTPUT
+
 
 # Generate the documentation
 pages:
