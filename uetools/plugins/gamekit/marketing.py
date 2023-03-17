@@ -1,10 +1,16 @@
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
+from typing import List
 
-from PIL import Image, ImageOps, ImageDraw, ImageFont
 import pkg_resources
 
-from uetools.core.command import ParentCommand, Command
+from uetools.core.command import Command, ParentCommand
+
+PIL = None
+try:
+    from PIL import Image, ImageDraw, ImageFont, ImageOps
+except ImportError as err:
+    PIL = err
 
 
 @dataclass
@@ -18,7 +24,7 @@ class Banner:
 @dataclass
 class Platform:
     name: str
-    banners: list[Banner]
+    banners: List[Banner]
 
 
 @dataclass
@@ -31,19 +37,19 @@ class Padding:
 
 platforms = [
     Platform(
-        'Marketplace',
+        "Marketplace",
         [
-            Banner('Gallery', 1920, 1080, count=25),
-            Banner('Thumbnail', 284, 284),
-            Banner('Featured', 894, 488),
-        ]
+            Banner("Gallery", 1920, 1080, count=25),
+            Banner("Thumbnail", 284, 284),
+            Banner("Featured", 894, 488),
+        ],
     ),
     Platform(
-        'itch.io',
+        "itch.io",
         [
             Banner("Cover", 630, 500),
             Banner("Screenshots", -1, -1, count=5),
-        ]
+        ],
     ),
     Platform(
         "youtube",
@@ -51,21 +57,21 @@ platforms = [
             Banner("Picture", 98, 98),
             Banner("Banner", 2048, 1152),
             Banner("Thumbnail", 1280, 720),
-        ]
+        ],
     ),
     Platform(
         "Patron",
         [
             Banner("Cover", 1600, 400),
-        ]
+        ],
     ),
     Platform(
         "Twitter",
         [
             Banner("Cover", 1500, 500),
             Banner("Profile", 400, 400),
-        ]
-    )
+        ],
+    ),
 ]
 
 
@@ -75,7 +81,7 @@ def _frame(img, border=5, color=(255, 255, 255, 255)):
     return img
 
 
-def frame_image(imgpath, border=5, color=(255, 255, 255, 255)): 
+def frame_image(imgpath, border=5, color=(255, 255, 255, 255)):
     img = Image.open(imgpath)
     img = _frame(img, border, color)
     return img
@@ -91,7 +97,7 @@ def create_image(folder: str, platform: Platform, banner: Banner, default=(1920,
     if banner.height <= 0:
         banner.height = default[1]
 
-    img = Image.new('RGB', (banner.width, banner.height))
+    img = Image.new("RGB", (banner.width, banner.height))
     img.save(filepath)
 
 
@@ -101,11 +107,8 @@ def create_banner_templates(folder):
             create_image(folder, platform, banner)
 
 
-
 def get_font():
-    filepath = pkg_resources.resource_filename(
-        __name__, "resources/Roboto-Regular.ttf"
-    )
+    filepath = pkg_resources.resource_filename(__name__, "resources/Roboto-Regular.ttf")
     return filepath
 
 
@@ -117,11 +120,14 @@ def resize_image(imgpath, size):
     multiplier = min(size[0] / w, size[1] / h)
 
     bigger = img.resize((int(w * multiplier), int(h * multiplier)), Image.BICUBIC)
-    final_img = Image.new('RGB', size)
+    final_img = Image.new("RGB", size)
 
-    offset = ((final_img.width - bigger.width) // 2, (final_img.height - bigger.height) // 2)
+    offset = (
+        (final_img.width - bigger.width) // 2,
+        (final_img.height - bigger.height) // 2,
+    )
     final_img.paste(bigger, offset)
-    final_img.save('test.png')
+    final_img.save("test.png")
 
 
 def make_mark(text, font_size):
@@ -133,15 +139,10 @@ def make_mark(text, font_size):
     font = ImageFont.truetype(font_name, font_size)
     tw, th = font.getsize(text)
 
-    img = Image.new('RGBA', (tw * 2, tw * 2), color=background)
+    img = Image.new("RGBA", (tw * 2, tw * 2), color=background)
     draw = ImageDraw.Draw(img)
 
-    draw.text(
-        (tw - tw / 2, tw * 2 - th - pad.bot),
-        text,
-        font_color,
-        font=font
-    )
+    draw.text((tw - tw / 2, tw * 2 - th - pad.bot), text, font_color, font=font)
 
     return img.rotate(-45, Image.BICUBIC, expand=1, fillcolor=(0, 0, 0, 0))
 
@@ -174,28 +175,28 @@ def write_text_image(imgpath, text, mark=None, mark_offset=(20, 20)):
         (0                 , h)
     ], fill=background)
     # fmt: on
-    
-    draw.text(
-        (pad.left, start + pad.top),
-        text,
-        font_color,
-        font=font
-    )
+
+    draw.text((pad.left, start + pad.top), text, font_color, font=font)
 
     if mark:
         mark = make_mark(mark, font_size=16)
-        dest = (w - mark.width // 2 + mark_offset[0], 0 - mark.height // 2 - mark_offset[1])
+        dest = (
+            w - mark.width // 2 + mark_offset[0],
+            0 - mark.height // 2 - mark_offset[1],
+        )
         img.paste(mark, dest, mark)
 
-    img.save('test.png')
+    img.save("test.png")
 
 
 def to_tuple(arg: str):
-    return tuple(int(v) for v in arg.split(','))
+    return tuple(int(v) for v in arg.split(","))
+
 
 #
 # Commands
 # ========
+
 
 class TemplateImg(Command):
     """Generate a bunch of template images for marketing on different platforms"""
@@ -205,17 +206,20 @@ class TemplateImg(Command):
     # fmt: off
     @dataclass
     class Arguments:
-        folder  : str # Output path or image path
+        folder  : str  # Output path or image path
     # fmt: on
 
     @staticmethod
     def execute(args):
+        if PIL is not None:
+            raise PIL
         create_banner_templates(args.folder)
         return 0
 
 
 class ResizeImg(Command):
     """Resise an image and keep the aspect ratio"""
+
     name: str = "resize"
 
     # fmt: off
@@ -227,14 +231,18 @@ class ResizeImg(Command):
 
     @staticmethod
     def execute(args):
+        if PIL is not None:
+            raise PIL
+
         resize_image(args.folder, to_tuple(args.size))
         return 0
+
 
 class ShowcasheImg(Command):
     """Insert text to an image"""
 
     name: str = "showcase"
-    
+
     # fmt: off
     @dataclass
     class Arguments:
@@ -247,6 +255,8 @@ class ShowcasheImg(Command):
 
     @staticmethod
     def execute(args):
+        if PIL is not None:
+            raise PIL
         write_text_image(args.folder, args.text, args.mark, to_tuple(args.offset))
         return 0
 
@@ -255,7 +265,7 @@ class FrameImg(Command):
     """Add a frame around the image without changing its size"""
 
     name: str = "frame"
-    
+
     # fmt: off
     @dataclass
     class Arguments:
@@ -266,29 +276,33 @@ class FrameImg(Command):
 
     @staticmethod
     def execute(args):
+        if PIL is not None:
+            raise PIL
+
         color = to_tuple(args.color)
         border = args.border
 
-        output = os.path.join(args.folder, 'framed')
+        output = os.path.join(args.folder, "framed")
         os.makedirs(output, exist_ok=True)
 
         for file in os.listdir(args.folder):
             try:
-                _, ext = file.rsplit('.', maxsplit=1)
+                _, ext = file.rsplit(".", maxsplit=1)
 
-                if ext in ('png', 'jpg'):
+                if ext in ("png", "jpg"):
                     path = os.path.join(args.folder, file)
                     img = frame_image(path, border=border, color=color)
                     img.save(os.path.join(output, file))
             except ValueError:
                 pass
-            
+
         return 0
 
 
 #
 # Parent
 #
+
 
 class Marketing(ParentCommand):
     """Utility to manipulate images for marketing purposes"""
@@ -298,12 +312,13 @@ class Marketing(ParentCommand):
     @staticmethod
     def module():
         import uetools.plugins.gamekit.marketing
+
         return uetools.plugins.gamekit.marketing
-    
+
     @staticmethod
     def command_field():
         return "subsubcommand"
-    
+
     @staticmethod
     def fetch_commands():
         return [
@@ -312,5 +327,6 @@ class Marketing(ParentCommand):
             ShowcasheImg,
             FrameImg,
         ]
+
 
 COMMANDS = Marketing

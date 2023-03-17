@@ -51,10 +51,10 @@ class Command:
 
     @classmethod
     def arguments(cls, subparsers):
-        """Define the arguments of this command"""        
+        """Define the arguments of this command"""
         parser = newparser(subparsers, cls)
         add_arguments(parser, cls.argument_class())
-        
+
     @staticmethod
     def execute(args) -> int:
         """Execute the command"""
@@ -159,7 +159,7 @@ class ParentCommand(Command):
     @staticmethod
     def module():
         return None
-    
+
     @staticmethod
     def command_field():
         return "subcommand"

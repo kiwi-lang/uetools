@@ -1,13 +1,14 @@
-from dataclasses import dataclass
 import datetime
 import os
+from dataclasses import dataclass
 
-from uetools.core.command import ParentCommand, Command
+from uetools.core.command import Command, ParentCommand
 
 OS_TTS = None
 try:
     import pyttsx3
-    from scipy.io.wavfile import read as readwav, write as writewav
+    from scipy.io.wavfile import read as readwav
+    from scipy.io.wavfile import write as writewav
 except ImportError as err:
     OS_TTS = err
 
@@ -27,24 +28,30 @@ except ImportError as err:
     SOUND_DEVICE = err
 
 
-import torch
-import numpy as np
+TORCH = None
+try:
+    import numpy as np
+    import torch
+except ImportError as err:
+    TORCH = err
 
 
 class TextToSpeech:
-    def __init__(self) -> None:
-       
-        language = 'en'
-        model_id = 'v3_en'
+    def __init__(self, voice) -> None:
+        if TORCH is not None:
+            raise TORCH
 
-        device = torch.device('cpu')
+        language = "en"
+        model_id = "v3_en"
+
+        device = torch.device("cpu")
         output = torch.hub.load(
-            repo_or_dir='snakers4/silero-models',
-            model='silero_tts',
+            repo_or_dir="snakers4/silero-models",
+            model="silero_tts",
             language=language,
-            speaker=model_id
+            speaker=model_id,
         )
-         
+
         model = output[0]
         model.to(device)
 
@@ -62,12 +69,82 @@ class TextToSpeech:
         return audio.numpy()
 
 
+def get_voices():
+    engine = pyttsx3.init()
+    return engine.getProperty("voices")
+
+
+def show_voice(i, v):
+    print(f"  --- {i}")
+    print("        Name", v.name)
+    print("         Age", v.age, "\tGender", v.gender)
+    print("   Languages", v.languages)
+
+
+def select_voice(voices):
+    engine = pyttsx3.init()
+
+    for i, v in enumerate(voices):
+        show_voice(i, v)
+        print()
+
+        engine.setProperty("voice", v.id)
+        engine.say("I will speak this text")
+        engine.runAndWait()
+
+    return 0
+
+
+class TextToSpeechOS:
+    def __init__(self, voice) -> None:
+        if OS_TTS is not None:
+            raise OS_TTS
+
+        voices = get_voices()
+        if voice is None:
+            print("Select a Voice:")
+            voice = select_voice(voices)
+            print()
+        else:
+            print("Selected Voice:")
+            show_voice(voice, voices[voice])
+            print()
+
+        self.sample_rate = None
+        self.voice = voices[voice].id
+        self.engine = pyttsx3.init()
+        self.buffer_file = "buffer.wav"
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.cleanup()
+
+    def to_speech(self, text):
+        self.engine.setProperty("voice", self.voice)
+
+        self.engine.save_to_file(text, self.buffer_file)
+        self.engine.runAndWait()
+
+        sr, data = readwav(self.buffer_file)
+        self.sample_rate = sr
+        return data
+
+    def __del__(self):
+        self.cleanup()
+
+    def cleanup(self):
+        try:
+            os.remove(self.buffer_file)
+        except:
+            pass
+
+
 def get_subtitles(filename):
-    return formatting.clean(ascii.clean(brackets.clean(
-        lower_case.clean(
-            subparser.parse(filename)
-        )
-    )))
+    return formatting.clean(
+        ascii.clean(brackets.clean(lower_case.clean(subparser.parse(filename))))
+    )
 
 
 def get_length(subtitles) -> datetime.timedelta:
@@ -81,36 +158,37 @@ def get_length(subtitles) -> datetime.timedelta:
     fake_date = datetime.date.min
 
     # convert to timedelta
-    duration = datetime.datetime.combine(fake_date, end) - datetime.datetime.combine(fake_date, start)
+    duration = datetime.datetime.combine(fake_date, end) - datetime.datetime.combine(
+        fake_date, start
+    )
     return duration
 
 
 def play_audio(data, sample_rate):
+    if SOUND_DEVICE is not None:
+        raise SOUND_DEVICE
+
     sd.default.samplerate = sample_rate
     sd.play(data, blocking=True)
 
 
 def read(filename, voice, outputfile):
-    engine = pyttsx3.init()
-
-    if voice is not None:
-        engine.setProperty('voice', voice)
-
+    engine = TextToSpeech()
     length = get_length(get_subtitles(filename))
 
-    print(f'Creating an audio file lasting {length.seconds} s')
+    print(f"Creating an audio file lasting {length.seconds} s")
 
     sample_rate = None
     audio = None
 
     def generate_audio_buffer(sample_rate):
         sample_count = length.seconds * sample_rate
-        
-        print(f'Sample rate is {sample_rate}')
-        print(f'Audio has {sample_count} samples')
-        print('Generating:')
+
+        print(f"Sample rate is {sample_rate}")
+        print(f"Audio has {sample_count} samples")
+        print("Generating:")
         print()
-        
+
         return np.empty((sample_count,), dtype=np.int16)
 
     for subtitle in get_subtitles(filename):
@@ -120,67 +198,29 @@ def read(filename, voice, outputfile):
         s = subtitle.start
         e = subtitle.end
 
-        engine.save_to_file(t , buffer_file)
-        engine.runAndWait()
+        sample_rate = None
+        data = engine.to_speech(t)
 
-        sr, data = readwav(buffer_file)
-
-        if sample_rate is not None:
-            assert sample_rate == sr, "Sample rate should not change during generation!"
-        else:
-            sample_rate = sr
+        if sample_rate is None:
+            sample_rate = engine.sample_rate
             audio = generate_audio_buffer(sample_rate)
 
         ss = s.second * sample_rate
         ee = e.second * sample_rate
 
-        print('  -', i, t)
-        audio[ss:ss + len(data)] = data[0:]
+        print("  -", i, t)
+        audio[ss : ss + len(data)] = data[0:]
 
     print()
     writewav(outputfile, sample_rate, audio)
-    print('Done')
-
-    try:
-        os.remove(buffer_file)
-    except:
-        pass
-        
-
-def get_voices():
-    engine = pyttsx3.init()
-    return engine.getProperty('voices') 
-
-
-def show_voice(i, v):
-    print(f'  --- {i}')
-    print('        Name', v.name)
-    print('         Age', v.age, '\tGender', v.gender)
-    print('   Languages', v.languages)
-
-
-def select_voice(voices):
-    engine = pyttsx3.init()
-
-    for i, v in enumerate(voices):
-        show_voice(i, v)
-        print()
-
-        engine.setProperty('voice', v.id)
-        engine.say("I will speak this text")
-        engine.runAndWait()
-
-    return 0
-
-
-buffer_file = "buffer.wav"
+    print("Done")
 
 
 class SubtitleToAudio(Command):
     """Generate audio from a subtitle file"""
 
     name: str = "subtitle"
-    
+
     # fmt: off
     @dataclass
     class Arguments:
@@ -196,36 +236,25 @@ class SubtitleToAudio(Command):
         # writewav("test.wav", engine.sample_rate, output)
         # return
 
-        if OS_TTS is not None:
-            raise OS_TTS
-    
-        default_file = 'E:/work/SubtitleToAudio/examples/captions.srt'
-        
-        voices = get_voices()
+        if SUBTITLE_PARSER is not None:
+            raise SUBTITLE_PARSER
 
-        if args.voice is None:
-            print('Select a Voice:')
-            args.voice = select_voice(voices)
-            print()
-        else:
-            print('Selected Voice:')
-            show_voice(args.voice, voices[args.voice])
-            print()
-
+        default_file = "E:/work/SubtitleToAudio/examples/captions.srt"
 
         filename = args.file or default_file
-        outputfile = os.path.basename(filename) + '.wav'
+        outputfile = os.path.basename(filename) + ".wav"
 
         if args.output:
             outputfile = os.path.join(args.output, outputfile)
-        
-        read(filename, voices[args.voice].id, outputfile)
+
+        read(filename, args.voice, outputfile)
         return 0
 
 
 #
 # Parent
 #
+
 
 class VoiceUtility(ParentCommand):
     """Utility to generate audio from subtitles"""
@@ -235,16 +264,16 @@ class VoiceUtility(ParentCommand):
     @staticmethod
     def module():
         import uetools.plugins.gamekit.autovoice
+
         return uetools.plugins.gamekit.autovoice
-    
+
     @staticmethod
     def command_field():
         return "subsubcommand"
-    
+
     @staticmethod
     def fetch_commands():
-        return [
-            SubtitleToAudio
-        ]
+        return [SubtitleToAudio]
+
 
 COMMANDS = VoiceUtility

@@ -2,7 +2,7 @@
     "plugin_name": "myplugin",
     "plugin_author": "",
     "plugin_description": "",
-    "plugin_namespace": "{{ cookiecutter.project_name|upper|replace('-', '_')|replace(' ', '_') }}",
+    "plugin_namespace": "{{ cookiecutter.plugin_name|upper|replace('-', '_')|replace(' ', '_') }}",
     
     "win64_anaconda_path": "C:/opt/anaconda",
     "win64_engine_path": "C:/opt/UnrealEngine/Engine",
@@ -24,5 +24,6 @@
     "gitlab_org": "{{ cookiecutter.plugin_author }}",
 
     "discord_server": "https://discord.gg/eqb4Egv9b3",
-    "gitlab_repo": "{{ cookiecutter.project_name }}"
+    "gitlab_repo": "{{ cookiecutter.plugin_name }}",
+    "project_name": "{{ cookiecutter.plugin_name }}"
 }
