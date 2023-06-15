@@ -27,7 +27,7 @@ class CookingFormatter(Formatter):
 
         color = colors.get(verb)
 
-        print(f"[{verb}][{category}] {colored(message, color=color)}")
+        self.print(f"[{verb}][{category}] {colored(message, color=color)}")
 
     # pylint: disable=too-many-arguments
     def format(

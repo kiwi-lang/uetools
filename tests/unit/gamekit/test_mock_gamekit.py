@@ -1,6 +1,6 @@
 import pytest
 
-from uetools.core import args, main
+from uetools.core.cli import args, main
 
 commands = [
     ("gkscript", []),

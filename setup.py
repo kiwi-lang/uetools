@@ -48,12 +48,7 @@ setup_kwargs = dict(
     ],
     zip_safe=True,
     setup_requires=["setuptools"],
-    install_requires=[
-        "appdirs",
-        "colorama",
-        "cookiecutter",
-        "GitPython",
-    ],
+    install_requires=["appdirs", "colorama", "cookiecutter", "GitPython", "msgpack"],
     python_requires=">=3.8",
     namespace_packages=["uetools", "uetools.plugins"],
     entry_points={

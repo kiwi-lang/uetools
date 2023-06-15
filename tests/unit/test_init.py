@@ -1,6 +1,6 @@
 import pytest
 
-from uetools.core import args, main
+from uetools.core.cli import args, main
 from uetools.core.conf import load_conf, ready, save_conf
 
 skipif = pytest.mark.skipif

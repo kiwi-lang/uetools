@@ -3,13 +3,14 @@ from __future__ import annotations
 
 import argparse
 
-from uetools.commands import commands
-from uetools.core.argformat import HelpAction
-from uetools.core.command import ParentCommand
-from uetools.core.conf import BadConfig, select_engine_version
+from uetools.commands import discover_commands
+
+from .argformat import HelpAction
+from .command import ParentCommand
+from .conf import BadConfig, select_engine_version
 
 
-def parse_args(argv):
+def parse_args(commands, argv):
     """Setup the argument parser for all supported commands"""
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
@@ -46,8 +47,10 @@ def args(*a):
 
 def main(argv=None):
     """Entry point for the command line interface"""
+    commands = discover_commands()
+
     try:
-        parsed_args = parse_args(argv)
+        parsed_args = parse_args(commands, argv)
     except BadConfig:
         return -1
 

@@ -1,6 +1,6 @@
 import pytest
 
-from uetools.core import args, main
+from uetools.core.cli import args, main
 
 
 @pytest.mark.parametrize("rc", [0, 1])

@@ -1,6 +1,6 @@
 import os
 
-from uetools.core import args, main
+from uetools.core.cli import args, main
 
 samples = os.path.join(os.path.dirname(__file__), "format", "samples")
 

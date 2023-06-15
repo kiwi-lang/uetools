@@ -1,6 +1,6 @@
 import os
 
-from uetools.core import args, main
+from uetools.core.cli import args, main
 
 
 def test_unit_dedicated(project, project_name):

@@ -99,6 +99,7 @@ class Formatter:
         self.ignore = set()
         self.only = set()
         self.return_codes = []
+        self.print = print
 
         if self.col is not None:
             self.longest_category = self.col
@@ -114,13 +115,13 @@ class Formatter:
 
     def summary(self):
         """Print a summary of warnings and errors that got parsed during the formatting process"""
-        print("-" * 80)
-        print("    Summary")
-        print("=" * 80)
+        self.print("-" * 80)
+        self.print("    Summary")
+        self.print("=" * 80)
         for line in self.bad_logs:
-            print("  - ", end="")
+            self.print("  - ", end="")
             Formatter.format(self, **line)
-        print("=" * 80)
+        self.print("=" * 80)
 
     def __del__(self):
         update_conf(longest_category=self.longest_category)
@@ -147,7 +148,7 @@ class Formatter:
             self.format(**data)
         else:
             if self.print_non_matching:
-                print(line, end="")
+                self.print(line, end="")
             else:
                 log.debug("    Line did not match anything")
                 log.debug("        - `%s`", line)
@@ -212,4 +213,6 @@ class Formatter:
         if frame is None:
             frame = 0
 
-        print(f"[{int(frame):3d}][{verb}][{category}] {colored(message, color=color)}")
+        self.print(
+            f"[{int(frame):3d}][{verb}][{category}] {colored(message, color=color)}"
+        )

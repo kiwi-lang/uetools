@@ -3,7 +3,7 @@ import os
 import pytest
 
 from uetools.commands.editor.localize import LocalEditor
-from uetools.core import args, main
+from uetools.core.cli import args, main
 from uetools.core.conf import is_ci
 
 skipif = pytest.mark.skipif

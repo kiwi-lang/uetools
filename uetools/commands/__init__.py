@@ -85,8 +85,5 @@ def discover_commands():
     return registry.found_commands
 
 
-commands = discover_commands()
-
-
 def find_command(name):
-    return commands.get(name)
+    return discover_commands().get(name)

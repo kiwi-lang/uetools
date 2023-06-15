@@ -1,6 +1,6 @@
 import pytest
 
-from uetools.core import args, main
+from uetools.core.cli import args, main
 from uetools.core.testing import git_diff, git_status
 
 skipif = pytest.mark.skipif
