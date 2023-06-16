@@ -241,6 +241,8 @@ def _ask_ue_to_exit(args):
             client = Client(server_port=args.mladapterport, timeout=0.01)
             client.connect(timeout=0.01)
             client.add_functions()
+            print(client.list_sensor_types())
+            print(client.list_actuator_types())
             client.exit()
         except socket.timeout:
             pass
@@ -311,6 +313,12 @@ class ML(Command):
         if not dry:
             with unrealgame(args) as env:
                 try:
+                    from uetools.core.client import Client
+
+                    client = Client(server_port=args.mladapterport, timeout=0.01)
+                    client.connect(timeout=0.01)
+                    client.add_functions()
+
                     while env.is_alive():
                         time.sleep(0)
 
