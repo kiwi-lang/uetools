@@ -1,6 +1,7 @@
 # Copyright Epic Games, Inc. All Rights Reserved.
 
 import logging
+import re
 import socket
 import time
 
@@ -148,7 +149,7 @@ class Client:
 
     def getlatency(self):
         self.call(Client.FUNCNAME_PING)
-        return self.latency
+        return self.latency / 1e6
 
     def ensure_connection(self):
         logger.debug("Ensure connection")
@@ -273,21 +274,6 @@ class Client:
 
         self.__dict__[function_name] = lambda *args: wrap(function_name, *args)
 
-    def generate_methods(self):
-        function_list = self.call(Client.FUNCNAME_LIST_FUNCTIONS)
-
-        with open("fun.py", "w") as file:
-            for fname in function_list:
-                doc = self.get_description(fname)
-
-                w = "call"
-                if fname in noreturns:
-                    w = "notify"
-
-                file.write(f"    def {fname}(self, *args):\n")
-                file.write(f'        """{doc}"""\n')
-                file.write(f'        return self.{w}("{fname}", *args)\n\n')
-
     def add_functions(self):
         self.ensure_connection()
 
@@ -306,6 +292,87 @@ class Client:
         except ConnectionResetError:
             return False
 
+    # Automatic Code generation
+    # for auto completion
+    # -------------------------
+    def generate_methods(self):
+        function_list = self.call(Client.FUNCNAME_LIST_FUNCTIONS)
+
+        args_pat = re.compile(r"\((?P<ARGS>.*)\), (?P<DOC>.*)")
+
+        type_renamp = {
+            "uint": "int",
+            "string": "str",
+        }
+
+        name_remap = {
+            "AgentID": "agent_id",
+            "Adds": "",
+            "ElementName": "element_name",
+            "TickCount": "tick_count",
+            "bWaitForWorldTick": "wait_for_world_tick",
+            "bEnableActionDuration": "enable_action_duration",
+            "DurationSeconds": "duration_sec",
+            "bEnable": "enable",
+        }
+
+        def extract_args(args):
+            final = []
+            forward = []
+            args = args.replace("(", "").replace(")", "")
+
+            for arg in args.split(", "):
+                r = arg.split(" ")
+
+                if len(r) == 2:
+                    type, name = arg.split(" ")
+
+                    type = type_renamp.get(type, type)
+                    name = name_remap.get(name, name)
+
+                    final.append(f"{name}: {type}")
+                    forward.append(name)
+                else:
+                    final.append(r[0])
+                    forward.append(r[0])
+
+            return final, forward
+
+        def generate_args(doc):
+            result = args_pat.search(doc)
+
+            if result:
+                data = result.groupdict()
+                doc = data["DOC"]
+                args = data["ARGS"]
+
+                args, forward = extract_args(args)
+            else:
+                args = []
+                forward = []
+
+            args = ["self"] + args
+            forward = [f'"{fname}"'] + forward
+
+            args = ", ".join(filter(lambda x: len(x) > 0, args))
+            forward = ", ".join(filter(lambda x: len(x) > 0, forward))
+
+            return args, forward, doc
+
+        with open("fun.py", "w") as file:
+            for fname in function_list:
+                doc = self.get_description(fname)
+
+                w = "call"
+                if fname in noreturns:
+                    w = "notify"
+
+                args, forward, doc = generate_args(doc)
+
+                file.write(f"    def {fname}({args}):\n")
+                file.write(f'        """{doc}"""\n')
+                file.write(f"        return self.{w}({forward})\n\n")
+
     # Generated
     # ---------
     #
@@ -313,122 +380,126 @@ class Client:
     #
     #
 
-    def list_functions(self, *args):
-        """(), Lists all functions available through RPC"""
-        return self.call("list_functions", *args)
+    def list_functions(self):
+        """Lists all functions available through RPC"""
+        return self.call("list_functions")
 
-    def get_description(self, *args):
-        """(string ElementName), Describes given element"""
-        return self.call("get_description", *args)
+    def get_description(self, element_name: str):
+        """Describes given element"""
+        return self.call("get_description", element_name)
 
-    def list_sensor_types(self, *args):
-        """(), Lists all sensor types available to agents. Note that some of sensors might not make sense in a given environment (like reading keyboard in an mouse-only game)."""
-        return self.call("list_sensor_types", *args)
+    def list_sensor_types(self):
+        """Lists all sensor types available to agents. Note that some of sensors might not make sense in a given environment (like reading keyboard in an mouse-only game)."""
+        return self.call("list_sensor_types")
 
-    def list_actuator_types(self, *args):
-        """(), Lists all actuator types available to agents. Note that some of actuators might not make sense in a given environment (like faking keyboard actions in an mouse-only game)."""
-        return self.call("list_actuator_types", *args)
+    def list_actuator_types(self):
+        """Lists all actuator types available to agents. Note that some of actuators might not make sense in a given environment (like faking keyboard actions in an mouse-only game)."""
+        return self.call("list_actuator_types")
 
-    def ping(self, *args):
-        """(), Checks if the RPC server is still alive and responding."""
-        return self.call("ping", *args)
+    def ping(self):
+        """Checks if the RPC server is still alive and responding."""
+        return self.call("ping")
 
-    def get_name(self, *args):
-        """(), Fetches a human-readable identifier of the environment the external client is connected to."""
-        return self.call("get_name", *args)
+    def get_name(self):
+        """Fetches a human-readable identifier of the environment the external client is connected to."""
+        return self.call("get_name")
 
-    def is_finished(self, *args):
-        """(agent_id), Checks if the game/simulation/episode is done for given agent_id."""
-        return self.call("is_finished", *args)
+    def is_finished(self, agent_id):
+        """Checks if the game/simulation/episode is done for given agent_id."""
+        return self.call("is_finished", agent_id)
 
-    def exit(self, *args):
-        """(), Closes the UnrealEngine instance."""
-        return self.notify("exit", *args)
+    def exit(self):
+        """Closes the UnrealEngine instance."""
+        return self.notify("exit")
 
-    def batch_is_finished(self, *args):
-        """(), Multi-agent version of is_finished"""
-        return self.call("batch_is_finished", *args)
+    def batch_is_finished(self):
+        """Multi-agent version of is_finished"""
+        return self.call("batch_is_finished")
 
-    def add_agent(self, *args):
+    def add_agent(self):
         """Adds a default agent for current environment. Returns added agent's ID if successful, uint(-1) if failed."""
-        return self.call("add_agent", *args)
+        return self.call("add_agent")
 
-    def get_agent_config(self, *args):
-        """(uint AgentID), Retrieves given agent's config in JSON formatted string"""
-        return self.call("get_agent_config", *args)
+    def get_agent_config(self, agent_id: int):
+        """Retrieves given agent's config in JSON formatted string"""
+        return self.call("get_agent_config", agent_id)
 
-    def act(self, *args):
-        """(uint agent_id, list actions), Distributes the given values array amongst all the actuators, based on actions_space."""
-        return self.notify("act", *args)
+    def act(self, agent_id: int, actions: list):
+        """Distributes the given values array amongst all the actuators, based on actions_space."""
+        return self.notify("act", agent_id, actions)
 
-    def none(self, *args):
-        """(uint agent_id), Lets the MLAdapter session know that given agent will not continue and is to be removed from the session."""
-        return self.call("none", *args)
+    def none(self, agent_id: int):
+        """Lets the MLAdapter session know that given agent will not continue and is to be removed from the session."""
+        return self.call("none", agent_id)
 
-    def get_observations(self, *args):
-        """(uint agent_id), fetches all the information gathered by given agent's sensors. Result matches observations_space"""
-        return self.call("get_observations", *args)
+    def get_observations(self, agent_id: int):
+        """fetches all the information gathered by given agent's sensors. Result matches observations_space"""
+        return self.call("get_observations", agent_id)
 
-    def batch_get_observations(self, *args):
+    def batch_get_observations(self):
         """Multi-agent version of 'get_observations'"""
-        return self.call("batch_get_observations", *args)
+        return self.call("batch_get_observations")
 
-    def get_recent_agent(self, *args):
-        """(), Fetches ID of the most recently created agent."""
-        return self.call("get_recent_agent", *args)
+    def get_recent_agent(self):
+        """Fetches ID of the most recently created agent."""
+        return self.call("get_recent_agent")
 
-    def get_reward(self, *args):
-        """(uint agent_id), Fetch current reward for given Agent."""
-        return self.call("get_reward", *args)
+    def get_reward(self, agent_id: int):
+        """Fetch current reward for given Agent."""
+        return self.call("get_reward", agent_id)
 
-    def batch_get_rewards(self, *args):
-        """(), Multi-agent version of 'get_rewards'."""
-        return self.call("batch_get_rewards", *args)
+    def batch_get_rewards(self):
+        """Multi-agent version of 'get_rewards'."""
+        return self.call("batch_get_rewards")
 
-    def desc_action_space(self, *args):
-        """(uint agent_id), Fetches actions space desction for given agent"""
-        return self.call("desc_action_space", *args)
+    def desc_action_space(self, agent_id: int):
+        """Fetches actions space desction for given agent"""
+        return self.call("desc_action_space", agent_id)
 
-    def desc_observation_space(self, *args):
-        """(uint agent_id), Fetches observations space desction for given agent"""
-        return self.call("desc_observation_space", *args)
+    def desc_observation_space(self, agent_id: int):
+        """Fetches observations space desction for given agent"""
+        return self.call("desc_observation_space", agent_id)
 
-    def reset(self, *args):
-        """(), Lets the MLAdapter manager know that the environments should be reset. The details of how this call is handles heavily depends on the environment itself."""
-        return self.notify("reset", *args)
+    def reset(self):
+        """Lets the MLAdapter manager know that the environments should be reset. The details of how this call is handles heavily depends on the environment itself."""
+        return self.notify("reset")
 
-    def configure_agent(self, *args):
-        """(uint agent_id, string json_config), Configures given agent based on json_config. Will throw an exception if given agent doesn't exist."""
-        return self.notify("configure_agent", *args)
+    def configure_agent(self, agent_id: int, json_config: str):
+        """Configures given agent based on json_config. Will throw an exception if given agent doesn't exist."""
+        return self.notify("configure_agent", agent_id, json_config)
 
-    def create_agent(self, *args):
-        """(), Creates a new agent and returns its agent_id."""
-        return self.call("create_agent", *args)
+    def create_agent(self):
+        """Creates a new agent and returns its agent_id."""
+        return self.call("create_agent")
 
-    def is_agent_ready(self, *args):
-        """(uint agent_id), Returns 'true' if given agent is ready to play, including having an avatar"""
-        return self.call("is_agent_ready", *args)
+    def is_agent_ready(self, agent_id: int):
+        """Returns 'true' if given agent is ready to play, including having an avatar"""
+        return self.call("is_agent_ready", agent_id)
 
-    def is_ready(self, *args):
-        """(), return whether the session is ready to go, i.e. whether the simulation has loaded and started."""
-        return self.call("is_ready", *args)
+    def is_ready(self):
+        """return whether the session is ready to go, i.e. whether the simulation has loaded and started."""
+        return self.call("is_ready")
 
-    def enable_manual_world_tick(self, *args):
-        """(bool bEnable), Controls whether the world is running real time or it's being ticked manually with calls to 'step' or 'request_world_tick' functions. Default is 'real time'."""
-        return self.call("enable_manual_world_tick", *args)
+    def enable_manual_world_tick(self, enable: bool):
+        """Controls whether the world is running real time or it's being ticked manually with calls to 'step' or 'request_world_tick' functions. Default is 'real time'."""
+        return self.call("enable_manual_world_tick", enable)
 
-    def request_world_tick(self, *args):
-        """(int TickCount, bool bWaitForWorldTick), Requests a TickCount world ticks. This has meaning only if 'enable_manual_world_tick(true)' has been called prior to this function. If bWaitForWorldTick is true then the call will not return until the world has been ticked required number of times"""
-        return self.call("request_world_tick", *args)
+    def request_world_tick(self, tick_count: int, wait_for_world_tick: bool):
+        """Requests a TickCount world ticks. This has meaning only if 'enable_manual_world_tick(true)' has been called prior to this function. If bWaitForWorldTick is true then the call will not return until the world has been ticked required number of times"""
+        return self.call("request_world_tick", tick_count, wait_for_world_tick)
 
-    def enable_action_duration(self, *args):
-        """(uint AgentID, bool bEnableActionDuration, float DurationSeconds), Enable/disable the action durations on the agent with the specified time duration in seconds."""
-        return self.call("enable_action_duration", *args)
+    def enable_action_duration(
+        self, agent_id: int, enable_action_duration: bool, duration_sec: float
+    ):
+        """Enable/disable the action durations on the agent with the specified time duration in seconds."""
+        return self.call(
+            "enable_action_duration", agent_id, enable_action_duration, duration_sec
+        )
 
-    def wait_for_action_duration(self, *args):
-        """(uint AgentID), Wait for the action duration to elapse for the agent. Only works if 'enable_action_duration' has been called previously."""
-        return self.call("wait_for_action_duration", *args)
+    def wait_for_action_duration(self, agent_id: int):
+        """Wait for the action duration to elapse for the agent. Only works if 'enable_action_duration' has been called previously."""
+        return self.call("wait_for_action_duration", agent_id)
 
-    def close_session(self, *args):
-        """(), shuts down the current session (along with all the agents)."""
-        return self.call("close_session", *args)
+    def close_session(self):
+        """shuts down the current session (along with all the agents)."""
+        return self.call("close_session")

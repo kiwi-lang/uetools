@@ -14,6 +14,15 @@ assert (
 ), "uetools is a namespace not a module"
 
 
+extras_require = {
+    "ml": [
+        "msgpack",
+        "numpy",
+        "gym",
+    ],
+}
+extras_require["all"] = sorted(set(sum(extras_require.values(), [])))
+
 setup_kwargs = dict(
     name="uetools",
     version=version,
@@ -48,7 +57,13 @@ setup_kwargs = dict(
     ],
     zip_safe=True,
     setup_requires=["setuptools"],
-    install_requires=["appdirs", "colorama", "cookiecutter", "GitPython", "msgpack"],
+    install_requires=[
+        "appdirs",
+        "colorama",
+        "cookiecutter",
+        "GitPython",
+    ],
+    extras_require=extras_require,
     python_requires=">=3.8",
     namespace_packages=["uetools", "uetools.plugins"],
     entry_points={

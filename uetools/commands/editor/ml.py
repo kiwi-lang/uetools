@@ -39,6 +39,9 @@ class Arguments:
 # fmt: on
 
 
+SLEEP = 0.01
+
+
 def build_command(args):
     args = vars(args)
 
@@ -167,6 +170,8 @@ def _mp_worker(cmd, status, states, timeout=60):
             status.value = _READY
 
             while process.poll() is None:
+                time.sleep(SLEEP)
+
                 if status.value == _STOP:
                     states["status"] = "stopping"
                     _process_kill(process)
@@ -218,7 +223,8 @@ class UnrealEngineProcess:
             except SystemError as err:
                 pass
 
-            time.sleep(0)
+            time.sleep(SLEEP)
+
             if time.time() - start > 30:
                 raise RuntimeError("Could not shutdown UE")
 
@@ -238,8 +244,8 @@ def _ask_ue_to_exit(args):
 
     def wrapper():
         try:
-            client = Client(server_port=args.mladapterport, timeout=0.01)
-            client.connect(timeout=0.01)
+            client = Client(server_port=args.mladapterport, timeout=SLEEP)
+            client.connect(timeout=SLEEP)
             client.add_functions()
             print(client.list_sensor_types())
             print(client.list_actuator_types())
@@ -313,14 +319,15 @@ class ML(Command):
         if not dry:
             with unrealgame(args) as env:
                 try:
-                    from uetools.core.client import Client
+                    # from uetools.core.client import Client
 
-                    client = Client(server_port=args.mladapterport, timeout=0.01)
-                    client.connect(timeout=0.01)
-                    client.add_functions()
+                    # client = Client(server_port=args.mladapterport, timeout=SLEEP)
+                    # client.connect(timeout=SLEEP)
+                    # client.add_functions()
+                    # client.generate_methods()
 
                     while env.is_alive():
-                        time.sleep(0)
+                        time.sleep(SLEEP)
 
                 except KeyboardInterrupt:
                     env.interrupt()

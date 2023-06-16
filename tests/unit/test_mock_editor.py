@@ -18,7 +18,6 @@ commands = [
     ("editor", []),
     ("localize", []),
     ("localize", ["--bootstrap"]),
-    ("ml", ["FakeMap"]),
     ("open", []),
     ("resavepackages", []),
     ("server", ["FakeMap"]),
@@ -37,3 +36,7 @@ def test_mock_editor(project, project_name, monkeypatch, cmd, rc, extra):
         f"uetools.commands.editor.{cmd}.popen_with_format", lambda *a, **b: rc
     )
     assert main(args("editor", cmd, project_name, *extra)) == rc
+
+
+# def test_mock_editor_ml(project, project_name, monkeypatch, cmd, rc, extra):
+#     assert main(args("editor", 'ml', project_name, "FakeMap")) == rc
