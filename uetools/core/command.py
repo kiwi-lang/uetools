@@ -7,9 +7,10 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict, is_dataclass
 
-from uetools.core.argformat import HelpAction
-from uetools.core.arguments import add_arguments
-from uetools.core.plugin import discover_plugins
+from .argformat import HelpAction
+from .arguments import add_arguments
+from .perf import timeit
+from .plugin import discover_plugins
 
 
 def newparser(subparsers: argparse._SubParsersAction, commandcls: Command):
@@ -52,8 +53,9 @@ class Command:
     @classmethod
     def arguments(cls, subparsers):
         """Define the arguments of this command"""
-        parser = newparser(subparsers, cls)
-        add_arguments(parser, cls.argument_class())
+        with timeit("Command.arguments"):
+            parser = newparser(subparsers, cls)
+            add_arguments(parser, cls.argument_class())
 
     @staticmethod
     def execute(args) -> int:
@@ -105,26 +107,28 @@ def command_builder(args: dict | Namespace, ignore=None) -> list[str]:
     ['-vector=(X=1,Y=2,Z=3)']
 
     """
-    if ignore is None:
-        ignore = set()
 
-    args = deepcopy(args)
+    with timeit("command_builder"):
+        if ignore is None:
+            ignore = set()
 
-    if isinstance(args, Namespace):
-        args = vars(args)
+        args = deepcopy(args)
 
-    if not isinstance(args, dict):
-        args = asdict(args)
+        if isinstance(args, Namespace):
+            args = vars(args)
 
-    # Note: we do not NEED to pop them, UE ignore unknown arguments
-    if isinstance(args, dict):
-        args.pop("command", None)
-        args.pop("cli", None)
-        args.pop("dry", None)
+        if not isinstance(args, dict):
+            args = asdict(args)
 
-    cmd = []
+        # Note: we do not NEED to pop them, UE ignore unknown arguments
+        if isinstance(args, dict):
+            args.pop("command", None)
+            args.pop("cli", None)
+            args.pop("dry", None)
 
-    _command_builder(cmd, args, ignore)
+        cmd = []
+
+        _command_builder(cmd, args, ignore)
 
     return cmd
 
@@ -166,11 +170,14 @@ class ParentCommand(Command):
 
     @classmethod
     def arguments(cls, subparsers):
-        parser = newparser(subparsers, cls)
-        cls.shared_arguments(parser)
-        subparsers = parser.add_subparsers(dest=cls.command_field(), help=cls.help())
-        cmds = cls.fetch_commands()
-        cls.register(cls, subparsers, cmds)
+        with timeit("ParentCommand.arguments"):
+            parser = newparser(subparsers, cls)
+            cls.shared_arguments(parser)
+            subparsers = parser.add_subparsers(
+                dest=cls.command_field(), help=cls.help()
+            )
+            cmds = cls.fetch_commands()
+            cls.register(cls, subparsers, cmds)
 
     @classmethod
     def shared_arguments(cls, subparsers):
@@ -179,16 +186,16 @@ class ParentCommand(Command):
     @classmethod
     def fetch_commands(cls):
         """Fetch commands using importlib, assume each command is inside its own module"""
+        with timeit("ParentCommand.fetch_commands"):
+            all_commands = []
+            for _, module in discover_plugins(cls.module()).items():
+                if hasattr(module, "COMMANDS"):
+                    commands = getattr(module, "COMMANDS")
 
-        all_commands = []
-        for _, module in discover_plugins(cls.module()).items():
-            if hasattr(module, "COMMANDS"):
-                commands = getattr(module, "COMMANDS")
+                    if not isinstance(commands, list):
+                        commands = [commands]
 
-                if not isinstance(commands, list):
-                    commands = [commands]
-
-                all_commands.extend(commands)
+                    all_commands.extend(commands)
         return all_commands
 
     @staticmethod

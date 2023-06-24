@@ -2,6 +2,7 @@ import glob
 import os
 import traceback
 
+from uetools.core.perf import timeit
 from uetools.core.plugin import discover_plugins
 
 try:
@@ -77,10 +78,13 @@ class CommandRegistry:
 def discover_commands():
     """Discover all the commands we can find (plugins and built-in)"""
     registry = CommandRegistry()
-    fetch_factories(registry, "uetools.commands", __file__)
+
+    with timeit("fetch_factories"):
+        fetch_factories(registry, "uetools.commands", __file__)
 
     if PLUGINS:
-        discover_from_plugins_commands(registry, uetools.plugins)
+        with timeit("discover_plugins"):
+            discover_from_plugins_commands(registry, uetools.plugins)
 
     return registry.found_commands
 

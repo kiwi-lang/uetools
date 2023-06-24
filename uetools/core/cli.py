@@ -5,33 +5,41 @@ import argparse
 
 from uetools.commands import discover_commands
 
-from .argformat import HelpAction
+from .argformat import HelpAction, HelpActionException
 from .command import ParentCommand
 from .conf import BadConfig, select_engine_version
+from .perf import show_timings, timeit
 
 
 def parse_args(commands, argv):
     """Setup the argument parser for all supported commands"""
-    parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument(
-        "-h", "--help", action=HelpAction, help="show this help message and exit"
-    )
-    parser.add_argument(
-        "-v",
-        "--engine-version",
-        nargs="?",
-        type=str,
-        default=None,
-        help="Engine version to use if you have multiple installed",
-    )
+    with timeit("build_parser"):
+        parser = argparse.ArgumentParser(add_help=False)
+        parser.add_argument(
+            "-h", "--help", action=HelpAction, help="show this help message and exit"
+        )
+        parser.add_argument(
+            "-v",
+            "--engine-version",
+            nargs="?",
+            type=str,
+            default=None,
+            help="Engine version to use if you have multiple installed",
+        )
+        parser.add_argument(
+            "-xyz",
+            action="store_true",
+            default=False,
+            help="Show perf timing",
+        )
 
-    subparsers = parser.add_subparsers(dest="command")
+        subparsers = parser.add_subparsers(dest="command")
+        ParentCommand.dispatch = dict()
+        for _, command in commands.items():
+            command.arguments(subparsers)
 
-    ParentCommand.dispatch = dict()
-    for _, command in commands.items():
-        command.arguments(subparsers)
-
-    args = parser.parse_args(argv)
+    with timeit("parser.parse_args"):
+        args = parser.parse_args(argv)
 
     if args.engine_version is not None:
         select_engine_version(args.engine_version)
@@ -47,12 +55,16 @@ def args(*a):
 
 def main(argv=None):
     """Entry point for the command line interface"""
-    commands = discover_commands()
+    with timeit("discover_commands"):
+        commands = discover_commands()
 
-    try:
-        parsed_args = parse_args(commands, argv)
-    except BadConfig:
-        return -1
+    with timeit("parse_args"):
+        try:
+            parsed_args = parse_args(commands, argv)
+        except HelpActionException:
+            return 0
+        except BadConfig:
+            return -1
 
     cmd_name = parsed_args.command
     command = commands.get(cmd_name)
@@ -61,7 +73,8 @@ def main(argv=None):
         print(f"Action `{cmd_name}` not implemented")
         return -1
 
-    returncode = command.execute(parsed_args)
+    with timeit("command.execute"):
+        returncode = command.execute(parsed_args)
 
     if returncode is None:
         return 0
@@ -72,7 +85,9 @@ def main(argv=None):
 def main_force(argv=None):
     import sys
 
-    sys.exit(main())
+    r = main()
+    show_timings()
+    sys.exit(r)
 
 
 if __name__ == "__main__":

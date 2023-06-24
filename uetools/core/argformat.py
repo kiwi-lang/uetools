@@ -75,6 +75,10 @@ def format_action(action: argparse.Action, depth: int):
         print(f'{indent}{"":<40}   Options: ({", ".join(choices)})')
 
 
+class HelpActionException(Exception):
+    pass
+
+
 class HelpAction(argparse._HelpAction):
     def __init__(self, *args, docstring=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -82,4 +86,5 @@ class HelpAction(argparse._HelpAction):
 
     def __call__(self, parser, namespace, values, option_string=None):
         recursively_show_actions(parser)
-        parser.exit()
+        raise HelpActionException()
+        # parser.exit()
