@@ -47,13 +47,12 @@ def discover_from_plugins_commands(registry, module, function_name="COMMANDS"):
     plugins = discover_plugins(module)
 
     for _, plugin in plugins.items():
-
         if hasattr(plugin, function_name):
             plugin_commands = getattr(plugin, function_name)
             registry.insert_commands(plugin_commands)
 
 
-#: pylint: disable=too-few-public-methods
+#  pylint: disable=too-few-public-methods
 class CommandRegistry:
     """Simple class to keep track of all the commands we find"""
 

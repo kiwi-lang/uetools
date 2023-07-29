@@ -11,10 +11,10 @@ from uetools.core.run import run
 @dataclass
 class Arguments:
     # fmt: off
-    name        : str                    #: Name of the project to modify.
-    url         : str                    #: url of the plugin to install.
-    destination : Optional[str] = None   #: installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
-    submodule   : bool          = False  #: install the plugin as a git submodule (defaults to: ``False``)# fmt: on
+    name        : str                    #  Name of the project to modify.
+    url         : str                    #  url of the plugin to install.
+    destination : Optional[str] = None   #  installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
+    submodule   : bool          = False  #  install the plugin as a git submodule (defaults to: ``False``)# fmt: on
     # fmt: on
 
 
@@ -107,7 +107,6 @@ class Install(Command):
 
             plugins = project_conf.get("Plugins", [])
             for plugin in plugins:
-
                 if plugin.get("Name") == args.plugin:
                     plugin["Enabled"] = True
                     break

@@ -4,8 +4,9 @@ from __future__ import annotations
 import argparse
 import dataclasses
 import inspect
+import re
 import typing
-from dataclasses import MISSING, fields
+from dataclasses import MISSING, fields, field
 from typing import get_type_hints
 
 forward_refs_to_types = {
@@ -15,6 +16,36 @@ forward_refs_to_types = {
     "list": typing.List,
     "type": typing.Type,
 }
+
+
+class Subparser:
+    pass
+
+
+def argument(default, **kwargs):
+    # argparse.ArgumentParser().add_argument
+    kwargs['type'] = 'argument'
+    return field(default=default, metadata=kwargs)
+
+
+def group(default, **kwargs):
+    # argparse.ArgumentParser().add_argument_group()
+    kwargs['type'] = 'group'
+    return field(default_factory=default, metadata=kwargs)
+
+
+def subparser(**kwargs):
+    # argparse.ArgumentParser().add_subparsers()
+    kwargs['type'] = 'subparser'
+    return field(default=None, metadata=kwargs)
+
+def parser(default, **kwargs):
+    # argparse.ArgumentParser().add_subparsers().add_parser()
+    kwargs['type'] = 'parser'
+    return field(default_factory=default, metadata=kwargs)
+
+
+
 
 
 def field(*args, choices=None, type=None, **kwargs):
@@ -96,9 +127,9 @@ def leaf_type(type_hint):
         return type_hint
 
 
-def _add_argument(group, field, docstring):
+
+def deduce_add_arguments(field, docstring):
     type = _get_type_hint(field.type)
-    name = field.name
     required = True
 
     nargs = None
@@ -137,13 +168,21 @@ def _add_argument(group, field, docstring):
         metavar=None,
     )
 
+    return positional, required, kwargs
+
+
+def _add_argument(group, field, docstring):
+    positional, required, kwargs = deduce_add_arguments(field, docstring)
+
+    name = field.name
+
     if positional:
-        group.add_argument(
+        return group.add_argument(
             name,
             **kwargs,
         )
     else:
-        group.add_argument(
+        return group.add_argument(
             "--" + name,  # Option Strings
             dest=name,  # dest
             required=not positional and required,
@@ -169,22 +208,116 @@ def find_docstring(field, lines, start_index):
     return None, start
 
 
-def add_arguments(parser: argparse.ArgumentParser, dataclass, create_group=True):
+
+docstring_oneline = re.compile(r'(\s*)"""(.*)"""')
+docstring_start = re.compile(r'(\s*)"""(.*)')
+docstring_end = re.compile(r'(.*)"""')
+
+
+def find_dataclass_docstring(dataclass):
     source = inspect.getsource(dataclass).splitlines()
-    start = 0
+    docstring_lines = []
+
+    started = False
+    recognized = 0
+    for i, line in enumerate(source):
+        if '@dataclass' in line:
+            recognized += 1
+            continue
+
+        if 'class ' in line:
+            recognized += 1
+            continue
+
+        if recognized == 2 and not started and docstring_oneline.match(line):
+            docstring_lines.append(line.strip()[3:-3])
+            break
+
+        if recognized == 2 and not started and docstring_start.match(line):
+            started = True
+            docstring_lines.append(line.strip()[3:])
+            continue
+
+        if started and docstring_end.match(line):
+            docstring_lines.append(line.strip()[:-3])
+            started = False
+            break
+
+        if started:
+            docstring_lines.append(line.strip())
+
+    return source, '\n'.join(docstring_lines).strip(), i
+
+
+def add_arguments(parser: argparse.ArgumentParser, dataclass, create_group=True, mapper=None):
+    """Traverse the dataclass hierarchy and build a parser tree"""
+    source, parser.description, start = find_dataclass_docstring(dataclass)
 
     group = parser
+    subparser = None
     if create_group:
         group = parser.add_argument_group(
             title=dataclass.__name__,
             description=dataclass.__doc__ or "",
         )
 
-    for field in fields(dataclass):
-        docstring, start = find_docstring(field, source, start)
-        # print(dataclass, field)
+    if mapper is None:
+        mapper = dict()
 
+    def map(a, b):
+        # assert a not in mapper
+        # mapper[a] = b
+        # assert b not in mapper
+        # mapper[b] = a
+        pass
+
+    map(parser, dataclass)
+
+
+    for field in fields(dataclass):
+        meta = dict(field.metadata)
+        special_argument = meta.pop('type', None)
+        docstring, start = find_docstring(field, source, start)
+
+        if special_argument == 'group':
+            meta.setdefault('title', field.name)
+            meta.setdefault('description', docstring)
+            
+            group = parser.add_argument_group(**meta)
+            map(group, field)
+
+            add_arguments(group, field.type, create_group=False)
+            continue
+
+        if special_argument == 'subparser':
+            meta.setdefault('title', field.name)
+            meta.setdefault('description', docstring)
+            meta.setdefault('dest', field.name)
+
+            if subparser is None:
+                subparser = parser.add_subparsers(**meta)
+                map(subparser, field)
+            continue
+
+        if special_argument == 'parser':
+            meta.setdefault('name', field.name)
+            meta.setdefault('description', docstring)
+
+            parser = subparser.add_parser(**meta)
+            mapper[field] = parser
+            add_arguments(parser, field.type, create_group=False)
+            continue
+
+        if special_argument == 'argument':
+            _, _, deduced = deduce_add_arguments(field, docstring)
+
+            for k, v in deduced.items():
+                meta.setdefault(k, v)
+
+            map(parser.add_argument(**meta), field)
+            continue
+        
         if field.type == "bool" or field.type is bool:
-            _add_flag(group, field, docstring)
+            map(_add_flag(group, field, docstring), field)
         else:
-            _add_argument(group, field, docstring)
+            map(_add_argument(group, field, docstring), field)

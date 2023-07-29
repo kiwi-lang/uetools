@@ -28,16 +28,15 @@ def build_modes():
 
 @dataclass
 class Arguments:
-
     # fmt: off
-    project         : str                                   #: Project Name
-    output          : Optional[str] = None                  #: Output
-    build           : Optional[str] = build_modes()         #: Build modes
-    platform        : Optional[str] = editor_platforms()    #: Platform to cookf
-    compressed      : bool          = True                  #: Compressed
-    cookall         : bool          = True                  #: Cook All the content
-    unversioned     : bool          = True                  #: unversioned
-    WarningsAsErrors: bool          = True                  #: Fail on warnings
+    project         : str                                   #  Project Name
+    output          : Optional[str] = None                  #  Output
+    build           : Optional[str] = build_modes()         #  Build modes
+    platform        : Optional[str] = editor_platforms()    #  Platform to cookf
+    compressed      : bool          = True                  #  Compressed
+    cookall         : bool          = True                  #  Cook All the content
+    unversioned     : bool          = True                  #  unversioned
+    WarningsAsErrors: bool          = True                  #  Fail on warnings
     # fmt: on
 
 

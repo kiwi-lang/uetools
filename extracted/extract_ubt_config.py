@@ -69,12 +69,11 @@ for line in lines:
 
 
 for k, v in data.items():
-
     print("@dataclass")
     print(f"class {k}T:")
     for k, v in v.items():
         type = "bool" if k[0] == "b" else "str"
-        print(f"    {k:<30}: {type:<5} = None  #: {v}")
+        print(f"    {k:<30}: {type:<5} = None  #  {v}")
     print()
     print()
 

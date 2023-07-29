@@ -9,7 +9,7 @@ from uetools.format.base import Formatter
 
 @dataclass
 class Arguments:
-    project: str  #: Name of the the project to open
+    project: str  #  Name of the the project to open
 
 
 class Open(Command):
