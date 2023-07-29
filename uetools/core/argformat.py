@@ -12,6 +12,9 @@ class ArgumentFormaterBase:
         self.col = 50
         self.acc = []
 
+    def column(self, depth):
+        return self.col - depth * 2
+
     def show(self):
         for arg, kwargs in self.acc:
             print(*arg, **kwargs)
@@ -55,13 +58,13 @@ class ArgumentFormaterBase:
             return
         
         if group._group_actions:
-            line = f"{'  ' * (depth - 1)} {group.title:<{self.col - (depth - 1) * 2}} {type(group).__name__}"
+            line = f"{'  ' * (depth - 1)} {group.title:<{self.column(depth - 1)}} {type(group).__name__}"
             self.print(line)
 
     def format_action(self, action: argparse.Action, depth: int, name=None):
         name = name or action.dest
 
-        line = f"{'  ' * depth} {name:<{self.col - depth * 2}} {type(action).__name__}"
+        line = f"{'  ' * depth} {name:<{self.column(depth)}} {type(action).__name__}"
         self.print(line)
 
 
@@ -82,7 +85,7 @@ class ArgumentFormater(ArgumentFormaterBase):
         # Ignore help
         if isinstance(action, argparse._HelpAction):
             if not self.printed_help:
-                self.print(f"{indent}{'-h, --help':<{self.col - depth * 2}} Show help")
+                self.print(f"{indent}{'-h, --help':<{self.column(depth)}} Show help")
                 self.printed_help = True
             return
         
@@ -91,7 +94,7 @@ class ArgumentFormater(ArgumentFormaterBase):
             title = name
             if parser.description is not None:
                 title = parser.description.partition("\n")[0]
-            self.print(f"{indent}{name:<{self.col - depth * 2}} {title}")
+            self.print(f"{indent}{name:<{self.column(depth)}} {title}")
             return
 
         names = action.dest
@@ -129,14 +132,13 @@ class ArgumentFormater(ArgumentFormaterBase):
         arg = f"{names}{type}{default}"
         for i, line in enumerate(textwrap.wrap(help, width=self.description_width, subsequent_indent=" ")):
             if i == 0:
-                self.print(f"{indent}{arg:<{self.col - depth * 2}} {line}")
+                self.print(f"{indent}{arg:<{self.column(depth)}} {line}")
             else:
-                self.print(f"{indent}{' ':<{self.col - depth * 2}} {line}")
+                self.print(f"{indent}{' ':<{self.column(depth)}} {line}")
 
         if show_options:
             for line in textwrap.wrap(choices, width=self.description_width, subsequent_indent=" "):
-                self.print(f'{indent}{"":<{self.col - depth * 2}} {line}')
-
+                self.print(f'{indent}{"":<{self.column(depth)}} {line}')
 
 
 def show_parsing_tree(parser: argparse.ArgumentParser, depth: int = 0):
