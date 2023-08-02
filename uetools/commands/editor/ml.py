@@ -18,24 +18,24 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    resx                : int = 320     #  resolution width
-    resy                : int = 240     #  resolution height
-    fps                 : int = 20      #  Max FPS
-    windowed            : bool = True   #  Window mode
-    usefixedtimestep    : bool = True   #  Block until the ML agent replies with an action
+    resx                : int = 320     # resolution width
+    resy                : int = 240     # resolution height
+    fps                 : int = 20      # Max FPS
+    windowed            : bool = True   # Window mode
+    usefixedtimestep    : bool = True   # Block until the ML agent replies with an action
     game                : bool = True   #
-    unattended          : bool = True   #  Close when the game finishes
-    onethread           : bool = False  #  Run on a single thread
+    unattended          : bool = True   # Close when the game finishes
+    onethread           : bool = False  # Run on a single thread
     reducethreadusage   : bool = False  #
-    nosound             : bool = False  #  Disable sound
-    nullrhi             : bool = False  #  Disable rendering
-    deterministic       : bool = False  #  Set seeds ?
+    nosound             : bool = False  # Disable sound
+    nullrhi             : bool = False  # Disable rendering
+    deterministic       : bool = False  # Set seeds ?
     debug               : bool = False  #
-    mladapterport       : int = 8123    #  RPC server listen port
+    mladapterport       : int = 8123    # RPC server listen port
     stdout              : bool = True
-    fullstdoutlogoutput : bool = True   #  Print log to stdout
-    utf8output          : bool = True   #  --
-    nosplash            : bool = True   #  --
+    fullstdoutlogoutput : bool = True   # Print log to stdout
+    utf8output          : bool = True   # --
+    nosplash            : bool = True   # --
 # fmt: on
 
 
@@ -68,11 +68,11 @@ def _process_kill(process):
     process.kill()
 
     # if WINDOWS:
-    #     os.system(f"taskkill /F /PID {process.pid}")
+    #    os.system(f"taskkill /F /PID {process.pid}")
 
     # else:
-    #     process.send_signal(signal.SIGTERM)
-    #     process.send_signal(signal.SIGKILL)
+    #    process.send_signal(signal.SIGTERM)
+    #    process.send_signal(signal.SIGKILL)
 
     # process.terminate()
 
@@ -83,10 +83,10 @@ def _process_interupt(process: multiprocessing.Process):
 
     # #
     # if WINDOWS:
-    #     # print(os.system(f"taskkill /F /PID {process.pid}"))
-    #     signum = signal.CTRL_BREAK_EVENT
+    #    # print(os.system(f"taskkill /F /PID {process.pid}"))
+    #    signum = signal.CTRL_BREAK_EVENT
     # else:
-    #     signum = signal.SIGINT
+    #    signum = signal.SIGINT
 
     # os.kill(process.pid, signum)
 

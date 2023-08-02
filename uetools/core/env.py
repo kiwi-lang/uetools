@@ -90,8 +90,8 @@ class UnrealEnv(gym.Env):
         self.name = self.client.get_name()
 
         # if reacquire:
-        #    self.agent_id = self.client.get_recent_agent()
-        #    self.client.configure_agent(self.agent_id, self.agent_config)
+        #   self.agent_id = self.client.get_recent_agent()
+        #   self.client.configure_agent(self.agent_id, self.agent_config)
 
         # Create the agent
         # ----------------

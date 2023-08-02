@@ -1,6 +1,6 @@
 import argparse
-from typing import Any
 import textwrap
+from typing import Any
 
 
 class ArgumentFormaterBase:
@@ -26,7 +26,7 @@ class ArgumentFormaterBase:
 
         if self.depth_limit > 0 and depth > self.depth_limit:
             return
-        
+
         if depth == 0 and parser.description:
             self.print()
             self.print(f"{'  ' * (depth + 1)} {parser.description}")
@@ -56,7 +56,7 @@ class ArgumentFormaterBase:
     def format_group(self, group: argparse._ArgumentGroup, depth: int):
         if not self.show_groups:
             return
-        
+
         if group._group_actions:
             line = f"{'  ' * (depth - 1)} {group.title:<{self.column(depth - 1)}} {type(group).__name__}"
             self.print(line)
@@ -88,7 +88,7 @@ class ArgumentFormater(ArgumentFormaterBase):
                 self.print(f"{indent}{'-h, --help':<{self.column(depth)}} Show help")
                 self.printed_help = True
             return
-        
+
         # Subparser
         if name is not None and (parser := action.choices[name]):
             title = name
@@ -124,20 +124,24 @@ class ArgumentFormater(ArgumentFormaterBase):
         if choices is not None:
             choices = f'Options: {", ".join(choices)}'
             show_options = True
-        
+
         if not help and choices is not None:
             show_options = False
             help = choices
-        
+
         arg = f"{names}{type}{default}"
-        for i, line in enumerate(textwrap.wrap(help, width=self.description_width, subsequent_indent=" ")):
+        for i, line in enumerate(
+            textwrap.wrap(help, width=self.description_width, subsequent_indent=" ")
+        ):
             if i == 0:
                 self.print(f"{indent}{arg:<{self.column(depth)}} {line}")
             else:
                 self.print(f"{indent}{' ':<{self.column(depth)}} {line}")
 
         if show_options:
-            for line in textwrap.wrap(choices, width=self.description_width, subsequent_indent=" "):
+            for line in textwrap.wrap(
+                choices, width=self.description_width, subsequent_indent=" "
+            ):
                 self.print(f'{indent}{"":<{self.column(depth)}} {line}')
 
 

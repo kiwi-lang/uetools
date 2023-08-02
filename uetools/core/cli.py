@@ -5,7 +5,7 @@ import argparse
 
 from uetools.commands import discover_commands
 
-from .argformat import HelpAction, HelpActionException, DumpParserAction
+from .argformat import DumpParserAction, HelpAction, HelpActionException
 from .command import ParentCommand
 from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
@@ -14,13 +14,13 @@ from .perf import show_timings, timeit
 def parse_args(commands, argv):
     """Setup the argument parser for all supported commands"""
     with timeit("build_parser"):
-        parser = argparse.ArgumentParser(add_help=False, description="Unreal Engine Utility")
+        parser = argparse.ArgumentParser(
+            add_help=False, description="Unreal Engine Utility"
+        )
         parser.add_argument(
             "-h", "--help", action=HelpAction, help="show this help message and exit"
         )
-        parser.add_argument(
-            "-zyx", action=DumpParserAction, help=""
-        )
+        parser.add_argument("-zyx", action=DumpParserAction, help="")
         parser.add_argument(
             "-v",
             "--engine-version",

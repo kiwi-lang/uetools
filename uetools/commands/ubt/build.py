@@ -130,10 +130,10 @@ def replace_variables(command, variables):
 # fmt: off
 @dataclass
 class Arguments:
-    target  : str                        #  Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
-    platform: str = choice(*get_build_platforms(), default=guess_platform())  #  Platform to build for, defaults to current platform (Win64, Linux, etc..)
-    mode    : str = choice(*get_build_modes(), default="Development")  #  Build mode (Tests, Debug, Development, Shipping)
-    profile : Optional[str] = None  #  Build multiple targets using a configuration
+    target  : str                        # Name of the the target to build (UnrealPak, RTSGame, RTSGameEditor, etc...)
+    platform: str = choice(*get_build_platforms(), default=guess_platform())  # Platform to build for, defaults to current platform (Win64, Linux, etc..)
+    mode    : str = choice(*get_build_modes(), default="Development")  # Build mode (Tests, Debug, Development, Shipping)
+    profile : Optional[str] = None  # Build multiple targets using a configuration
 # fmt: on
 
 
@@ -239,16 +239,16 @@ class Build(Command):
         cmd.append(f"-abslog={logfile}")
 
         # Tools
-        #    RequiredTools UnrealFrontend UnrealEditor UnrealInsights
+        #   RequiredTools UnrealFrontend UnrealEditor UnrealInsights
         #
         # I have an issue forwarding arguments to linux
         # The make file simply does:
-        #     $(BUILD) UnrealHeaderTool Linux Development  -project="$(GAMEPROJECTFILE)" $(ARGS)
+        #    $(BUILD) UnrealHeaderTool Linux Development  -project="$(GAMEPROJECTFILE)" $(ARGS)
         # with:
-        #    bash "$(UNREALROOTPATH)/Engine/Build/BatchFiles/Linux/Build.sh"
+        #   bash "$(UNREALROOTPATH)/Engine/Build/BatchFiles/Linux/Build.sh"
         #
         # The script then does:
-        #   dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll "$@"
+        #  dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll "$@"
         #
         #
         cmd = [ubt()] + cmd

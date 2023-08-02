@@ -12,9 +12,9 @@ COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
 # pylint: disable=too-few-public-methods
 class Arguments:
     # fmt: off
-    project : str                   #  name of your project
-    no_input: bool = False          #  Do not show user prompts
-    config  : Optional[str] = None  #  Configuration file used to initialize the project (json)
+    project : str                   # name of your project
+    no_input: bool = False          # Do not show user prompts
+    config  : Optional[str] = None  # Configuration file used to initialize the project (json)
     # fmt: on
 
 

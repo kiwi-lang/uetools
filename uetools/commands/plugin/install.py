@@ -11,10 +11,10 @@ from uetools.core.run import run
 @dataclass
 class Arguments:
     # fmt: off
-    name        : str                    #  Name of the project to modify.
-    url         : str                    #  url of the plugin to install.
-    destination : Optional[str] = None   #  installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
-    submodule   : bool          = False  #  install the plugin as a git submodule (defaults to: ``False``)# fmt: on
+    name        : str                    # Name of the project to modify.
+    url         : str                    # url of the plugin to install.
+    destination : Optional[str] = None   # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
+    submodule   : bool          = False  # install the plugin as a git submodule (defaults to: ``False``)# fmt: on
     # fmt: on
 
 
@@ -27,12 +27,12 @@ class Install(Command):
     .. code-block::
 
         # This will install the plugin inside RTSGame/Plugins/
-        #  it will download the repository on put it inside the RTSGame/Plugins/ folder
+        # it will download the repository on put it inside the RTSGame/Plugins/ folder
         uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable
 
         # This will install the plugin inside RTSGame/Plugins/
         # it will execute the following command:
-        #    - git submodule add https://github.com/Phyronnaz/VoxelPlugin Plugins/VoxelPlugin
+        #   - git submodule add https://github.com/Phyronnaz/VoxelPlugin Plugins/VoxelPlugin
         #
         uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable --destination Plugins --submodule
 

@@ -56,13 +56,13 @@ class RunTests(Command):
 
         # # E:\UnrealEngine\Engine\Source\Developer\AutomationController\Private\AutomationCommandline.cpp
         # Valid automation commands
-        #   Automation StartRemoteSession <sessionid>
-        #   Automation List
-        #   Automation RunTests <test string>
-        #   Automation RunAll
-        #   Automation RunFilter <Engine|Smoke|Stress|Perf|Product|All>
-        #   Automation SetFilter <filter name>
-        #   Automation Quit
+        #  Automation StartRemoteSession <sessionid>
+        #  Automation List
+        #  Automation RunTests <test string>
+        #  Automation RunAll
+        #  Automation RunFilter <Engine|Smoke|Stress|Perf|Product|All>
+        #  Automation SetFilter <filter name>
+        #  Automation Quit
 
         args = [
             editor_cmd(),

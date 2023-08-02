@@ -11,7 +11,7 @@ BUILTIN_PATTERN = re.compile(r"UE_(?P<version>(([0-9]*)\.[0-9]*))")
 
 
 def get_engine_version(path):
-    #  Prebuild installs have a path that contains UEM.MIN/
+    # Prebuild installs have a path that contains UEM.MIN/
     result = BUILTIN_PATTERN.search(path)
     if result:
         version = result.groupdict().get("version")
@@ -24,9 +24,9 @@ def get_engine_version(path):
 @dataclass
 class EngineAddArguments:
     # fmt: off
-    version: Optional[str] = None  #  Unreal Engine Version (5.1)
-    engine: Optional[str] = None  #  Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    force: bool = False  #  Allow version override
+    version: Optional[str] = None  # Unreal Engine Version (5.1)
+    engine: Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+    force: bool = False  # Allow version override
     # fmt: on
 
 

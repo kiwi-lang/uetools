@@ -39,4 +39,4 @@ def test_mock_editor(project, project_name, monkeypatch, cmd, rc, extra):
 
 
 # def test_mock_editor_ml(project, project_name, monkeypatch, cmd, rc, extra):
-#     assert main(args("editor", 'ml', project_name, "FakeMap")) == rc
+#    assert main(args("editor", 'ml', project_name, "FakeMap")) == rc

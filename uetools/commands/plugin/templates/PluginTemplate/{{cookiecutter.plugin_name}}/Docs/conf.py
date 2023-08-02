@@ -165,9 +165,9 @@ primary_domain = "cpp"
 highlight_language = "cpp"
 
 # breathe_projects_source = {
-#    "myprojectsource" :
-#        ( "/some/long/path/to/myproject", [ "file.c", "subfolder/otherfile.c" ] )
-#    }
+#   "myprojectsource" :
+#       ( "/some/long/path/to/myproject", [ "file.c", "subfolder/otherfile.c" ] )
+#   }
 
 # =================
 
@@ -327,8 +327,8 @@ html_extra_path = ["_build/doxygen"]
 
 # Language to be used for generating the HTML full-text search index.
 # Sphinx supports the following languages:
-#   'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'ja'
-#   'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'tr'
+#  'da', 'de', 'en', 'es', 'fi', 'fr', 'hu', 'it', 'ja'
+#  'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'tr'
 # html_search_language = 'en'
 
 # A dictionary with options for the search language support, empty by default.
@@ -357,7 +357,7 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
+# author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (
         master_doc,
@@ -403,7 +403,7 @@ man_pages = [(master_doc, project_name, f"{project_name} Documentation", [author
 
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
-#  dir menu entry, description, category)
+# dir menu entry, description, category)
 texinfo_documents = [
     (
         master_doc,

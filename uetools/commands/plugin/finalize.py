@@ -27,9 +27,9 @@ class FinalizePlugin(Command):
 
     @dataclass
     class Arguments:
-        plugin: str  #  plugin name
-        output: str  #  output
-        marketplace: bool = False  #  make the folder marketplace friendly
+        plugin: str  # plugin name
+        output: str  # output
+        marketplace: bool = False  # make the folder marketplace friendly
 
     @staticmethod
     def arguments(subparsers):

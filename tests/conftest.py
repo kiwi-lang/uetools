@@ -54,8 +54,8 @@ def project_name(project_root):
     # i = 0
     # name = f"MyProjectT{i}"
     # while os.path.exists(os.path.join(PROJECT_ROOT, name)):
-    #     i += 1
-    #     name = f"MyProjectT{i}"
+    #    i += 1
+    #    name = f"MyProjectT{i}"
 
     return original_name
 

@@ -105,7 +105,7 @@ def bash(name):
         return name + ".bat"
 
     # if OSX:
-    #    return name + '.command'
+    #   return name + '.command'
 
     return name + ".sh"
 
@@ -210,7 +210,7 @@ def editor_commandlet(project_path, command):
 
 
 # Supported platforms are listed here
-#       UnrealEngine\Engine\Source\Programs\UnrealBuildTool\Platform
+#      UnrealEngine\Engine\Source\Programs\UnrealBuildTool\Platform
 #
 UBT_PLATFORMS = {
     "Android",

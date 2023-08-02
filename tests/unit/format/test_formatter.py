@@ -50,7 +50,6 @@ def test_formatter(capsys):
 
 @pytest.mark.skipif(os.name == "nt", reason="Not supported")
 def test_formatter_cook(capsys, tmp_path):
-
     result = os.path.join(".", "output.txt")
     target = os.path.join(folder, "cooking_out.txt")
     input = os.path.join(folder, "cooking_in.txt")
@@ -135,7 +134,7 @@ def test_formater_return_exit_code():
 
 # def test_format_callstack():
 
-#     fmt = Formatter(24)
-#     fmt.print_non_matching = True
-#     for line in callstack.splitlines():
-#         fmt.match_regex(line)
+#    fmt = Formatter(24)
+#    fmt.print_non_matching = True
+#    for line in callstack.splitlines():
+#        fmt.match_regex(line)

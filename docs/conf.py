@@ -152,14 +152,14 @@ html_theme_options = {
     "logo_only": False,
     "display_version": True,
     "prev_next_buttons_location": "both",
-    #  'style_external_links': False,
-    #  'vcs_pageview_mode': '',
+    # 'style_external_links': False,
+    # 'vcs_pageview_mode': '',
     # Toc options
     "collapse_navigation": False,
     "sticky_navigation": True,
     "navigation_depth": 4,
-    #  'includehidden': False,
-    #  'titles_only': False
+    # 'includehidden': False,
+    # 'titles_only': False
 }
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -211,7 +211,7 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
+# author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, "uetools.tex", "uetools Documentation", "authors", "manual"),
 ]
@@ -228,7 +228,7 @@ man_pages = [(master_doc, "uetools", "uetools Documentation", [author], 1)]
 
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
-#  dir menu entry, description, category)
+# dir menu entry, description, category)
 texinfo_documents = [
     (
         master_doc,
@@ -242,7 +242,7 @@ texinfo_documents = [
 ]
 
 ################################################################################
-#                             Numpy Doc Extension                              #
+#                            Numpy Doc Extension                              #
 ################################################################################
 
 # sphinx.ext.autosummary will automatically be loaded as well. So:

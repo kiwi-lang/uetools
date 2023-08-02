@@ -6,7 +6,7 @@ from uetools.core.testing import git_diff, git_status
 skipif = pytest.mark.skipif
 
 
-#  The multiline break it to force the editor to keep an extra whitespacee
+# The multiline break it to force the editor to keep an extra whitespacee
 diff = """+[/Script/PythonScriptPlugin.PythonScriptPluginUserSettings]
 +bDeveloperMode=True
 +bEnableContentBrowserIntegration=True

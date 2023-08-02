@@ -6,7 +6,7 @@ import dataclasses
 import inspect
 import re
 import typing
-from dataclasses import MISSING, fields, field
+from dataclasses import MISSING, fields
 from typing import get_type_hints
 
 forward_refs_to_types = {
@@ -24,28 +24,26 @@ class Subparser:
 
 def argument(default, **kwargs):
     # argparse.ArgumentParser().add_argument
-    kwargs['type'] = 'argument'
-    return field(default=default, metadata=kwargs)
+    kwargs["type"] = "argument"
+    return dataclasses.field(default=default, metadata=kwargs)
 
 
 def group(default, **kwargs):
     # argparse.ArgumentParser().add_argument_group()
-    kwargs['type'] = 'group'
-    return field(default_factory=default, metadata=kwargs)
+    kwargs["type"] = "group"
+    return dataclasses.field(default_factory=default, metadata=kwargs)
 
 
 def subparser(**kwargs):
     # argparse.ArgumentParser().add_subparsers()
-    kwargs['type'] = 'subparser'
-    return field(default=None, metadata=kwargs)
+    kwargs["type"] = "subparser"
+    return dataclasses.field(default=None, metadata=kwargs)
+
 
 def parser(default, **kwargs):
     # argparse.ArgumentParser().add_subparsers().add_parser()
-    kwargs['type'] = 'parser'
-    return field(default_factory=default, metadata=kwargs)
-
-
-
+    kwargs["type"] = "parser"
+    return dataclasses.field(default_factory=default, metadata=kwargs)
 
 
 def field(*args, choices=None, type=None, **kwargs):
@@ -125,7 +123,6 @@ def leaf_type(type_hint):
         return type_hint.__args__[0]
     except:
         return type_hint
-
 
 
 def deduce_add_arguments(field, docstring):
@@ -208,7 +205,6 @@ def find_docstring(field, lines, start_index):
     return None, start
 
 
-
 docstring_oneline = re.compile(r'(\s*)"""(.*)"""')
 docstring_start = re.compile(r'(\s*)"""(.*)')
 docstring_end = re.compile(r'(.*)"""')
@@ -221,11 +217,11 @@ def find_dataclass_docstring(dataclass):
     started = False
     recognized = 0
     for i, line in enumerate(source):
-        if '@dataclass' in line:
+        if "@dataclass" in line:
             recognized += 1
             continue
 
-        if 'class ' in line:
+        if "class " in line:
             recognized += 1
             continue
 
@@ -246,10 +242,12 @@ def find_dataclass_docstring(dataclass):
         if started:
             docstring_lines.append(line.strip())
 
-    return source, '\n'.join(docstring_lines).strip(), i
+    return source, "\n".join(docstring_lines).strip(), i
 
 
-def add_arguments(parser: argparse.ArgumentParser, dataclass, create_group=True, mapper=None):
+def add_arguments(
+    parser: argparse.ArgumentParser, dataclass, create_group=True, mapper=None
+):
     """Traverse the dataclass hierarchy and build a parser tree"""
     source, parser.description, start = find_dataclass_docstring(dataclass)
 
@@ -273,42 +271,41 @@ def add_arguments(parser: argparse.ArgumentParser, dataclass, create_group=True,
 
     map(parser, dataclass)
 
-
     for field in fields(dataclass):
         meta = dict(field.metadata)
-        special_argument = meta.pop('type', None)
+        special_argument = meta.pop("type", None)
         docstring, start = find_docstring(field, source, start)
 
-        if special_argument == 'group':
-            meta.setdefault('title', field.name)
-            meta.setdefault('description', docstring)
-            
+        if special_argument == "group":
+            meta.setdefault("title", field.name)
+            meta.setdefault("description", docstring)
+
             group = parser.add_argument_group(**meta)
             map(group, field)
 
             add_arguments(group, field.type, create_group=False)
             continue
 
-        if special_argument == 'subparser':
-            meta.setdefault('title', field.name)
-            meta.setdefault('description', docstring)
-            meta.setdefault('dest', field.name)
+        if special_argument == "subparser":
+            meta.setdefault("title", field.name)
+            meta.setdefault("description", docstring)
+            meta.setdefault("dest", field.name)
 
             if subparser is None:
                 subparser = parser.add_subparsers(**meta)
                 map(subparser, field)
             continue
 
-        if special_argument == 'parser':
-            meta.setdefault('name', field.name)
-            meta.setdefault('description', docstring)
+        if special_argument == "parser":
+            meta.setdefault("name", field.name)
+            meta.setdefault("description", docstring)
 
             parser = subparser.add_parser(**meta)
             mapper[field] = parser
             add_arguments(parser, field.type, create_group=False)
             continue
 
-        if special_argument == 'argument':
+        if special_argument == "argument":
             _, _, deduced = deduce_add_arguments(field, docstring)
 
             for k, v in deduced.items():
@@ -316,7 +313,7 @@ def add_arguments(parser: argparse.ArgumentParser, dataclass, create_group=True,
 
             map(parser.add_argument(**meta), field)
             continue
-        
+
         if field.type == "bool" or field.type is bool:
             map(_add_flag(group, field, docstring), field)
         else:

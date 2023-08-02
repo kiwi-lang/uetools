@@ -8,7 +8,7 @@ from uetools.core.conf import is_ci
 skipif = pytest.mark.skipif
 
 # but it works if I build for Gamekit
-#       - uecli plugin GamekitDev Plugins/Gamekit/Gamekit.uplugin --output E:/Trash --platform Win64
+#      - uecli plugin GamekitDev Plugins/Gamekit/Gamekit.uplugin --output E:/Trash --platform Win64
 #
 # ERROR: Environment variable 'CommonProgramFiles' is not defined (referenced by E:\UnrealEngine\Engine\Source\ThirdParty\ADO\ADO.Build.cs)
 
@@ -16,7 +16,6 @@ skipif = pytest.mark.skipif
 @skipif(True, reason="Failing on the example plugin")
 @skipif(is_ci(), reason="Unreal engine is not installed")
 def test_plugin(project, project_name, tmp_path):
-
     main(
         args(
             "ubt",

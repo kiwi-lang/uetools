@@ -15,8 +15,8 @@ from uetools.core.conf import find_project
 # fmt: off
 @dataclass
 class Arguments:
-    project: str  #  Project name
-    no_input: bool = True  #  Disable prompt
+    project: str  # Project name
+    no_input: bool = True  # Disable prompt
 
 
 # fmt: on

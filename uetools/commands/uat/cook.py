@@ -22,9 +22,9 @@ class UATArguments:
     project         : str
     unattended      : bool = True
     utf8output      : bool = True
-    platform        : str = choice(*get_build_platforms(), default=guess_platform())    #  Platform
-    clientconfig    : str = choice(*get_build_modes(), default="Development")           #  Client Build configuration
-    serverconfig    : str = choice(*get_build_modes(), default="Development")           #  Server Build configuration
+    platform        : str = choice(*get_build_platforms(), default=guess_platform())    # Platform
+    clientconfig    : str = choice(*get_build_modes(), default="Development")           # Client Build configuration
+    serverconfig    : str = choice(*get_build_modes(), default="Development")           # Server Build configuration
     noP4            : bool = True
     nodebuginfo     : bool = True
     allmaps         : bool = True

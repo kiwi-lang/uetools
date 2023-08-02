@@ -68,8 +68,8 @@ def test_install_submodule(project, project_name, capsys):
     capture = capsys.readouterr().out.splitlines()
 
     # Plugins:
-    #   - ExamplePlugin
-    #   - ExamplePlugin2
+    #  - ExamplePlugin
+    #  - ExamplePlugin2
     assert len(capture) == 3
 
     output = subprocess.check_output(
