@@ -75,7 +75,9 @@ autodoc_default_options = {
     "special-members": False,
 }
 
-from uetools.commands import commands
+from uetools.commands import discover_commands
+
+commands = discover_commands()
 
 nitpick_ignore = [
     ("py:obj", "uetools.commands.fmt.CookingFormatter.match_regex"),

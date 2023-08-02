@@ -15,6 +15,7 @@ graft uetools/plugins/gamekit/resources
 exclude tox.ini
 exclude Makefile
 exclude .pylintrc
+exclude .readthedocs.yaml
 exclude  .pre-commit-config.yaml
 
 prune docs
