@@ -64,7 +64,8 @@ class Init(Command):
                 project_paths = [project_paths]
 
             default_engine = conf.get("engine_path", default_engine)
-            default_project = project_paths[0]
+            if len(project_paths) != 0:
+                default_project = project_paths[0]
 
         if args.engine is None:
             engine_path = input(f"Engine Folder [{default_engine}]: ")
