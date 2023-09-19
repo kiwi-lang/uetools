@@ -193,10 +193,11 @@ def editor_cmd():
     )
 
 
-def editor_commandlet(project_path, command):
+def editor_commandlet(project_path, command, *args):
     """Returns editor arguments to run a commandlet"""
     return [editor_cmd()] + [
         project_path,
+        *args,
         "-NoLiveCoding",
         "-fullstdoutlogoutput",
         "-utf8output",

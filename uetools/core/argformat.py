@@ -6,7 +6,7 @@ from typing import Any
 class ArgumentFormaterBase:
     def __init__(self) -> None:
         self.group_increase_indent = False
-        self.show_groups = False
+        self.show_groups = True
         self.newline_between_groups = False
         self.depth_limit = 0
         self.col = 50
@@ -27,12 +27,11 @@ class ArgumentFormaterBase:
         if self.depth_limit > 0 and depth > self.depth_limit:
             return
 
-        if depth == 0 and parser.description:
+        if depth == 0:
             self.print()
             self.print(f"{'  ' * (depth + 1)} {parser.description}")
             self.print()
             self.print(f"{'  ' * (depth + 2)} {parser.format_usage()}")
-            self.print("Arguments:")
 
         for group in parser._action_groups:
             self.format_group(group, depth)
@@ -78,6 +77,21 @@ class ArgumentFormater(ArgumentFormaterBase):
         if not self.show_groups:
             return
 
+        if depth > 0:
+            return
+
+        def count_action(actions):
+            acc = 0
+            for action in actions:
+                if isinstance(action, (argparse._HelpAction, HelpAction)):
+                    continue
+                acc += 1
+            return acc
+
+        if count_action(group._group_actions) > 0:
+            line = f"\n{group.title:<{self.column(0)}}{group.description or ''}"
+            self.print(line)
+
     def format_action(self, action: argparse.Action, depth: int, name=None):
         """Format an argparse action"""
         indent = "  " * depth
@@ -105,7 +119,7 @@ class ArgumentFormater(ArgumentFormaterBase):
         if action.type:
             type = f": {action.type.__name__}"
 
-        if isinstance(action, argparse._StoreTrueAction):
+        if isinstance(action, (argparse._StoreTrueAction, argparse._StoreFalseAction)):
             type = ": bool"
 
         if action.nargs and action.nargs != 0:
@@ -129,20 +143,26 @@ class ArgumentFormater(ArgumentFormaterBase):
             show_options = False
             help = choices
 
-        arg = f"{names}{type}{default}"
-        for i, line in enumerate(
-            textwrap.wrap(help, width=self.description_width, subsequent_indent=" ")
-        ):
-            if i == 0:
-                self.print(f"{indent}{arg:<{self.column(depth)}} {line}")
-            else:
-                self.print(f"{indent}{' ':<{self.column(depth)}} {line}")
+        def show_line(arg, help):
+            if help is None or help == "":
+                self.print(f"{indent}{arg:<{self.column(depth)}} {help}")
+                return
 
+            wrap_iter = textwrap.wrap(
+                help, width=self.description_width, subsequent_indent=" "
+            )
+
+            for i, line in enumerate(wrap_iter):
+                if i == 0:
+                    self.print(f"{indent}{arg:<{self.column(depth)}} {line}")
+                else:
+                    self.print(f"{indent}{' ':<{self.column(depth)}} {line}")
+
+        #
+        arg = f"{names}{type}{default}"
+        show_line(arg, help)
         if show_options:
-            for line in textwrap.wrap(
-                choices, width=self.description_width, subsequent_indent=" "
-            ):
-                self.print(f'{indent}{"":<{self.column(depth)}} {line}')
+            show_line("", choices)
 
 
 def show_parsing_tree(parser: argparse.ArgumentParser, depth: int = 0):
@@ -180,3 +200,21 @@ class DumpParserAction(argparse._HelpAction):
     def __call__(self, parser, namespace, values, option_string=None):
         show_parsing_tree(parser)
         parser.exit()
+
+
+def normalize(namespace):
+    new = argparse.Namespace()
+    for k, v in vars(namespace).items():
+        current = new
+        keys = k.split(".")
+
+        for k in keys[:-1]:
+            if k in current:
+                current = getattr(current, k)
+            else:
+                next = argparse.Namespace()
+                setattr(current, k, next)
+                current = next
+
+        setattr(current, keys[-1], v)
+    return new

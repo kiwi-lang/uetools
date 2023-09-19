@@ -35,8 +35,8 @@
 		},
 		{
 			"Name": "{{cookiecutter.plugin_name}}Ed",
-			"Type": "Runtime",
-			"LoadingPhase": "Editor",
+			"Type": "Editor",
+			"LoadingPhase": "Default",
 			"PlatformAllowList": [
 				"Win64",
 				"Linux"
@@ -44,8 +44,8 @@
 		},
 		{
 			"Name": "{{cookiecutter.plugin_name}}Test",
-			"Type": "Runtime",
-			"LoadingPhase": "Editor",
+			"Type": "Editor",
+			"LoadingPhase": "Default",
 			"PlatformAllowList": [
 				"Win64",
 				"Linux"

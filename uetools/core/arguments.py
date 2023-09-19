@@ -241,6 +241,8 @@ def find_dataclass_docstring(dataclass):
 
         if started:
             docstring_lines.append(line.strip())
+    else:
+        i = 0
 
     return source, "\n".join(docstring_lines).strip(), i
 

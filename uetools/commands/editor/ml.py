@@ -18,6 +18,7 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
+    """Launch unreal engine with mladapter setup"""
     resx                : int = 320     # resolution width
     resy                : int = 240     # resolution height
     fps                 : int = 20      # Max FPS

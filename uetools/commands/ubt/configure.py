@@ -38,12 +38,33 @@ def find_or_insert(root, *paths, namespaces=None):
     return val
 
 
-def get_ubt_configfile():
+def get_user_ubt_configfile():
+    from pathlib import Path
+
+    home_dir = Path.home()
+
+    user_ubt_config = os.path.join(
+        home_dir,
+        "AppData",
+        "Roaming",
+        "Unreal Engine",
+        "UnrealBuildTool",
+        "BuildConfiguration.xml",
+    )
+
+    return user_ubt_config
+
+
+def get_global_ubt_configfile():
     engine = engine_folder()
     global_ubt_config = os.path.join(
         engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
     )
     return global_ubt_config
+
+
+def get_ubt_configfile():
+    return get_user_ubt_configfile()
 
 
 class Configure(Command):
@@ -57,6 +78,12 @@ class Configure(Command):
         $ ubt configure ParallelExecutor.MaxProcessorCount=16
         ParallelExecutor.MaxProcessorCount: 16 => 16
 
+        $ uecli ubt configure BuildConfiguration.MaxParallelActions=8
+
+    Notes
+    -----
+
+    ``ParallelExecutor.MaxProcessorCount`` does not have to have an effect anymore
     """
 
     name: str = "configure"
@@ -130,6 +157,7 @@ class Configure(Command):
         output = to_xml(configuration)
 
         if args.show:
+            print(configfile)
             print(output)
 
         if not args.dry:

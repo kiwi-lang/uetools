@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, newparser
@@ -9,7 +10,7 @@ from uetools.format.base import Formatter
 
 @dataclass
 class Arguments:
-    project: str  # Name of the the project to open
+    project: Optional[str] = None  # Name of the the project to open
 
 
 class Open(Command):
@@ -33,10 +34,14 @@ class Open(Command):
 
     @staticmethod
     def execute(args):
-        project = find_project(args.project)
+        cmd = [editor()]
+
+        if args.project:
+            project = find_project(args.project)
+            cmd.append(project)
 
         fmt = Formatter()
-        return popen_with_format(fmt, [editor(), project])
+        return popen_with_format(fmt, cmd)
 
 
 COMMANDS = Open

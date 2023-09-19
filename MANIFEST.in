@@ -16,7 +16,7 @@ exclude tox.ini
 exclude Makefile
 exclude .pylintrc
 exclude .readthedocs.yaml
-exclude  .pre-commit-config.yaml
+exclude .pre-commit-config.yaml
 
 prune docs
 prune tests

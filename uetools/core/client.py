@@ -1,5 +1,3 @@
-# Copyright Epic Games, Inc. All Rights Reserved.
-
 import logging
 import re
 import socket
