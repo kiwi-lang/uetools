@@ -8,7 +8,7 @@ class ProjectNew(Command):
 
     @staticmethod
     def arguments(subparsers):
-        parser = newparser(subparsers, ProjectNew)
+        newparser(subparsers, ProjectNew)
 
     @staticmethod
     def execute(args):

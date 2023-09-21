@@ -15,7 +15,6 @@ UE_LOG_FORMAT = re.compile(
 UE_LOG_FORMAT_UTC = re.compile(
     r"^\[(?P<datetime>\d{4}\.\d{2}\.\d{2}-\d{2}\.\d{2}\.\d{2}:\d{3})\]\[\s*(?P<frame>\d*)\](?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)"
 )
-
 UE_STDOUT_FORMAT = re.compile(
     r"^(?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)"
 )
@@ -80,8 +79,9 @@ def colored(text, color, attrs=None):
 
 # The logging format is specified in the follorwing function calls
 # Logf_InternalImpl(File, Line, Category, Verbosity, Fmt, Args...);
-# FPlatformMisc::LowLevelOutputDebugStringf(TEXT("%s%s"),*FOutputDeviceHelper::FormatLogLine(Verbosity, Category, Data, GPrintLogTimes, Time),LINE_TERMINATOR);
-
+# FPlatformMisc::LowLevelOutputDebugStringf(TEXT("%s%s"),
+#   *FOutputDeviceHelper::FormatLogLine(Verbosity, Category, Data, GPrintLogTimes, Time),LINE_TERMINATOR);
+#
 
 class Formatter:
     """Parse an unreal engine output log line and formats it"""

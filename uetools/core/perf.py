@@ -37,10 +37,10 @@ class TimerGroup:
     def show(self, depth=1):
         col = 40 - depth
         idt = depth * " "
-        l = max(col - len(self.name), 0)
+        lsize = max(col - len(self.name), 0)
         sep = {0: "_", 1: ".", 2: " "}[depth % 3]
 
-        print(f"{idt}{self.name} {sep * l} {self.latest():5.2f}")
+        print(f"{idt}{self.name} {sep * lsize} {self.latest():5.2f}")
         if len(self.subgroups) > 0:
             for _, v in self.subgroups.items():
                 v.show(depth + 1)

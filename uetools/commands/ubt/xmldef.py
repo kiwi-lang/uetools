@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-
+# ruff: noqa
 # fmt: off
 @dataclass
 class BuildConfigurationT:

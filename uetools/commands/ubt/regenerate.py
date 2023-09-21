@@ -90,7 +90,7 @@ class Generate(Command):
 
         print(" ".join(cmd))
 
-        root = os.path.dirname(project)
+        os.path.dirname(project)
 
         fmt = Formatter()
         return popen_with_format(fmt, cmd)

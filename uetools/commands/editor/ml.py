@@ -221,7 +221,7 @@ class UnrealEngineProcess:
         while self.proc.is_alive() and self.states["status"] == "running":
             try:
                 os.kill(pid, signum)
-            except SystemError as err:
+            except SystemError:
                 pass
 
             time.sleep(SLEEP)

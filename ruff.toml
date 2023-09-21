@@ -1,0 +1,7 @@
+
+
+line-length = 400
+
+ignore = ['E402', 'E722']
+
+target-version = "py38"

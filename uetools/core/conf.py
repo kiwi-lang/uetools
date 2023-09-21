@@ -410,7 +410,7 @@ def retrieve_exact_engine_version(engine_folder, default=None, ignore_patch=True
 
     versions = ["0", "0", "0"]
 
-    n = len(version_names[0])
+    len(version_names[0])
     i = 0
 
     with open(path) as f:
@@ -478,6 +478,6 @@ def get_version_tag(path, default="1.0"):
     try:
         cmd = "git --no-optional-locks describe --tags --abbrev=0"
         return subprocess.check_output(cmd.split(" "), cwd=path).decode("utf-8").strip()
-    except Exception as err:
+    except Exception:
         print(f"Could not use git to find version for {path}")
         return default

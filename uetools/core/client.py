@@ -387,11 +387,27 @@ class Client:
         return self.call("get_description", element_name)
 
     def list_sensor_types(self):
-        """Lists all sensor types available to agents. Note that some of sensors might not make sense in a given environment (like reading keyboard in an mouse-only game)."""
+        """Lists all sensor types available to agents. 
+       
+        Notes
+        -----
+
+        Some of sensors might not make sense in a given environment 
+        like reading keyboard in an mouse-only game.
+        
+        """
         return self.call("list_sensor_types")
 
     def list_actuator_types(self):
-        """Lists all actuator types available to agents. Note that some of actuators might not make sense in a given environment (like faking keyboard actions in an mouse-only game)."""
+        """Lists all actuator types available to agents. 
+        
+        Notes
+        -----
+
+        Some of actuators might not make sense in a given environment 
+        like faking keyboard actions in an mouse-only game.
+        
+        """
         return self.call("list_actuator_types")
 
     def ping(self):
@@ -459,7 +475,9 @@ class Client:
         return self.call("desc_observation_space", agent_id)
 
     def reset(self):
-        """Lets the MLAdapter manager know that the environments should be reset. The details of how this call is handles heavily depends on the environment itself."""
+        """Lets the MLAdapter manager know that the environments should be reset. 
+        The details of how this call is handles heavily depends on the environment itself.
+        """
         return self.notify("reset")
 
     def configure_agent(self, agent_id: int, json_config: str):
@@ -479,11 +497,20 @@ class Client:
         return self.call("is_ready")
 
     def enable_manual_world_tick(self, enable: bool):
-        """Controls whether the world is running real time or it's being ticked manually with calls to 'step' or 'request_world_tick' functions. Default is 'real time'."""
+        """Controls whether the world is running real time or it's being ticked manually 
+        with calls to 'step' or 'request_world_tick' functions. 
+        
+        Default is 'real time'.
+        
+        """
         return self.call("enable_manual_world_tick", enable)
 
     def request_world_tick(self, tick_count: int, wait_for_world_tick: bool):
-        """Requests a TickCount world ticks. This has meaning only if 'enable_manual_world_tick(true)' has been called prior to this function. If bWaitForWorldTick is true then the call will not return until the world has been ticked required number of times"""
+        """Requests a TickCount world ticks. 
+        This has meaning only if 'enable_manual_world_tick(true)' has been called prior to this function. 
+        If bWaitForWorldTick is true then the call will not return 
+        until the world has been ticked required number of times
+        """
         return self.call("request_world_tick", tick_count, wait_for_world_tick)
 
     def enable_action_duration(
@@ -495,7 +522,8 @@ class Client:
         )
 
     def wait_for_action_duration(self, agent_id: int):
-        """Wait for the action duration to elapse for the agent. Only works if 'enable_action_duration' has been called previously."""
+        """Wait for the action duration to elapse for the agent. 
+        Only works if 'enable_action_duration' has been called previously."""
         return self.call("wait_for_action_duration", agent_id)
 
     def close_session(self):

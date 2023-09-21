@@ -206,7 +206,7 @@ def read(filename, voice, outputfile):
             audio = generate_audio_buffer(sample_rate)
 
         ss = s.second * sample_rate
-        ee = e.second * sample_rate
+        e.second * sample_rate
 
         print("  -", i, t)
         audio[ss : ss + len(data)] = data[0:]
