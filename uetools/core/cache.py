@@ -67,7 +67,7 @@ def cache_to_local(cache_key):
         key = hashlib.sha256()
 
         for arg in args:
-            key.update(str(arg).encode())
+            key.update(str(arg.__name__).encode())
 
         for k, v in kwargs.items():
             key.update(str(k).encode())
