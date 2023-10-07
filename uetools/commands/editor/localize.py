@@ -16,7 +16,7 @@ actions = ["Gather", "Compile", "import", "export"]
 # fmt: off
 @dataclass
 class ArgumentEditor:
-    project                 : str  # Project we are generating localization for
+    project                 : Optional[str] = None  # Name of the the project to open
     run                     : str = choice("GatherText")
     target                  : Optional[str] = None  # Localization target (defaults to the project name)
     SCCProvider             : Optional[str] = None  # Source control provider

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, newparser
@@ -10,7 +11,7 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    project: str
+    project: Optional[str] = None  # Name of the the project to open
     no_input: bool = True
 # fmt: on
 

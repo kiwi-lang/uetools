@@ -300,8 +300,11 @@ class ML(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, ML)
-        parser.add_argument("project", type=str, help="Name of the the project to open")
         parser.add_argument("map", type=str, help="Name of the map to open")
+        parser.add_argument(
+            "--project", type=str, help="Name of the the project to open", default=None
+        )
+
         add_arguments(parser, Arguments)
         parser.add_argument(
             "--dry",

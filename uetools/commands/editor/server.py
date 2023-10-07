@@ -11,8 +11,8 @@ from uetools.format.base import Formatter
 # fmt: off
 @dataclass
 class Arguments:
-    project     : str           # Name of the project to serve
     map         : str           # Name of the map to serve
+    project     : Optional[str] = None  # Name of the the project to open
     dedicated   : bool = False  # If true will start a dedicated server, otherwise a listen server (one local player that can host remote players)
     port        : int = 8123    # Server port
     dry         : bool = False  # Print the command it will execute without running it

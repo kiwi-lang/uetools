@@ -85,10 +85,10 @@ def cache_to_local(cache_key):
             key = f"{cache_key}_{argk}"
             cached_result, cached_version = caches.get(key, (None, None))
 
+            cache_file = pkg_resources.resource_filename(__name__, f"data/{key}.pkl")
+
             if cached_result is None:
-                cache_file = pkg_resources.resource_filename(
-                    __name__, f"data/{key}.pkl"
-                )
+
                 cached_result, cached_version = _load_cache(cache_file)
                 caches[key] = cached_result, cached_version
 

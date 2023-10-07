@@ -35,7 +35,7 @@ def test_mock_editor(project, project_name, monkeypatch, cmd, rc, extra):
     monkeypatch.setattr(
         f"uetools.commands.editor.{cmd}.popen_with_format", lambda *a, **b: rc
     )
-    assert main(args("editor", cmd, project_name, *extra)) == rc
+    assert main(args("editor", cmd, "--project", project_name, *extra)) == rc
 
 
 # def test_mock_editor_ml(project, project_name, monkeypatch, cmd, rc, extra):

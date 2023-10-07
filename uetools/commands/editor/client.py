@@ -11,7 +11,7 @@ from uetools.format.base import Formatter
 @dataclass
 class Arguments:
     # fmt: off
-    project: str  # Name of the the project to open
+    project: Optional[str] = None  # Name of the the project to open
     address: Optional[str] = None  # Address to the server
     port: int = 8123  # Server port
     dry: bool = False  # Print the command it will execute without running it

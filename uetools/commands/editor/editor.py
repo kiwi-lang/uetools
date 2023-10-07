@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Optional
 
 from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, command_builder, newparser
@@ -216,13 +217,13 @@ class CLIArguments:
 @dataclass
 class Arguments:
     """Unreal Editor arguments"""
-    project: str                  # Project name, example: <project>.uproject
-    cli     : bool = False        # Enable a group of arguments to make the editor as a command line tool
-    dry     : bool = False        # Print the command it will execute without running it
-    map     : str | None  = None  # Path to the map
-    game    : bool = False        # Launch the game
-    server  : bool = False        # Launch the game as a server
-    address : str | None = None   # Address to connect to
+    project : Optional[str] = None  # Project name, example: <project>.uproject
+    cli     : bool = False          # Enable a group of arguments to make the editor as a command line tool
+    dry     : bool = False          # Print the command it will execute without running it
+    map     : str | None  = None    # Path to the map
+    game    : bool = False          # Launch the game
+    server  : bool = False          # Launch the game as a server
+    address : str | None = None     # Address to connect to
 
 # fmt: on
 

@@ -15,9 +15,9 @@ from uetools.format.base import Formatter
 @dataclass
 class Arguments:
     """Convert a UE4 map using world partition"""
-
-    project                 : str
+    
     map                     : str
+    project                 : Optional[str] = None   # Name of the the project to open
     SCCProvider             : Optional[str] = None   # Specifies which source control provider to use. To run without source control, specify -SCCProvider=None.
     Verbose                 : bool          = False  # Displays verbose logging.
     ConversionSuffix        : bool          = False  # Appends the _WP suffix to a converted map. This is useful when converting Levels for testing purposes while keeping the source Level intact.

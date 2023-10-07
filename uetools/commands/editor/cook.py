@@ -29,7 +29,7 @@ def build_modes():
 @dataclass
 class Arguments:
     # fmt: off
-    project         : str                                   # Project Name
+    project: Optional[str] = None  # Name of the the project to open
     output          : Optional[str] = None                  # Output
     build           : Optional[str] = build_modes()         # Build modes
     platform        : Optional[str] = editor_platforms()    # Platform to cookf
