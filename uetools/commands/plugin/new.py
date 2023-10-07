@@ -3,7 +3,6 @@ import os
 import tempfile
 
 import pkg_resources
-from cookiecutter.main import cookiecutter
 
 from uetools.core.command import Command, newparser
 from uetools.core.conf import find_project
@@ -24,6 +23,8 @@ class NewPlugin(Command):
 
     @staticmethod
     def execute(args):
+        from cookiecutter.main import cookiecutter
+        
         project = find_project(args.project)
         project_dir = os.path.dirname(project)
 

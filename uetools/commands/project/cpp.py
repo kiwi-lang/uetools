@@ -5,7 +5,6 @@ import tempfile
 from dataclasses import dataclass
 
 import pkg_resources
-from cookiecutter.main import cookiecutter
 
 from uetools.core.arguments import add_arguments
 from uetools.core.command import Command, newparser
@@ -48,6 +47,8 @@ class CPP(Command):
 
     @staticmethod
     def execute(args):
+        from cookiecutter.main import cookiecutter
+        
         project = find_project(args.project)
 
         template = pkg_resources.resource_filename(

@@ -1,7 +1,6 @@
 import os
 from typing import Optional
 
-from cookiecutter.main import cookiecutter
 
 from uetools.core.command import Command, newparser
 from uetools.core.conf import find_project
@@ -42,6 +41,8 @@ class Docs(Command):
 
     @staticmethod
     def execute(args):
+        from cookiecutter.main import cookiecutter
+        
         uproject = find_project(args.project)
         folder = os.path.dirname(uproject)
 

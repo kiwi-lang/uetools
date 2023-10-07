@@ -115,14 +115,13 @@ def profiler(enabled=False):
 
         yield
 
-
         profile.disable()
 
         if enabled:
             s = io.StringIO()
             sortby = pstats.SortKey.CUMULATIVE
             ps = pstats.Stats(profile, stream=s).sort_stats(sortby)
-            ps.print_stats(0.01)
+            ps.print_stats(25)
             print(s.getvalue())
 
 

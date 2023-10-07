@@ -1,5 +1,3 @@
-from git import Repo
-
 from uetools.core.command import Command, chdir, newparser
 from uetools.core.conf import engine_root
 from uetools.core.run import run
@@ -45,6 +43,8 @@ class Engine(Command):
     @staticmethod
     def update(root, remote):
         """Update current branch by pulling the latest changes"""
+        from git import Repo
+        
         engine_repo = Repo(root)
         cmd = ["git", "pull", remote, engine_repo.active_branch]
         return [cmd]
@@ -52,6 +52,8 @@ class Engine(Command):
     @staticmethod
     def checkout(root, branch, remote):
         """Checkout a new branch"""
+        from git import Repo
+
         engine_repo = Repo(root)
 
         if branch == engine_repo.active_branch:
