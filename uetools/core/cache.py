@@ -73,7 +73,7 @@ def cache_to_local(cache_key):
             key.update(str(k).encode())
             key.update(str(v).encode())
 
-        return key.hexdigest()
+        return key.hexdigest()[:8]
 
     caches = dict()
 
@@ -104,6 +104,7 @@ def cache_to_local(cache_key):
                 return cached_result
 
             def _background():
+                import time
                 worker = Thread(target=_update_data)
                 worker.start()
 

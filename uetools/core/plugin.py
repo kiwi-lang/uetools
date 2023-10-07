@@ -45,6 +45,7 @@ def discover_plugins(module):
 
 @cache_to_local("plugins")
 def discover_plugins_command(module):
+
     modules = discover_plugins(module)
     all_commands = []
 
