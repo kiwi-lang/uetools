@@ -12,11 +12,14 @@ graft uetools/commands/project/templates
 graft uetools/commands/editor/templates
 graft uetools/plugins/gamekit/resources
 
+recursive-include uetools *.pkl
+
 exclude tox.ini
 exclude Makefile
 exclude .pylintrc
 exclude .readthedocs.yaml
 exclude .pre-commit-config.yaml
+exclude ruff.toml
 
 prune docs
 prune tests
