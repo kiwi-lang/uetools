@@ -28,19 +28,11 @@ except ImportError as err:
     SOUND_DEVICE = err
 
 
-TORCH = None
-try:
-    import numpy as np
-    import torch
-except ImportError as err:
-    TORCH = err
-
-
 class TextToSpeech:
     def __init__(self, voice) -> None:
-        if TORCH is not None:
-            raise TORCH
-
+        import numpy as np
+        import torch
+    
         language = "en"
         model_id = "v3_en"
 

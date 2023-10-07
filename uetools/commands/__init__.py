@@ -4,6 +4,8 @@ import traceback
 
 from uetools.core.perf import timeit
 from uetools.core.plugin import discover_plugins
+from uetools.core.parallel import submit, as_completed
+from uetools.core.cache import cache_to_local, get_cache_status
 
 try:
     import uetools.plugins
@@ -17,29 +19,59 @@ except ImportError:
     PLUGINS = False
 
 
-def fetch_factories(registry, base_module, base_file_name, function_name="COMMANDS"):
+
+def _resolve_factory_module(base_file_name, base_module, function_name, module_path):
+    module_file = module_path.split(os.sep)[-1]
+
+    if module_file == base_file_name:
+        return
+
+    module_name = module_file.split(".py")[0]
+
+    try:
+        module = __import__(".".join([base_module, module_name]), fromlist=[""])
+    
+        if hasattr(module, function_name):
+            return getattr(module, function_name)
+
+    except ImportError:
+        print(traceback.format_exc())
+        return
+    
+
+def fetch_factories_parallel(registry, base_module, base_file_name, function_name="COMMANDS"):
+    """Loads all the defined commands"""
+
+    module_path = os.path.dirname(os.path.abspath(base_file_name))
+    paths = list(glob.glob(os.path.join(module_path, "[A-Za-z]*"), recursive=False))
+
+    futures = []
+    for path in paths:
+        args = (base_file_name, base_module, function_name, path)
+        futures.append(submit(_resolve_factory_module, *args))
+    
+    for future in as_completed(futures):
+        cmd = future.result()
+
+        if cmd is not None:
+            registry.insert_commands(cmd)
+
+
+def fetch_factories_single(registry, base_module, base_file_name, function_name="COMMANDS"):
     """Loads all the defined commands"""
     module_path = os.path.dirname(os.path.abspath(base_file_name))
 
     for module_path in glob.glob(
         os.path.join(module_path, "[A-Za-z]*"), recursive=False
     ):
-        module_file = module_path.split(os.sep)[-1]
-
-        if module_file == base_file_name:
-            continue
-
-        module_name = module_file.split(".py")[0]
-
-        try:
-            module = __import__(".".join([base_module, module_name]), fromlist=[""])
-        except ImportError:
-            print(traceback.format_exc())
-            continue
-
-        if hasattr(module, function_name):
-            cmd = getattr(module, function_name)
+        
+        cmd = _resolve_factory_module(base_file_name, base_module, function_name, module_path)
+        if cmd is not None:
             registry.insert_commands(cmd)
+
+
+def fetch_factories(registry, base_module, base_file_name, function_name="COMMANDS"):
+    fetch_factories_parallel(registry, base_module, base_file_name, function_name)
 
 
 def discover_from_plugins_commands(registry, module, function_name="COMMANDS"):
@@ -73,8 +105,23 @@ class CommandRegistry:
             ), f"Duplicate command name: {cmd.name}"
             self.found_commands[cmd.name] = cmd
 
+    def fix_nondeterminism(self):
+        data = self.__getstate__()
+        self.__setstate__(data)
 
-def discover_commands():
+    def __getstate__(self):
+        return sorted(self.found_commands.items(), key=lambda x: x[0])
+    
+    def __setstate__(self, d):
+        self.found_commands = {k: v for k, v in d}
+
+
+def command_cache_status():
+    return get_cache_status('commands')
+
+
+@cache_to_local("commands")
+def _discover_commands():
     """Discover all the commands we can find (plugins and built-in)"""
     registry = CommandRegistry()
 
@@ -85,7 +132,12 @@ def discover_commands():
         with timeit("discover_plugins"):
             discover_from_plugins_commands(registry, uetools.plugins)
 
-    return registry.found_commands
+    registry.fix_nondeterminism()
+    return registry
+
+
+def discover_commands():
+    return _discover_commands().found_commands
 
 
 def find_command(name):

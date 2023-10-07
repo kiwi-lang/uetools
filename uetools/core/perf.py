@@ -1,8 +1,22 @@
 import sys
 import time
 from contextlib import contextmanager
+from collections import defaultdict
+from threading import get_native_id
 
 profile = dict()
+
+
+
+def _append(timer):
+    global timer_builder
+    timer_builder[get_native_id()].append(timer)
+
+
+def _pop():
+    global timer_builder
+    if timer_builder:
+        timer_builder[get_native_id()].pop()
 
 
 class TimerGroup:
@@ -20,19 +34,14 @@ class TimerGroup:
         return time.time() - self.start
 
     def __enter__(self):
-        global timer_builder
-
         self.start = time.time()
-        timer_builder.append(self)
+        _append(self)
         return self
 
     def __exit__(self, *args):
-        global timer_builder
         self.end = time.time()
         self.timing = self.end - self.start
-
-        if timer_builder:
-            timer_builder.pop()
+        _pop()
 
     def show(self, depth=1):
         col = 40 - depth
@@ -51,13 +60,22 @@ class TimerGroup:
         return timer
 
 
-timer_builder = []
-TimerGroup("root").__enter__(),
+timer_builder = defaultdict(list)
+
+
+def _current():
+    global timer_builder
+    timerlist = timer_builder[get_native_id()]
+
+    if len(timerlist) == 0:
+        TimerGroup(f"root: {get_native_id()}").__enter__()
+
+    return timerlist[-1]
 
 
 @contextmanager
 def timeit(name):
-    timer = timer_builder[-1]
+    timer = _current()
 
     with timer.timeit(name) as timer:
         yield timer
@@ -69,6 +87,12 @@ def show_timings():
 
     print()
     print("Timings:")
-    timer = timer_builder[0]
-    timer.__exit__()
-    timer.show()
+    
+    for _, thread_group in timer_builder.items():
+        timer = thread_group[0]
+        try:
+            timer.__exit__()
+        except:
+            pass
+        timer.show()
+        print('')

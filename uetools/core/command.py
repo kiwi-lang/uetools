@@ -10,7 +10,7 @@ from dataclasses import asdict, is_dataclass
 from .argformat import HelpAction
 from .arguments import add_arguments
 from .perf import timeit
-from .plugin import discover_plugins
+from .plugin import discover_plugins_command
 
 
 def newparser(subparsers: argparse._SubParsersAction, commandcls: Command):
@@ -53,7 +53,7 @@ class Command:
     @classmethod
     def arguments(cls, subparsers):
         """Define the arguments of this command"""
-        with timeit("Command.arguments"):
+        with timeit(f"{cls.name}.arguments"):
             parser = newparser(subparsers, cls)
             add_arguments(parser, cls.argument_class())
 
@@ -170,14 +170,13 @@ class ParentCommand(Command):
 
     @classmethod
     def arguments(cls, subparsers):
-        with timeit("ParentCommand.arguments"):
-            parser = newparser(subparsers, cls)
-            cls.shared_arguments(parser)
-            subparsers = parser.add_subparsers(
-                dest=cls.command_field(), help=cls.help()
-            )
-            cmds = cls.fetch_commands()
-            cls.register(cls, subparsers, cmds)
+        parser = newparser(subparsers, cls)
+        cls.shared_arguments(parser)
+        subparsers = parser.add_subparsers(
+            dest=cls.command_field(), help=cls.help()
+        )
+        cmds = cls.fetch_commands()
+        cls.register(cls, subparsers, cmds)
 
     @classmethod
     def shared_arguments(cls, subparsers):
@@ -186,17 +185,8 @@ class ParentCommand(Command):
     @classmethod
     def fetch_commands(cls):
         """Fetch commands using importlib, assume each command is inside its own module"""
-        with timeit("ParentCommand.fetch_commands"):
-            all_commands = []
-            for _, module in discover_plugins(cls.module()).items():
-                if hasattr(module, "COMMANDS"):
-                    commands = getattr(module, "COMMANDS")
-
-                    if not isinstance(commands, list):
-                        commands = [commands]
-
-                    all_commands.extend(commands)
-        return all_commands
+        with timeit(f"{cls.name}.fetch_commands"):
+            return discover_plugins_command(cls.module())
 
     @staticmethod
     def register(cls, subsubparsers, commands):

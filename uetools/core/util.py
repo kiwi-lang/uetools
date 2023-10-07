@@ -1,10 +1,12 @@
 import re
 import os
 from pathlib import Path
+from functools import cache
 
 _re_deduce_project_plugin = re.compile(
     r"(.*)(\\|/)(?P<Project>([A-Za-z0-9]*))(\\|/)Plugins(\\|/)(?P<Plugin>([A-Za-z0-9]*))(.*)"
 )
+
 
 def find_file_like(path, pat):
     path = Path(path)
@@ -22,7 +24,7 @@ def find_file_like(path, pat):
 
     return None, path
 
-
+@cache
 def deduce_project_plugin(path):
     path = str(path)
 
@@ -33,18 +35,27 @@ def deduce_project_plugin(path):
 
     # Iteratively go up the tree looking for the plugin
     plugin, remain = find_file_like(path, '*.uplugin')
+    
+    if plugin:
+        plugin =  str(plugin.parent.name)
+    
     project = deduce_project(path)
-    return str(project.parent.name), str(plugin.parent.name)
+    return project, plugin
 
 
+@cache
 def deduce_project(path):
     result, remain = find_file_like(path, '*.uproject')
-    return str(result.parent.name)
+    if result:
+        return str(result.parent.name)
+    return None
 
 
+@cache
 def deduce_module(path):
     path, remain = find_file_like(path, '*Build..cs')
     return str(os.path.dirname(path))
+
 
 if __name__ == '__main__':
     print(deduce_project_plugin(os.getcwd()))

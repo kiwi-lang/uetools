@@ -75,7 +75,16 @@ setup_kwargs = dict(
             "cpp = uetools.plugins.cpp:CPP",
         ],
     },
-    package_data={"uetools": ["uetools/templates/.*"]},
+    package_data={
+        "uetools": [
+            "uetools/templates/.*",
+            "uetools/commands/editor/templates/.*",
+            "uetools/commands/plugin/templates/.*",
+            "uetools/commands/project/templates/.*",
+            "uetools/commands/data/.*",
+            "uetools/core/data/.*",
+        ]
+    },
     include_package_data=True,
 )
 

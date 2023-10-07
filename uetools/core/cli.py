@@ -2,8 +2,9 @@
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 
-from uetools.commands import discover_commands
+from uetools.commands import discover_commands, command_cache_status
 
 from .argformat import DumpParserAction, HelpAction, HelpActionException
 from .command import ParentCommand
@@ -11,8 +12,8 @@ from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
 
 
-def parse_args(commands, argv):
-    """Setup the argument parser for all supported commands"""
+# Argument Parser cannot be pickled
+def build_parser(commands):
     with timeit("build_parser"):
         parser = argparse.ArgumentParser(
             add_help=False, description="Unreal Engine Utility"
@@ -37,13 +38,22 @@ def parse_args(commands, argv):
         )
 
         subparsers = parser.add_subparsers(dest="command")
+
         ParentCommand.dispatch = dict()
-        for _, command in commands.items():
-            command.arguments(subparsers)
+        for k, command in commands.items():
+            with timeit(k):
+                command.arguments(subparsers)
 
-    with timeit("parser.parse_args"):
+        return parser
+
+
+def parse_args(commands, argv):
+    """Setup the argument parser for all supported commands"""
+    parser = build_parser(commands)
+
+    with timeit("parse_args"):
         args = parser.parse_args(argv)
-
+        
     if args.engine_version is not None:
         select_engine_version(args.engine_version)
         args.engine_version = None
@@ -65,6 +75,13 @@ def main(argv=None):
         try:
             parsed_args = parse_args(commands, argv)
         except HelpActionException:
+            
+            msg = command_cache_status()
+            if msg:
+                print('\n')
+                print(' ' * 10, 'NOTE: ', msg)
+                print('\n')
+
             return 0
         except BadConfig:
             return -1
@@ -85,10 +102,36 @@ def main(argv=None):
     return returncode
 
 
+@contextmanager
+def profiler(enabled=False):
+    import io
+    import pstats
+    import cProfile
+
+    with cProfile.Profile() as profile:
+        profile.disable()
+        if enabled:
+            profile.enable()
+
+        yield
+
+
+        profile.disable()
+
+        if enabled:
+            s = io.StringIO()
+            sortby = pstats.SortKey.CUMULATIVE
+            ps = pstats.Stats(profile, stream=s).sort_stats(sortby)
+            ps.print_stats(0.01)
+            print(s.getvalue())
+
+
 def main_force(argv=None):
     import sys
 
-    r = main()
+    with profiler("-xyz" in sys.argv):
+        r = main()
+    
     show_timings()
     sys.exit(r)
 

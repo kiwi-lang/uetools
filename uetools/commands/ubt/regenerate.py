@@ -44,6 +44,15 @@ class Arguments:
     game                : bool = True
     engine              : bool = True
     progress            : bool = True
+    verbose             : bool = False
+    veryverbose         : bool = False
+    traceWrites         : bool = False
+    timestamps          : bool = False
+    frommsbuild         : bool = False
+    suppressSDKWarnings : bool = False
+    nomutex             : bool = False
+    waitmutex           : bool = False
+    remoteini           : str  = None
 # fmt: on
 
 
@@ -83,7 +92,10 @@ class Generate(Command):
     def execute(args):
         project = find_project(vars(args).pop("project"))
 
-        cmd = [ubt(), f"-project={project}", "-Mode=GenerateProjectFiles"]
+        # if args.projectfileformat == 'NONE':
+        #     vars(args).pop('projectfileformat')
+
+        cmd = [ubt(), f"-project={project}", "-Mode=GenerateProjectFiles", "-rocket"]
         cmd_options = command_builder(args)
 
         cmd = cmd + cmd_options
