@@ -19,7 +19,6 @@ except ImportError:
     PLUGINS = False
 
 
-
 def _resolve_factory_module(base_file_name, base_module, function_name, module_path):
     module_file = module_path.split(os.sep)[-1]
 
@@ -30,16 +29,18 @@ def _resolve_factory_module(base_file_name, base_module, function_name, module_p
 
     try:
         module = __import__(".".join([base_module, module_name]), fromlist=[""])
-    
+
         if hasattr(module, function_name):
             return getattr(module, function_name)
 
     except ImportError:
         print(traceback.format_exc())
         return
-    
 
-def fetch_factories_parallel(registry, base_module, base_file_name, function_name="COMMANDS"):
+
+def fetch_factories_parallel(
+    registry, base_module, base_file_name, function_name="COMMANDS"
+):
     """Loads all the defined commands"""
 
     module_path = os.path.dirname(os.path.abspath(base_file_name))
@@ -49,7 +50,7 @@ def fetch_factories_parallel(registry, base_module, base_file_name, function_nam
     for path in paths:
         args = (base_file_name, base_module, function_name, path)
         futures.append(submit(_resolve_factory_module, *args))
-    
+
     for future in as_completed(futures):
         cmd = future.result()
 
@@ -57,15 +58,19 @@ def fetch_factories_parallel(registry, base_module, base_file_name, function_nam
             registry.insert_commands(cmd)
 
 
-def fetch_factories_single(registry, base_module, base_file_name, function_name="COMMANDS"):
+def fetch_factories_single(
+    registry, base_module, base_file_name, function_name="COMMANDS"
+):
     """Loads all the defined commands"""
     module_path = os.path.dirname(os.path.abspath(base_file_name))
 
     for module_path in glob.glob(
         os.path.join(module_path, "[A-Za-z]*"), recursive=False
     ):
-        
-        cmd = _resolve_factory_module(base_file_name, base_module, function_name, module_path)
+
+        cmd = _resolve_factory_module(
+            base_file_name, base_module, function_name, module_path
+        )
         if cmd is not None:
             registry.insert_commands(cmd)
 
@@ -111,13 +116,13 @@ class CommandRegistry:
 
     def __getstate__(self):
         return sorted(self.found_commands.items(), key=lambda x: x[0])
-    
+
     def __setstate__(self, d):
         self.found_commands = {k: v for k, v in d}
 
 
 def command_cache_status():
-    return get_cache_status('commands')
+    return get_cache_status("commands")
 
 
 @cache_to_local("commands")

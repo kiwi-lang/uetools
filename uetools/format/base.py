@@ -83,6 +83,7 @@ def colored(text, color, attrs=None):
 #   *FOutputDeviceHelper::FormatLogLine(Verbosity, Category, Data, GPrintLogTimes, Time),LINE_TERMINATOR);
 #
 
+
 class Formatter:
     """Parse an unreal engine output log line and formats it"""
 

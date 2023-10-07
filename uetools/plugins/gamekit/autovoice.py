@@ -6,6 +6,8 @@ from uetools.core.command import Command, ParentCommand
 
 
 def _impl():
+    import numpy as np
+
     OS_TTS = None
     try:
         import pyttsx3
@@ -14,7 +16,6 @@ def _impl():
     except ImportError as err:
         OS_TTS = err
 
-
     SUBTITLE_PARSER = None
     try:
         from pysubparser import parser as subparser
@@ -22,19 +23,16 @@ def _impl():
     except ImportError as err:
         SUBTITLE_PARSER = err
 
-
     SOUND_DEVICE = None
     try:
         import sounddevice as sd
     except ImportError as err:
         SOUND_DEVICE = err
 
-
     class TextToSpeech:
         def __init__(self, voice) -> None:
-            import numpy as np
             import torch
-        
+
             language = "en"
             model_id = "v3_en"
 
@@ -62,18 +60,15 @@ def _impl():
             )
             return audio.numpy()
 
-
     def get_voices():
         engine = pyttsx3.init()
         return engine.getProperty("voices")
-
 
     def show_voice(i, v):
         print(f"  --- {i}")
         print("        Name", v.name)
         print("         Age", v.age, "\tGender", v.gender)
         print("   Languages", v.languages)
-
 
     def select_voice(voices):
         engine = pyttsx3.init()
@@ -133,12 +128,10 @@ def _impl():
             except:
                 pass
 
-
     def get_subtitles(filename):
         return formatting.clean(
             ascii.clean(brackets.clean(lower_case.clean(subparser.parse(filename))))
         )
-
 
     def get_length(subtitles) -> datetime.timedelta:
         start = datetime.time()
@@ -151,11 +144,10 @@ def _impl():
         fake_date = datetime.date.min
 
         # convert to timedelta
-        duration = datetime.datetime.combine(fake_date, end) - datetime.datetime.combine(
-            fake_date, start
-        )
+        duration = datetime.datetime.combine(
+            fake_date, end
+        ) - datetime.datetime.combine(fake_date, start)
         return duration
-
 
     def play_audio(data, sample_rate):
         if SOUND_DEVICE is not None:
@@ -163,7 +155,6 @@ def _impl():
 
         sd.default.samplerate = sample_rate
         sd.play(data, blocking=True)
-
 
     def read(filename, voice, outputfile):
         if SUBTITLE_PARSER is not None:
@@ -211,7 +202,6 @@ def _impl():
         writewav(outputfile, sample_rate, audio)
         print("Done")
 
-
     return read
 
 
@@ -246,7 +236,7 @@ class SubtitleToAudio(Command):
         impl = _impl()
 
         impl(filename, args.voice, outputfile)
-    
+
         return 0
 
 

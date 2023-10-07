@@ -44,7 +44,7 @@ class Engine(Command):
     def update(root, remote):
         """Update current branch by pulling the latest changes"""
         from git import Repo
-        
+
         engine_repo = Repo(root)
         cmd = ["git", "pull", remote, engine_repo.active_branch]
         return [cmd]

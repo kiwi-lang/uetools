@@ -42,7 +42,7 @@ class Docs(Command):
     @staticmethod
     def execute(args):
         from cookiecutter.main import cookiecutter
-        
+
         uproject = find_project(args.project)
         folder = os.path.dirname(uproject)
 

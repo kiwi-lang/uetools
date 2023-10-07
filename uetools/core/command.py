@@ -172,9 +172,7 @@ class ParentCommand(Command):
     def arguments(cls, subparsers):
         parser = newparser(subparsers, cls)
         cls.shared_arguments(parser)
-        subparsers = parser.add_subparsers(
-            dest=cls.command_field(), help=cls.help()
-        )
+        subparsers = parser.add_subparsers(dest=cls.command_field(), help=cls.help())
         cmds = cls.fetch_commands()
         cls.register(cls, subparsers, cmds)
 

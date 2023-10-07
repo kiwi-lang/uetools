@@ -24,7 +24,7 @@ class NewPlugin(Command):
     @staticmethod
     def execute(args):
         from cookiecutter.main import cookiecutter
-        
+
         project = find_project(args.project)
         project_dir = os.path.dirname(project)
 

@@ -29,7 +29,7 @@ def discover_plugins_parallel(module):
     for _, name, _ in pkgutil.iter_modules(path, name + "."):
         f = submit(importlib.import_module, name)
         futures[f] = name
-    
+
     for future in as_completed(futures):
         name = futures[future]
         module = future.result()
@@ -40,7 +40,7 @@ def discover_plugins_parallel(module):
 
 def discover_plugins(module):
     """Discover uetools plugins"""
-    return  discover_plugins_parallel(module)
+    return discover_plugins_parallel(module)
 
 
 @cache_to_local("plugins")
@@ -57,5 +57,5 @@ def discover_plugins_command(module):
                 commands = [commands]
 
             all_commands.extend(commands)
-        
+
     return all_commands

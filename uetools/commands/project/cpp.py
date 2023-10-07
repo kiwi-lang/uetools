@@ -48,7 +48,7 @@ class CPP(Command):
     @staticmethod
     def execute(args):
         from cookiecutter.main import cookiecutter
-        
+
         project = find_project(args.project)
 
         template = pkg_resources.resource_filename(

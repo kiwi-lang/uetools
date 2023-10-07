@@ -7,7 +7,6 @@ from threading import get_native_id
 profile = dict()
 
 
-
 def _append(timer):
     global timer_builder
     timer_builder[get_native_id()].append(timer)
@@ -87,7 +86,7 @@ def show_timings():
 
     print()
     print("Timings:")
-    
+
     for _, thread_group in timer_builder.items():
         timer = thread_group[0]
         try:
@@ -95,4 +94,4 @@ def show_timings():
         except:
             pass
         timer.show()
-        print('')
+        print("")

@@ -53,7 +53,7 @@ def parse_args(commands, argv):
 
     with timeit("parse_args"):
         args = parser.parse_args(argv)
-        
+
     if args.engine_version is not None:
         select_engine_version(args.engine_version)
         args.engine_version = None
@@ -75,12 +75,12 @@ def main(argv=None):
         try:
             parsed_args = parse_args(commands, argv)
         except HelpActionException:
-            
+
             msg = command_cache_status()
             if msg:
-                print('\n')
-                print(' ' * 10, 'NOTE: ', msg)
-                print('\n')
+                print("\n")
+                print(" " * 10, "NOTE: ", msg)
+                print("\n")
 
             return 0
         except BadConfig:
@@ -130,7 +130,7 @@ def main_force(argv=None):
 
     with profiler("-xyz" in sys.argv):
         r = main()
-    
+
     show_timings()
     sys.exit(r)
 

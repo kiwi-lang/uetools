@@ -1,4 +1,3 @@
-import hashlib
 import pickle
 import os
 import hashlib
@@ -25,7 +24,7 @@ def _load_cache(path):
     cached_version = None
 
     if os.path.exists(path):
-        with open(path, 'rb') as file:
+        with open(path, "rb") as file:
             try:
                 data = file.read()
                 cached_version = _compute_version(data)
@@ -45,12 +44,12 @@ def _save_cache(key, path, result, cached_version):
 
     if cached_version is None or cached_version != new_version:
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, 'wb') as file:
+        with open(path, "wb") as file:
             file.write(data)
 
     if cached_version is None:
         thread_message[key] = "Generated command cache"
-        
+
     elif cached_version != new_version:
         thread_message[key] = "Warning data was out of date"
 
@@ -60,9 +59,10 @@ def _save_cache(key, path, result, cached_version):
 
 def cache_to_local(cache_key):
     """Cache function evaluation to the filesystem
-    
+
     When the function is called again the cache is update async
     """
+
     def argkey(args, kwargs):
         key = hashlib.sha256()
 
@@ -82,9 +82,9 @@ def cache_to_local(cache_key):
             nonlocal caches
 
             argk = argkey(args, kwargs)
-            key = f'{cache_key}_{argk}'
+            key = f"{cache_key}_{argk}"
             cached_result, cached_version = caches.get(key, (None, None))
-            
+
             if cached_result is None:
                 cache_file = pkg_resources.resource_filename(
                     __name__, f"data/{key}.pkl"
@@ -95,16 +95,10 @@ def cache_to_local(cache_key):
             def _update_data():
                 cached_result = fun(*args, **kwargs)
 
-                _save_cache(
-                    cache_key, 
-                    cache_file, 
-                    cached_result, 
-                    cached_version
-                )
+                _save_cache(cache_key, cache_file, cached_result, cached_version)
                 return cached_result
 
             def _background():
-                import time
                 worker = Thread(target=_update_data)
                 worker.start()
 

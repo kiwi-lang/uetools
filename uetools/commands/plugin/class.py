@@ -1,5 +1,3 @@
-
-
 import os
 from dataclasses import dataclass
 
@@ -14,16 +12,15 @@ class Arguments:
     plugin: str
 
 
-
 def make_file_for_module(module_path, klass):
-    for folder, ext in [('Private', '.cpp'), ("Public", '.h')]:
+    for folder, ext in [("Private", ".cpp"), ("Public", ".h")]:
 
         base = os.path.join(module_path, folder)
         os.makedirs(base, exist_ok=True)
 
-        filepath = os.path.join(base, klass[1:] + ext)   
+        filepath = os.path.join(base, klass[1:] + ext)
 
-        with open(filepath, 'w'):
+        with open(filepath, "w"):
             print(filepath)
 
 
@@ -42,7 +39,7 @@ class Class(Command):
        # The command is able to deduce the project and plugin if the current working directory is inside the project
        cd MyProject/Plugins/MyPlugins
        uecli plugin class FMyStruct
-    
+
     """
 
     name: str = "class"
@@ -53,13 +50,15 @@ class Class(Command):
 
         project, plugin = deduce_project_plugin(os.getcwd())
 
-        parser.add_argument("--project", type=str, help="project's name", default=project)
+        parser.add_argument(
+            "--project", type=str, help="project's name", default=project
+        )
         parser.add_argument("--plugin", type=str, help="Plugin's name", default=plugin)
         parser.add_argument("klass", type=str, help="Class' name")
 
     @staticmethod
     def execute(args):
-        assert args.klass[0] in ('F', 'U', 'A', 'T')
+        assert args.klass[0] in ("F", "U", "A", "T")
 
         module_root = deduce_module(os.getcwd())
         if module_root is not None:
@@ -70,7 +69,7 @@ class Class(Command):
             uproject = find_project(args.project)
             project_path = os.path.dirname(uproject)
 
-            plugin_src = os.path.join(project_path, 'Plugins', args.plugin, 'Source')
+            plugin_src = os.path.join(project_path, "Plugins", args.plugin, "Source")
 
             make_file_for_module(plugin_src, args.klass)
         return 0
