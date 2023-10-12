@@ -11,7 +11,7 @@ from ..args.command import ParentCommand
 from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
 from ..args.parallel import shutdown
-
+from .util import deduce_project_plugin
 
 # Argument Parser cannot be pickled
 def build_parser(commands):
@@ -69,6 +69,7 @@ def args(*a):
 
 def main(argv=None):
     """Entry point for the command line interface"""
+
     with timeit("discover_commands"):
         commands = discover_commands()
 
@@ -76,11 +77,23 @@ def main(argv=None):
         try:
             parsed_args = parse_args(commands, argv)
         except HelpActionException:
+            print('\n---\n')
+            project, plugin = deduce_project_plugin()
 
+            if project or plugin:
+                print()
+                print(f"Current Working Directory:")
+                print()
+                if project:
+                    print(f"    Project: {project}")
+
+                if plugin:
+                    print(f"    Plugin: {plugin}")
+                    
             msg = command_cache_status()
             if msg:
                 print("\n")
-                print(" " * 10, "NOTE: ", msg)
+                print(" " * 2, "NOTE: ", msg)
                 print("\n")
 
             return 0
