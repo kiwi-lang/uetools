@@ -67,6 +67,26 @@ def args(*a):
     return a
 
 
+def extended_status():
+    print("\n---\n")
+    project, plugin = deduce_project_plugin()
+
+    if project or plugin:
+        print("Current Working Directory:")
+        print()
+        if project:
+            print(f"    Project: {project}")
+
+        if plugin:
+            print(f"    Plugin: {plugin}")
+
+    msg = command_cache_status()
+    if msg:
+        print("\n")
+        print(" " * 2, "NOTE: ", msg)
+        print("\n")
+
+
 def main(argv=None):
     """Entry point for the command line interface"""
 
@@ -77,26 +97,9 @@ def main(argv=None):
         try:
             parsed_args = parse_args(commands, argv)
         except HelpActionException:
-            print('\n---\n')
-            project, plugin = deduce_project_plugin()
-
-            if project or plugin:
-                print()
-                print(f"Current Working Directory:")
-                print()
-                if project:
-                    print(f"    Project: {project}")
-
-                if plugin:
-                    print(f"    Plugin: {plugin}")
-                    
-            msg = command_cache_status()
-            if msg:
-                print("\n")
-                print(" " * 2, "NOTE: ", msg)
-                print("\n")
-
+            extended_status()
             return 0
+
         except BadConfig:
             return -1
 
