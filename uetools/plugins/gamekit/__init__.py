@@ -1,5 +1,4 @@
-import uetools.plugins.gamekit
-from uetools.core.command import ParentCommand
+from uetools.args.command import ParentCommand
 
 
 class Gamekit(ParentCommand):
@@ -9,6 +8,8 @@ class Gamekit(ParentCommand):
 
     @staticmethod
     def module():
+        import uetools.plugins.gamekit
+
         return uetools.plugins.gamekit
 
 

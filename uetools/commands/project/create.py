@@ -1,4 +1,4 @@
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 
 
 class ProjectNew(Command):

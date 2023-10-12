@@ -2,7 +2,9 @@
     "plugin_name": "myplugin",
     "plugin_author": "",
     "plugin_description": "",
-    "plugin_namespace": "{{ cookiecutter.plugin_name|upper|replace('-', '_')|replace(' ', '_') }}",
+    "plugin_namespace": "{{ cookiecutter.plugin_name }}",
+    "plugin_upper": "{{ cookiecutter.plugin_name|upper|replace('-', '_')|replace(' ', '_') }}",
+    "copyright": "Copyright 2023 Mischievous Game, Inc. All Rights Reserved.",
     
     "win64_anaconda_path": "C:/opt/anaconda",
     "win64_engine_path": "C:/opt/UnrealEngine/Engine",

@@ -3,8 +3,9 @@ import os
 import xml.etree.ElementTree as ET
 from copy import deepcopy
 from dataclasses import asdict, fields, is_dataclass
+import textwrap
 
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 from uetools.core.conf import engine_folder
 
 valid_file = """
@@ -80,6 +81,11 @@ class Configure(Command):
 
         $ uecli ubt configure BuildConfiguration.MaxParallelActions=8
 
+
+        $ uecli ubt configure --list
+
+        $ uecli ubt configure --list --filter BuildConfiguration
+
     Notes
     -----
 
@@ -103,6 +109,9 @@ class Configure(Command):
             "--list", action="store_true", help="Show all the possible keys"
         )
         parser.add_argument(
+            "--filter", type=str, default=None, help="Key filter when doing list"
+        )
+        parser.add_argument(
             "items",
             nargs=argparse.REMAINDER,
             help="Configuration values to change, format is <key>.<key>=<value>",
@@ -118,6 +127,9 @@ class Configure(Command):
 
     @staticmethod
     def change_config(configuration, items):
+        print("Change")
+        print("------")
+
         # Change Configuration
         for pair in items:
             try:
@@ -133,14 +145,17 @@ class Configure(Command):
 
                 p = path[-1]
                 if hasattr(node, p):
+                    old = getattr(node, p)
                     setattr(node, p, value)
-                    print(f"{key}: {getattr(node, p)} => {value}")
+                    print(f"  - {key}: (old: {old}) => (new: {value})")
                 else:
                     raise Configure.error(node, p)
             except Exception as err:
                 raise RuntimeError(
                     f"Pair {pair} does not follow the expected format <key>.<key>=<value>"
                 ) from err
+
+        print()
 
     @staticmethod
     def execute(args):
@@ -149,7 +164,7 @@ class Configure(Command):
 
         if args.list:
             print("    " + Configure.help())
-            list_commands()
+            list_commands(args.filter)
             return
 
         Configure.change_config(configuration, args.items)
@@ -157,7 +172,12 @@ class Configure(Command):
         output = to_xml(configuration)
 
         if args.show:
-            print(configfile)
+            print("File")
+            print("-----")
+            print(f"    {configfile}")
+            print()
+            print("XML")
+            print("---")
             print(output)
 
         if not args.dry:
@@ -170,37 +190,82 @@ class Configure(Command):
 COMMANDS = Configure
 
 
-def list_commands():
+def list_commands(filter=None):
     output = []
 
     print("Keys:")
-    _list_commands(Configuration(), output, [], 1)
+    _list_commands(Configuration(), output, [], 1, filter)
 
     print("\n".join(output))
 
 
-def _list_commands(config, output, namespaces, depth):
+def _list_commands(config, output, namespaces, depth, filter):
     import copy
+    from uetools.args.arguments import find_dataclass_docstring, find_docstring
 
     indent = "  " * depth
+
+    source, _, start = find_dataclass_docstring(config.__class__)
 
     for ffield in fields(config):
         nm = copy.deepcopy(namespaces) + [ffield.name]
 
+        docstring, start = find_docstring(ffield, source, start)
+
         value = getattr(config, ffield.name)
         if is_dataclass(value):
             items = []
-            _list_commands(value, items, nm, depth + 1)
+            _list_commands(value, items, nm, depth + 1, filter)
 
             if items:
-                # output.append(f'{indent}{field.name}')
                 output.extend(items)
 
         else:
             key = ".".join(nm)
             type = ffield.type.__name__
             value = getattr(config, ffield.name)
-            output.append(f"{indent}{key:<50}: {type:<5} = {value}")
+
+            if filter is None or filter in key:
+                _show_field(output, indent, key, value, type, docstring)
+
+
+def _show_field(output, indent, key, value, type, docstring, kind=None):
+    col = 60
+
+    if kind is None:
+        kind = "compact"
+
+    msg = f"{key:<{col}}: {type:<5} = {value}"
+
+    #
+    #
+    #
+    if kind == "simple":
+        output.append(f"{indent}{msg}")
+
+    #
+    #
+    #
+    if kind == "compact":
+        output.append(f"{indent}{msg}")
+
+        wrap_iter = textwrap.wrap(docstring, width=col, subsequent_indent="")
+
+        for i, line in enumerate(wrap_iter):
+            output.append(f"{indent}    # {line}")
+        output.append("")
+
+    #
+    #
+    #
+    if kind == "full":
+        wrap_iter = textwrap.wrap(docstring, width=40, subsequent_indent=" ")
+
+        for i, line in enumerate(wrap_iter):
+            if i == 0:
+                output.append(f"{indent}{msg} # {line}")
+            else:
+                output.append(f"{indent}{' ':<{len(msg)}} # {line}")
 
 
 def from_xml(filename: str) -> Configuration:
@@ -251,9 +316,20 @@ def to_xml(config: Configuration) -> str:
         '<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">'
     )
     _to_xml(dictconf, frags, 1)
-    frags.append("</Configuration>")
-
+    frags.append("\n</Configuration>")
     return "".join(frags)
+
+
+def _convert_value(v):
+    v = v.strip()
+
+    if v == "True":
+        v = 1
+
+    if v == "False":
+        v = 0
+
+    return v
 
 
 def _to_xml(dictionary: dict, output: list, depth: int) -> None:
@@ -270,9 +346,9 @@ def _to_xml(dictionary: dict, output: list, depth: int) -> None:
             if child:
                 output.append(f"\n{idt}<{k}>")
                 output.extend(child)
-                output.append(f"\n{idt}</{k}>\n")
+                output.append(f"\n{idt}</{k}>")
 
         else:
             output.append(f"\n{idt}<{k}>")
-            output.append(f"{v}")
+            output.append(f"{_convert_value(v)}")
             output.append(f"</{k}>")

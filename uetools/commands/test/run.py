@@ -1,6 +1,6 @@
 import os
 
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 from uetools.core.conf import editor_cmd, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.tests import TestFormatter

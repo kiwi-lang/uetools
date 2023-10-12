@@ -6,6 +6,9 @@ run = subprocess.run
 
 def popen_with_format(fmt, args, shell=False):
     """Execute a command with the given formatter."""
+
+    print(" ".join(args))
+
     with subprocess.Popen(
         args,
         stdout=subprocess.PIPE,

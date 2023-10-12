@@ -1,15 +1,14 @@
 import os
 from dataclasses import dataclass
 
-from uetools.core.arguments import add_arguments
-from uetools.core.command import Command, command_builder, newparser
+from uetools.args.arguments import add_arguments
+from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import editor_commandlet, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 
 
 def fspath_to_unreal(project, path):
-
     if path is not None:
         path = path.replace("\\", "/")
         if path.startswith("/"):

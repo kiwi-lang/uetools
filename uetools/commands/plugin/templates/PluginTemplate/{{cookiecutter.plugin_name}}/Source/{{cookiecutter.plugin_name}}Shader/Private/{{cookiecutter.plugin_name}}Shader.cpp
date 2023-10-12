@@ -1,8 +1,7 @@
-// Copyright 2023 Mischievous Game, Inc. All Rights Reserved.
+// {{cookiecutter.copyright}}
 
+// Include
 #include "{{cookiecutter.plugin_name}}Shader.h"
-
-// DEFINE_LOG_CATEGORY(LogGKFoW)
 
 // Unreal Engine
 #include "Engine/Blueprint.h"
@@ -47,7 +46,7 @@ static void EnsureShaderPathIsConfigured() {
     else {
         FString const* Mapped = AllShaderSourceDirectoryMappings().Find(VirtualShaderPath);
 
-        GKFOG_LOG(TEXT("Using %s mapped to %s"), *VirtualShaderPath, **Mapped);
+        GK{{cookiecutter.plugin_namespace}}_LOG(TEXT("Using %s mapped to %s"), *VirtualShaderPath, **Mapped);
     }
 }
 

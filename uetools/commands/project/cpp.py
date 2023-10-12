@@ -6,8 +6,8 @@ from dataclasses import dataclass
 
 import pkg_resources
 
-from uetools.core.arguments import add_arguments
-from uetools.core.command import Command, newparser
+from uetools.args.arguments import add_arguments
+from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 
 

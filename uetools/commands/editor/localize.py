@@ -4,8 +4,8 @@ from typing import Optional
 
 import pkg_resources
 
-from uetools.core.arguments import add_arguments, choice
-from uetools.core.command import Command, command_builder, newparser
+from uetools.args.arguments import add_arguments, choice
+from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import editor_cmd, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter

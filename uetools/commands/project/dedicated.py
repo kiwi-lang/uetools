@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 import pkg_resources
 
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 
 

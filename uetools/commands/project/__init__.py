@@ -1,5 +1,5 @@
 import uetools.commands.project
-from uetools.core.command import ParentCommand
+from uetools.args.command import ParentCommand
 
 
 class Project(ParentCommand):

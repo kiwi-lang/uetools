@@ -2,7 +2,7 @@ import datetime
 import os
 from dataclasses import dataclass
 
-from uetools.core.command import Command, ParentCommand
+from uetools.args.command import Command, ParentCommand
 
 
 def _impl():
@@ -179,7 +179,6 @@ def _impl():
             return np.empty((sample_count,), dtype=np.int16)
 
         for subtitle in get_subtitles(filename):
-
             t = subtitle.text
             i = subtitle.index
             s = subtitle.start

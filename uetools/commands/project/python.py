@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 from io import UnsupportedOperation
 
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 from uetools.core.conf import editor, find_project
 from uetools.core.ini import UnrealINIParser
 

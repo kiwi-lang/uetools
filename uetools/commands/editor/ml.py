@@ -9,8 +9,8 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import dataclass
 
-from uetools.core.arguments import add_arguments
-from uetools.core.command import Command, command_builder, newparser
+from uetools.args.arguments import add_arguments
+from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import WINDOWS, editor, find_project
 from uetools.format.base import Formatter
 

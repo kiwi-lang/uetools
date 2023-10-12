@@ -33,15 +33,21 @@ public class {{cookiecutter.plugin_name}} : ModuleRules
                 "RHI",          // Shader
         });
 
+        if (Target.bBuildEditor == true)
+        {
+            // FEditorDelegates
+            PrivateDependencyModuleNames.Add("UnrealEd");
+        }
+
         // Version Info
         // ------------
         // Automatically set by the CI
-        string {{cookiecutter.plugin_name}}_TAG = "v1.2.0";
-        string {{cookiecutter.plugin_name}}_HASH = "fd5965b0a334ba5784929aac36716dbf0e9fb9fb";
-        string {{cookiecutter.plugin_name}}_DATE = "2023-01-15 03:23:34 +0000";
+        string {{cookiecutter.plugin_upper}}_TAG = "v0.0.1";
+        string {{cookiecutter.plugin_upper}}_HASH = "NA";
+        string {{cookiecutter.plugin_upper}}_DATE = "1970-01-01 00:00:00 +0000";
 
-        PublicDefinitions.Add("{{cookiecutter.plugin_name}}_TAG=" + {{cookiecutter.plugin_name}}_TAG);
-        PublicDefinitions.Add("{{cookiecutter.plugin_name}}_COMMIT=" + {{cookiecutter.plugin_name}}_HASH);
-        PublicDefinitions.Add("{{cookiecutter.plugin_name}}_DATE=" + {{cookiecutter.plugin_name}}_DATE);
+        PublicDefinitions.Add("{{cookiecutter.plugin_upper}}_TAG=" + {{cookiecutter.plugin_upper}}_TAG);
+        PublicDefinitions.Add("{{cookiecutter.plugin_upper}}_COMMIT=" + {{cookiecutter.plugin_upper}}_HASH);
+        PublicDefinitions.Add("{{cookiecutter.plugin_upper}}_DATE=" + {{cookiecutter.plugin_upper}}_DATE);
     }
 }

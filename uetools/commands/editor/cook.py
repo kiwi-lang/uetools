@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from typing import Optional
 
 from uetools.commands.ubt.build import Build
-from uetools.core.arguments import add_arguments, choice
-from uetools.core.command import Command, command_builder, newparser
+from uetools.args.arguments import add_arguments, choice
+from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import (
     build_platform_from_editor,
     editor_cmd,

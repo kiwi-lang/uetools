@@ -2,8 +2,6 @@
 
 #include "{{cookiecutter.plugin_name}}Ed.h"
 
-// DEFINE_LOG_CATEGORY(LogGKFoW)
-
 // Unreal Engine
 #include "Engine/Blueprint.h"
 #include "Misc/Paths.h"

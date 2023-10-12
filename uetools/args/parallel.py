@@ -14,3 +14,7 @@ def submit(fun, *args):
 
 def as_completed(futures):
     return concurrent.futures.as_completed(futures)
+
+
+def shutdown():
+    executor.shutdown()

@@ -2,7 +2,6 @@
 
 #include "{{cookiecutter.plugin_name}}.h"
 
-// DEFINE_LOG_CATEGORY(LogGKFoW)
 
 // Unreal Engine
 #include "Engine/Blueprint.h"
@@ -47,7 +46,7 @@ static void EnsureShaderPathIsConfigured() {
     else {
         FString const* Mapped = AllShaderSourceDirectoryMappings().Find(VirtualShaderPath);
 
-        GKFOG_LOG(TEXT("Using %s mapped to %s"), *VirtualShaderPath, **Mapped);
+        GK{{cookiecutter.plugin_namespace}}_LOG(TEXT("Using %s mapped to %s"), *VirtualShaderPath, **Mapped);
     }
 }
 

@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from typing import Optional
 
 from uetools.commands.engine.add import EngineAdd
-from uetools.core.arguments import add_arguments
-from uetools.core.command import Command, newparser
+from uetools.args.arguments import add_arguments
+from uetools.args.command import Command, newparser
 from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 
 

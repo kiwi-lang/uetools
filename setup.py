@@ -33,6 +33,9 @@ setup_kwargs = dict(
     license="BSD-3-Clause",
     url="https://uetools.readthedocs.io",
     packages=[
+        "uetools.args",
+        "uetools.jinga2",
+        "uetools.rl",
         "uetools.core",
         "uetools.commands",
         "uetools.commands.editor",
@@ -83,6 +86,7 @@ setup_kwargs = dict(
             "uetools/commands/plugin/templates/.*",
             "uetools/commands/project/templates/.*",
             "uetools/commands/data/.*",
+            "uetools/args/data/.*",
             "uetools/core/data/.*",
         ]
     },

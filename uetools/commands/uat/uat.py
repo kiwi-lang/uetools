@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 
-from uetools.core.arguments import add_arguments
-from uetools.core.command import Command, command_builder, newparser
+from uetools.args.arguments import add_arguments
+from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_modes, uat
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter

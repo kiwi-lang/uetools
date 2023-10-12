@@ -1,7 +1,7 @@
 import os
 from dataclasses import dataclass
 
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project_plugin, deduce_module
 
@@ -14,7 +14,6 @@ class Arguments:
 
 def make_file_for_module(module_path, klass):
     for folder, ext in [("Private", ".cpp"), ("Public", ".h")]:
-
         base = os.path.join(module_path, folder)
         os.makedirs(base, exist_ok=True)
 

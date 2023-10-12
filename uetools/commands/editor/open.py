@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.core.arguments import add_arguments
-from uetools.core.command import Command, newparser
+from uetools.args.arguments import add_arguments
+from uetools.args.command import Command, newparser
 from uetools.core.conf import editor, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter

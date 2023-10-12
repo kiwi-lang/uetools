@@ -4,8 +4,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.core.arguments import add_arguments
-from uetools.core.command import Command, command_builder, newparser
+from uetools.args.arguments import add_arguments
+from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import editor_cmd
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
@@ -15,7 +15,7 @@ from uetools.format.base import Formatter
 @dataclass
 class Arguments:
     """Convert a UE4 map using world partition"""
-    
+
     map                     : str
     project                 : Optional[str] = None   # Name of the the project to open
     SCCProvider             : Optional[str] = None   # Specifies which source control provider to use. To run without source control, specify -SCCProvider=None.

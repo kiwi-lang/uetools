@@ -1,8 +1,8 @@
 from argparse import ArgumentParser
 from dataclasses import dataclass
 
-from uetools.core.argformat import DumpParserAction, HelpAction, HelpActionException
-from uetools.core.arguments import add_arguments, group, parser, subparser
+from uetools.args.argformat import DumpParserAction, HelpAction, HelpActionException
+from uetools.args.arguments import add_arguments, group, parser, subparser
 
 
 @dataclass
@@ -56,7 +56,6 @@ class CommandLine:
 
 
 if __name__ == "__main__":
-
     parser = ArgumentParser(add_help=False)
     parser.add_argument(
         "-h", "--help", action=HelpAction, help="show this help message and exit"

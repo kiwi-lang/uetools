@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.core.arguments import add_arguments, choice
-from uetools.core.command import Command, command_builder, newparser
+from uetools.args.arguments import add_arguments, choice
+from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import (
     find_project,
     get_build_modes,

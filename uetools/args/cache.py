@@ -1,9 +1,10 @@
 import pickle
 import os
 import hashlib
-from threading import Thread
 
 import pkg_resources
+
+from uetools.args.parallel import submit
 
 
 def _compute_version(data: bytes) -> str:
@@ -57,7 +58,7 @@ def _save_cache(key, path, result, cached_version):
         thread_message[key] = "Command cache was up to date"
 
 
-def cache_to_local(cache_key):
+def cache_to_local(cache_key, location=__name__):
     """Cache function evaluation to the filesystem
 
     When the function is called again the cache is update async
@@ -85,22 +86,22 @@ def cache_to_local(cache_key):
             key = f"{cache_key}_{argk}"
             cached_result, cached_version = caches.get(key, (None, None))
 
-            cache_file = pkg_resources.resource_filename(__name__, f"data/{key}.pkl")
+            cache_file = pkg_resources.resource_filename(location, f"data/{key}.pkl")
 
             if cached_result is None:
-
                 cached_result, cached_version = _load_cache(cache_file)
                 caches[key] = cached_result, cached_version
 
             def _update_data():
                 cached_result = fun(*args, **kwargs)
-
                 _save_cache(cache_key, cache_file, cached_result, cached_version)
+
                 return cached_result
 
             def _background():
-                worker = Thread(target=_update_data)
-                worker.start()
+                global thread_message
+                thread_message[cache_key] = "PENDING"
+                submit(_update_data)
 
             if cached_result is not None:
                 # launch a async update

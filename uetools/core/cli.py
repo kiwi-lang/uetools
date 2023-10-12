@@ -6,10 +6,11 @@ from contextlib import contextmanager
 
 from uetools.commands import discover_commands, command_cache_status
 
-from .argformat import DumpParserAction, HelpAction, HelpActionException
-from .command import ParentCommand
+from ..args.argformat import DumpParserAction, HelpAction, HelpActionException
+from ..args.command import ParentCommand
 from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
+from ..args.parallel import shutdown
 
 
 # Argument Parser cannot be pickled
@@ -128,10 +129,16 @@ def profiler(enabled=False):
 def main_force(argv=None):
     import sys
 
-    with profiler("-xyz" in sys.argv):
+    should_profile = "-xyz" in sys.argv
+    # should_profile = False
+
+    with profiler(should_profile):
         r = main()
 
+    shutdown()
+
     show_timings()
+
     sys.exit(r)
 
 

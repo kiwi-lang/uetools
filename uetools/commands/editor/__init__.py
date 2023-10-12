@@ -1,5 +1,4 @@
-import uetools.commands.editor
-from uetools.core.command import ParentCommand
+from uetools.args.command import ParentCommand
 
 
 class Editor(ParentCommand):
@@ -9,6 +8,8 @@ class Editor(ParentCommand):
 
     @staticmethod
     def module():
+        import uetools.commands.editor
+
         return uetools.commands.editor
 
 

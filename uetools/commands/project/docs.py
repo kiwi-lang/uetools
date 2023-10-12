@@ -2,7 +2,7 @@ import os
 from typing import Optional
 
 
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 
 COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"

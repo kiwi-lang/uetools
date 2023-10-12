@@ -1,5 +1,5 @@
 import uetools.commands.test
-from uetools.core.command import ParentCommand
+from uetools.args.command import ParentCommand
 
 
 class Test(ParentCommand):

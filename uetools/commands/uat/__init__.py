@@ -1,5 +1,5 @@
 import uetools.commands.uat
-from uetools.core.command import ParentCommand
+from uetools.args.command import ParentCommand
 
 
 class UAT(ParentCommand):

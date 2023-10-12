@@ -4,13 +4,24 @@ from typing import List
 
 import pkg_resources
 
-from uetools.core.command import Command, ParentCommand
+from uetools.args.command import Command, ParentCommand
 
-PIL = None
-try:
-    from PIL import Image, ImageDraw, ImageFont, ImageOps
-except ImportError as err:
-    PIL = err
+
+Image = None
+ImageDraw = None
+ImageFont = None
+ImageOps = None
+
+
+def load_PIL():
+    global Image, ImageDraw, ImageFont, ImageOps
+
+    import PIL
+
+    Image = PIL.Image
+    ImageDraw = PIL.ImageDraw
+    ImageFont = PIL.ImageFont
+    ImageOps = PIL.ImageOps
 
 
 @dataclass
@@ -211,8 +222,7 @@ class TemplateImg(Command):
 
     @staticmethod
     def execute(args):
-        if PIL is not None:
-            raise PIL
+        load_PIL()
         create_banner_templates(args.folder)
         return 0
 
@@ -231,8 +241,7 @@ class ResizeImg(Command):
 
     @staticmethod
     def execute(args):
-        if PIL is not None:
-            raise PIL
+        load_PIL()
 
         resize_image(args.folder, to_tuple(args.size))
         return 0
@@ -255,8 +264,7 @@ class ShowcasheImg(Command):
 
     @staticmethod
     def execute(args):
-        if PIL is not None:
-            raise PIL
+        load_PIL()
         write_text_image(args.folder, args.text, args.mark, to_tuple(args.offset))
         return 0
 
@@ -276,9 +284,7 @@ class FrameImg(Command):
 
     @staticmethod
     def execute(args):
-        if PIL is not None:
-            raise PIL
-
+        load_PIL()
         color = to_tuple(args.color)
         border = args.border
 
@@ -314,10 +320,6 @@ class Marketing(ParentCommand):
         import uetools.plugins.gamekit.marketing
 
         return uetools.plugins.gamekit.marketing
-
-    @staticmethod
-    def command_field():
-        return "subsubcommand"
 
     @staticmethod
     def fetch_commands():

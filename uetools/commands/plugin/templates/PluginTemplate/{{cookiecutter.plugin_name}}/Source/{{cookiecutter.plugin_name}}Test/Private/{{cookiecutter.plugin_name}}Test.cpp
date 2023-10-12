@@ -1,8 +1,6 @@
-// Copyright 2023 Mischievous Game, Inc. All Rights Reserved.
+// {{cookiecutter.copyright}}
 
 #include "{{cookiecutter.plugin_name}}Test.h"
-
-// DEFINE_LOG_CATEGORY(LogGKFoW)
 
 // Unreal Engine
 #include "Engine/Blueprint.h"

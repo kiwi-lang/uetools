@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.core.command import Command, newparser
+from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 from uetools.core.run import run
 

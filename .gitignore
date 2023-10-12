@@ -30,3 +30,6 @@ out.txt
 
 tests/fake
 projects/
+
+
+*.hjson
