@@ -24,6 +24,7 @@ def test_install(project, project_name):
         args(
             "plugin",
             "install",
+            "--project",
             project_name,
             "ExamplePlugin2",
             "https://github.com/kiwi-lang/ExamplePlugin",
@@ -38,7 +39,7 @@ def test_install(project, project_name):
     else:
         assert False, "Plugin not found"
 
-    main(args("plugin", "disable", project_name, "ExamplePlugin2"))
+    main(args("plugin", "disable", "--project", project_name, "ExamplePlugin2"))
 
     for plugin in get_project_conf(project_name)["Plugins"]:
         if plugin["Name"] == "ExamplePlugin2":
@@ -55,6 +56,7 @@ def test_install_submodule(project, project_name, capsys):
             args(
                 "plugin",
                 "install",
+                "--project",
                 project_name,
                 "ExamplePlugin2",
                 "https://github.com/kiwi-lang/ExamplePlugin",
@@ -64,7 +66,7 @@ def test_install_submodule(project, project_name, capsys):
             )
         )
 
-    main(args("plugin", "list", project_name))
+    main(args("plugin", "list", "--project", project_name))
     capture = capsys.readouterr().out.splitlines()
 
     # Plugins:

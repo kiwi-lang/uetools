@@ -136,7 +136,8 @@ class ArgumentConfig(ArgumentFormaterBase):
             action.default = value
 
             # Update arguments
-            vars(self.arggroup)[name] = value
+            if self.arggroup:
+                vars(self.arggroup)[name] = value
 
 
 def apply_defaults(parser, configfile, cls=ArgumentConfig):

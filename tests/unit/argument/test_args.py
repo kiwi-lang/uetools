@@ -1,24 +1,31 @@
+from dataclasses import dataclass
+from typing import Tuple
+
+from uetools.args.arguments import ArgumentParser
+from uetools.core.cli import args
+
+
 def test_groups():
     from uetools.core.cli import discover_commands, build_parser
     from uetools.args.group import GroupArguments
+    from uetools.commands.editor.editor import Arguments
 
     commands = discover_commands()
 
     parser = build_parser(commands)
 
-    args = parser.parse_args()
+    out = parser.parse_args(args("editor", "editor"))
 
-    gp = GroupArguments(args)
+    gp = GroupArguments(out)
+    gp.group_by_dataclass = True
+    gp.group_by_parser = False
 
     data = gp.convert(parser)
 
-    print(data)
+    assert type(data.Arguments) == Arguments
 
 
-def test_types():
-    from uetools.args.arguments import parse
-    from dataclasses import dataclass
-    from typing import Tuple
+def test_enum():
     import enum
 
     class Color(enum.Enum):
@@ -26,22 +33,38 @@ def test_types():
         ORANGE = "ORANGE"
         BLUE = "BLUE"
 
-    # print(data)
     @dataclass
-    class Options:
-        """Help string for this group of command-line arguments"""
-
-        log_dir: str  # Help string for a required str argument
-        learning_rate: float = 1e-4  # Help string for a float argument
-        v: Tuple[float, float] = (1, 1)  # I am here
+    class Args:
         color: Color = Color.BLUE
 
-    print(parse(Options))
+    p = ArgumentParser()
+    p.add_arguments(Args)
+
+    args1 = p.parse_args(args("--color", "BLUE"))
+    args2 = p.parse_args(args("--color", "0"))
+
+    assert type(args1.color) is Color
+    assert type(args2.color) is Color
+
+
+def test_tuple():
+    @dataclass
+    class Args:
+        v: Tuple[float, float] = (2, 3)
+
+    p = ArgumentParser()
+    p.add_arguments(Args)
+
+    args1 = p.parse_args(args("--v", "1,1"))
+    args2 = p.parse_args(args("--v", "1", "1"))
+
+    assert args1.v == (1, 1)
+    assert args2.v == (1, 1)
 
 
 def test_config():
     from uetools.core.cli import discover_commands, build_parser
-    from uetools.args.arguments import (
+    from uetools.args.config import (
         apply_config,
         save_as_config,
         apply_defaults,
@@ -56,12 +79,12 @@ def test_config():
 
     apply_defaults(parser, "config.hjson")
 
-    args = parser.parse_args()
+    out = parser.parse_args(args("editor", "editor"))
 
-    print(args)
+    print(out)
 
-    save_as_config(parser, args, "dump.hjson")
+    save_as_config(parser, out, "dump.hjson")
 
-    apply_config(parser, args, "dump.hjson")
+    apply_config(parser, out, "dump.hjson")
 
-    print(args)
+    print(out)

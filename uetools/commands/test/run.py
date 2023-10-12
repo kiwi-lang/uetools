@@ -48,7 +48,7 @@ class RunTests(Command):
     @staticmethod
     def execute_editor(args):
         """Run the tests using the editor"""
-        project = find_project(args.name)
+        project = find_project(args.project)
         folder = os.path.dirname(project)
 
         # Commands a separated by ;

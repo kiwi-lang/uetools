@@ -13,6 +13,7 @@ def test_plugin_finalize(project, project_name):
         args(
             "plugin",
             "install",
+            "--project",
             os.path.join(project, project_name + ".uproject"),
             "ExamplePlugin2",
             "https://github.com/kiwi-lang/ExamplePlugin",

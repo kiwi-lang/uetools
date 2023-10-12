@@ -90,7 +90,7 @@ def cvt_type(hint):
         return hint
 
 
-def _add_flag(group, field, docstring):
+def _add_flag(group, field, name, docstring):
     default = False
     action = "store_true"
 
@@ -99,7 +99,7 @@ def _add_flag(group, field, docstring):
         action = "store_false"
 
     group.add_argument(
-        "--" + field.name,
+        "--" + name,
         action=action,
         default=default,
         help=docstring,
@@ -258,10 +258,14 @@ def deduce_add_arguments(field, docstring):
     return positional, required, kwargs
 
 
-def _add_argument(group: argparse._ArgumentGroup, field, docstring) -> argparse.Action:
+def _add_argument(
+    group: argparse._ArgumentGroup, field, name, docstring
+) -> argparse.Action:
     positional, required, kwargs = deduce_add_arguments(field, docstring)
 
-    name = field.name
+    if "." in name and positional:
+        required = True
+        positional = False
 
     if positional:
         return group.add_argument(
@@ -348,7 +352,12 @@ def _group(dataclass, title=None, dest=None):
 
 
 def add_arguments(
-    parser: argparse.ArgumentParser, dataclass, title=None, create_group=True, dest=None
+    parser: argparse.ArgumentParser,
+    dataclass,
+    title=None,
+    pathname=False,
+    create_group=True,
+    dest=None,
 ):
     """Traverse the dataclass hierarchy and build a parser tree"""
     source, parser.description, start = find_dataclass_docstring(dataclass)
@@ -364,16 +373,26 @@ def add_arguments(
         setattr(group, "_dest", dest)
 
     for field in fields(dataclass):
+        name = field.name
+        if pathname:
+            name = f"{dest}.{name}"
+
         meta = dict(field.metadata)
         special_argument = meta.pop("type", None)
         docstring, start = find_docstring(field, source, start)
 
         if is_dataclass(field.type):
-            add_arguments(group, field.type, dest=field.name, create_group=create_group)
+            add_arguments(
+                group,
+                field.type,
+                dest=name,
+                pathname=pathname,
+                create_group=create_group,
+            )
             continue
 
         if special_argument == "group":
-            meta.setdefault("title", field.name)
+            meta.setdefault("title", name)
             meta.setdefault("description", docstring)
 
             group = group.add_argument_group(**meta)
@@ -382,16 +401,16 @@ def add_arguments(
             continue
 
         if special_argument == "subparser":
-            meta.setdefault("title", field.name)
+            meta.setdefault("title", name)
             meta.setdefault("description", docstring)
-            meta.setdefault("dest", field.name)
+            meta.setdefault("dest", name)
 
             if subparser is None:
                 subparser = group.add_subparsers(**meta)
             continue
 
         if special_argument == "parser":
-            meta.setdefault("name", field.name)
+            meta.setdefault("name", name)
             meta.setdefault("description", docstring)
 
             group = subparser.add_parser(**meta)
@@ -408,9 +427,9 @@ def add_arguments(
             continue
 
         if field.type == "bool" or field.type is bool:
-            _add_flag(group, field, docstring)
+            _add_flag(group, field, name, docstring)
         else:
-            _add_argument(group, field, docstring)
+            _add_argument(group, field, name, docstring)
 
     return group
 
@@ -454,8 +473,10 @@ class ArgumentParser(argparse.ArgumentParser):
         self.group_by_dataclass: bool = group_by_dataclass
         self.dataclass = dataclass
 
-    def add_arguments(self, dataclass, dest=None, create_group=True):
-        add_arguments(self, dataclass, dest=dest, create_group=create_group)
+    def add_arguments(self, dataclass, dest=None, pathname=False, create_group=True):
+        add_arguments(
+            self, dataclass, dest=dest, pathname=pathname, create_group=create_group
+        )
 
     def add_subparsers(self, *args, **kwargs):
         kwargs.setdefault("parser_class", type(self))
@@ -489,8 +510,9 @@ class ArgumentParser(argparse.ArgumentParser):
 
         # Apply a config on top of the command line
         #   Command line takes precedence
-        transform = ArgumentConfig(config, grouped)
-        transform(self)
+        if config:
+            transform = ArgumentConfig(config, grouped)
+            transform(self)
 
         return grouped
 

@@ -18,4 +18,4 @@ def test_mock_test(project, project_name, monkeypatch, cmd, rc, extra):
     monkeypatch.setattr(
         f"uetools.commands.test.{cmd}.popen_with_format", lambda *a, **b: rc
     )
-    assert main(args("test", cmd, project_name, *extra)) == rc
+    assert main(args("test", cmd, "--project", project_name, *extra)) == rc

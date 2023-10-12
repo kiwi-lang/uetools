@@ -8,7 +8,7 @@ def _getattr(obj, name, default):
     value = default
 
     if hasattr(obj, name):
-        return getattr(obj, name) or value
+        return getattr(obj, name) or default
 
     return value
 
@@ -25,18 +25,30 @@ class GroupArguments(ArgumentFormaterBase):
         self.group_by_dataclass = False
         self.ignore_default = True
         self.ignore_groups = {"positional arguments", "optional arguments"}
+        # because action names with . inside will get grouped
+        # we do not know all the time if a group should be created or not
+        self.dest_to_dataclass = dict()
 
     @property
     def current(self):
         return self.stack[-1][0]
 
     def new_group(self, name, dataclass=argparse.Namespace):
-        newgroup = dict()
+        newgroup = self.current.get(name)
+
+        if newgroup is not None:
+            newgroup = vars(newgroup)
+        else:
+            newgroup = dict()
+
         self.current[name] = newgroup
         self.stack.append((newgroup, name, dataclass))
 
     def pop_group(self):
         group, name, dataclass = self.stack.pop()
+
+        if dataclass is not None:
+            dataclass = self.dest_to_dataclass.get(name)
 
         if dataclass is not None:
             try:
@@ -65,18 +77,20 @@ class GroupArguments(ArgumentFormaterBase):
     def __call__(self, parser: argparse.ArgumentParser, depth: int = 0) -> Any:
         for group in parser._action_groups:
             pop_group = False
+
+            dataclass = _getattr(group, "_dataclass", argparse.Namespace)
+            dest = _getattr(group, "_dest", group.title)
+
             if (
                 isinstance(group, argparse._ArgumentGroup)
                 and group.title not in self.ignore_groups
                 and self.group_by_dataclass
             ):
-                dataclass = _getattr(group, "_dataclass", argparse.Namespace)
-                dest = _getattr(group, "_dest", group.title)
-
                 assert dest is not None
                 self.new_group(dest, dataclass)
                 pop_group = True
 
+            self.dest_to_dataclass[dest] = dataclass
             self.format_group(group, depth)
 
             if pop_group:
@@ -120,22 +134,23 @@ class GroupArguments(ArgumentFormaterBase):
         name = name or action.dest
 
         if hasattr(self.args, name):
+            path = name.split(".")
+            for p in path[:-1]:
+                self.new_group(p)
+
             value = getattr(self.args, name)
 
-            if self.ignore_default:
+            if not (self.ignore_default and value is None):
                 # Check here if the value is the default
-                if value is None:
-                    return
+                self.current[path[-1]] = value
 
-            self.current[name] = value
+            for p in path[:-1]:
+                self.pop_group()
 
 
 def group_by_dataclass(
     parser, args, group_by_parser, group_by_dataclass, dataclass=argparse.Namespace
 ):
-    if not group_by_dataclass and not group_by_parser:
-        return args
-
     gp = GroupArguments(args, dataclass)
     gp.group_by_parser = group_by_parser
     gp.group_by_dataclass = group_by_dataclass

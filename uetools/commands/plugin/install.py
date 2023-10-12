@@ -30,16 +30,16 @@ class Install(Command):
 
         # This will install the plugin inside RTSGame/Plugins/
         # it will download the repository on put it inside the RTSGame/Plugins/ folder
-        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable
+        uecli install --project RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable
 
         # This will install the plugin inside RTSGame/Plugins/
         # it will execute the following command:
         #   - git submodule add https://github.com/Phyronnaz/VoxelPlugin Plugins/VoxelPlugin
         #
-        uecli install RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable --destination Plugins --submodule
+        uecli install --project RTSGame VoxelPlugin https://github.com/Phyronnaz/VoxelPlugin --enable --destination Plugins --submodule
 
         # disable the plugin
-        uecli disable RTSGame VoxelPlugin
+        uecli disable --project RTSGame VoxelPlugin
     """
 
     name: str = "install"
@@ -47,9 +47,11 @@ class Install(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Install)
-        parser.add_argument("name", type=str, help="Project name")
         parser.add_argument("plugin", type=str, help="name of the plugin")
         parser.add_argument("url", type=str, help="repository url of the plugin")
+        parser.add_argument(
+            "--project", default=deduce_project(), type=str, help="Project name"
+        )
         parser.add_argument(
             "--enable",
             action="store_true",
@@ -76,7 +78,7 @@ class Install(Command):
 
     @staticmethod
     def execute(args):
-        project = find_project(args.name)
+        project = find_project(args.project)
         folder = os.path.dirname(project)
 
         dest_relative = f"{args.destination}/{args.plugin}"
@@ -102,7 +104,7 @@ class Install(Command):
             print(f"Folder {dest} exists already, skipping installation")
 
         if args.enable:
-            project = find_project(args.name)
+            project = find_project(args.project)
 
             with open(project, encoding="utf-8") as project_file:
                 project_conf = json.load(project_file)

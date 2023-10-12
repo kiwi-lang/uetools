@@ -37,8 +37,8 @@ class Disable(Command):
 
     @staticmethod
     def execute(args):
-        name = args.name
-        uproject = find_project(args.name)
+        name = args.project
+        uproject = find_project(args.project)
 
         with open(uproject, encoding="utf-8") as project_file:
             project_conf = json.load(project_file)
