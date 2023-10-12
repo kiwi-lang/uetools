@@ -66,6 +66,7 @@ setup_kwargs = dict(
         "colorama",
         "cookiecutter",
         "GitPython",
+        "hjson",
     ],
     extras_require=extras_require,
     python_requires=">=3.8",

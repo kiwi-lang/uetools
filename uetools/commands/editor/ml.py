@@ -242,7 +242,7 @@ class UnrealEngineProcess:
 def _ask_ue_to_exit(args):
     import socket
 
-    from uetools.core.client import Client
+    from uetools.rl.client import Client
 
     def wrapper():
         try:

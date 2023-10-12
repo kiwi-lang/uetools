@@ -7,9 +7,10 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict, is_dataclass
 
+from uetools.core.perf import timeit
+
 from .argformat import HelpAction
 from .arguments import add_arguments
-from ..core.perf import timeit
 from .plugin import discover_plugin_commands
 
 

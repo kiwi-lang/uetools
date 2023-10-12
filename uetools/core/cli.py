@@ -5,13 +5,14 @@ import argparse
 from contextlib import contextmanager
 
 from uetools.commands import discover_commands, command_cache_status
+from uetools.args.argformat import DumpParserAction, HelpAction, HelpActionException
+from uetools.args.command import ParentCommand
+from uetools.args.parallel import shutdown
 
-from ..args.argformat import DumpParserAction, HelpAction, HelpActionException
-from ..args.command import ParentCommand
 from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
-from ..args.parallel import shutdown
 from .util import deduce_project_plugin
+
 
 # Argument Parser cannot be pickled
 def build_parser(commands):
