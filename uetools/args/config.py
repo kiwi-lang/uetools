@@ -132,9 +132,10 @@ class ArgumentConfig(ArgumentFormaterBase):
             if not self.ignore_default or value != action.default:
                 self.current[name] = value
 
+            # Update default
             action.default = value
 
-            # Update the arguments
+            # Update arguments
             vars(self.arggroup)[name] = value
 
 

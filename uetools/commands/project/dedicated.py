@@ -5,11 +5,12 @@ import pkg_resources
 
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
+from uetools.core.util import deduce_project
 
 
 @dataclass
 class Arguments:
-    project: str
+    project: str = deduce_project()
 
 
 class Dedicated(Command):

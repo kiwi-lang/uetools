@@ -12,14 +12,14 @@ from uetools.core.conf import (
 )
 from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
-
+from uetools.core.util import deduce_project
 
 # fmt: off
 @dataclass
 class UATArguments:
     """Cook arguments for UAT"""
 
-    project         : str
+    project         : str = deduce_project()
     unattended      : bool = True
     utf8output      : bool = True
     platform        : str = choice(*get_build_platforms(), default=guess_platform())    # Platform

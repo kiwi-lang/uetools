@@ -5,6 +5,7 @@ from io import UnsupportedOperation
 from uetools.args.command import Command, newparser
 from uetools.core.conf import editor, find_project
 from uetools.core.ini import UnrealINIParser
+from uetools.core.util import deduce_project
 
 
 @dataclass
@@ -28,7 +29,7 @@ class Python(Command):
     def arguments(subparsers):
         parser = newparser(subparsers, Python)
         parser.add_argument(
-            "project", default=None, type=str, help="name of your project"
+            "project", default=deduce_project(), type=str, help="name of your project"
         )
 
     @staticmethod

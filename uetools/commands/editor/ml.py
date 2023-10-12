@@ -13,6 +13,7 @@ from uetools.args.arguments import add_arguments
 from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import WINDOWS, editor, find_project
 from uetools.format.base import Formatter
+from uetools.core.util import deduce_project
 
 
 # fmt: off
@@ -302,7 +303,10 @@ class ML(Command):
         parser = newparser(subparsers, ML)
         parser.add_argument("map", type=str, help="Name of the map to open")
         parser.add_argument(
-            "--project", type=str, help="Name of the the project to open", default=None
+            "--project",
+            type=str,
+            help="Name of the the project to open",
+            default=deduce_project(),
         )
 
         add_arguments(parser, Arguments)

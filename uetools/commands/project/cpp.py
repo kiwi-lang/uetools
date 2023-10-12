@@ -9,13 +9,14 @@ import pkg_resources
 from uetools.args.arguments import add_arguments
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
+from uetools.core.util import deduce_project
 
 
 # fmt: off
 @dataclass
 class Arguments:
-    project: str  # Project name
-    no_input: bool = True  # Disable prompt
+    project: str  = deduce_project() # Project name
+    no_input: bool = True            # Disable prompt
 
 
 # fmt: on

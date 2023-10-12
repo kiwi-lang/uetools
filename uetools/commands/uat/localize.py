@@ -7,6 +7,7 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, uat
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
+from uetools.core.util import deduce_project
 
 actions = ["Gather", "Compile", "import", "export"]
 
@@ -14,7 +15,7 @@ actions = ["Gather", "Compile", "import", "export"]
 # fmt: off
 @dataclass
 class UATArguments:
-    project                         : str                    # Project name
+    project                         : str = deduce_project() # Project name
     UEProjectRoot                   : Optional[str] = None   # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
     UEProjectDirectory              : str           = ''     # Sub-path to the project we're gathering for (relative to UEProjectRoot).
     UEProjectName                   : Optional[str] = None   # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).

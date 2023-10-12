@@ -7,6 +7,7 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_platforms, guess_platform, uat
 from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
+from uetools.core.util import deduce_project
 
 
 # fmt: off
@@ -73,7 +74,10 @@ class PackagePlugin(Command):
         parser = newparser(subparsers, PackagePlugin)
         parser.add_argument("plugin", type=str, help="Path to uplugin file")
         parser.add_argument(
-            "--project", type=str, help="Project name containing the plugin"
+            "--project",
+            type=str,
+            help="Project name containing the plugin",
+            default=deduce_project(),
         )
         parser.add_argument(
             "--platforms",

@@ -8,6 +8,7 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_modes, uat
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
+from uetools.core.util import deduce_project
 
 commands = [
     "AnalyzeThirdPartyLibs",
@@ -97,7 +98,7 @@ commands = [
 @dataclass
 class UATArgs:
     """Common UAT arguments"""
-    project                 : str           # Project path (required), i.e: -project=QAGame, -project=Samples/BlackJack/BlackJack.uproject, -project=D:/Projects/MyProject.uproject,
+    project                 : str  = deduce_project() # Project path (required), i.e: -project=QAGame, -project=Samples/BlackJack/BlackJack.uproject, -project=D:/Projects/MyProject.uproject,
     verbose                 : bool = False  # Enables verbose logging
     veryverbose             : bool = False  # Enables very verbose logging
     submit                  : bool = False  # Allows UAT command to submit changes

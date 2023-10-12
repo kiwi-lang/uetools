@@ -6,15 +6,17 @@ from typing import Optional
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 from uetools.core.run import run
+from uetools.core.util import deduce_project
 
 
 @dataclass
 class Arguments:
     # fmt: off
-    name        : str                    # Name of the project to modify.
-    url         : str                    # url of the plugin to install.
-    destination : Optional[str] = None   # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
-    submodule   : bool          = False  # install the plugin as a git submodule (defaults to: ``False``)# fmt: on
+    
+    url         : str                               # url of the plugin to install.
+    project     : str           = deduce_project()  # Name of the project to modify.
+    destination : Optional[str] = None              # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
+    submodule   : bool          = False             # install the plugin as a git submodule (defaults to: ``False``)# fmt: on
     # fmt: on
 
 

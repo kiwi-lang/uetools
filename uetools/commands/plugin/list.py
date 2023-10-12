@@ -2,6 +2,7 @@ import os
 
 from uetools.args.command import Command, newparser
 from uetools.core.conf import engine_folder, find_project
+from uetools.core.util import deduce_project
 
 
 class List(Command):
@@ -12,7 +13,9 @@ class List(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, List)
-        parser.add_argument("project", nargs="?", type=str, help="Project name")
+        parser.add_argument(
+            "--project", type=str, help="Project name", default=deduce_project()
+        )
 
     @staticmethod
     def execute(args):

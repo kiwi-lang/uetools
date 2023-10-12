@@ -7,6 +7,7 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_modes, get_build_platforms, ubt
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
+from uetools.core.util import deduce_project
 
 modes = [
     "AggregateParsedTimingInfo",
@@ -133,7 +134,7 @@ class UBT(Command):
         parser.add_argument("target", type=str, help="target name")
         parser.add_argument(
             "--project",
-            default=None,
+            default=deduce_project(),
             type=str,
             help="Path to the project, example: <project>.uproject",
         )

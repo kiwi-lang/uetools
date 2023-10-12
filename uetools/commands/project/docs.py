@@ -4,6 +4,7 @@ from typing import Optional
 
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
+from uetools.core.util import deduce_project
 
 COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
 
@@ -11,9 +12,9 @@ COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
 # pylint: disable=too-few-public-methods
 class Arguments:
     # fmt: off
-    project : str                   # name of your project
-    no_input: bool = False          # Do not show user prompts
-    config  : Optional[str] = None  # Configuration file used to initialize the project (json)
+    project : str = deduce_project() # name of your project
+    no_input: bool = False           # Do not show user prompts
+    config  : Optional[str] = None   # Configuration file used to initialize the project (json)
     # fmt: on
 
 

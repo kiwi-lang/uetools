@@ -9,6 +9,7 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import editor_cmd
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
+from uetools.core.util import deduce_project
 
 
 # fmt: off
@@ -17,7 +18,7 @@ class Arguments:
     """Convert a UE4 map using world partition"""
 
     map                     : str
-    project                 : Optional[str] = None   # Name of the the project to open
+    project                 : Optional[str] = deduce_project()  # Name of the the project to open
     SCCProvider             : Optional[str] = None   # Specifies which source control provider to use. To run without source control, specify -SCCProvider=None.
     Verbose                 : bool          = False  # Displays verbose logging.
     ConversionSuffix        : bool          = False  # Appends the _WP suffix to a converted map. This is useful when converting Levels for testing purposes while keeping the source Level intact.

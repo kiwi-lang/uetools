@@ -6,6 +6,8 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, ubt
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
+from uetools.core.util import deduce_project
+
 
 generators = [
     "Make",
@@ -85,7 +87,9 @@ class Generate(Command):
     def arguments(subparsers):
         """Adds the arguments for this command to the given parser"""
         parser = newparser(subparsers, Generate)
-        parser.add_argument("project", type=str, help="project name")
+        parser.add_argument(
+            "--project", type=str, help="project name", default=deduce_project()
+        )
         add_arguments(parser, Arguments)
 
     @staticmethod

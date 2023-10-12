@@ -1,16 +1,11 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import editor, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
-
-
-@dataclass
-class Arguments:
-    project: Optional[str] = None  # Name of the the project to open
+from uetools.core.util import deduce_project
 
 
 class Open(Command):
@@ -27,10 +22,9 @@ class Open(Command):
 
     name: str = "open"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, Open)
-        add_arguments(parser, Arguments)
+    @dataclass
+    class Arguments:
+        project: Optional[str] = deduce_project()  # Name of the the project to open
 
     @staticmethod
     def execute(args):

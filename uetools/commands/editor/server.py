@@ -6,13 +6,13 @@ from uetools.args.command import Command, newparser
 from uetools.core.conf import editor, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
-
+from uetools.core.util import deduce_project
 
 # fmt: off
 @dataclass
 class Arguments:
     map         : str           # Name of the map to serve
-    project     : Optional[str] = None  # Name of the the project to open
+    project     : Optional[str] = deduce_project()  # Name of the the project to open
     dedicated   : bool = False  # If true will start a dedicated server, otherwise a listen server (one local player that can host remote players)
     port        : int = 8123    # Server port
     dry         : bool = False  # Print the command it will execute without running it

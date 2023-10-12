@@ -9,6 +9,7 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import editor_cmd, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
+from uetools.core.util import deduce_project
 
 actions = ["Gather", "Compile", "import", "export"]
 
@@ -16,7 +17,7 @@ actions = ["Gather", "Compile", "import", "export"]
 # fmt: off
 @dataclass
 class ArgumentEditor:
-    project                 : Optional[str] = None  # Name of the the project to open
+    project                 : Optional[str] = deduce_project()  # Name of the the project to open
     run                     : str = choice("GatherText")
     target                  : Optional[str] = None  # Localization target (defaults to the project name)
     SCCProvider             : Optional[str] = None  # Source control provider

@@ -6,6 +6,7 @@ import pkg_resources
 
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
+from uetools.core.util import deduce_project
 
 
 class NewPlugin(Command):
@@ -17,7 +18,10 @@ class NewPlugin(Command):
     def arguments(subparsers):
         parser = newparser(subparsers, NewPlugin)
         parser.add_argument(
-            "project", type=str, help="Project in which the plugin will live"
+            "--project",
+            type=str,
+            help="Project in which the plugin will live",
+            default=deduce_project(),
         )
         parser.add_argument("plugin", type=str, help="Name of the plugin")
 

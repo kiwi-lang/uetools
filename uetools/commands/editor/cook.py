@@ -16,6 +16,7 @@ from uetools.core.conf import (
 )
 from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
+from uetools.core.util import deduce_project
 
 
 def editor_platforms():
@@ -29,7 +30,7 @@ def build_modes():
 @dataclass
 class Arguments:
     # fmt: off
-    project: Optional[str] = None  # Name of the the project to open
+    project         : Optional[str] = deduce_project()                  # Name of the the project to open
     output          : Optional[str] = None                  # Output
     build           : Optional[str] = build_modes()         # Build modes
     platform        : Optional[str] = editor_platforms()    # Platform to cookf

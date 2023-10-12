@@ -26,7 +26,7 @@ def find_file_like(path, pat):
 
 
 @lru_cache(maxsize=None)
-def deduce_project_plugin(path):
+def deduce_project_plugin(path=os.getcwd()):
     path = str(path)
 
     result = _re_deduce_project_plugin.search(path)
@@ -44,8 +44,13 @@ def deduce_project_plugin(path):
     return project, plugin
 
 
+def deduce_plugin(path=os.getcwd()):
+    _, plugin = deduce_project_plugin(path)
+    return plugin
+
+
 @lru_cache(maxsize=None)
-def deduce_project(path):
+def deduce_project(path=os.getcwd()):
     result, remain = find_file_like(path, "*.uproject")
     if result:
         return str(result.parent.name)
@@ -53,7 +58,7 @@ def deduce_project(path):
 
 
 @lru_cache(maxsize=None)
-def deduce_module(path):
+def deduce_module(path=os.getcwd()):
     path, remain = find_file_like(path, "*Build..cs")
     return str(os.path.dirname(path))
 

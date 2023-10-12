@@ -3,8 +3,7 @@ import os
 import shutil
 from dataclasses import dataclass
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import (
     engine_folder,
     get_version_tag,
@@ -30,11 +29,6 @@ class FinalizePlugin(Command):
         plugin: str  # plugin name
         output: str  # output
         marketplace: bool = False  # make the folder marketplace friendly
-
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, FinalizePlugin)
-        add_arguments(parser, FinalizePlugin.Arguments)
 
     @staticmethod
     def execute(args):
