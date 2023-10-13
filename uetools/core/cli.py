@@ -3,8 +3,14 @@ from __future__ import annotations
 
 import argparse
 from contextlib import contextmanager
+import time
+import traceback
 
-from uetools.commands import discover_commands, command_cache_status
+from uetools.commands import (
+    discover_commands,
+    command_cache_status,
+    command_cache_future,
+)
 from uetools.args.argformat import DumpParserAction, HelpAction, HelpActionException
 from uetools.args.command import ParentCommand
 from uetools.args.parallel import shutdown
@@ -68,7 +74,18 @@ def args(*a):
     return a
 
 
+def check_cache_update():
+    future = command_cache_future()
+    while not future.done():
+        time.sleep(1)
+
+    # Raise the exception here
+    future.result()
+
+
 def extended_status():
+    check_cache_update()
+
     print("\n---\n")
     project, plugin = deduce_project_plugin()
 
@@ -83,9 +100,11 @@ def extended_status():
 
     msg = command_cache_status()
     if msg:
-        print("\n")
-        print(" " * 2, "NOTE: ", msg)
-        print("\n")
+        if project or plugin:
+            print("\n")
+
+        print("  NOTE: ", msg)
+        print()
 
 
 def main(argv=None):
@@ -98,7 +117,6 @@ def main(argv=None):
         try:
             parsed_args = parse_args(commands, argv)
         except HelpActionException:
-            extended_status()
             return 0
 
         except BadConfig:
@@ -153,6 +171,15 @@ def main_force(argv=None):
         r = main()
 
     shutdown()
+
+    try:
+        extended_status()
+    except Exception:
+        print("---")
+        print("Plugin lookup failed because of:")
+        print()
+        traceback.print_exc()
+        print("---")
 
     show_timings()
 

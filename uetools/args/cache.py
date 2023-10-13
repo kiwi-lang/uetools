@@ -2,9 +2,13 @@ import pickle
 import os
 import hashlib
 
-import pkg_resources
+import importlib_resources
 
 from uetools.args.parallel import submit
+
+
+def load_resource(path, key):
+    return importlib_resources.files(path) / key
 
 
 def _compute_version(data: bytes) -> str:
@@ -14,6 +18,11 @@ def _compute_version(data: bytes) -> str:
 
 
 thread_message = dict()
+thread_futures = dict()
+
+
+def get_cache_future(cache_key):
+    return thread_futures[cache_key]
 
 
 def get_cache_status(cache_key):
@@ -86,7 +95,7 @@ def cache_to_local(cache_key, location=__name__):
             key = f"{cache_key}_{argk}"
             cached_result, cached_version = caches.get(key, (None, None))
 
-            cache_file = pkg_resources.resource_filename(location, f"data/{key}.pkl")
+            cache_file = load_resource(location, f"data/{key}.pkl")
 
             if cached_result is None:
                 cached_result, cached_version = _load_cache(cache_file)
@@ -98,14 +107,23 @@ def cache_to_local(cache_key, location=__name__):
 
                 return cached_result
 
-            def _background():
+            def _safe_update():
                 global thread_message
                 thread_message[cache_key] = "PENDING"
-                submit(_update_data)
+
+                try:
+                    _update_data()
+                except Exception as err:
+                    thread_message[cache_key] = err
+                    raise
 
             if cached_result is not None:
+                global thread_futures
+
                 # launch a async update
-                _background()
+                future = submit(_safe_update)
+                thread_futures[cache_key] = future
+
                 # return current cache
                 return cached_result
             else:

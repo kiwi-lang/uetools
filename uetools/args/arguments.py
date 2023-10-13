@@ -2,14 +2,13 @@
 from __future__ import annotations
 
 import argparse
-from collections.abc import Sequence
 import dataclasses
 import inspect
 import enum
 import re
 import typing
 from dataclasses import MISSING, fields, is_dataclass
-from typing import Any, get_type_hints
+from typing import get_type_hints
 
 forward_refs_to_types = {
     "tuple": typing.Tuple,
@@ -437,37 +436,15 @@ def add_arguments(
 class ArgumentParser(argparse.ArgumentParser):
     def __init__(
         self,
-        prog: str | None = None,
-        usage: str | None = None,
-        description: str | None = None,
-        epilog: str | None = None,
-        parents: Sequence[ArgumentParser] = [],
-        formatter_class: argparse._FormatterClass = argparse.HelpFormatter,
-        prefix_chars: str = "-",
-        fromfile_prefix_chars: str | None = None,
-        argument_default: Any = None,
-        conflict_handler: str = "error",
-        add_help: bool = True,
-        allow_abbrev: bool = True,
-        exit_on_error: bool = True,
+        *args,
         group_by_parser: bool = False,
         group_by_dataclass: bool = False,
         dataclass: type = argparse.Namespace,
+        **kwargs,
     ) -> None:
         super().__init__(
-            prog,
-            usage,
-            description,
-            epilog,
-            parents,
-            formatter_class,
-            prefix_chars,
-            fromfile_prefix_chars,
-            argument_default,
-            conflict_handler,
-            add_help,
-            allow_abbrev,
-            exit_on_error,
+            *args,
+            **kwargs,
         )
         self.group_by_parser: bool = group_by_parser
         self.group_by_dataclass: bool = group_by_dataclass

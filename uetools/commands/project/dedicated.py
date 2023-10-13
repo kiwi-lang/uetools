@@ -1,8 +1,7 @@
 import os
 from dataclasses import dataclass
 
-import pkg_resources
-
+from uetools.args.cache import load_resource
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project
@@ -65,9 +64,7 @@ class Dedicated(Command):
     @staticmethod
     def generate_server_target(project, server_target):
         """Add the UBT server target to a given project"""
-        template = pkg_resources.resource_filename(
-            __name__, "templates/TemplateServer.Target"
-        )
+        template = load_resource(__name__, "templates/TemplateServer.Target")
 
         with open(template, encoding="utf-8") as template_file:
             template = template_file.read()

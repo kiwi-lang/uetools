@@ -2,8 +2,7 @@ import json
 import os
 import tempfile
 
-import pkg_resources
-
+from uetools.args.cache import load_resource
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project
@@ -32,9 +31,7 @@ class NewPlugin(Command):
         project = find_project(args.project)
         project_dir = os.path.dirname(project)
 
-        template = pkg_resources.resource_filename(
-            __name__, "templates/PluginTemplate/cookiecutter.json"
-        )
+        template = load_resource(__name__, "templates/PluginTemplate/cookiecutter.json")
 
         assert os.path.exists(template)
         template = os.path.dirname(template)

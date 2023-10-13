@@ -4,8 +4,7 @@ import shutil
 import tempfile
 from dataclasses import dataclass
 
-import pkg_resources
-
+from uetools.args.cache import load_resource
 from uetools.args.arguments import add_arguments
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
@@ -52,9 +51,7 @@ class CPP(Command):
 
         project = find_project(args.project)
 
-        template = pkg_resources.resource_filename(
-            __name__, "templates/CPPTemplate/cookiecutter.json"
-        )
+        template = load_resource(__name__, "templates/CPPTemplate/cookiecutter.json")
 
         template = os.path.dirname(template)
 

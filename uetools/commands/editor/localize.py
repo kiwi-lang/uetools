@@ -2,8 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-import pkg_resources
-
+from uetools.args.cache import load_resource
 from uetools.args.arguments import add_arguments, choice
 from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import editor_cmd, find_project
@@ -104,7 +103,7 @@ class LocalEditor(Command):
         localization_config = os.path.join(folder, "Config", "Localization")
         os.makedirs(localization_config, exist_ok=True)
 
-        template = pkg_resources.resource_filename(
+        template = load_resource(
             __name__, "templates/Localization/TargetName.ini"
         )
 

@@ -2,8 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import List
 
-import pkg_resources
-
+from uetools.args.cache import load_resource
 from uetools.args.command import Command, ParentCommand
 
 
@@ -119,7 +118,7 @@ def create_banner_templates(folder):
 
 
 def get_font():
-    filepath = pkg_resources.resource_filename(__name__, "resources/Roboto-Regular.ttf")
+    filepath = load_resource(__name__, "resources/Roboto-Regular.ttf")
     return filepath
 
 

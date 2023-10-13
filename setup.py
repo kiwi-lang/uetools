@@ -61,6 +61,7 @@ setup_kwargs = dict(
         "cookiecutter",
         "GitPython",
         "hjson",
+        "importlib_resources",
     ],
     extras_require=extras_require,
     python_requires=">=3.8",
