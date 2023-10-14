@@ -1,9 +1,11 @@
+from dataclasses import dataclass
 import json
 import os
 
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import find_project
 from uetools.core.ini import UnrealINIParser
+from uetools.core.util import deduce_project
 
 
 class VSCode(Command):
@@ -19,25 +21,23 @@ class VSCode(Command):
 
     name: str = "vscode"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, VSCode)
-        parser.add_argument("name", type=str, help="Project name")
-        parser.add_argument(
-            "--yes", action="store_true", help="No user prompts (assume yes)"
-        )
+    @dataclass
+    class Arguments:
+        # fmt: off
+        project      : str  = deduce_project() # Project name
+        yes          : bool = False            # No user prompts (assume yes)
+        # fmt: on
 
     @staticmethod
     def execute(args):
         VSCode.enable_python_editor(args)
         VSCode.add_stub_to_path(args)
-
         return 0
 
     @staticmethod
     def enable_python_editor(args):
         """Modify your project settings to enable python scripting in your project"""
-        project = find_project(args.name)
+        project = find_project(args.project)
         folder = os.path.dirname(project)
 
         conf = os.path.join(folder, "Config")
@@ -56,7 +56,7 @@ class VSCode(Command):
     @staticmethod
     def add_stub_to_path(args):
         """Modify vscode settings to add the python stub path to the autocomplete path."""
-        name = args.name
+        name = args.project
 
         project = find_project(name)
         folder = os.path.dirname(project)

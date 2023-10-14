@@ -11,6 +11,6 @@ def test_vscode(project, project_name):
 
     assert os.path.exists(os.path.join(project, ".vscode")) is False
 
-    main(args("project", "vscode", project_name, "--yes"))
+    main(args("project", "vscode", "--project", project_name, "--yes"))
 
     assert os.path.exists(os.path.join(project, ".vscode")) is True

@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from typing import Optional
 
 from uetools.commands.ubt.build import Build
-from uetools.args.arguments import add_arguments, choice
-from uetools.args.command import Command, command_builder, newparser
+from uetools.args.arguments import choice
+from uetools.args.command import Command, command_builder
 from uetools.core.conf import (
     build_platform_from_editor,
     editor_cmd,
@@ -25,20 +25,6 @@ def editor_platforms():
 
 def build_modes():
     return choice(*get_build_modes(), default=None)
-
-
-@dataclass
-class Arguments:
-    # fmt: off
-    project         : Optional[str] = deduce_project()                  # Name of the the project to open
-    output          : Optional[str] = None                  # Output
-    build           : Optional[str] = build_modes()         # Build modes
-    platform        : Optional[str] = editor_platforms()    # Platform to cookf
-    compressed      : bool          = True                  # Compressed
-    cookall         : bool          = True                  # Cook All the content
-    unversioned     : bool          = True                  # unversioned
-    WarningsAsErrors: bool          = True                  # Fail on warnings
-    # fmt: on
 
 
 class CookGame(Command):
@@ -64,11 +50,18 @@ class CookGame(Command):
 
     name: str = "cook"
 
-    @staticmethod
-    def arguments(subparsers):
-        """Add arguments to the parser"""
-        parser = newparser(subparsers, CookGame)
-        add_arguments(parser, Arguments)
+    @dataclass
+    class Arguments:
+        # fmt: off
+        project         : Optional[str] = deduce_project()      # Name of the the project to open
+        output          : Optional[str] = None                  # Output
+        build           : Optional[str] = build_modes()         # Build modes
+        platform        : Optional[str] = editor_platforms()    # Platform to cookf
+        compressed      : bool          = True                  # Compressed
+        cookall         : bool          = True                  # Cook All the content
+        unversioned     : bool          = True                  # unversioned
+        WarningsAsErrors: bool          = True                  # Fail on warnings
+        # fmt: on
 
     @staticmethod
     def execute(args):

@@ -1,6 +1,7 @@
+from dataclasses import dataclass
 import os
 
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import editor_cmd, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.tests import TestFormatter
@@ -30,16 +31,13 @@ class RunTests(Command):
 
     name: str = "run"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, RunTests)
-        parser.add_argument("map", type=str, help="map name")
-        parser.add_argument(
-            "--project", type=str, help="Project name", default=deduce_project()
-        )
-        parser.add_argument(
-            "tests", type=str, default="uetools", help="Test section to run"
-        )
+    @dataclass
+    class Arguments:
+        # fmt: off
+        map         : str                               # map name
+        tests       : str           = "uetools"         # Test section to run
+        project     : str           = deduce_project()  # Name of the project to modify.
+        # fmt: on
 
     @staticmethod
     def execute(args):

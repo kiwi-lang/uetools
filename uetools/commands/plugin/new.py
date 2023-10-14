@@ -1,9 +1,10 @@
+from dataclasses import dataclass
 import json
 import os
 import tempfile
 
 from uetools.args.cache import load_resource
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project
 
@@ -13,16 +14,10 @@ class NewPlugin(Command):
 
     name: str = "new"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, NewPlugin)
-        parser.add_argument(
-            "--project",
-            type=str,
-            help="Project in which the plugin will live",
-            default=deduce_project(),
-        )
-        parser.add_argument("plugin", type=str, help="Name of the plugin")
+    @dataclass
+    class Arguments:
+        plugin: str  # Plugin's name"
+        project: str = deduce_project()  # project's name
 
     @staticmethod
     def execute(args):

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from uetools.args.arguments import add_arguments, choice
-from uetools.args.command import Command, command_builder, newparser
+from uetools.args.arguments import choice
+from uetools.args.command import Command, command_builder
 from uetools.core.conf import get_build_modes, guess_platform, uat
 from uetools.core.run import popen_with_format
 from uetools.format.tests import TestFormatter
@@ -19,18 +19,6 @@ def commands():
     )
 
 
-@dataclass
-class UATArguments:
-    """Arguments for the UAT command"""
-
-    test: str
-    project: str = deduce_project()
-    run: str = commands()
-    platform: str = choice(*get_build_modes(), type=str, default=guess_platform())
-    configuration: str = choice(*get_build_modes(), type=str, default="Development")
-    build: str = "local"
-
-
 class RunTestsUAT(Command):
     """Execute automated tests for a given project using UAT
 
@@ -41,11 +29,16 @@ class RunTestsUAT(Command):
 
     name: str = "test"
 
-    @staticmethod
-    def arguments(subparsers):
-        """Defines UAT testing arguments"""
-        parser = newparser(subparsers, RunTestsUAT)
-        add_arguments(parser, UATArguments)
+    @dataclass
+    class Arguments:
+        """Arguments for the UAT command"""
+
+        test: str
+        project: str = deduce_project()
+        run: str = commands()
+        platform: str = choice(*get_build_modes(), type=str, default=guess_platform())
+        configuration: str = choice(*get_build_modes(), type=str, default="Development")
+        build: str = "local"
 
     @staticmethod
     def execute(args):

@@ -9,6 +9,7 @@ from uetools.core.conf import (
     get_version_tag,
     retrieve_exact_engine_version,
 )
+from uetools.core.util import deduce_plugin
 
 
 class FinalizePlugin(Command):
@@ -26,8 +27,8 @@ class FinalizePlugin(Command):
 
     @dataclass
     class Arguments:
-        plugin: str  # plugin name
         output: str  # output
+        plugin: str = deduce_plugin()  # plugin name
         marketplace: bool = False  # make the folder marketplace friendly
 
     @staticmethod

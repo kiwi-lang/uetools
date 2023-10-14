@@ -1,22 +1,11 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import editor, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
-
-
-@dataclass
-class Arguments:
-    # fmt: off
-    project: Optional[str] = deduce_project()  # Name of the the project to open
-    address: Optional[str] = None  # Address to the server
-    port: int = 8123  # Server port
-    dry: bool = False  # Print the command it will execute without running it
-    # fmt: on
 
 
 class Client(Command):
@@ -46,10 +35,14 @@ class Client(Command):
 
     name: str = "client"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, Client)
-        add_arguments(parser, Arguments)
+    @dataclass
+    class Arguments:
+        # fmt: off
+        project: Optional[str] = deduce_project()  # Name of the the project to open
+        address: Optional[str] = None  # Address to the server
+        port: int = 8123  # Server port
+        dry: bool = False  # Print the command it will execute without running it
+        # fmt: on
 
     @staticmethod
     def execute(args):

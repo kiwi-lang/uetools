@@ -11,7 +11,7 @@ def test_unit_dedicated(project, project_name):
     )
 
     # Add a new dedicated server target
-    main(args("project", "dedicated", project_name))
+    main(args("project", "dedicated", "--project", project_name))
 
     assert (
         os.path.exists(os.path.join(project, "Source/ExampleProjectServer.Target.cs"))

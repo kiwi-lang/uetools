@@ -20,6 +20,6 @@ def test_plugin_finalize(project, project_name):
         )
     )
 
-    rc = main(args("plugin", "finalize", p1, p2))
+    rc = main(args("plugin", "finalize", "--plugin", p1, p2))
 
     assert rc == 1

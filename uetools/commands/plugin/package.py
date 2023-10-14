@@ -7,43 +7,7 @@ from uetools.args.command import Command, command_builder, newparser
 from uetools.core.conf import find_project, get_build_platforms, guess_platform, uat
 from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
-from uetools.core.util import deduce_project
-
-
-# fmt: off
-@dataclass
-class Arguments:
-    """Builds and cook a plugin"""
-
-    # project             : str # Name of the project
-    # plugin              : str # Path to the plugin (relative to project folder)
-    # platforms           : List[str] = field(default_factory=list)
-    # output              : str  = None  # Packaged plugin destination
-    StrictIncludes      : bool = False  # Disables precompiled headers and unity build in order to check all source files have self-contained headers.
-    NoHostPlatform      : bool = False  # Prevent compiling for the editor platform on the host
-    verbose             : bool = False  # Enables verbose logging
-    veryverbose         : bool = False  # Enables very verbose logging
-    submit              : bool = False  # Allows UAT command to submit changes
-    nosubmit            : bool = False  # Prevents any submit attempts
-    np4                 : bool = False  # Disables Perforce functionality
-    nonp4               : bool = False  # Enables Perforce functionality
-    NoKill              : bool = False  # Does not kill any spawned processes on exit
-    Compile             : bool = False  # Force all script modules to be compiled
-    NoCompile           : bool = False  # Do not attempt to compile any script modules
-    IgnoreBuildRecords  : bool = False  # Ignore build records (Intermediate/ScriptModule/ProjectName.json)
-    UseLocalBuildStorage: bool = False  # Allows you to use local storage for your root build storage dir
-    WaitForDebugger     : bool = False  # Waits for a debugger to be attached, and breaks once debugger successfully attached.
-    Unversioned         : bool = False  # Do not embed the current engine version into the descriptor
-    Rocket              : bool = True   # Undocumented argument
-    EngineDir           : Optional[str] = None  # Engine directory
-    CreateSubFolder     : bool = False  # Create a subfolder for the plugin
-    NoPCH               : bool = False  # No Precompiled Header
-    NoSharedPCH         : bool = False  # No Shared Precompiled Header
-    DisableUnity        : bool = False  # Disable Unity Build
-    NoDeleteHostProject : bool = False  # Do not delete host project (which was created to prepare the plugin)
-    # this does not exist when calling BuildPlugin
-    # UbtArgs             : Optional[str]     = None  # extra options to pass to ubt
-# fmt: on
+from uetools.core.util import deduce_project, deduce_plugin
 
 
 class PackagePlugin(Command):
@@ -69,16 +33,45 @@ class PackagePlugin(Command):
 
     name: str = "package"
 
+    # fmt: off
+    @dataclass
+    class Arguments:
+        """Builds and cook a plugin"""
+
+        project: str = deduce_project() # project's name
+        plugin: str = deduce_plugin()   # Plugin's name"
+
+        # platforms           : List[str] = field(default_factory=list)
+        output              : str  = None   # Packaged plugin destination
+        StrictIncludes      : bool = False  # Disables precompiled headers and unity build in order to check all source files have self-contained headers.
+        NoHostPlatform      : bool = False  # Prevent compiling for the editor platform on the host
+        verbose             : bool = False  # Enables verbose logging
+        veryverbose         : bool = False  # Enables very verbose logging
+        submit              : bool = False  # Allows UAT command to submit changes
+        nosubmit            : bool = False  # Prevents any submit attempts
+        np4                 : bool = False  # Disables Perforce functionality
+        nonp4               : bool = False  # Enables Perforce functionality
+        NoKill              : bool = False  # Does not kill any spawned processes on exit
+        Compile             : bool = False  # Force all script modules to be compiled
+        NoCompile           : bool = False  # Do not attempt to compile any script modules
+        IgnoreBuildRecords  : bool = False  # Ignore build records (Intermediate/ScriptModule/ProjectName.json)
+        UseLocalBuildStorage: bool = False  # Allows you to use local storage for your root build storage dir
+        WaitForDebugger     : bool = False  # Waits for a debugger to be attached, and breaks once debugger successfully attached.
+        Unversioned         : bool = False  # Do not embed the current engine version into the descriptor
+        Rocket              : bool = True   # Undocumented argument
+        EngineDir           : Optional[str] = None  # Engine directory
+        CreateSubFolder     : bool = False  # Create a subfolder for the plugin
+        NoPCH               : bool = False  # No Precompiled Header
+        NoSharedPCH         : bool = False  # No Shared Precompiled Header
+        DisableUnity        : bool = False  # Disable Unity Build
+        NoDeleteHostProject : bool = False  # Do not delete host project (which was created to prepare the plugin)
+        # this does not exist when calling BuildPlugin
+        # UbtArgs             : Optional[str]     = None  # extra options to pass to ubt
+    # fmt: on
+
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, PackagePlugin)
-        parser.add_argument("plugin", type=str, help="Path to uplugin file")
-        parser.add_argument(
-            "--project",
-            type=str,
-            help="Project name containing the plugin",
-            default=deduce_project(),
-        )
         parser.add_argument(
             "--platforms",
             type=str,
@@ -87,11 +80,7 @@ class PackagePlugin(Command):
             default=[guess_platform()],
             help="list of platforms to build for",
         )
-        parser.add_argument(
-            "--output", type=str, help="path to build the packaged plugin"
-        )
-
-        add_arguments(parser, Arguments)
+        add_arguments(parser, PackagePlugin.Arguments)
 
     @staticmethod
     def execute(args):

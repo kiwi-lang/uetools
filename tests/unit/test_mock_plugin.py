@@ -11,7 +11,12 @@ def test_mock_plugin_pacakge(project, project_name, monkeypatch, rc):
     assert (
         main(
             args(
-                "plugin", "package", "--project", project_name, "Plugins/ExamplePlugin"
+                "plugin",
+                "package",
+                "--project",
+                project_name,
+                "--plugin",
+                "Plugins/ExamplePlugin",
             )
         )
         == rc

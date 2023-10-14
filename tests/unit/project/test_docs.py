@@ -30,7 +30,11 @@ def test_docs(project, project_name, tmp_path):
             config,
         )
 
-    main(args("project", "docs", project_name, "--config", path, "--no-input"))
+    main(
+        args(
+            "project", "docs", "--project", project_name, "--config", path, "--no_input"
+        )
+    )
 
     docs = os.path.join(project, "Docs")
     assert os.path.exists(docs) is True

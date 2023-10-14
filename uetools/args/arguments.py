@@ -266,6 +266,8 @@ def _add_argument(
         required = True
         positional = False
 
+    # name = name.replace("_", "-")
+
     if positional:
         return group.add_argument(
             name,
@@ -273,8 +275,8 @@ def _add_argument(
         )
     else:
         return group.add_argument(
-            "--" + name,  # Option Strings
-            dest=name,  # dest
+            "--" + name,        # Option Strings
+            dest=name,          # dest
             required=not positional and required,
             **kwargs,
         )

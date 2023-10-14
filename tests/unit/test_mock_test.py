@@ -3,7 +3,7 @@ import pytest
 from uetools.core.cli import args, main
 
 commands = [
-    ("run", ["FakeMap", "FakeTest"]),
+    ("run", ["FakeMap", "--tests", "FakeTest"]),
 ]
 
 params = []

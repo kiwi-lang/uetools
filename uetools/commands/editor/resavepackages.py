@@ -1,20 +1,11 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import editor_commandlet, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
-
-
-# fmt: off
-@dataclass
-class Arguments:
-    project: Optional[str] = deduce_project()  # Name of the the project to open
-    no_input: bool = True
-# fmt: on
 
 
 class ReSavePackages(Command):
@@ -31,10 +22,12 @@ class ReSavePackages(Command):
 
     name: str = "resavepackages"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, ReSavePackages)
-        add_arguments(parser, Arguments)
+    # fmt: off
+    @dataclass
+    class Arguments:
+        project: Optional[str] = deduce_project()  # Name of the the project to open
+        no_input: bool = True
+    # fmt: on
 
     @staticmethod
     def execute(args):

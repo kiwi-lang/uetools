@@ -1,8 +1,8 @@
 import os
 from dataclasses import dataclass
 
-from uetools.args.arguments import add_arguments, choice
-from uetools.args.command import Command, command_builder, newparser
+from uetools.args.arguments import choice
+from uetools.args.command import Command, command_builder
 from uetools.core.conf import find_project, ubt
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
@@ -26,36 +26,6 @@ generators = [
     "Rider",
     "NONE",
 ]
-
-# fmt: off
-@dataclass
-class Arguments:
-    makefile            : bool = False  # Generate Linux Makefile
-    cmakefile           : bool = False  # Generate project files for CMake
-    qmakefile           : bool = False  # Generate project files for QMake
-    kdevelopfile        : bool = False  # Generate project files for KDevelop
-    codelitefiles       : bool = False  # Generate project files for Codelite
-    xcodeprojectfiles   : bool = False  # Generate project files for XCode
-    eddieprojectfiles   : bool = False  # Generate project files for Eddie
-    vscode              : bool = False  # Generate project files for Visual Studio Code
-    vsmac               : bool = False  # Generate project files for Visual Studio Mac
-    clion               : bool = False  # Generate project files for CLion
-    rider               : bool = False  # Generate project files for Rider
-    projectfiles        : bool = True   # Generate project files based on IDE preference.
-    projectfileformat   : str = choice(*generators, default='NONE', type=str)
-    game                : bool = True
-    engine              : bool = True
-    progress            : bool = True
-    verbose             : bool = False
-    veryverbose         : bool = False
-    traceWrites         : bool = False
-    timestamps          : bool = False
-    frommsbuild         : bool = False
-    suppressSDKWarnings : bool = False
-    nomutex             : bool = False
-    waitmutex           : bool = False
-    remoteini           : str  = None
-# fmt: on
 
 
 class Generate(Command):
@@ -83,14 +53,36 @@ class Generate(Command):
 
     name: str = "regenerate"
 
-    @staticmethod
-    def arguments(subparsers):
-        """Adds the arguments for this command to the given parser"""
-        parser = newparser(subparsers, Generate)
-        parser.add_argument(
-            "--project", type=str, help="project name", default=deduce_project()
-        )
-        add_arguments(parser, Arguments)
+    # fmt: off
+    @dataclass
+    class Arguments:
+        project             : str = deduce_project() # project name"
+        makefile            : bool = False  # Generate Linux Makefile
+        cmakefile           : bool = False  # Generate project files for CMake
+        qmakefile           : bool = False  # Generate project files for QMake
+        kdevelopfile        : bool = False  # Generate project files for KDevelop
+        codelitefiles       : bool = False  # Generate project files for Codelite
+        xcodeprojectfiles   : bool = False  # Generate project files for XCode
+        eddieprojectfiles   : bool = False  # Generate project files for Eddie
+        vscode              : bool = False  # Generate project files for Visual Studio Code
+        vsmac               : bool = False  # Generate project files for Visual Studio Mac
+        clion               : bool = False  # Generate project files for CLion
+        rider               : bool = False  # Generate project files for Rider
+        projectfiles        : bool = True   # Generate project files based on IDE preference.
+        projectfileformat   : str = choice(*generators, default='NONE', type=str)
+        game                : bool = True
+        engine              : bool = True
+        progress            : bool = True
+        verbose             : bool = False
+        veryverbose         : bool = False
+        traceWrites         : bool = False
+        timestamps          : bool = False
+        frommsbuild         : bool = False
+        suppressSDKWarnings : bool = False
+        nomutex             : bool = False
+        waitmutex           : bool = False
+        remoteini           : str  = None
+    # fmt: on
 
     @staticmethod
     def execute(args):

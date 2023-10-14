@@ -3,13 +3,7 @@ from dataclasses import dataclass
 
 from uetools.args.command import Command, newparser
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project
-
-
-@dataclass
-class Arguments:
-    name: str
-    plugin: str
+from uetools.core.util import deduce_project, deduce_plugin
 
 
 class Disable(Command):
@@ -21,11 +15,16 @@ class Disable(Command):
     .. code-block:: console
 
        # Disable the plugin
-       uecli disable RTSGame RTSGamePlugin
+       uecli disable --project TTSGame --plugin RTSGamePlugin
 
     """
 
     name: str = "disable"
+
+    @dataclass
+    class Arguments:
+        project: str = deduce_project()  # project's name
+        plugin: str = deduce_plugin()  # Plugin's name"
 
     @staticmethod
     def arguments(subparsers):

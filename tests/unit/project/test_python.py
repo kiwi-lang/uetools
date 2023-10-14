@@ -20,7 +20,7 @@ def test_python(project, project_name):
     # print(pat)
     # regex = re.compile(pat, flags=re.MULTILINE)
 
-    main(args("project", "python", project_name))
+    main(args("project", "python", "--project", project_name))
 
     assert "Config/DefaultEngine.ini" in git_status(project)
 

@@ -5,20 +5,9 @@ import tempfile
 from dataclasses import dataclass
 
 from uetools.args.cache import load_resource
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project
-
-
-# fmt: off
-@dataclass
-class Arguments:
-    project: str  = deduce_project() # Project name
-    no_input: bool = True            # Disable prompt
-
-
-# fmt: on
 
 
 class CPP(Command):
@@ -40,10 +29,12 @@ class CPP(Command):
 
     name: str = "cpp"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, CPP)
-        add_arguments(parser, Arguments)
+    # fmt: off
+    @dataclass
+    class Arguments:
+        project: str  = deduce_project() # Project name
+        no_input: bool = True            # Disable prompt
+    # fmt: on
 
     @staticmethod
     def execute(args):

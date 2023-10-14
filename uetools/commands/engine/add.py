@@ -3,8 +3,7 @@ import re
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import CONFIG, CONFIGNAME, get_version_tag, load_conf, save_conf
 
 BUILTIN_PATTERN = re.compile(r"UE_(?P<version>(([0-9]*)\.[0-9]*))")
@@ -19,15 +18,6 @@ def get_engine_version(path):
             return version
 
     return get_version_tag(path, "archive")
-
-
-@dataclass
-class EngineAddArguments:
-    # fmt: off
-    version: Optional[str] = None  # Unreal Engine Version (5.1)
-    engine: Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    force: bool = False  # Allow version override
-    # fmt: on
 
 
 class EngineAdd(Command):
@@ -52,10 +42,13 @@ class EngineAdd(Command):
 
     name: str = "add"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, EngineAdd)
-        add_arguments(parser, EngineAddArguments)
+    @dataclass
+    class Arguments:
+        # fmt: off
+        version: Optional[str] = None  # Unreal Engine Version (5.1)
+        engine: Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+        force: bool = False  # Allow version override
+        # fmt: on
 
     @staticmethod
     def execute(args):

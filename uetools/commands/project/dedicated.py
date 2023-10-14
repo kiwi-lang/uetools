@@ -2,14 +2,9 @@ import os
 from dataclasses import dataclass
 
 from uetools.args.cache import load_resource
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project
-
-
-@dataclass
-class Arguments:
-    project: str = deduce_project()
 
 
 class Dedicated(Command):
@@ -38,12 +33,9 @@ class Dedicated(Command):
 
     name: str = "dedicated"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, Dedicated)
-        parser.add_argument(
-            "project", default=None, type=str, help="name of your project"
-        )
+    @dataclass
+    class Arguments:
+        project: str = deduce_project()  # name of your project
 
     @staticmethod
     def execute(args):

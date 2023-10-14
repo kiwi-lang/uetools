@@ -1,15 +1,9 @@
 import os
 from dataclasses import dataclass
 
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project_plugin, deduce_module
-
-
-@dataclass
-class Arguments:
-    name: str
-    plugin: str
+from uetools.core.util import deduce_project, deduce_plugin, deduce_module
 
 
 def make_file_for_module(module_path, klass):
@@ -43,17 +37,11 @@ class Class(Command):
 
     name: str = "class"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, Class)
-
-        project, plugin = deduce_project_plugin(os.getcwd())
-
-        parser.add_argument(
-            "--project", type=str, help="project's name", default=project
-        )
-        parser.add_argument("--plugin", type=str, help="Plugin's name", default=plugin)
-        parser.add_argument("klass", type=str, help="Class' name")
+    @dataclass
+    class Arguments:
+        klass: str  # Class' name
+        project: str = deduce_project()  # project's name
+        plugin: str = deduce_plugin()  # Plugin's name"
 
     @staticmethod
     def execute(args):

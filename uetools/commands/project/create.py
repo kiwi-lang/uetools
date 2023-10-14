@@ -1,4 +1,6 @@
-from uetools.args.command import Command, newparser
+from dataclasses import dataclass
+
+from uetools.args.command import Command
 
 
 class ProjectNew(Command):
@@ -6,9 +8,9 @@ class ProjectNew(Command):
 
     name: str = "new"
 
-    @staticmethod
-    def arguments(subparsers):
-        newparser(subparsers, ProjectNew)
+    @dataclass
+    class Arguments:
+        pass
 
     @staticmethod
     def execute(args):

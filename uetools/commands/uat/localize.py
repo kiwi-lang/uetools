@@ -2,34 +2,13 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, command_builder, newparser
+from uetools.args.command import Command, command_builder
 from uetools.core.conf import find_project, uat
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
 
 actions = ["Gather", "Compile", "import", "export"]
-
-
-# fmt: off
-@dataclass
-class UATArguments:
-    project                         : str = deduce_project() # Project name
-    UEProjectRoot                   : Optional[str] = None   # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
-    UEProjectDirectory              : str           = ''     # Sub-path to the project we're gathering for (relative to UEProjectRoot).
-    UEProjectName                   : Optional[str] = None   # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
-    LocalizationProjectNames        : Optional[str] = None   # Comma separated list of the projects to gather text from.
-    LocalizationBranch              : Optional[str] = None   # Optional suffix to use when uploading the new data to the localization provider.
-    LocalizationProvider            : Optional[str] = None   # Optional localization provide override."
-    LocalizationSteps               : Optional[str] = None   # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
-    IncludePlugins                  : bool          = False  # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
-    ExcludePlugins                  : Optional[str] = None   # Optional comma separated list of plugins to exclude from the gather.
-    IncludePlatforms                : bool          = False  # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
-    AdditionalCSCommandletArguments : Optional[str] = None   # Optional arguments to pass to the gather process.
-    ParallelGather                  : bool          = False  # Run the gather processes for a single batch in parallel rather than sequence.
-    OneSkyProjectGroupName          : Optional[str] = None
-# fmt: on
 
 
 class LocalUAT(Command):
@@ -89,10 +68,24 @@ class LocalUAT(Command):
 
     name: str = "localize"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, LocalUAT)
-        add_arguments(parser, UATArguments)
+    # fmt: off
+    @dataclass
+    class Arguments:
+        project                         : str = deduce_project() # Project name
+        UEProjectRoot                   : Optional[str] = None   # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
+        UEProjectDirectory              : str           = ''     # Sub-path to the project we're gathering for (relative to UEProjectRoot).
+        UEProjectName                   : Optional[str] = None   # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).
+        LocalizationProjectNames        : Optional[str] = None   # Comma separated list of the projects to gather text from.
+        LocalizationBranch              : Optional[str] = None   # Optional suffix to use when uploading the new data to the localization provider.
+        LocalizationProvider            : Optional[str] = None   # Optional localization provide override."
+        LocalizationSteps               : Optional[str] = None   # Optional comma separated list of localization steps to perform [Download, Gather, Import, Export, Compile, GenerateReports, Upload] (default is all). Only valid for projects using a modular config.
+        IncludePlugins                  : bool          = False  # Optional flag to include plugins from within the given UEProjectDirectory as part of the gather. This may optionally specify a comma separated list of the specific plugins to gather (otherwise all plugins will be gathered).
+        ExcludePlugins                  : Optional[str] = None   # Optional comma separated list of plugins to exclude from the gather.
+        IncludePlatforms                : bool          = False  # Optional flag to include platforms from within the given UEProjectDirectory as part of the gather.
+        AdditionalCSCommandletArguments : Optional[str] = None   # Optional arguments to pass to the gather process.
+        ParallelGather                  : bool          = False  # Run the gather processes for a single batch in parallel rather than sequence.
+        OneSkyProjectGroupName          : Optional[str] = None
+    # fmt: on
 
     @staticmethod
     def execute(args):

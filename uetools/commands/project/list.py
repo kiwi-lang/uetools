@@ -1,6 +1,7 @@
+from dataclasses import dataclass
 import os
 
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import project_folder
 
 
@@ -9,9 +10,9 @@ class List(Command):
 
     name: str = "list"
 
-    @staticmethod
-    def arguments(subparsers):
-        newparser(subparsers, List)
+    @dataclass
+    class Arguments:
+        pass
 
     @staticmethod
     def execute(args):

@@ -3,21 +3,10 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.command import Command, newparser
+from uetools.args.command import Command
 from uetools.core.conf import find_project
 from uetools.core.run import run
 from uetools.core.util import deduce_project
-
-
-@dataclass
-class Arguments:
-    # fmt: off
-    
-    url         : str                               # url of the plugin to install.
-    project     : str           = deduce_project()  # Name of the project to modify.
-    destination : Optional[str] = None              # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
-    submodule   : bool          = False             # install the plugin as a git submodule (defaults to: ``False``)# fmt: on
-    # fmt: on
 
 
 class Install(Command):
@@ -44,37 +33,18 @@ class Install(Command):
 
     name: str = "install"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, Install)
-        parser.add_argument("plugin", type=str, help="name of the plugin")
-        parser.add_argument("url", type=str, help="repository url of the plugin")
-        parser.add_argument(
-            "--project", default=deduce_project(), type=str, help="Project name"
-        )
-        parser.add_argument(
-            "--enable",
-            action="store_true",
-            help="Enable the plugin in the project settings",
-        )
-        parser.add_argument(
-            "--destination",
-            type=str,
-            default="Plugins",
-            help="Plugin destination, relative to the root of the project",
-        )
-        parser.add_argument(
-            "--submodule",
-            action="store_true",
-            default=False,
-            help="add the plugin as a git submodule",
-        )
-        parser.add_argument(
-            "--force",
-            action="store_true",
-            default=False,
-            help="submodule force",
-        )
+    @dataclass
+    class Arguments:
+        # fmt: off
+
+        plugin      : str                               # Plugin's name"
+        url         : str                               # url of the plugin to install.
+        project     : str           = deduce_project()  # Name of the project to modify.
+        destination : Optional[str] = 'Plugins'         # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
+        submodule   : bool          = False             # install the plugin as a git submodule (defaults to: ``False``)# fmt: on
+        enable      : bool          = False             # Enable the plugin in the project settings
+        force       : bool          = False             # submodule force
+        # fmt: on
 
     @staticmethod
     def execute(args):

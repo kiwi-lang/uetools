@@ -9,36 +9,10 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import dataclass
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, command_builder, newparser
+from uetools.args.command import Command, command_builder
 from uetools.core.conf import WINDOWS, editor, find_project
 from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
-
-
-# fmt: off
-@dataclass
-class Arguments:
-    """Launch unreal engine with mladapter setup"""
-    resx                : int = 320     # resolution width
-    resy                : int = 240     # resolution height
-    fps                 : int = 20      # Max FPS
-    windowed            : bool = True   # Window mode
-    usefixedtimestep    : bool = True   # Block until the ML agent replies with an action
-    game                : bool = True   #
-    unattended          : bool = True   # Close when the game finishes
-    onethread           : bool = False  # Run on a single thread
-    reducethreadusage   : bool = False  #
-    nosound             : bool = False  # Disable sound
-    nullrhi             : bool = False  # Disable rendering
-    deterministic       : bool = False  # Set seeds ?
-    debug               : bool = False  #
-    mladapterport       : int = 8123    # RPC server listen port
-    stdout              : bool = True
-    fullstdoutlogoutput : bool = True   # Print log to stdout
-    utf8output          : bool = True   # --
-    nosplash            : bool = True   # --
-# fmt: on
 
 
 SLEEP = 0.01
@@ -261,22 +235,6 @@ def _ask_ue_to_exit(args):
     return wrapper
 
 
-@contextmanager
-def unrealgame(args: Arguments):
-    cmd = build_command(args)
-
-    with multiprocessing.Manager() as manager:
-        ue = UnrealEngineProcess(cmd, manager, _ask_ue_to_exit(args))
-
-        # wait for UE to be ready
-        while ue.is_alive() and ue.status.value != _READY:
-            time.sleep(0)
-
-        yield ue
-
-        ue.stop()
-
-
 class ML(Command):
     """Launch a game setup for machine learning
 
@@ -298,24 +256,32 @@ class ML(Command):
 
     name: str = "ml"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, ML)
-        parser.add_argument("map", type=str, help="Name of the map to open")
-        parser.add_argument(
-            "--project",
-            type=str,
-            help="Name of the the project to open",
-            default=deduce_project(),
-        )
-
-        add_arguments(parser, Arguments)
-        parser.add_argument(
-            "--dry",
-            action="store_true",
-            default=False,
-            help="Print the command it will execute without running it",
-        )
+    # fmt: off
+    @dataclass
+    class Arguments:
+        """Launch unreal engine with mladapter setup"""
+        map                 : str                    # Name of the map to open
+        project             : str = deduce_project() # Name of the the project to open
+        resx                : int = 320     # resolution width
+        resy                : int = 240     # resolution height
+        fps                 : int = 20      # Max FPS
+        windowed            : bool = True   # Window mode
+        usefixedtimestep    : bool = True   # Block until the ML agent replies with an action
+        game                : bool = True   #
+        unattended          : bool = True   # Close when the game finishes
+        onethread           : bool = False  # Run on a single thread
+        reducethreadusage   : bool = False  #
+        nosound             : bool = False  # Disable sound
+        nullrhi             : bool = False  # Disable rendering
+        deterministic       : bool = False  # Set seeds ?
+        debug               : bool = False  #
+        mladapterport       : int = 8123    # RPC server listen port
+        stdout              : bool = True
+        fullstdoutlogoutput : bool = True   # Print log to stdout
+        utf8output          : bool = True   # --
+        nosplash            : bool = True   # --
+        dry                 : bool = False  # Print the command it will execute without running it
+    # fmt: on
 
     @staticmethod
     def execute(args):
@@ -341,6 +307,22 @@ class ML(Command):
                     env.interrupt()
 
         return 0
+
+
+@contextmanager
+def unrealgame(args: ML.Arguments):
+    cmd = build_command(args)
+
+    with multiprocessing.Manager() as manager:
+        ue = UnrealEngineProcess(cmd, manager, _ask_ue_to_exit(args))
+
+        # wait for UE to be ready
+        while ue.is_alive() and ue.status.value != _READY:
+            time.sleep(0)
+
+        yield ue
+
+        ue.stop()
 
 
 COMMANDS = ML

@@ -3,31 +3,14 @@ from dataclasses import dataclass
 from typing import Optional
 
 from uetools.args.cache import load_resource
-from uetools.args.arguments import add_arguments, choice
-from uetools.args.command import Command, command_builder, newparser
+from uetools.args.arguments import choice
+from uetools.args.command import Command, command_builder
 from uetools.core.conf import editor_cmd, find_project
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
 
 actions = ["Gather", "Compile", "import", "export"]
-
-
-# fmt: off
-@dataclass
-class ArgumentEditor:
-    project                 : Optional[str] = deduce_project()  # Name of the the project to open
-    run                     : str = choice("GatherText")
-    target                  : Optional[str] = None  # Localization target (defaults to the project name)
-    SCCProvider             : Optional[str] = None  # Source control provider
-    EnableSCC               : bool = False  # enable source control
-    DisableSCCSubmit        : bool = True   # Disable submitting to source control
-    Unattended              : bool = True   # Don't ask for user input
-    NoShaderCompile         : bool = True   # Prevent shader compilation
-    multiprocess            : bool = True   # Use multiple threads to gather text
-    ReportStaleGatherCache  : bool = False  # Generates a StaleGatherCacheReport.txt file alongside the manifest for your localization target. This file contains a list of any Assets that contain a stale gather cache.
-    FixStaleGatherCache     : bool = False  # Attempts to automatically fix any Assets that contain a stale gather cache, by re-saving them.
-    FixMissingGatherCache   : bool = False  # For Assets too old to have a gather cache, this attempts to automatically fix Assets that are missing a gather cache by re-saving them.# fmt: on
 
 
 class LocalEditor(Command):
@@ -82,17 +65,23 @@ class LocalEditor(Command):
 
     name: str = "localize"
 
-    @staticmethod
-    def arguments(subparsers):
-        """Localization arguments"""
-        parser = newparser(subparsers, LocalEditor)
-        add_arguments(parser, ArgumentEditor)
-        parser.add_argument(
-            "--bootstrap",
-            action="store_true",
-            default=False,
-            help="Generate default Localization configuration for your project",
-        )
+    # fmt: off
+    @dataclass
+    class Arguments:
+        project                 : Optional[str] = deduce_project()  # Name of the the project to open
+        run                     : str = choice("GatherText")
+        target                  : Optional[str] = None  # Localization target (defaults to the project name)
+        SCCProvider             : Optional[str] = None  # Source control provider
+        EnableSCC               : bool = False  # enable source control
+        DisableSCCSubmit        : bool = True   # Disable submitting to source control
+        Unattended              : bool = True   # Don't ask for user input
+        NoShaderCompile         : bool = True   # Prevent shader compilation
+        multiprocess            : bool = True   # Use multiple threads to gather text
+        ReportStaleGatherCache  : bool = False  # Generates a StaleGatherCacheReport.txt file alongside the manifest for your localization target. This file contains a list of any Assets that contain a stale gather cache.
+        FixStaleGatherCache     : bool = False  # Attempts to automatically fix any Assets that contain a stale gather cache, by re-saving them.
+        FixMissingGatherCache   : bool = False  # For Assets too old to have a gather cache, this attempts to automatically fix Assets that are missing a gather cache by re-saving them.# fmt: on
+        bootstrap               : bool = False  # Generate default Localization configuration for your project
+    # fmt: on
 
     @staticmethod
     def bootstrap(name, target):
@@ -103,9 +92,7 @@ class LocalEditor(Command):
         localization_config = os.path.join(folder, "Config", "Localization")
         os.makedirs(localization_config, exist_ok=True)
 
-        template = load_resource(
-            __name__, "templates/Localization/TargetName.ini"
-        )
+        template = load_resource(__name__, "templates/Localization/TargetName.ini")
 
         with open(template, encoding="utf-8") as template:
             template = template.read()
@@ -120,8 +107,8 @@ class LocalEditor(Command):
     @staticmethod
     def execute(args):
         """Execute localization gathering"""
-        name = vars(args).pop('project')
-        target = vars(args).pop('target') or name
+        name = vars(args).pop("project")
+        target = vars(args).pop("target") or name
 
         bootstrap = vars(args).pop("bootstrap")
         if bootstrap:
