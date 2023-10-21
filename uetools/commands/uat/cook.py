@@ -35,10 +35,11 @@ class CookGameUAT(Command):
         distribution                           : bool = True
         pak                                    : bool = True
         
+        configuration                          : str = "Development"
         # client                                 : bool = True
-        dedicatedserver                        : bool = True
-        servertargetplatform                   : str  = "Win64"
-        targetplatform                         : str  = "Win64"
+        # dedicatedserver                        : bool = True
+        # servertargetplatform                   : str  = "Win64"
+        # targetplatform                         : str  = "Win64"
 
         unattended                             : bool = True
         utf8output                             : bool = True

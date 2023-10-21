@@ -9,8 +9,8 @@ class BuildCookRunArguments:
     project                                : str = deduce_project()   # Project path (required), i.e: -project=QAGame, -project=Samples\BlackJack\BlackJack.uproject, -project=D:\Projects\MyProject.uproject
     destsample                             : bool = False             # Destination Sample name
     foreigndest                            : bool = False             # Foreign Destination
-    targetplatform                         : str  = False             # target platform for building, cooking and deployment (also -Platform)
-    servertargetplatform                   : str  = False             # target platform for building, cooking and deployment of the dedicated server (also -ServerPlatform)
+    targetplatform                         : str  = None              # target platform for building, cooking and deployment (also -Platform)
+    servertargetplatform                   : str  = None              # target platform for building, cooking and deployment of the dedicated server (also -ServerPlatform)
     foreign                                : bool = False             # Generate a foreign uproject from blankproject and use that
     foreigncode                            : bool = False             # Generate a foreign code uproject from platformergame and use that
     CrashReporter                          : bool = False             # true if we should build crash reporter
