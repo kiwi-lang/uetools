@@ -10,6 +10,9 @@ import typing
 from dataclasses import MISSING, fields, is_dataclass
 from typing import get_type_hints
 
+from .docstring import DocstringIterator
+
+
 forward_refs_to_types = {
     "tuple": typing.Tuple,
     "set": typing.Set,
@@ -282,66 +285,6 @@ def _add_argument(
         )
 
 
-def find_docstring(field, lines, start_index):
-    start = start_index
-    nlines = len(lines)
-
-    while start < nlines and field.name not in lines[start]:
-        start += 1
-
-    if start >= nlines:
-        return None, start_index
-
-    idx = lines[start].find("#")
-
-    if idx > 0:
-        return lines[start][idx + 1 :].strip(), start_index
-
-    return None, start
-
-
-docstring_oneline = re.compile(r'(\s*)"""(.*)"""')
-docstring_start = re.compile(r'(\s*)"""(.*)')
-docstring_end = re.compile(r'(.*)"""')
-
-
-def find_dataclass_docstring(dataclass):
-    source = inspect.getsource(dataclass).splitlines()
-    docstring_lines = []
-
-    started = False
-    recognized = 0
-    for i, line in enumerate(source):
-        if "@dataclass" in line:
-            recognized += 1
-            continue
-
-        if "class " in line:
-            recognized += 1
-            continue
-
-        if recognized == 2 and not started and docstring_oneline.match(line):
-            docstring_lines.append(line.strip()[3:-3])
-            break
-
-        if recognized == 2 and not started and docstring_start.match(line):
-            started = True
-            docstring_lines.append(line.strip()[3:])
-            continue
-
-        if started and docstring_end.match(line):
-            docstring_lines.append(line.strip()[:-3])
-            started = False
-            break
-
-        if started:
-            docstring_lines.append(line.strip())
-    else:
-        i = 0
-
-    return source, "\n".join(docstring_lines).strip(), i
-
-
 def _group(dataclass, title=None, dest=None):
     if dest:
         return dest
@@ -361,14 +304,16 @@ def add_arguments(
     dest=None,
 ):
     """Traverse the dataclass hierarchy and build a parser tree"""
-    source, parser.description, start = find_dataclass_docstring(dataclass)
+    docstr = DocstringIterator(dataclass)
+    parser.description = docstr.get_dataclass_docstring()
 
     group = parser
     subparser = None
     if create_group:
         group = parser.add_argument_group(
             title=title or dataclass.__name__,
-            description=dataclass.__doc__ or "",
+            description="", 
+            # description=dataclass.__doc__ <= this is ugly AF
         )
         setattr(group, "_dataclass", dataclass)
         setattr(group, "_dest", dest)
@@ -380,7 +325,8 @@ def add_arguments(
 
         meta = dict(field.metadata)
         special_argument = meta.pop("type", None)
-        docstring, start = find_docstring(field, source, start)
+
+        docstring = docstr.find_field(field)
 
         if is_dataclass(field.type):
             add_arguments(

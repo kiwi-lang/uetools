@@ -15,6 +15,9 @@ from uetools.format.cooking import CookingFormatter
 from uetools.core.util import deduce_project
 
 
+from .arguments import BuildCookRunArguments
+
+
 class CookGameUAT(Command):
     """Cook your main game using UAT"""
 
@@ -22,32 +25,32 @@ class CookGameUAT(Command):
 
     # fmt: off
     @dataclass
-    class Arguments:
-        """Cook arguments for UAT"""
+    class Arguments(BuildCookRunArguments): 
+        build                                  : bool = True
+        
+        cook                                   : bool = True
+        stage                                  : bool = True
 
-        project         : str = deduce_project()
-        unattended      : bool = True
-        utf8output      : bool = True
-        platform        : str = choice(*get_build_platforms(), default=guess_platform())    # Platform
-        clientconfig    : str = choice(*get_build_modes(), default="Development")           # Client Build configuration
-        serverconfig    : str = choice(*get_build_modes(), default="Development")           # Server Build configuration
-        noP4            : bool = True
-        nodebuginfo     : bool = True
-        allmaps         : bool = True
-        cook            : bool = True
-        build           : bool = True
-        stage           : bool = True
-        prereqs         : bool = True
-        pak             : bool = True
-        archive         : bool = True
-        stagingdirectory: Optional[str] = None
-        archivedirectory: Optional[str] = None
-        WarningsAsErrors: bool = True
+        prereqs                                : bool = True
+        distribution                           : bool = True
+        pak                                    : bool = True
+        
+        # client                                 : bool = True
+        dedicatedserver                        : bool = True
+        servertargetplatform                   : str  = "Win64"
+        targetplatform                         : str  = "Win64"
 
+        unattended                             : bool = True
+        utf8output                             : bool = True
+        noP4                                   : bool = True
+        nullrhi                                : bool = True
     # fmt: on
+
 
     @staticmethod
     def execute(args):
+        assert args.project is not None
+
         args.project = find_project(args.project)
 
         uat_args = command_builder(args)
@@ -57,9 +60,11 @@ class CookGameUAT(Command):
 
         fmt = CookingFormatter(24)
         fmt.print_non_matching = True
+
         returncode = popen_with_format(fmt, cmd, shell=False)
         fmt.summary()
 
+        returncode = 0
         return returncode
 
 

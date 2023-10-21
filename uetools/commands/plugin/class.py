@@ -48,6 +48,7 @@ class Class(Command):
         assert args.klass[0] in ("F", "U", "A", "T")
 
         module_root = deduce_module(os.getcwd())
+    
         if module_root is not None:
             make_file_for_module(module_root, args.klass)
             return
