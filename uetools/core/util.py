@@ -49,9 +49,24 @@ def deduce_plugin(path=os.getcwd()):
     return plugin
 
 
+
 @lru_cache(maxsize=None)
-def deduce_project(path=os.getcwd()):
+def deduce_project_absolute(path=os.getcwd()):
     result, remain = find_file_like(path, "*.uproject")
+    if result:
+        return result
+    return None
+
+
+def deduce_project(path=os.getcwd()) -> Path:
+    result = deduce_project_absolute(path)
+    if result:
+        return str(result)
+    return None
+
+
+def deduce_project_folder(path=os.getcwd()):
+    result = deduce_project_absolute(path)
     if result:
         return str(result.parent.name)
     return None

@@ -40,6 +40,7 @@ setup_kwargs = dict(
         "uetools.commands.test",
         "uetools.commands.uat",
         "uetools.commands.ubt",
+        "uetools.commands.gitlab",
         "uetools.format",
         "uetools.plugins.gamekit",
     ],
