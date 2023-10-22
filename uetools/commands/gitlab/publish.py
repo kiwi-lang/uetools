@@ -36,17 +36,19 @@ class Publish(Command):
 
         project = project_name
         platform = args.platform
-    
+
         file_path: str = args.filename
         chunk_size = args.chunk
-    
-        api_url = os.getenv("CI_API_V4_URL")
-        project_id = os.getenv("CI_PROJECT_ID")
-        commit_tag = os.getenv("CI_COMMIT_TAG")
-        commit_short = os.getenv("CI_COMMIT_SHORT_SHA")
-        token = os.getenv("CI_JOB_TOKEN")
 
-        ext = file_path.rsplit('.', maxsplit=1)[1]
+        # fmt: off
+        api_url      = os.getenv("CI_API_V4_URL")
+        project_id   = os.getenv("CI_PROJECT_ID")
+        commit_tag   = os.getenv("CI_COMMIT_TAG")
+        commit_short = os.getenv("CI_COMMIT_SHORT_SHA")
+        token        = os.getenv("CI_JOB_TOKEN")
+        # fmt: on
+
+        ext = file_path.rsplit(".", maxsplit=1)[1]
 
         package_name = f"{project}"
         package_version = f"{platform}-{commit_short}"
@@ -55,20 +57,25 @@ class Publish(Command):
         # PUT /projects/:id/packages/generic/:package_name/:package_version/:file_name?status=:status
         url = f"{api_url}/projects/{project_id}/packages/generic/{package_name}/{package_version}/{filename}"
 
-        headers = {
-            "JOB-TOKEN": token
-        }
+        headers = {"JOB-TOKEN": token}
 
         file_size = pathlib.Path(file_path).stat().st_size
 
+        def bar():
+            return tqdm(total=file_size, unit="B", unit_scale=True, unit_divisor=1024)
+
         with open(file_path, "rb") as file:
-            with tqdm(total=file_size, unit="B", unit_scale=True, unit_divisor=1024) as pbar:
+            with bar() as pbar:
                 response = requests.put(url, headers=headers, data=file, stream=True)
-                
+
                 for data in response.iter_content(chunk_size=chunk_size):
                     pbar.update(len(data))
 
-        # pass
+        if response.status_code == 200:
+            return 0
+
+        print(response.text)
+        return -1
 
 
 COMMANDS = Publish
