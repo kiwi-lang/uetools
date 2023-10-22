@@ -76,11 +76,13 @@ def args(*a):
 
 def check_cache_update():
     future = command_cache_future()
-    while not future.done():
+
+    while future is not None and not future.done():
         time.sleep(1)
 
     # Raise the exception here
-    future.result()
+    if future is not None:
+        future.result()
 
 
 def extended_status():

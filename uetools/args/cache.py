@@ -22,7 +22,7 @@ thread_futures = dict()
 
 
 def get_cache_future(cache_key):
-    return thread_futures[cache_key]
+    return thread_futures.get(cache_key)
 
 
 def get_cache_status(cache_key):
@@ -72,6 +72,8 @@ def cache_to_local(cache_key, location=__name__):
 
     When the function is called again the cache is update async
     """
+    global thread_message
+    thread_message[cache_key] = "PENDING"
 
     def argkey(args, kwargs):
         key = hashlib.sha256()
@@ -108,9 +110,6 @@ def cache_to_local(cache_key, location=__name__):
                 return cached_result
 
             def _safe_update():
-                global thread_message
-                thread_message[cache_key] = "PENDING"
-
                 try:
                     _update_data()
                 except Exception as err:
