@@ -70,7 +70,7 @@ def upload_package(
         data=ChunkUploader(src, chunk_size),
     )
 
-    if response.status_code == 200:
+    if response.status_code in (200, 201):
         return 0
 
     raise RuntimeError(response.text)
@@ -84,7 +84,9 @@ class Publish(Command):
     # fmt: off
     @dataclass
     class Arguments:
+        path: str
         filename: str
+        package: str = None
         project: str = deduce_project()  # project's name
         platform: str = platform_choice()
         chunk: int = 1024 * 8
@@ -103,19 +105,24 @@ class Publish(Command):
 
         project = project_name
         platform = args.platform
-        ext = args.filename.rsplit(".", maxsplit=1)[1]
+        ext = args.path.rsplit(".", maxsplit=1)[1]
 
-        package_name = f"{project}"
-        package_version = f"{platform}-{args.commit_short}"
-        filename = f"{project}-{args.commit_tag}.{ext}"
+        if args.package is None:
+            args.package = f"{project}"
+
+        package_name = args.package
+        package_version = f"{args.commit_short}-{platform}"
+
+        print(f"Uploading: {args.path}")
+        print(f"       as: {args.filename}.{ext}")
 
         upload_package(
-            args.filename, 
+            args.path, 
             args.api_url, 
             args.project_id, 
             package_name, 
             package_version, 
-            filename, 
+            f"{args.filename}.{ext}", 
             args.token, 
              args.chunk,
         )

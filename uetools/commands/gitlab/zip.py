@@ -9,7 +9,7 @@ from uetools.args.command import Command
 def zipfolder(src, dest, progress):
     import zipfile
 
-    zip_filename = dest + ".zip"
+    zip_filename = dest
     archive_dir = os.path.dirname(dest)
 
     if os.path.exists(zip_filename):
