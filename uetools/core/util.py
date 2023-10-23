@@ -32,21 +32,18 @@ def deduce_project_plugin(path=os.getcwd()):
     result = _re_deduce_project_plugin.search(path)
     if result:
         data = result.groupdict()
-        return data["Project"], data["Plugin"]
+        plugin_path = os.path.join(path, f"{data['Plugin']}.uplugin")
+        return data["Project"], plugin_path
 
     # Iteratively go up the tree looking for the plugin
     plugin, remain = find_file_like(path, "*.uplugin")
-
-    if plugin:
-        plugin = str(plugin.parent.name)
-
     project = deduce_project(path)
     return project, plugin
 
 
 def deduce_plugin(path=os.getcwd()):
     _, plugin = deduce_project_plugin(path)
-    return plugin
+    return str(plugin)
 
 
 

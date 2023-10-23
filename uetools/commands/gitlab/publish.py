@@ -5,16 +5,10 @@ import pathlib
 import requests
 from tqdm import tqdm
 
-from uetools.args.arguments import choice
 from uetools.args.command import Command
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project
-from uetools.core.conf import get_build_platforms, guess_platform
-
-
-def platform_choice():
-    return choice(*get_build_platforms(), default=guess_platform())
-
+from uetools.core.options import platform_choice
 
 default_url = "https://gitlab.com/api/v4/"
 

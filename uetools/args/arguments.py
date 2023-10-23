@@ -26,10 +26,50 @@ class Subparser:
     pass
 
 
-def argument(default, **kwargs):
+def argument(
+    default=MISSING,
+    default_factory=MISSING,
+    init=True,
+    repr=True,
+    hash=None,
+    compare=True,
+    metadata=None,
+    **kwargs,
+):
+    """
+    Build a field that store argparse argument metadata
+    
+    Examples
+    --------
+
+    .. code-block:: python
+
+       @dataclass
+       class MyParser:
+           arg = argument("--args", type=int, default=20, help="My argument")
+    
+    """
     # argparse.ArgumentParser().add_argument
+    if metadata is not None:
+        kwargs.update(metadata)
+
     kwargs["type"] = "argument"
-    return dataclasses.field(default=default, metadata=kwargs)
+
+    if default is not MISSING:
+        kwargs["default"] = default
+
+    if default_factory is not MISSING:
+        kwargs["default"] = default_factory()
+
+    return dataclasses.field(  #
+        default=default,  #
+        default_factory=default_factory,  #
+        init=init,  #
+        repr=repr,  #
+        hash=hash,  #
+        compare=compare,  #
+        metadata=kwargs,  #
+    )
 
 
 def group(default, **kwargs):
@@ -61,11 +101,13 @@ def field(*args, choices=None, type=None, **kwargs):
     return dataclasses.field(*args, metadata=metadata, **kwargs)
 
 
-def choice(*args, default=MISSING, **kwargs):
-    if default is MISSING:
+def choice(*args, default=MISSING, default_factory=MISSING, **kwargs):
+    if default is MISSING and default_factory is MISSING:
         default = args[0]
 
-    return field(default=default, choices=args, **kwargs)
+    return field(
+        default=default, default_factory=default_factory, choices=args, **kwargs
+    )
 
 
 def _get_type_hint(hint, value):
@@ -236,6 +278,7 @@ def deduce_add_arguments(field, docstring):
 
     if field.default_factory is not MISSING:
         default = field.default_factory()
+        required = False
 
     choices = None
     if field.metadata:
@@ -278,8 +321,8 @@ def _add_argument(
         )
     else:
         return group.add_argument(
-            "--" + name,        # Option Strings
-            dest=name,          # dest
+            "--" + name,  # Option Strings
+            dest=name,  # dest
             required=not positional and required,
             **kwargs,
         )
@@ -312,7 +355,7 @@ def add_arguments(
     if create_group:
         group = parser.add_argument_group(
             title=title or dataclass.__name__,
-            description="", 
+            description="",
             # description=dataclass.__doc__ <= this is ugly AF
         )
         setattr(group, "_dataclass", dataclass)

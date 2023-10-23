@@ -8,7 +8,7 @@ from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
 
 
-class Client(Command):
+class Game(Command):
     """Launch the editor as a client, connecting to an already running server
 
     Attributes
@@ -27,20 +27,18 @@ class Client(Command):
 
     .. code-block:: console
 
-       uecli client RTSGameEditor
+       uecli game RTSGameEditor
 
-       uecli client RTSGameEditor --address localhost --port 8123
+       uecli game RTSGameEditor
 
     """
 
-    name: str = "client"
+    name: str = "game"
 
     @dataclass
     class Arguments:
         # fmt: off
         project: Optional[str] = deduce_project()  # Name of the the project to open
-        address: Optional[str] = '0.0.0.0'  # Address to the server
-        port: int = 8123  # Server port
         dry: bool = False  # Print the command it will execute without running it
         # fmt: on
 
@@ -49,9 +47,6 @@ class Client(Command):
         project = find_project(args.project)
 
         cmd = [editor(), project]
-
-        if args.address:
-            cmd.append(f"{args.address}:{args.port}")
 
         cmd.append("-game")
         cmd.append("-FullStdOutLogOutput")
@@ -65,4 +60,4 @@ class Client(Command):
         return 0
 
 
-COMMANDS = Client
+COMMANDS = Game

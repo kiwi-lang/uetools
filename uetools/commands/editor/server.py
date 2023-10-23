@@ -95,6 +95,7 @@ class Server(Command):
             cmd.append("-server")
 
         cmd.append("-FullStdOutLogOutput")
+        cmd.append("-Log")
         print(" ".join(cmd))
 
         if not args.dry:

@@ -163,6 +163,18 @@ def profiler(enabled=False):
             print(s.getvalue())
 
 
+
+def epilog():
+    try:
+        extended_status()
+    except Exception:
+        print("---")
+        print("Plugin lookup failed because of:")
+        print()
+        traceback.print_exc()
+        print("---")
+
+
 def main_force(argv=None):
     import sys
 
@@ -174,14 +186,7 @@ def main_force(argv=None):
 
     shutdown()
 
-    try:
-        extended_status()
-    except Exception:
-        print("---")
-        print("Plugin lookup failed because of:")
-        print()
-        traceback.print_exc()
-        print("---")
+    epilog()
 
     show_timings()
 

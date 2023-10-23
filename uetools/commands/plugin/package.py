@@ -1,6 +1,6 @@
 import os
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List
 
 from uetools.args.arguments import add_arguments
 from uetools.args.command import Command, command_builder, newparser
@@ -8,6 +8,7 @@ from uetools.core.conf import find_project, get_build_platforms, guess_platform,
 from uetools.core.run import popen_with_format
 from uetools.format.cooking import CookingFormatter
 from uetools.core.util import deduce_project, deduce_plugin
+from uetools.core.options import platform_choices
 
 
 class PackagePlugin(Command):
@@ -38,10 +39,10 @@ class PackagePlugin(Command):
     class Arguments:
         """Builds and cook a plugin"""
 
-        project: str = deduce_project() # project's name
-        plugin: str = deduce_plugin()   # Plugin's name"
-
-        # platforms           : List[str] = field(default_factory=list)
+        project             : str           = deduce_project()    # project's name
+        plugin              : str           = deduce_plugin()     # Plugin's name"
+        platforms           : List[str]     = platform_choices()  # List of platforms to build for
+        EngineDir           : Optional[str] = None                # Engine directory
         output              : str  = None   # Packaged plugin destination
         StrictIncludes      : bool = False  # Disables precompiled headers and unity build in order to check all source files have self-contained headers.
         NoHostPlatform      : bool = False  # Prevent compiling for the editor platform on the host
@@ -59,7 +60,6 @@ class PackagePlugin(Command):
         WaitForDebugger     : bool = False  # Waits for a debugger to be attached, and breaks once debugger successfully attached.
         Unversioned         : bool = False  # Do not embed the current engine version into the descriptor
         Rocket              : bool = True   # Undocumented argument
-        EngineDir           : Optional[str] = None  # Engine directory
         CreateSubFolder     : bool = False  # Create a subfolder for the plugin
         NoPCH               : bool = False  # No Precompiled Header
         NoSharedPCH         : bool = False  # No Shared Precompiled Header
@@ -70,23 +70,13 @@ class PackagePlugin(Command):
     # fmt: on
 
     @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, PackagePlugin)
-        parser.add_argument(
-            "--platforms",
-            type=str,
-            nargs="+",
-            choices=get_build_platforms(),
-            default=[guess_platform()],
-            help="list of platforms to build for",
-        )
-        add_arguments(parser, PackagePlugin.Arguments)
-
-    @staticmethod
     def execute(args):
         project = vars(args).pop("project")
         plugin = vars(args).pop("plugin")
         platforms = "+".join(vars(args).pop("platforms"))
+
+        print(plugin)
+        return 0
 
         if project is not None and not os.path.isabs(plugin):
             project = find_project(project)

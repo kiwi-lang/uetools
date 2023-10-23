@@ -213,7 +213,7 @@ def editor_commandlet(project_path, command, *args):
 # Supported platforms are listed here
 #      UnrealEngine\Engine\Source\Programs\UnrealBuildTool\Platform
 #
-UBT_PLATFORMS = {
+UBT_PLATFORMS = [
     "Android",
     "HoloLens",
     "IOS",
@@ -222,7 +222,7 @@ UBT_PLATFORMS = {
     "Mac",
     "TVOS",
     "Win64",
-}
+]
 
 
 def get_build_platforms():

@@ -63,6 +63,7 @@ setup_kwargs = dict(
         "GitPython",
         "hjson",
         "importlib_resources",
+        "tqdm",
     ],
     extras_require=extras_require,
     python_requires=">=3.8",
