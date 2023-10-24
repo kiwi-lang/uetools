@@ -13,11 +13,9 @@ def platform_choices():
     metadata = dict()
     metadata['nargs'] ='+'
     metadata["choices"] = get_build_platforms()
+    metadata["_kind"] = 'argument'
     metadata["type"] = str
     metadata["default"] = [guess_platform()]
-    
-    if help:
-        metadata["help"] = help
     
     return dataclasses.field(
         default_factory=lambda: [guess_platform()],

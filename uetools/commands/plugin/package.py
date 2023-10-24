@@ -39,11 +39,11 @@ class PackagePlugin(Command):
     class Arguments:
         """Builds and cook a plugin"""
 
+        output              : str           = None
         project             : str           = deduce_project()    # project's name
         plugin              : str           = deduce_plugin()     # Plugin's name"
         platforms           : List[str]     = platform_choices()  # List of platforms to build for
         EngineDir           : Optional[str] = None                # Engine directory
-        output              : str  = None   # Packaged plugin destination
         StrictIncludes      : bool = False  # Disables precompiled headers and unity build in order to check all source files have self-contained headers.
         NoHostPlatform      : bool = False  # Prevent compiling for the editor platform on the host
         verbose             : bool = False  # Enables verbose logging
@@ -74,9 +74,6 @@ class PackagePlugin(Command):
         project = vars(args).pop("project")
         plugin = vars(args).pop("plugin")
         platforms = "+".join(vars(args).pop("platforms"))
-
-        print(plugin)
-        return 0
 
         if project is not None and not os.path.isabs(plugin):
             project = find_project(project)

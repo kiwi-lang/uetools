@@ -53,7 +53,7 @@ def argument(
     if metadata is not None:
         kwargs.update(metadata)
 
-    kwargs["type"] = "argument"
+    kwargs["_kind"] = "argument"
 
     if default is not MISSING:
         kwargs["default"] = default
@@ -74,19 +74,19 @@ def argument(
 
 def group(default, **kwargs):
     # argparse.ArgumentParser().add_argument_group()
-    kwargs["type"] = "group"
+    kwargs["_kind"] = "group"
     return dataclasses.field(default_factory=default, metadata=kwargs)
 
 
 def subparser(**kwargs):
     # argparse.ArgumentParser().add_subparsers()
-    kwargs["type"] = "subparser"
+    kwargs["_kind"] = "subparser"
     return dataclasses.field(default=None, metadata=kwargs)
 
 
 def parser(default, **kwargs):
     # argparse.ArgumentParser().add_subparsers().add_parser()
-    kwargs["type"] = "parser"
+    kwargs["_kind"] = "parser"
     return dataclasses.field(default_factory=default, metadata=kwargs)
 
 
@@ -303,6 +303,13 @@ def deduce_add_arguments(field, docstring):
     return positional, required, kwargs
 
 
+
+def _flag(name, positional=False):
+    if positional:
+        return name
+    return "--" + name
+
+
 def _add_argument(
     group: argparse._ArgumentGroup, field, name, docstring
 ) -> argparse.Action:
@@ -367,7 +374,7 @@ def add_arguments(
             name = f"{dest}.{name}"
 
         meta = dict(field.metadata)
-        special_argument = meta.pop("type", None)
+        special_argument = meta.pop("_kind", None)
 
         docstring = docstr.find_field(field)
 
@@ -413,7 +420,8 @@ def add_arguments(
             for k, v in deduced.items():
                 meta.setdefault(k, v)
 
-            group.add_argument(**meta)
+            print(meta)
+            group.add_argument(_flag(field.name, False), **meta)
             continue
 
         if field.type == "bool" or field.type is bool:
