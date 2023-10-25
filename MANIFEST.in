@@ -10,6 +10,7 @@ graft uetools/templates
 graft uetools/commands/plugin/templates
 graft uetools/commands/project/templates
 graft uetools/commands/editor/templates
+graft uetools/commands/editor/templates
 graft uetools/plugins/gamekit/resources
 
 recursive-include uetools *.pkl
@@ -20,6 +21,7 @@ exclude .pylintrc
 exclude .readthedocs.yaml
 exclude .pre-commit-config.yaml
 exclude ruff.toml
+exclude .gitmodules
 
 prune docs
 prune tests
