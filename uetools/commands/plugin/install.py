@@ -3,7 +3,8 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import find_project
 from uetools.core.run import run
 from uetools.core.util import deduce_project

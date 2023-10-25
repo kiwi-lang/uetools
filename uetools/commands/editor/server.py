@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from argklass.arguments import add_arguments
+from argklass.command import Command, newparser
+
 from uetools.core.conf import editor, find_project
 from uetools.core.run import popen_with_format
-from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
+from uetools.format.base import Formatter
+
 
 # fmt: off
 @dataclass

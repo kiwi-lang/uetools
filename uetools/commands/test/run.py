@@ -1,11 +1,12 @@
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import editor_cmd, find_project
 from uetools.core.run import popen_with_format
-from uetools.format.tests import TestFormatter
 from uetools.core.util import deduce_project
+from uetools.format.tests import TestFormatter
 
 
 class RunTests(Command):

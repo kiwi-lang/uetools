@@ -1,4 +1,4 @@
-from uetools.args.command import ParentCommand
+from argklass.command import ParentCommand
 
 
 class Gamekit(ParentCommand):

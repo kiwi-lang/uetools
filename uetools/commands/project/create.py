@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from uetools.args.command import Command
+from argklass.command import Command
 
 
 class ProjectNew(Command):

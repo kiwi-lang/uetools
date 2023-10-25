@@ -2,11 +2,12 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.command import Command, command_builder
+from argklass.command import Command
+
 from uetools.core.conf import find_project, uat
 from uetools.core.run import popen_with_format
+from uetools.core.util import command_builder, deduce_project
 from uetools.format.base import Formatter
-from uetools.core.util import deduce_project
 
 actions = ["Gather", "Compile", "import", "export"]
 

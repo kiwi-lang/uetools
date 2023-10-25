@@ -1,5 +1,6 @@
+from argklass.command import ParentCommand
+
 import uetools.commands.game
-from uetools.args.command import ParentCommand
 
 
 class Game(ParentCommand):

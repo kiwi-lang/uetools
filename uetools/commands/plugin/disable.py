@@ -1,9 +1,10 @@
 import json
 from dataclasses import dataclass
 
-from uetools.args.command import Command, newparser
+from argklass.command import Command, newparser
+
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project, deduce_plugin
+from uetools.core.util import deduce_plugin, deduce_project
 
 
 class Disable(Command):

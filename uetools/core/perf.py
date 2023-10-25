@@ -1,7 +1,7 @@
 import sys
 import time
-from contextlib import contextmanager
 from collections import defaultdict
+from contextlib import contextmanager
 from threading import get_native_id
 
 profile = dict()

@@ -1,9 +1,10 @@
 import os
 from dataclasses import dataclass
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project, deduce_plugin, deduce_module
+from uetools.core.util import deduce_module, deduce_plugin, deduce_project
 
 
 def make_file_for_module(module_path, klass):
@@ -48,7 +49,7 @@ class Class(Command):
         assert args.klass[0] in ("F", "U", "A", "T")
 
         module_root = deduce_module(os.getcwd())
-    
+
         if module_root is not None:
             make_file_for_module(module_root, args.klass)
             return

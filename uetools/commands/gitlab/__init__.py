@@ -1,4 +1,4 @@
-from uetools.args.command import ParentCommand
+from argklass.command import ParentCommand
 
 
 class Gitlab(ParentCommand):
@@ -7,6 +7,7 @@ class Gitlab(ParentCommand):
     @staticmethod
     def module():
         import uetools.commands.gitlab
+
         return uetools.commands.gitlab
 
 

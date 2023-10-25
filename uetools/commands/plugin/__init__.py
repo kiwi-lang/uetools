@@ -1,5 +1,6 @@
+from argklass.command import ParentCommand
+
 import uetools.commands.plugin
-from uetools.args.command import ParentCommand
 
 
 class Plugin(ParentCommand):

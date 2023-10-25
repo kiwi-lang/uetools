@@ -1,5 +1,13 @@
-from uetools.args.plugin import discover_module_commands
-from uetools.args.cache import get_cache_status, get_cache_future
+from argklass.cache import get_cache_future, get_cache_status, cache_to_local
+from argklass.plugin import discover_module_commands_no_cache
+
+
+
+@cache_to_local("commands", location=__name__)
+def discover_module_commands(module, plugin_module=None):
+    """Discover all the commands we can find (plugins and built-in)"""
+    return discover_module_commands_no_cache(module, plugin_module)
+
 
 
 def discover_commands():

@@ -2,7 +2,7 @@ import os
 import re
 import subprocess
 
-from uetools.args.command import Command, newparser
+from argklass.command import Command, newparser
 
 
 class GitVersion(Command):

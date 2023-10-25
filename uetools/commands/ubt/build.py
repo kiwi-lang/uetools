@@ -2,8 +2,9 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.arguments import choice
-from uetools.args.command import Command
+from argklass.arguments import choice
+from argklass.command import Command
+
 from uetools.core.conf import (
     engine_folder,
     find_project,

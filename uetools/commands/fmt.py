@@ -2,8 +2,9 @@ import logging
 import sys
 from dataclasses import dataclass
 
-from uetools.args.arguments import add_arguments
-from uetools.args.command import Command, newparser
+from argklass.arguments import add_arguments
+from argklass.command import Command, newparser
+
 from uetools.format.base import Formatter
 from uetools.format.cooking import CookingFormatter
 from uetools.format.tests import TestFormatter

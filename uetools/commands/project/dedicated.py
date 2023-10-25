@@ -1,8 +1,9 @@
 import os
 from dataclasses import dataclass
 
-from uetools.args.cache import load_resource
-from uetools.args.command import Command
+from argklass.cache import load_resource
+from argklass.command import Command
+
 from uetools.core.conf import find_project
 from uetools.core.util import deduce_project
 

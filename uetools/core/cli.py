@@ -2,18 +2,19 @@
 from __future__ import annotations
 
 import argparse
-from contextlib import contextmanager
 import time
 import traceback
+from contextlib import contextmanager
+
+from argklass.argformat import DumpParserAction, HelpAction, HelpActionException
+from argklass.command import ParentCommand
+from argklass.parallel import shutdown
 
 from uetools.commands import (
-    discover_commands,
-    command_cache_status,
     command_cache_future,
+    command_cache_status,
+    discover_commands,
 )
-from uetools.args.argformat import DumpParserAction, HelpAction, HelpActionException
-from uetools.args.command import ParentCommand
-from uetools.args.parallel import shutdown
 
 from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
@@ -142,9 +143,9 @@ def main(argv=None):
 
 @contextmanager
 def profiler(enabled=False):
+    import cProfile
     import io
     import pstats
-    import cProfile
 
     with cProfile.Profile() as profile:
         profile.disable()
@@ -161,7 +162,6 @@ def profiler(enabled=False):
             ps = pstats.Stats(profile, stream=s).sort_stats(sortby)
             ps.print_stats(25)
             print(s.getvalue())
-
 
 
 def epilog():

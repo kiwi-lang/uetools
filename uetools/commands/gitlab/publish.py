@@ -1,14 +1,13 @@
-from dataclasses import dataclass
 import os
-import pathlib
+from dataclasses import dataclass
 
 import requests
+from argklass.command import Command
 from tqdm import tqdm
 
-from uetools.args.command import Command
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project
 from uetools.core.options import platform_choice
+from uetools.core.util import deduce_project
 
 default_url = "https://gitlab.com/api/v4/"
 
@@ -111,13 +110,13 @@ class Publish(Command):
         print(f"       as: {args.filename}.{ext}")
 
         upload_package(
-            args.path, 
-            args.api_url, 
-            args.project_id, 
-            package_name, 
-            package_version, 
-            f"{args.filename}.{ext}", 
-            args.token, 
+            args.path,
+            args.api_url,
+            args.project_id,
+            package_name,
+            package_version,
+            f"{args.filename}.{ext}",
+            args.token,
              args.chunk,
         )
 

@@ -1,5 +1,6 @@
+from argklass.command import ParentCommand
+
 import uetools.commands.ubt
-from uetools.args.command import ParentCommand
 
 
 class UBT(ParentCommand):

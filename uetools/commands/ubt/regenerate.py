@@ -1,13 +1,13 @@
 import os
 from dataclasses import dataclass
 
-from uetools.args.arguments import choice
-from uetools.args.command import Command, command_builder
+from argklass.arguments import choice
+from argklass.command import Command
+
 from uetools.core.conf import find_project, ubt
 from uetools.core.run import popen_with_format
+from uetools.core.util import command_builder, deduce_project
 from uetools.format.base import Formatter
-from uetools.core.util import deduce_project
-
 
 generators = [
     "Make",

@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import editor_commandlet, find_project
 from uetools.core.run import popen_with_format
-from uetools.format.base import Formatter
 from uetools.core.util import deduce_project
+from uetools.format.base import Formatter
 
 
 class ReSavePackages(Command):

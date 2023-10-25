@@ -1,16 +1,22 @@
 from dataclasses import dataclass
 
+from uetools.core.options import build_mode_choice, platform_choice, target_choice
 from uetools.core.util import deduce_project
+
 
 # fmt: off
 @dataclass
 class BuildCookRunArguments:
     """Build Cook Run UAT arguments"""
+    target                                 : str = target_choice()
+    clientconfig                           : str = build_mode_choice()
+    platform                               : str = platform_choice()
+    # Extracted
     project                                : str = deduce_project()   # Project path (required), i.e: -project=QAGame, -project=Samples\BlackJack\BlackJack.uproject, -project=D:\Projects\MyProject.uproject
     destsample                             : bool = False             # Destination Sample name
     foreigndest                            : bool = False             # Foreign Destination
-    targetplatform                         : str  = None              # target platform for building, cooking and deployment (also -Platform)
-    servertargetplatform                   : str  = None              # target platform for building, cooking and deployment of the dedicated server (also -ServerPlatform)
+    targetplatform                         : str  = platform_choice() # target platform for building, cooking and deployment (also -Platform)
+    servertargetplatform                   : str  = platform_choice() # target platform for building, cooking and deployment of the dedicated server (also -ServerPlatform)
     foreign                                : bool = False             # Generate a foreign uproject from blankproject and use that
     foreigncode                            : bool = False             # Generate a foreign code uproject from platformergame and use that
     CrashReporter                          : bool = False             # true if we should build crash reporter
@@ -101,7 +107,7 @@ class BuildCookRunArguments:
     fakeclient                             : bool = False             # adds ?fake to the server URL
     editortest                             : bool = False             # rather than running a client, run the editor instead
     RunAutomationTests                     : bool = False             # when running -editortest or a client, run all automation tests, not compatible with -server
-    Crash                                  : int = None               # when running -editortest or a client, adds commands like debug crash, debug rendercrash, etc based on index
+    Crash                                  : int  = None              # when running -editortest or a client, adds commands like debug crash, debug rendercrash, etc based on index
     deviceuser                             : bool = False             # Linux username for unattended key genereation
     devicepass                             : bool = False             # Linux password
     RunTimeoutSeconds                      : bool = False             # timeout to wait after we lunch the game
@@ -120,4 +126,3 @@ class BuildCookRunArguments:
     Licensee                               : bool = False             #  If set, this build is being compiled by a licensee
     NoSign                                 : bool = False             # Skips signing of code/content files.
 # fmt: on
-

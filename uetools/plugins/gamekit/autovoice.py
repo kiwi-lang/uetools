@@ -2,7 +2,7 @@ import datetime
 import os
 from dataclasses import dataclass
 
-from uetools.args.command import Command, ParentCommand
+from argklass.command import Command, ParentCommand
 
 
 def _impl():

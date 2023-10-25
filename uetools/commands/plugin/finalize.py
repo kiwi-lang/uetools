@@ -3,7 +3,8 @@ import os
 import shutil
 from dataclasses import dataclass
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import (
     engine_folder,
     get_version_tag,

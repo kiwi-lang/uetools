@@ -1,0 +1,3 @@
+[submodule "uetools/commands/project/templates/Docs"]
+	path = uetools/commands/project/templates/Docs
+	url = https://github.com/kiwi-lang/UEDocs

@@ -9,11 +9,11 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import dataclass
 
-from uetools.args.command import Command, command_builder
-from uetools.core.conf import WINDOWS, editor, find_project
-from uetools.format.base import Formatter
-from uetools.core.util import deduce_project
+from argklass.command import Command
 
+from uetools.core.conf import WINDOWS, editor, find_project
+from uetools.core.util import command_builder, deduce_project
+from uetools.format.base import Formatter
 
 SLEEP = 0.01
 

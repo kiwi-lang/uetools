@@ -1,9 +1,8 @@
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 
+from argklass.command import Command
 from tqdm import tqdm
-
-from uetools.args.command import Command
 
 
 def zipfolder(src, dest, progress):
@@ -29,7 +28,7 @@ def zipfolder(src, dest, progress):
                 path = os.path.normpath(os.path.join(dirpath, name))
                 zf.write(path, path)
                 progress.update(1)
-            
+
             for name in filenames:
                 path = os.path.normpath(os.path.join(dirpath, name))
                 if os.path.isfile(path):
@@ -39,7 +38,7 @@ def zipfolder(src, dest, progress):
 
 class Zip(Command):
     """Publish a gitlab package to the registry
-    
+
     Examples
     --------
 
@@ -60,11 +59,10 @@ class Zip(Command):
 
     @staticmethod
     def execute(args):
-        import zipfile
-        
+
         with tqdm() as progress:
             zipfolder(args.src, args.dest, progress)
-        
+
         return 0
 
 

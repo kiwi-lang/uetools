@@ -1,4 +1,5 @@
-from uetools.args.command import Command, chdir, newparser
+from argklass.command import Command, chdir, newparser
+
 from uetools.core.conf import engine_root
 from uetools.core.run import run
 

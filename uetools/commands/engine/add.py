@@ -3,7 +3,8 @@ import re
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import CONFIG, CONFIGNAME, get_version_tag, load_conf, save_conf
 
 BUILTIN_PATTERN = re.compile(r"UE_(?P<version>(([0-9]*)\.[0-9]*))")

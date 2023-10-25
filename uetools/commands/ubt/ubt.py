@@ -2,12 +2,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from uetools.args.arguments import add_arguments, choice
-from uetools.args.command import Command, command_builder, newparser
+from argklass.arguments import add_arguments, choice
+from argklass.command import Command, newparser
+
 from uetools.core.conf import find_project, get_build_modes, get_build_platforms, ubt
 from uetools.core.run import popen_with_format
+from uetools.core.util import command_builder, deduce_project
 from uetools.format.base import Formatter
-from uetools.core.util import deduce_project
 
 modes = [
     "AggregateParsedTimingInfo",

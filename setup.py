@@ -27,7 +27,6 @@ setup_kwargs = dict(
     license="BSD-3-Clause",
     url="https://uetools.readthedocs.io",
     packages=[
-        "uetools.args",
         "uetools.jinga2",
         "uetools.rl",
         "uetools.core",
@@ -64,6 +63,7 @@ setup_kwargs = dict(
         "hjson",
         "importlib_resources",
         "tqdm",
+        "argklass",
     ],
     extras_require=extras_require,
     python_requires=">=3.8",

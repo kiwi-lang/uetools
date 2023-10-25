@@ -1,7 +1,8 @@
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import project_folder
 
 

@@ -2,9 +2,8 @@ import os
 from dataclasses import dataclass
 from typing import List
 
-from uetools.args.cache import load_resource
-from uetools.args.command import Command, ParentCommand
-
+from argklass.cache import load_resource
+from argklass.command import Command, ParentCommand
 
 Image = None
 ImageDraw = None

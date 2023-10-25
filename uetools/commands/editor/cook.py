@@ -3,9 +3,10 @@ from argparse import Namespace
 from dataclasses import dataclass
 from typing import Optional
 
+from argklass.arguments import choice
+from argklass.command import Command
+
 from uetools.commands.ubt.build import Build
-from uetools.args.arguments import choice
-from uetools.args.command import Command, command_builder
 from uetools.core.conf import (
     build_platform_from_editor,
     editor_cmd,
@@ -15,8 +16,8 @@ from uetools.core.conf import (
     guess_editor_platform,
 )
 from uetools.core.run import popen_with_format
+from uetools.core.util import command_builder, deduce_project
 from uetools.format.cooking import CookingFormatter
-from uetools.core.util import deduce_project
 
 
 def editor_platforms():

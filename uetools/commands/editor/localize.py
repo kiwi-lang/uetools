@@ -2,13 +2,14 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from uetools.args.cache import load_resource
-from uetools.args.arguments import choice
-from uetools.args.command import Command, command_builder
+from argklass.arguments import choice
+from argklass.cache import load_resource
+from argklass.command import Command
+
 from uetools.core.conf import editor_cmd, find_project
 from uetools.core.run import popen_with_format
+from uetools.core.util import command_builder, deduce_project
 from uetools.format.base import Formatter
-from uetools.core.util import deduce_project
 
 actions = ["Gather", "Compile", "import", "export"]
 
@@ -69,7 +70,7 @@ class LocalEditor(Command):
     @dataclass
     class Arguments:
         project                 : Optional[str] = deduce_project()  # Name of the the project to open
-        run                     : str = choice("GatherText")
+        run                     : str = choice(*actions, default="GatherText")
         target                  : Optional[str] = None  # Localization target (defaults to the project name)
         SCCProvider             : Optional[str] = None  # Source control provider
         EnableSCC               : bool = False  # enable source control

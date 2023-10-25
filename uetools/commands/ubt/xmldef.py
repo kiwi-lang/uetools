@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 
+
 # ruff: noqa
 # fmt: off
 @dataclass

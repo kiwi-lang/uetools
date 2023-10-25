@@ -1,11 +1,12 @@
 import argparse
 import os
+import textwrap
 import xml.etree.ElementTree as ET
 from copy import deepcopy
 from dataclasses import asdict, fields, is_dataclass
-import textwrap
 
-from uetools.args.command import Command, newparser
+from argklass.command import Command, newparser
+
 from uetools.core.conf import engine_folder
 
 valid_file = """
@@ -201,16 +202,18 @@ def list_commands(filter=None):
 
 def _list_commands(config, output, namespaces, depth, filter):
     import copy
-    from uetools.args.arguments import find_dataclass_docstring, find_docstring
+
+    from argklass.docstring import DocstringIterator
 
     indent = "  " * depth
 
-    source, _, start = find_dataclass_docstring(config.__class__)
+    docstr = DocstringIterator(config.__class__)
+    _ = docstr.get_dataclass_docstring()
 
     for ffield in fields(config):
         nm = copy.deepcopy(namespaces) + [ffield.name]
 
-        docstring, start = find_docstring(ffield, source, start)
+        docstring = docstr.find_field(ffield)
 
         value = getattr(config, ffield.name)
         if is_dataclass(value):

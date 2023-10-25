@@ -2,7 +2,8 @@ import os
 from dataclasses import dataclass
 from io import UnsupportedOperation
 
-from uetools.args.command import Command
+from argklass.command import Command
+
 from uetools.core.conf import editor, find_project
 from uetools.core.ini import UnrealINIParser
 from uetools.core.util import deduce_project
