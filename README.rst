@@ -42,27 +42,27 @@ Get Started
    uecli engine add --version 5.0 --engine C:/EpicGames/UE_5.0/Engine
 
    # Install the plugin VoxelPlugin to the RTSGame project
-   uecli plugin install RTSGame https://github.com/Phyronnaz/VoxelPlugin
+   uecli plugin install --project RTSGame https://github.com/Phyronnaz/VoxelPlugin
 
    # Rebuild the RTSGame project
-   uecli ubt build RTSGame
+   uecli ubt build --project RTSGame
 
    # Open the project (located in C:/opt/Projects/RTSGame)
    uecli editor open RTSGame
-   uecli -v 5.1 editor open RTSGame
-   uecli -v 5.0 editor open RTSGame
+   uecli -v 5.1 editor open --project RTSGame
+   uecli -v 5.0 editor open --project RTSGame
 
    # Cook the project
-   uecli editor cook RTSGame
+   uecli editor cook --project RTSGame
 
    # Start a server
-   uecli editor server RTSGame --dedicated --port 8123
+   uecli editor server --project RTSGame --dedicated --port 8123
 
    # start a client
-   uecli editor client RTSGame --address 127.0.0.1 --port  8123
+   uecli editor client --project RTSGame --address 127.0.0.1 --port  8123
 
    # Turn a blueprint Project into a C++ project
-   uecli project cpp RTSGame
+   uecli project cpp --project RTSGame
 
 
 Make your own command
