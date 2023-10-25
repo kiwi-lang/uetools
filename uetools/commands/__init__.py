@@ -1,4 +1,4 @@
-from argklass.cache import get_cache_future, get_cache_status, cache_to_local
+from argklass.cache import get_cache_future, get_cache_status
 from argklass.plugin import discover_module_commands
 
 
