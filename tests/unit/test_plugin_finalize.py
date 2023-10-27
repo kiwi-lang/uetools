@@ -4,7 +4,6 @@ from uetools.core.cli import args, main
 
 
 def test_plugin_finalize(project, project_name):
-
     p1 = os.path.join(project, "Plugins", "ExamplePlugin", "ExamplePlugin.uplugin")
     p2 = os.path.join(project, "Plugins", "ExamplePlugin2", "ExamplePlugin2.uplugin")
 

@@ -7,6 +7,7 @@ SECTION_REGEX = re.compile(r"\[(?P<section>.*)\]")
 KEY_REGEX = re.compile(r"(?P<op>(\+|-|\.|!))?(?P<key>.*)=(?P<value>.*)")
 COMMENT_REGEX = re.compile(r";(?P<comment>.*)")
 
+
 # pylint: disable=too-few-public-methods
 class Entry:
     """Base Entry of the INI AST"""

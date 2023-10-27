@@ -4,8 +4,9 @@ from argklass.arguments import choice
 from argklass.command import Command
 
 from uetools.core.conf import get_build_modes, guess_platform, uat
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.tests import TestFormatter
 
 
@@ -35,7 +36,7 @@ class RunTestsUAT(Command):
         """Arguments for the UAT command"""
 
         test: str
-        project: str = deduce_project()
+        project: str = projectfield()
         run: str = commands()
         platform: str = choice(*get_build_modes(), type=str, default=guess_platform())
         configuration: str = choice(*get_build_modes(), type=str, default="Development")

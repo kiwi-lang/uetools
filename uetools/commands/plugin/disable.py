@@ -4,7 +4,8 @@ from dataclasses import dataclass
 from argklass.command import Command, newparser
 
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_plugin, deduce_project
+from uetools.core.options import pluginfield, projectfield
+from uetools.core.util import deduce_project
 
 
 class Disable(Command):
@@ -24,15 +25,13 @@ class Disable(Command):
 
     @dataclass
     class Arguments:
-        project: str = deduce_project()  # project's name
-        plugin: str = deduce_plugin()  # Plugin's name"
+        project: str = projectfield()  # project's name
+        plugin: str = pluginfield()  # Plugin's name"
 
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Disable)
-        parser.add_argument(
-            "--project", type=str, help="project's name", default=deduce_project()
-        )
+        parser.add_argument("--project", type=str, help="project's name", default=deduce_project())
         parser.add_argument("plugin", type=str, help="Plugin's name")
 
     @staticmethod

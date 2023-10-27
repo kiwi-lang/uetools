@@ -32,17 +32,11 @@ class GitVersion(Command):
         directory = os.path.dirname(args.file)
 
         def execcmd(cmd, cwd):
-            return (
-                subprocess.check_output(cmd.split(" "), cwd=cwd).decode("utf-8").strip()
-            )
+            return subprocess.check_output(cmd.split(" "), cwd=cwd).decode("utf-8").strip()
 
         commit = execcmd("git --no-optional-locks rev-parse HEAD", directory)
-        tag = execcmd(
-            "git --no-optional-locks describe --tags --abbrev=0 --always", directory
-        )[:9]
-        date = execcmd(
-            "git --no-optional-locks show -s --format=%ci " + commit, directory
-        )
+        tag = execcmd("git --no-optional-locks describe --tags --abbrev=0 --always", directory)[:9]
+        date = execcmd("git --no-optional-locks show -s --format=%ci " + commit, directory)
 
         replacements = [
             (f"{args.namespace}_TAG", tag),

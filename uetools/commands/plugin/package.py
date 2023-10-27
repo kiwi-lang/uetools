@@ -5,9 +5,9 @@ from typing import List, Optional
 from argklass.command import Command
 
 from uetools.core.conf import find_project, uat
-from uetools.core.options import platform_choices
+from uetools.core.options import platform_choices, pluginfield, projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_plugin, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.cooking import CookingFormatter
 
 
@@ -40,8 +40,8 @@ class PackagePlugin(Command):
         """Builds and cook a plugin"""
 
         output              : str           = None
-        project             : str           = deduce_project()    # project's name
-        plugin              : str           = deduce_plugin()     # Plugin's name"
+        project             : str           = projectfield()    # project's name
+        plugin              : str           = pluginfield()     # Plugin's name"
         platforms           : List[str]     = platform_choices()  # List of platforms to build for
         EngineDir           : Optional[str] = None                # Engine directory
         StrictIncludes      : bool = False  # Disables precompiled headers and unity build in order to check all source files have self-contained headers.

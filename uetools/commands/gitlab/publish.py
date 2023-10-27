@@ -6,8 +6,7 @@ from argklass.command import Command
 from tqdm import tqdm
 
 from uetools.core.conf import find_project
-from uetools.core.options import platform_choice
-from uetools.core.util import deduce_project
+from uetools.core.options import platform_choice, projectfield
 
 default_url = "https://gitlab.com/api/v4/"
 
@@ -80,7 +79,7 @@ class Publish(Command):
         path: str
         filename: str
         package: str = None
-        project: str = deduce_project()  # project's name
+        project: str = projectfield()  # project's name
         platform: str = platform_choice()
         chunk: int = 1024 * 8
 

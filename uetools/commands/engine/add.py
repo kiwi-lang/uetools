@@ -74,9 +74,7 @@ class EngineAdd(Command):
         if version not in engines or force:
             engines[version] = path
         else:
-            print(
-                f"{version} already exists `{engines[version]}` use --force to override"
-            )
+            print(f"{version} already exists `{engines[version]}` use --force to override")
 
         conf["engines"] = engines
 

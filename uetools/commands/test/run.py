@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from argklass.command import Command
 
 from uetools.core.conf import editor_cmd, find_project
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import deduce_project
 from uetools.format.tests import TestFormatter
 
 
@@ -37,7 +37,7 @@ class RunTests(Command):
         # fmt: off
         map         : str                               # map name
         tests       : str           = "uetools"         # Test section to run
-        project     : str           = deduce_project()  # Name of the project to modify.
+        project     : str           = projectfield()  # Name of the project to modify.
         # fmt: on
 
     @staticmethod

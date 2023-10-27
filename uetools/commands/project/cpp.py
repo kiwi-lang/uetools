@@ -8,7 +8,7 @@ from argklass.cache import load_resource
 from argklass.command import Command
 
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project
+from uetools.core.options import projectfield
 
 
 class CPP(Command):
@@ -33,7 +33,7 @@ class CPP(Command):
     # fmt: off
     @dataclass
     class Arguments:
-        project: str  = deduce_project() # Project name
+        project: str  = projectfield() # Project name
         no_input: bool = True            # Disable prompt
     # fmt: on
 
@@ -51,9 +51,7 @@ class CPP(Command):
         project_dir = os.path.dirname(project)
 
         if os.path.exists(os.path.join(project_dir, "Source")):
-            raise RuntimeError(
-                "Cannot add cpp source file to a project that already has sources"
-            )
+            raise RuntimeError("Cannot add cpp source file to a project that already has sources")
 
         # Windows does not like when python holds the file with `with``
         # pylint: disable=consider-using-with

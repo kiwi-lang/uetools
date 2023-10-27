@@ -5,9 +5,7 @@ from uetools.core.cli import args, main
 
 def test_ubt_configure(monkeypatch, tmp_path):
     config = os.path.join(tmp_path, "BuildConfiguration.xml")
-    monkeypatch.setattr(
-        "uetools.commands.ubt.configure.get_ubt_configfile", lambda: config
-    )
+    monkeypatch.setattr("uetools.commands.ubt.configure.get_ubt_configfile", lambda: config)
 
     main(args("ubt", "configure", "--list"))
 

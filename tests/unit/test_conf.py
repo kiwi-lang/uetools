@@ -24,13 +24,9 @@ def fake_project(path, name):
 
 
 def test_find_project(monkeypatch, project_root, project, project_name):
-    monkeypatch.setattr(
-        "uetools.core.conf.project_folder", lambda *a, **b: [project_root]
-    )
+    monkeypatch.setattr("uetools.core.conf.project_folder", lambda *a, **b: [project_root])
 
-    target = os.path.abspath(
-        os.path.join(project_root, project_name, f"{project_name}.uproject")
-    )
+    target = os.path.abspath(os.path.join(project_root, project_name, f"{project_name}.uproject"))
 
     assert find_project(project_name) == target
     assert find_project(target) == target, "Accept absolute path"
@@ -43,16 +39,10 @@ def test_find_project(monkeypatch, project_root, project, project_name):
 
 
 def test_find_project_engine(monkeypatch, engine_test_root, project_root):
-    monkeypatch.setattr(
-        "uetools.core.conf.project_folder", lambda *a, **b: [project_root]
-    )
-    monkeypatch.setattr(
-        "uetools.core.conf.engine_root", lambda *a, **b: engine_test_root
-    )
+    monkeypatch.setattr("uetools.core.conf.project_folder", lambda *a, **b: [project_root])
+    monkeypatch.setattr("uetools.core.conf.engine_root", lambda *a, **b: engine_test_root)
 
-    target = os.path.abspath(
-        os.path.join(engine_test_root, "RootProject", "RootProject.uproject")
-    )
+    target = os.path.abspath(os.path.join(engine_test_root, "RootProject", "RootProject.uproject"))
 
     with fake_project(engine_test_root, "RootProject"):
         assert find_project("RootProject") == target

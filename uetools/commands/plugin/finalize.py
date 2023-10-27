@@ -5,11 +5,7 @@ from dataclasses import dataclass
 
 from argklass.command import Command
 
-from uetools.core.conf import (
-    engine_folder,
-    get_version_tag,
-    retrieve_exact_engine_version,
-)
+from uetools.core.conf import engine_folder, get_version_tag, retrieve_exact_engine_version
 from uetools.core.util import deduce_plugin
 
 
@@ -72,9 +68,7 @@ class FinalizePlugin(Command):
 
         if os.path.exists(config_folder):
             output_folder = os.path.dirname(args.output)
-            shutil.copytree(
-                config_folder, os.path.join(output_folder, "Config"), dirs_exist_ok=True
-            )
+            shutil.copytree(config_folder, os.path.join(output_folder, "Config"), dirs_exist_ok=True)
 
         # Remove build files
         # ------------------

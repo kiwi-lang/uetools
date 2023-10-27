@@ -59,9 +59,7 @@ def get_user_ubt_configfile():
 
 def get_global_ubt_configfile():
     engine = engine_folder()
-    global_ubt_config = os.path.join(
-        engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml"
-    )
+    global_ubt_config = os.path.join(engine, "Saved", "UnrealBuildTool", "BuildConfiguration.xml")
     return global_ubt_config
 
 
@@ -98,20 +96,14 @@ class Configure(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Configure)
-        parser.add_argument(
-            "--show", action="store_true", help="Show the generated XML"
-        )
+        parser.add_argument("--show", action="store_true", help="Show the generated XML")
         parser.add_argument(
             "--dry",
             action="store_true",
             help="Do not persist the configuration change to disk",
         )
-        parser.add_argument(
-            "--list", action="store_true", help="Show all the possible keys"
-        )
-        parser.add_argument(
-            "--filter", type=str, default=None, help="Key filter when doing list"
-        )
+        parser.add_argument("--list", action="store_true", help="Show all the possible keys")
+        parser.add_argument("--filter", type=str, default=None, help="Key filter when doing list")
         parser.add_argument(
             "items",
             nargs=argparse.REMAINDER,
@@ -122,9 +114,7 @@ class Configure(Command):
     def error(node, p):
         attr = ", ".join(list(asdict(node).keys()))
         name = node.__class__.__name__
-        return RuntimeError(
-            f"Node {name} does not have a '{p}' attribute choose between: {attr}"
-        )
+        return RuntimeError(f"Node {name} does not have a '{p}' attribute choose between: {attr}")
 
     @staticmethod
     def change_config(configuration, items):
@@ -152,9 +142,7 @@ class Configure(Command):
                 else:
                     raise Configure.error(node, p)
             except Exception as err:
-                raise RuntimeError(
-                    f"Pair {pair} does not follow the expected format <key>.<key>=<value>"
-                ) from err
+                raise RuntimeError(f"Pair {pair} does not follow the expected format <key>.<key>=<value>") from err
 
         print()
 
@@ -315,9 +303,7 @@ def to_xml(config: Configuration) -> str:
     dictconf = asdict(config)
 
     frags.append('<?xml version="1.0" encoding="utf-8" ?>\n')
-    frags.append(
-        '<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">'
-    )
+    frags.append('<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">')
     _to_xml(dictconf, frags, 1)
     frags.append("\n</Configuration>")
     return "".join(frags)

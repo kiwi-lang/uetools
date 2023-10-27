@@ -14,9 +14,7 @@ class CookingFormatter(Formatter):
         self.print_non_matching = True
 
     # pylint: disable=too-many-arguments,unused-argument
-    def default_format(
-        self, datetime=None, frame=None, category=None, verbosity=None, message=None
-    ):
+    def default_format(self, datetime=None, frame=None, category=None, verbosity=None, message=None):
         """Formattings for the default log format"""
         verb = short.get(verbosity, " ")
 
@@ -30,9 +28,7 @@ class CookingFormatter(Formatter):
         self.print(f"[{verb}][{category}] {colored(message, color=color)}")
 
     # pylint: disable=too-many-arguments
-    def format(
-        self, datetime=None, frame=None, category=None, verbosity=None, message=None
-    ):
+    def format(self, datetime=None, frame=None, category=None, verbosity=None, message=None):
         if "Warning/Error Summary (Unique only)" in message:
             self.summary_starts += 1
             self.default_format(datetime, frame, category, verbosity, message)

@@ -2,13 +2,15 @@ from dataclasses import dataclass
 from typing import Tuple
 
 from argklass.arguments import ArgumentParser
+
 from uetools.core.cli import args
 
 
 def test_groups():
-    from uetools.core.cli import discover_commands, build_parser
     from argklass.groupargs import GroupArguments
+
     from uetools.commands.editor.editor import Arguments
+    from uetools.core.cli import build_parser, discover_commands
 
     commands = discover_commands()
 
@@ -63,13 +65,9 @@ def test_tuple():
 
 
 def test_config():
-    from uetools.core.cli import discover_commands, build_parser
-    from argklass.config import (
-        apply_config,
-        save_as_config,
-        apply_defaults,
-        save_defaults,
-    )
+    from argklass.config import apply_config, apply_defaults, save_as_config, save_defaults
+
+    from uetools.core.cli import build_parser, discover_commands
 
     commands = discover_commands()
 

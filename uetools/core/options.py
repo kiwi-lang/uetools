@@ -4,7 +4,7 @@ import os
 from argklass.arguments import choice
 
 from uetools.core.conf import get_build_modes, get_build_platforms, guess_platform
-from uetools.core.util import deduce_project
+from uetools.core.util import deduce_plugin, deduce_project
 
 
 def platform_choice():
@@ -19,9 +19,7 @@ def platform_choices():
     metadata["type"] = str
     metadata["default"] = [guess_platform()]
 
-    return dataclasses.field(
-        default_factory=lambda: [guess_platform()], metadata=metadata
-    )
+    return dataclasses.field(default_factory=lambda: [guess_platform()], metadata=metadata)
 
 
 def build_mode_choice():
@@ -29,9 +27,8 @@ def build_mode_choice():
     metadata["choices"] = get_build_modes()
     metadata["_kind"] = "argument"
     metadata["type"] = str
-    metadata["default"] = "Development"
 
-    return dataclasses.field(default="Development", metadata=metadata)
+    return dataclasses.field(default=None, metadata=metadata)
 
 
 def deduce_targets():
@@ -53,6 +50,36 @@ def deduce_targets():
                 targets.append(target)
 
     return targets
+
+
+def pluginfield():
+    value = deduce_plugin()
+
+    metadata = dict()
+    metadata["_kind"] = "argument"
+    metadata["type"] = str
+
+    if value is not None:
+        metadata["default"] = value
+    else:
+        metadata["required"] = True
+
+    return dataclasses.field(default=value, metadata=metadata)
+
+
+def projectfield():
+    value = deduce_project()
+
+    metadata = dict()
+    metadata["_kind"] = "argument"
+    metadata["type"] = str
+
+    if value is not None:
+        metadata["default"] = value
+    else:
+        metadata["required"] = True
+
+    return dataclasses.field(default=value, metadata=metadata)
 
 
 def target_choice():

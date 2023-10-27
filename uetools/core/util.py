@@ -1,18 +1,19 @@
 from __future__ import annotations
 
 import os
+from contextlib import contextmanager
 import re
 from argparse import Namespace
 from copy import deepcopy
 from dataclasses import asdict, is_dataclass
 from functools import lru_cache
 from pathlib import Path
+import time
+import threading
 
 from uetools.core.perf import timeit
 
-_re_deduce_project_plugin = re.compile(
-    r"(.*)(\\|/)(?P<Project>([A-Za-z0-9]*))(\\|/)Plugins(\\|/)(?P<Plugin>([A-Za-z0-9]*))(.*)"
-)
+_re_deduce_project_plugin = re.compile(r"(.*)(\\|/)(?P<Project>([A-Za-z0-9]*))(\\|/)Plugins(\\|/)(?P<Plugin>([A-Za-z0-9]*))(.*)")
 
 
 def find_file_like(path, pat):
@@ -167,6 +168,46 @@ def _command_builder(cmd, args, ignore):
         elif is_dataclass(v):
             _command_builder(cmd, asdict(v), ignore)
 
+
+
+
+
+
+def _tailf(filename, condition):
+    while not os.path.exists(filename):
+        pass
+
+    try:
+        with open(filename, 'r') as fp:
+            while not condition.is_set():
+                line = fp.readline()
+
+                if line:
+                    print(line, end='')
+                
+                else:
+                    time.sleep(0.1)
+
+    except Exception as err:
+        print(err)
+
+
+@contextmanager
+def tailf(filename):
+    condition = threading.Event()
+    showlog = threading.Thread(
+        target=_tailf, 
+        args=(filename, condition)
+    )
+    showlog.start()
+    # condition.wait()
+    # condition.clear()
+
+    yield 
+
+    condition.set()
+    showlog.join()
+    
 
 if __name__ == "__main__":
     print(deduce_project_plugin(os.getcwd()))

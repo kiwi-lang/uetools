@@ -12,7 +12,8 @@ from dataclasses import dataclass
 from argklass.command import Command
 
 from uetools.core.conf import WINDOWS, editor, find_project
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.options import projectfield
+from uetools.core.util import command_builder
 from uetools.format.base import Formatter
 
 SLEEP = 0.01
@@ -67,13 +68,9 @@ def _process_interupt(process: multiprocessing.Process):
     # os.kill(process.pid, signum)
 
 
-MAP_LOADED_CUE = re.compile(
-    r"Took (?P<time>[0-9.]*) seconds to LoadMap\((?P<map>[A-Za-z\/]*)\)"
-)
+MAP_LOADED_CUE = re.compile(r"Took (?P<time>[0-9.]*) seconds to LoadMap\((?P<map>[A-Za-z\/]*)\)")
 
-MLADAPTER_ENABLED_CUE = re.compile(
-    r".*Creating MLAdapter manager of class (?P<class>[A-Za-z]*)"
-)
+MLADAPTER_ENABLED_CUE = re.compile(r".*Creating MLAdapter manager of class (?P<class>[A-Za-z]*)")
 
 
 class StartupLog(Formatter):
@@ -83,9 +80,7 @@ class StartupLog(Formatter):
         self.mladapter = False
         # self.print = lambda *args, **kwargs: print("UE: ", *args, **kwargs)
 
-    def format(
-        self, datetime=None, frame=None, category=None, verbosity=None, message=None
-    ):
+    def format(self, datetime=None, frame=None, category=None, verbosity=None, message=None):
         if MLADAPTER_ENABLED_CUE.search(message):
             self.mladapter = True
 
@@ -166,9 +161,7 @@ class UnrealEngineProcess:
         self.status = manager.Value("i", _INIT)
         self.states = manager.dict()
         self.close = close
-        self.proc = multiprocessing.Process(
-            target=_mp_worker, args=(cmd, self.status, self.states)
-        )
+        self.proc = multiprocessing.Process(target=_mp_worker, args=(cmd, self.status, self.states))
         self.proc.start()
 
     def is_alive(self):
@@ -261,7 +254,7 @@ class ML(Command):
     class Arguments:
         """Launch unreal engine with mladapter setup"""
         map                 : str                    # Name of the map to open
-        project             : str = deduce_project() # Name of the the project to open
+        project             : str = projectfield() # Name of the the project to open
         resx                : int = 320     # resolution width
         resy                : int = 240     # resolution height
         fps                 : int = 20      # Max FPS

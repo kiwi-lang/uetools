@@ -16,15 +16,11 @@ for cmd, extra in commands:
 
 @pytest.mark.parametrize("cmd,rc,extra", params)
 def test_mock_uat(project, project_name, monkeypatch, cmd, rc, extra):
-    monkeypatch.setattr(
-        f"uetools.commands.uat.{cmd}.popen_with_format", lambda *a, **b: rc
-    )
+    monkeypatch.setattr(f"uetools.commands.uat.{cmd}.popen_with_format", lambda *a, **b: rc)
     assert main(args("uat", cmd, "--project", project_name, *extra)) == rc
 
 
 @pytest.mark.parametrize("rc", [0, 1])
 def test_mock_uat_uat(project, project_name, monkeypatch, rc):
-    monkeypatch.setattr(
-        "uetools.commands.uat.uat.popen_with_format", lambda *a, **b: rc
-    )
+    monkeypatch.setattr("uetools.commands.uat.uat.popen_with_format", lambda *a, **b: rc)
     assert main(args("uat", "uat", "RunUnrealTests", "--project", project_name)) == rc

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 with open("uetools/core/__init__.py") as file:
     for line in file.readlines():
@@ -72,6 +72,7 @@ setup_kwargs = dict(
     entry_points={
         "console_scripts": [
             "uecli = uetools.core.cli:main_force",
+            "ueui = uetools.ui.main:main",
         ],
         "UECLICommands": [
             "ml = uetools.plugins.ml:ML",
@@ -84,8 +85,6 @@ setup_kwargs = dict(
             "uetools/commands/editor/templates/.*",
             "uetools/commands/plugin/templates/.*",
             "uetools/commands/project/templates/.*",
-            "uetools/commands/data/.*",
-            "uetools/args/data/.*",
             "uetools/core/data/.*",
         ]
     },

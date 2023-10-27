@@ -1,8 +1,6 @@
 def main():
-
     with open("editor_cmd.txt") as file:
         for line in file.readlines():
-
             if ":" not in line:
                 if line != "\n":
                     print(line, end="")

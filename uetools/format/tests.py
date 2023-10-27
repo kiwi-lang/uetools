@@ -16,13 +16,9 @@ class TestFormatter(Formatter):
 
     # pylint: disable=too-many-arguments
     # pylint: disable=too-many-return-statements
-    def format(
-        self, datetime=None, frame=None, category=None, verbosity=None, message=None
-    ):
+    def format(self, datetime=None, frame=None, category=None, verbosity=None, message=None):
         """Format test output to be more readable"""
-        valid_line = (
-            "Automation" in category or "Python" in category or self.allow_everything
-        )
+        valid_line = "Automation" in category or "Python" in category or self.allow_everything
 
         if not valid_line:
             self.default_format(datetime, frame, category, verbosity, message)
@@ -79,9 +75,7 @@ class TestFormatter(Formatter):
             return
 
         if self.iterating_overlist:
-            self.default_format(
-                datetime, frame, category, verbosity, "    * " + message.strip()
-            )
+            self.default_format(datetime, frame, category, verbosity, "    * " + message.strip())
             return
 
         message = " " * self.indent + message.strip()

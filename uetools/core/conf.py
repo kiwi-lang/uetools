@@ -115,9 +115,7 @@ def ubt():
     engine = engine_folder()
 
     if WINDOWS:
-        return os.path.join(
-            engine, "Binaries", "DotNET", "UnrealBuildTool", binary("UnrealBuildTool")
-        )
+        return os.path.join(engine, "Binaries", "DotNET", "UnrealBuildTool", binary("UnrealBuildTool"))
 
     return os.path.join(engine, "Build", "BatchFiles", "Linux", "Build.sh")
 
@@ -332,9 +330,7 @@ def project_folder():
     p = load_conf().get("project_path")
 
     if p is None:
-        logger.warning(
-            "Project folder is not defined, using UnrealEngine root as default"
-        )
+        logger.warning("Project folder is not defined, using UnrealEngine root as default")
         return engine_root()
 
     if isinstance(p, list):
@@ -436,10 +432,7 @@ def select_engine_version(version):
     p = load_conf().get("engines").get(version, None)
 
     if p is None:
-        print(
-            f"Engine version {version} does not exist, call first:\n\t"
-            f"`uecli engine add --version {version} --engine <...>`"
-        )
+        print(f"Engine version {version} does not exist, call first:\n\t" f"`uecli engine add --version {version} --engine <...>`")
         raise BadConfig()
 
 
@@ -452,9 +445,7 @@ def engine_folder(version=None):
         p = load_conf().get("engines").get(SELECTED_VERSION, None)
 
     if p is None:
-        raise ConfigurationError(
-            "Engine path is missing; call `uecli init --engine <...> --projects <...>` first"
-        )
+        raise ConfigurationError("Engine path is missing; call `uecli init --engine <...> --projects <...>` first")
 
     return p
 

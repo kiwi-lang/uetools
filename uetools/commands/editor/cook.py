@@ -7,16 +7,10 @@ from argklass.arguments import choice
 from argklass.command import Command
 
 from uetools.commands.ubt.build import Build
-from uetools.core.conf import (
-    build_platform_from_editor,
-    editor_cmd,
-    find_project,
-    get_build_modes,
-    get_editor_platforms,
-    guess_editor_platform,
-)
+from uetools.core.conf import build_platform_from_editor, editor_cmd, find_project, get_build_modes, get_editor_platforms, guess_editor_platform
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.cooking import CookingFormatter
 
 
@@ -54,7 +48,7 @@ class CookGame(Command):
     @dataclass
     class Arguments:
         # fmt: off
-        project         : Optional[str] = deduce_project()      # Name of the the project to open
+        project         : Optional[str] = projectfield()      # Name of the the project to open
         output          : Optional[str] = None                  # Output
         build           : Optional[str] = build_modes()         # Build modes
         platform        : Optional[str] = editor_platforms()    # Platform to cookf

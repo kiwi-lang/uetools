@@ -19,30 +19,49 @@ from .arguments import BuildCookRunArguments
 #   -EditorIO
 #   -EditorIOPort=54995
 #   -project="E:/Examples/Acaraceim/Acaraceim.uproject"
-#   BuildCookRun
-#   -nop4
-#   -utf8output
-#   -nocompileeditor
-#   -skipbuildeditor
-#   -cook
-#   -project="E:/Examples/Acaraceim/Acaraceim.uproject"
-#   -target=AcaraceimClient
-#   -unrealexe="E:\UnrealEngine\Engine\Binaries\Win64\UnrealEditor-Cmd.exe"
-#   -platform=Win64
-#   -stage
-#   -archive
-#   -package
-#   -build
-#   -pak
-#   -iostore
-#   -compressed
-#   -prereqs
-#   -archivedirectory="E:/Examples/Acaraceim/Saved/StagedBuilds"
-#   -client
-#   -clientconfig=Shipping
-#   -nodebuginfo"
-#   -nocompile
-#   -nocompileuat ]
+
+
+
+@dataclass
+class _CommonArgs(BuildCookRunArguments):
+    nop4: bool = True
+    utf8output : bool = True
+    nocompileeditor: bool = True 
+    skipbuildeditor: bool = True 
+    cook: bool = True 
+    stage: bool = True 
+    package: bool = True 
+    build: bool = True 
+    pak: bool = True 
+    iostore : bool = True
+    compressed : bool = True
+    prereqs : bool = True
+    manifests : bool = True
+    nocompile: bool = True
+    nocompileuat: bool = True
+
+
+@dataclass
+class DedicatedServerCookArgs(_CommonArgs):
+    server : bool = True
+    noclient : bool = True
+
+
+@dataclass
+class ClientCookArgs(_CommonArgs):
+    client : bool = True
+
+
+@dataclass
+class GameCookArgs(_CommonArgs):
+    pass
+
+
+profiles = {
+    'server': DedicatedServerCookArgs,
+    "game": GameCookArgs,
+    "client": ClientCookArgs,
+}
 
 
 class CookGameUAT(Command):
@@ -55,6 +74,7 @@ class CookGameUAT(Command):
     class Arguments(BuildCookRunArguments):
         build                                  : bool = True
 
+        profile                                : str = None
         cook                                   : bool = True
         stage                                  : bool = True
 
@@ -64,7 +84,7 @@ class CookGameUAT(Command):
 
         unattended                             : bool = True
         utf8output                             : bool = True
-        noP4                                   : bool = True
+        nop4                                   : bool = True
         nullrhi                                : bool = True
         nocompileeditor                        : bool = True
         skipbuildeditor                        : bool = True
@@ -72,10 +92,29 @@ class CookGameUAT(Command):
     # fmt: on
 
     @staticmethod
-    def execute(args):
+    def execute(args: BuildCookRunArguments):
         assert args.project is not None
 
         args.project = find_project(args.project)
+
+        if args.profile is not None:
+            profile = profiles.get(args.profile, None)
+
+            if profile is not None:
+                from dataclasses import asdict
+                vars(args).update(asdict(profile))
+
+        if args.archivedirectory is not None:
+            args.archive = True
+
+        if args.config is not None:
+            config = vars(args).pop("config")
+
+            if args.is_server():
+                args.serverconfig = config
+                
+            if args.is_client():
+                args.clientconfig = config
 
         uat_args = command_builder(args)
         cmd = [uat()] + ["BuildCookRun"] + uat_args + ["-nocompileuat"]

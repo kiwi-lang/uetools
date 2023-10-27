@@ -5,8 +5,9 @@ from argklass.arguments import choice
 from argklass.command import Command
 
 from uetools.core.conf import find_project, ubt
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.base import Formatter
 
 generators = [
@@ -56,7 +57,7 @@ class Generate(Command):
     # fmt: off
     @dataclass
     class Arguments:
-        project             : str = deduce_project() # project name"
+        project             : str = projectfield() # project name
         makefile            : bool = False  # Generate Linux Makefile
         cmakefile           : bool = False  # Generate project files for CMake
         qmakefile           : bool = False  # Generate project files for QMake
@@ -69,7 +70,7 @@ class Generate(Command):
         clion               : bool = False  # Generate project files for CLion
         rider               : bool = False  # Generate project files for Rider
         projectfiles        : bool = True   # Generate project files based on IDE preference.
-        projectfileformat   : str = choice(*generators, default='NONE', type=str)
+        projectfileformat   : str = choice(*generators, default=None, type=str)
         game                : bool = True
         engine              : bool = True
         progress            : bool = True
@@ -81,6 +82,7 @@ class Generate(Command):
         suppressSDKWarnings : bool = False
         nomutex             : bool = False
         waitmutex           : bool = False
+        rocket              : bool = False
         remoteini           : str  = None
     # fmt: on
 
@@ -91,13 +93,10 @@ class Generate(Command):
         # if args.projectfileformat == 'NONE':
         #     vars(args).pop('projectfileformat')
 
-        cmd = [ubt(), f"-project={project}", "-Mode=GenerateProjectFiles", "-rocket"]
+        cmd = [ubt(), f"-project={project}", "-Mode=GenerateProjectFiles"]
         cmd_options = command_builder(args)
 
         cmd = cmd + cmd_options
-
-        print(" ".join(cmd))
-
         os.path.dirname(project)
 
         fmt = Formatter()

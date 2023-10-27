@@ -11,7 +11,6 @@ skipif = pytest.mark.skipif
 
 @skipif(os.name == "nt", reason="This does not run on my machine because of bs4")
 def test_docs(project, project_name, tmp_path):
-
     assert os.path.exists(os.path.join(project, "Docs")) is False
 
     path = os.path.join(tmp_path, "config.json")
@@ -30,18 +29,12 @@ def test_docs(project, project_name, tmp_path):
             config,
         )
 
-    main(
-        args(
-            "project", "docs", "--project", project_name, "--config", path, "--no_input"
-        )
-    )
+    main(args("project", "docs", "--project", project_name, "--config", path, "--no_input"))
 
     docs = os.path.join(project, "Docs")
     assert os.path.exists(docs) is True
 
-    subprocess.run(
-        "python -m pip install -r requirements.txt".split(" "), cwd=docs, check=True
-    )
+    subprocess.run("python -m pip install -r requirements.txt".split(" "), cwd=docs, check=True)
 
     # Make sure everything was installed correctly
     # from bs4 import BeautifulSoup

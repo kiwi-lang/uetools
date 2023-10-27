@@ -4,8 +4,8 @@ from typing import Optional
 from argklass.command import Command
 
 from uetools.core.conf import editor, find_project
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import deduce_project
 from uetools.format.base import Formatter
 
 
@@ -39,7 +39,7 @@ class Client(Command):
     @dataclass
     class Arguments:
         # fmt: off
-        project: Optional[str] = deduce_project()  # Name of the the project to open
+        project: Optional[str] = projectfield()  # Name of the the project to open
         address: Optional[str] = '0.0.0.0'  # Address to the server
         port: int = 8123  # Server port
         dry: bool = False  # Print the command it will execute without running it

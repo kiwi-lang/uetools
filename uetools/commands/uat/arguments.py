@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
-from uetools.core.options import build_mode_choice, platform_choice, target_choice
-from uetools.core.util import deduce_project
+from uetools.core.options import build_mode_choice, platform_choice, projectfield, target_choice
 
 
 # fmt: off
@@ -9,14 +8,16 @@ from uetools.core.util import deduce_project
 class BuildCookRunArguments:
     """Build Cook Run UAT arguments"""
     target                                 : str = target_choice()
+    config                                 : str = build_mode_choice()
     clientconfig                           : str = build_mode_choice()
+    serverconfig                           : str = build_mode_choice()
     platform                               : str = platform_choice()
     # Extracted
-    project                                : str = deduce_project()   # Project path (required), i.e: -project=QAGame, -project=Samples\BlackJack\BlackJack.uproject, -project=D:\Projects\MyProject.uproject
+    project                                : str = projectfield()   # Project path (required), i.e: -project=QAGame, -project=Samples\BlackJack\BlackJack.uproject, -project=D:\Projects\MyProject.uproject
     destsample                             : bool = False             # Destination Sample name
     foreigndest                            : bool = False             # Foreign Destination
-    targetplatform                         : str  = platform_choice() # target platform for building, cooking and deployment (also -Platform)
-    servertargetplatform                   : str  = platform_choice() # target platform for building, cooking and deployment of the dedicated server (also -ServerPlatform)
+    # targetplatform                         : str  = platform_choice() # target platform for building, cooking and deployment (also -Platform)
+    # servertargetplatform                   : str  = platform_choice() # target platform for building, cooking and deployment of the dedicated server (also -ServerPlatform)
     foreign                                : bool = False             # Generate a foreign uproject from blankproject and use that
     foreigncode                            : bool = False             # Generate a foreign code uproject from platformergame and use that
     CrashReporter                          : bool = False             # true if we should build crash reporter
@@ -125,4 +126,10 @@ class BuildCookRunArguments:
     ForceUnity                             : bool = False             # Toggle to force enable the unity build system
     Licensee                               : bool = False             #  If set, this build is being compiled by a licensee
     NoSign                                 : bool = False             # Skips signing of code/content files.
+
+    def is_server(self):
+        return self.server or self.serverconfig is not None
+    
+    def is_client(self):
+        return self.client or self.clientconfig is not None
 # fmt: on

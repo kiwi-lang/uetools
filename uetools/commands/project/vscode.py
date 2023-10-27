@@ -6,7 +6,7 @@ from argklass.command import Command
 
 from uetools.core.conf import find_project
 from uetools.core.ini import UnrealINIParser
-from uetools.core.util import deduce_project
+from uetools.core.options import projectfield
 
 
 class VSCode(Command):
@@ -25,7 +25,7 @@ class VSCode(Command):
     @dataclass
     class Arguments:
         # fmt: off
-        project      : str  = deduce_project() # Project name
+        project      : str  = projectfield() # Project name
         yes          : bool = False            # No user prompts (assume yes)
         # fmt: on
 
@@ -69,9 +69,7 @@ class VSCode(Command):
             create_file = "Y" if args.yes else None
 
             while create_file not in ("Y", "N"):
-                create_file = input(
-                    ".vscode/settings.json does not exist, create ? (Y/N):"
-                )
+                create_file = input(".vscode/settings.json does not exist, create ? (Y/N):")
                 create_file = create_file.upper()
 
             if create_file == "Y":

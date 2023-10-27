@@ -6,8 +6,8 @@ from typing import Optional
 from argklass.command import Command
 
 from uetools.core.conf import find_project
+from uetools.core.options import projectfield
 from uetools.core.run import run
-from uetools.core.util import deduce_project
 
 
 class Install(Command):
@@ -40,7 +40,7 @@ class Install(Command):
 
         plugin      : str                               # Plugin's name"
         url         : str                               # url of the plugin to install.
-        project     : str           = deduce_project()  # Name of the project to modify.
+        project     : str           = projectfield()  # Name of the project to modify.
         destination : Optional[str] = 'Plugins'         # installation directory (defaults to: ``$PROJECT_NAME/Plugins/``)
         submodule   : bool          = False             # install the plugin as a git submodule (defaults to: ``False``)# fmt: on
         enable      : bool          = False             # Enable the plugin in the project settings
@@ -60,11 +60,7 @@ class Install(Command):
         if not os.path.exists(dest):
             if args.submodule:
                 force = ["--force"] if args.force else []
-                cmd = (
-                    ["git", "submodule", "add"]
-                    + force
-                    + ["--depth", "1", args.url, dest_relative]
-                )
+                cmd = ["git", "submodule", "add"] + force + ["--depth", "1", args.url, dest_relative]
             else:
                 cmd = ["git", "clone", "--depth", "1", args.url, dest_relative]
 

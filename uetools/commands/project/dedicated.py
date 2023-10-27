@@ -5,7 +5,7 @@ from argklass.cache import load_resource
 from argklass.command import Command
 
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project
+from uetools.core.options import projectfield
 
 
 class Dedicated(Command):
@@ -36,7 +36,7 @@ class Dedicated(Command):
 
     @dataclass
     class Arguments:
-        project: str = deduce_project()  # name of your project
+        project: str = projectfield()  # name of your project
 
     @staticmethod
     def execute(args):

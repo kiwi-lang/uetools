@@ -5,9 +5,7 @@ from collections import defaultdict
 
 param_dump = os.path.join(os.path.dirname(__file__), "params.txt")
 
-FLAG = re.compile(
-    r'(?P<path>[A-Za-z\/]*)\.cpp:(?P<line>[0-9]*):(\s*)(.*)TEXT\(\s*"\s*(?P<arg>-?[._A-Za-z0-9]*(=[;%a-z]*)?)\s*".*\)'
-)
+FLAG = re.compile(r'(?P<path>[A-Za-z\/]*)\.cpp:(?P<line>[0-9]*):(\s*)(.*)TEXT\(\s*"\s*(?P<arg>-?[._A-Za-z0-9]*(=[;%a-z]*)?)\s*".*\)')
 
 
 def remove(list, ignore):
@@ -39,7 +37,6 @@ class ParameterParser:
         print("Unhandled: ", len(self.unhandled))
 
     def first_pass(self, raw, path, line, arg):
-
         ignore = {"Source", "Private"}
 
         for override in self.group_override:

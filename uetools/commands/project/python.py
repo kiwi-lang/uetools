@@ -6,7 +6,7 @@ from argklass.command import Command
 
 from uetools.core.conf import editor, find_project
 from uetools.core.ini import UnrealINIParser
-from uetools.core.util import deduce_project
+from uetools.core.options import projectfield
 
 
 class Python(Command):
@@ -23,7 +23,7 @@ class Python(Command):
 
     @dataclass
     class Arguments:
-        project: str = deduce_project()  # name of your project
+        project: str = projectfield()  # name of your project
 
     @staticmethod
     def execute(args):

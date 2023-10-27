@@ -9,12 +9,9 @@ from contextlib import contextmanager
 from argklass.argformat import DumpParserAction, HelpAction, HelpActionException
 from argklass.command import ParentCommand
 from argklass.parallel import shutdown
+from argklass.plugin import with_cache_location
 
-from uetools.commands import (
-    command_cache_future,
-    command_cache_status,
-    discover_commands,
-)
+from uetools.commands import command_cache_future, command_cache_status, discover_commands
 
 from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
@@ -24,12 +21,8 @@ from .util import deduce_project_plugin
 # Argument Parser cannot be pickled
 def build_parser(commands):
     with timeit("build_parser"):
-        parser = argparse.ArgumentParser(
-            add_help=False, description="Unreal Engine Utility"
-        )
-        parser.add_argument(
-            "-h", "--help", action=HelpAction, help="show this help message and exit"
-        )
+        parser = argparse.ArgumentParser(add_help=False, description="Unreal Engine Utility")
+        parser.add_argument("-h", "--help", action=HelpAction, help="show this help message and exit")
         parser.add_argument("-zyx", action=DumpParserAction, help="")
         parser.add_argument(
             "-v",
@@ -113,17 +106,20 @@ def extended_status():
 def main(argv=None):
     """Entry point for the command line interface"""
 
-    with timeit("discover_commands"):
-        commands = discover_commands()
+    import uetools.core
 
-    with timeit("parse_args"):
-        try:
-            parsed_args = parse_args(commands, argv)
-        except HelpActionException:
-            return 0
+    with with_cache_location(uetools.core.__name__):
+        with timeit("discover_commands"):
+            commands = discover_commands()
 
-        except BadConfig:
-            return -1
+        with timeit("parse_args"):
+            try:
+                parsed_args = parse_args(commands, argv)
+            except HelpActionException:
+                return 0
+
+            except BadConfig:
+                return -1
 
     cmd_name = parsed_args.command
     command = commands.get(cmd_name)

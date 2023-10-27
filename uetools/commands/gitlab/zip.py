@@ -59,7 +59,6 @@ class Zip(Command):
 
     @staticmethod
     def execute(args):
-
         with tqdm() as progress:
             zipfolder(args.src, args.dest, progress)
 

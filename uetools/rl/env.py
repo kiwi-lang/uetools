@@ -102,18 +102,12 @@ class UnrealEnv(gym.Env):
             self.agent_id = self.client.add_agent()
 
         # Retrieve the action and observation space for our agent
-        self.action_space = _convert_action_space(
-            self.client.desc_action_space(self.agent_id)
-        )
-        self.observation_space = _convert_observation(
-            self.client.desc_observation_space(self.agent_id)
-        )
+        self.action_space = _convert_action_space(self.client.desc_action_space(self.agent_id))
+        self.observation_space = _convert_observation(self.client.desc_observation_space(self.agent_id))
 
         # Configure Tick
         # --------------
-        assert (not self.realtime) ^ (
-            self.action_duration is not None
-        ), "Only one of the option is possible"
+        assert (not self.realtime) ^ (self.action_duration is not None), "Only one of the option is possible"
 
         if not self.realtime:
 
@@ -128,9 +122,7 @@ class UnrealEnv(gym.Env):
                 self.client.wait_for_action_duration(self.agent_id)
 
             self.step_function = wait_action
-            self.client.enable_action_duration(
-                self.agent_id, True, self.action_duration
-            )
+            self.client.enable_action_duration(self.agent_id, True, self.action_duration)
 
         self.client.enable_manual_world_tick(not self.realtime)
         return self

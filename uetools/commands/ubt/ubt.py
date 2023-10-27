@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 
 from argklass.arguments import add_arguments, choice
 from argklass.command import Command, newparser
 
-from uetools.core.conf import find_project, get_build_modes, get_build_platforms, ubt
+from uetools.core.conf import find_project, get_build_modes, get_build_platforms, ubt, engine_folder
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder, tailf
 from uetools.format.base import Formatter
+
 
 modes = [
     "AggregateParsedTimingInfo",
@@ -102,7 +105,7 @@ class UBT(Command):
     @dataclass
     class Arguments:
         target              : str # target
-        project             : str = deduce_project() # Path to the project, example: <project>.uproject
+        project             : str = projectfield() # Path to the project, example: <project>.uproject
         mode                : str | None = choice(*modes, default="Build")  # Select tool mode. One of the following (default tool mode is "Build"):
         verbose             : bool = False  # Increase output verbosity
         veryverbose         : bool = False  # Increase output verbosity more
@@ -164,8 +167,21 @@ class UBT(Command):
 
         pargs += command_builder(args)
 
-        fmt = Formatter()
-        return popen_with_format(fmt, pargs)
+        log = os.path.join(
+            engine_folder(),
+            "Programs",
+            "UnrealBuildTool",
+            "Log.txt"
+        )
+        if args.log is not None:
+            log = args.log
+
+        if os.path.exists(log):
+            os.remove(log)
+
+        with tailf(log):
+            fmt = Formatter()
+            return popen_with_format(fmt, pargs)
 
 
 COMMANDS = UBT

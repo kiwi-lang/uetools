@@ -4,7 +4,8 @@ from dataclasses import dataclass
 from argklass.command import Command
 
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_module, deduce_plugin, deduce_project
+from uetools.core.options import projectfield
+from uetools.core.util import deduce_module, deduce_plugin
 
 
 def make_file_for_module(module_path, klass):
@@ -41,7 +42,7 @@ class Class(Command):
     @dataclass
     class Arguments:
         klass: str  # Class' name
-        project: str = deduce_project()  # project's name
+        project: str = projectfield()  # project's name
         plugin: str = deduce_plugin()  # Plugin's name"
 
     @staticmethod

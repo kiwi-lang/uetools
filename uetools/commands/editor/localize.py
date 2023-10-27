@@ -7,8 +7,9 @@ from argklass.cache import load_resource
 from argklass.command import Command
 
 from uetools.core.conf import editor_cmd, find_project
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.base import Formatter
 
 actions = ["Gather", "Compile", "import", "export"]
@@ -69,7 +70,7 @@ class LocalEditor(Command):
     # fmt: off
     @dataclass
     class Arguments:
-        project                 : Optional[str] = deduce_project()  # Name of the the project to open
+        project                 : Optional[str] = projectfield()  # Name of the the project to open
         run                     : str = choice(*actions, default="GatherText")
         target                  : Optional[str] = None  # Localization target (defaults to the project name)
         SCCProvider             : Optional[str] = None  # Source control provider
@@ -100,9 +101,7 @@ class LocalEditor(Command):
 
         template = template.replace("{TargetName}", name)
 
-        with open(
-            os.path.join(localization_config, f"{target}.ini"), "w", encoding="utf-8"
-        ) as file:
+        with open(os.path.join(localization_config, f"{target}.ini"), "w", encoding="utf-8") as file:
             file.write(template)
 
     @staticmethod

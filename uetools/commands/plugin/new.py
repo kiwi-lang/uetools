@@ -7,7 +7,7 @@ from argklass.cache import load_resource
 from argklass.command import Command
 
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project
+from uetools.core.options import projectfield
 
 
 class NewPlugin(Command):
@@ -18,7 +18,7 @@ class NewPlugin(Command):
     @dataclass
     class Arguments:
         plugin: str  # Plugin's name"
-        project: str = deduce_project()  # project's name
+        project: str = projectfield()  # project's name
 
     @staticmethod
     def execute(args):

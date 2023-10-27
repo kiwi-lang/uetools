@@ -33,15 +33,11 @@ os.makedirs(doxygen_out_html, exist_ok=True)
 
 def get_versions():
     try:
-        version_tag = subprocess.check_output(
-            "git describe --tags --abbrev=0", shell=True
-        ).decode("utf-8")
+        version_tag = subprocess.check_output("git describe --tags --abbrev=0", shell=True).decode("utf-8")
     except:
         version_tag = ""
 
-    commit = subprocess.check_output("git rev-parse --short HEAD", shell=True).decode(
-        "utf-8"
-    )
+    commit = subprocess.check_output("git rev-parse --short HEAD", shell=True).decode("utf-8")
 
     if version_tag == "":
         version_identifier = commit
@@ -62,9 +58,7 @@ def is_new_version():
 
     # TODO: only go it for C++ files
     version_match = False
-    version_hash = subprocess.check_output(
-        'echo -n $"$(git rev-parse HEAD) $(git diff)" | sha256sum', shell=True
-    )
+    version_hash = subprocess.check_output('echo -n $"$(git rev-parse HEAD) $(git diff)" | sha256sum', shell=True)
 
     if os.path.exists(doxygen_version_file):
         with open(doxygen_version_file, "br") as v:
@@ -86,14 +80,7 @@ def configure_doxyfile():
     with open("Doxyfile.in") as file:
         filedata = file.read()
 
-    filedata = (
-        filedata.replace("@DOXYGEN_OUTPUT_DIR@", doxygen_out)
-        .replace("@CMAKE_SOURCE_DIR@", project_root)
-        .replace("@PROJECT_NAME@", project_name)
-        .replace("@STRIP_PATH@", project_root)
-        .replace("@rev_branch@", version_identifier)
-        .replace("@HTML_OUTPUT@", doxygen_out_html)
-    )
+    filedata = filedata.replace("@DOXYGEN_OUTPUT_DIR@", doxygen_out).replace("@CMAKE_SOURCE_DIR@", project_root).replace("@PROJECT_NAME@", project_name).replace("@STRIP_PATH@", project_root).replace("@rev_branch@", version_identifier).replace("@HTML_OUTPUT@", doxygen_out_html)
 
     with open("Doxyfile", "w") as file:
         file.write(filedata)

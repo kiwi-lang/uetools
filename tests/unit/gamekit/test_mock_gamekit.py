@@ -14,7 +14,5 @@ for cmd, extra in commands:
 
 @pytest.mark.parametrize("cmd,rc,extra", params)
 def test_mock_gamekit(project, project_name, monkeypatch, cmd, rc, extra):
-    monkeypatch.setattr(
-        f"uetools.plugins.gamekit.{cmd}.popen_with_format", lambda *a, **b: rc
-    )
+    monkeypatch.setattr(f"uetools.plugins.gamekit.{cmd}.popen_with_format", lambda *a, **b: rc)
     assert main(args("gamekit", cmd, project_name, *extra)) == rc

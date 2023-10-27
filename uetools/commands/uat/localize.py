@@ -5,8 +5,9 @@ from typing import Optional
 from argklass.command import Command
 
 from uetools.core.conf import find_project, uat
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.base import Formatter
 
 actions = ["Gather", "Compile", "import", "export"]
@@ -72,7 +73,7 @@ class LocalUAT(Command):
     # fmt: off
     @dataclass
     class Arguments:
-        project                         : str = deduce_project() # Project name
+        project                         : str = projectfield() # Project name
         UEProjectRoot                   : Optional[str] = None   # Optional root-path to the project we're gathering for (defaults to CmdEnv.LocalRoot if unset).
         UEProjectDirectory              : str           = ''     # Sub-path to the project we're gathering for (relative to UEProjectRoot).
         UEProjectName                   : Optional[str] = None   # Optional name of the project we're gathering for (should match its .uproject file, eg QAGame).

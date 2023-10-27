@@ -5,7 +5,7 @@ from typing import Optional
 from argklass.command import Command
 
 from uetools.core.conf import find_project
-from uetools.core.util import deduce_project
+from uetools.core.options import projectfield
 
 COOKIECUTTER = "https://github.com/kiwi-lang/UEDocs"
 
@@ -18,7 +18,7 @@ class Docs(Command):
     @dataclass
     class Arguments:
         # fmt: off
-        project : str = deduce_project() # name of your project
+        project : str = projectfield() # name of your project
         no_input: bool = False           # Do not show user prompts
         config  : Optional[str] = None   # Configuration file used to initialize the project (json)
         # fmt: on

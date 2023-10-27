@@ -7,8 +7,9 @@ from argklass.arguments import add_arguments
 from argklass.command import Command, newparser
 
 from uetools.core.conf import editor_cmd, find_project
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.base import Formatter
 
 EDITOR_COMMANDSS = [
@@ -17,6 +18,7 @@ EDITOR_COMMANDSS = [
     "runtests",
     "runall",
 ]
+
 
 # fmt: off
 @dataclass
@@ -219,7 +221,7 @@ class CLIArguments:
 @dataclass
 class Arguments:
     """Unreal Editor arguments"""
-    project : Optional[str] = deduce_project()  # Project name, example: <project>.uproject
+    project : Optional[str] = projectfield()  # Project name, example: <project>.uproject
     cli     : bool = False          # Enable a group of arguments to make the editor as a command line tool
     dry     : bool = False          # Print the command it will execute without running it
     map     : str | None  = None    # Path to the map

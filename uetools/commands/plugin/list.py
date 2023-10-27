@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from argklass.command import Command
 
 from uetools.core.conf import engine_folder, find_project
-from uetools.core.util import deduce_project
+from uetools.core.options import projectfield
 
 
 class List(Command):
@@ -14,7 +14,7 @@ class List(Command):
 
     @dataclass
     class Arguments:
-        project: str = deduce_project()  # project's name
+        project: str = projectfield()  # project's name
 
     @staticmethod
     def execute(args):

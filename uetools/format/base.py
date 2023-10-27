@@ -8,23 +8,13 @@ from uetools.core.conf import load_conf, update_conf
 
 log = logging.getLogger()
 
-UE_LOG_FORMAT = re.compile(
-    r"^(\[(?P<datetime>.*)\]\[\s*(?P<frame>\d*)\])?(?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)"
-)
+UE_LOG_FORMAT = re.compile(r"^(\[(?P<datetime>.*)\]\[\s*(?P<frame>\d*)\])?(?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)")
 
-UE_LOG_FORMAT_UTC = re.compile(
-    r"^\[(?P<datetime>\d{4}\.\d{2}\.\d{2}-\d{2}\.\d{2}\.\d{2}:\d{3})\]\[\s*(?P<frame>\d*)\](?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)"
-)
-UE_STDOUT_FORMAT = re.compile(
-    r"^(?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)"
-)
+UE_LOG_FORMAT_UTC = re.compile(r"^\[(?P<datetime>\d{4}\.\d{2}\.\d{2}-\d{2}\.\d{2}\.\d{2}:\d{3})\]\[\s*(?P<frame>\d*)\](?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)")
+UE_STDOUT_FORMAT = re.compile(r"^(?P<category>[A-Za-z]*): ((?P<verbosity>[A-Za-z]*):)?(?P<message>.*)")
 
-UAT_ERROR_1 = re.compile(
-    r"^RunUAT ERROR: AutomationTool was unable to run successfully. Exited with code: (?P<returncode>[0-9]*)"
-)
-UAT_ERROR_2 = re.compile(
-    r"^AutomationTool exiting with ExitCode=(?P<returncode>[0-9]*) \((?P<message>[a-zA-Z0-9]*)\)"
-)
+UAT_ERROR_1 = re.compile(r"^RunUAT ERROR: AutomationTool was unable to run successfully. Exited with code: (?P<returncode>[0-9]*)")
+UAT_ERROR_2 = re.compile(r"^AutomationTool exiting with ExitCode=(?P<returncode>[0-9]*) \((?P<message>[a-zA-Z0-9]*)\)")
 
 ERROR_PATERNS = [
     UAT_ERROR_1,
@@ -68,6 +58,7 @@ COLORAMA = {
     "yellow": Fore.YELLOW,
 }
 
+
 # pylint: disable=unused-argument
 def colored(text, color, attrs=None):
     """Returns a colored text"""
@@ -110,9 +101,7 @@ class Formatter:
             return
 
         self.longest_category = max(self.longest_category, len(category))
-        self.longest_name = (
-            category if len(category) > len(self.longest_name) else self.longest_name
-        )
+        self.longest_name = category if len(category) > len(self.longest_name) else self.longest_name
 
     def summary(self):
         """Print a summary of warnings and errors that got parsed during the formatting process"""
@@ -171,9 +160,7 @@ class Formatter:
         return 0
 
     # pylint: disable=too-many-arguments
-    def format(
-        self, datetime=None, frame=None, category=None, verbosity=None, message=None
-    ):
+    def format(self, datetime=None, frame=None, category=None, verbosity=None, message=None):
         """Creates column for each element of the log and print the message last.
 
         Parameters
@@ -214,6 +201,4 @@ class Formatter:
         if frame is None:
             frame = 0
 
-        self.print(
-            f"[{int(frame):3d}][{verb}][{category}] {colored(message, color=color)}"
-        )
+        self.print(f"[{int(frame):3d}][{verb}][{category}] {colored(message, color=color)}")

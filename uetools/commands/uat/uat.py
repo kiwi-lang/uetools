@@ -7,8 +7,9 @@ from argklass.arguments import add_arguments
 from argklass.command import Command, newparser
 
 from uetools.core.conf import find_project, get_build_modes, uat
+from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
-from uetools.core.util import command_builder, deduce_project
+from uetools.core.util import command_builder
 from uetools.format.base import Formatter
 
 commands = [
@@ -95,11 +96,12 @@ commands = [
     "Turnkey",
 ]
 
+
 # fmt: off
 @dataclass
 class UATArgs:
     """Common UAT arguments"""
-    project                 : str  = deduce_project() # Project path (required), i.e: -project=QAGame, -project=Samples/BlackJack/BlackJack.uproject, -project=D:/Projects/MyProject.uproject,
+    project                 : str  = projectfield() # Project path (required), i.e: -project=QAGame, -project=Samples/BlackJack/BlackJack.uproject, -project=D:/Projects/MyProject.uproject,
     verbose                 : bool = False  # Enables verbose logging
     veryverbose             : bool = False  # Enables very verbose logging
     submit                  : bool = False  # Allows UAT command to submit changes
@@ -272,9 +274,7 @@ class UAT(Command):
         """Defines UAT arguments"""
         parser = newparser(subparsers, UAT)
 
-        parser.add_argument(
-            "cmd", type=str, choices=commands, help="UAT Command to execute"
-        )
+        parser.add_argument("cmd", type=str, choices=commands, help="UAT Command to execute")
         parser.add_argument(
             "--configuration",
             type=str,

@@ -5,14 +5,7 @@ from typing import Optional
 from argklass.arguments import choice
 from argklass.command import Command
 
-from uetools.core.conf import (
-    engine_folder,
-    find_project,
-    get_build_modes,
-    get_build_platforms,
-    guess_platform,
-    ubt,
-)
+from uetools.core.conf import engine_folder, find_project, get_build_modes, get_build_platforms, guess_platform, ubt
 from uetools.core.run import popen_with_format
 from uetools.format.base import Formatter
 
@@ -32,9 +25,7 @@ engine_uht = [
     "UnrealHeaderTool",
     "{PLATFORM}",
     "{MODE}",
-    "-NoUBTMakefiles"
-    "-Manifest={ENGINE_FOLDER}/Intermediate/Build/Manifest.xml"
-    "-NoHotReload",
+    "-NoUBTMakefiles" "-Manifest={ENGINE_FOLDER}/Intermediate/Build/Manifest.xml" "-NoHotReload",
     '-abslog="{ENGINE_FOLDER}/Programs/AutomationTool/Saved/Logs/UBT-UnrealHeaderTool-{PLATFORM}-{MODE}.txt"',
 ]
 

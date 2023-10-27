@@ -32,9 +32,7 @@ for cmd, extra in commands:
 
 @pytest.mark.parametrize("cmd,rc,extra", params)
 def test_mock_editor(project, project_name, monkeypatch, cmd, rc, extra):
-    monkeypatch.setattr(
-        f"uetools.commands.editor.{cmd}.popen_with_format", lambda *a, **b: rc
-    )
+    monkeypatch.setattr(f"uetools.commands.editor.{cmd}.popen_with_format", lambda *a, **b: rc)
     assert main(args("editor", cmd, "--project", project_name, *extra)) == rc
 
 

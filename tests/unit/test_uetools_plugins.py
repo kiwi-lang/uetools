@@ -11,25 +11,19 @@ skipif = pytest.mark.skipif
 @contextmanager
 def install_plugin():
     subprocess.run(
-        "pip install git+https://github.com/kiwi-lang/uetools.plugins.myplugin".split(
-            " "
-        ),
+        "pip install git+https://github.com/kiwi-lang/uetools.plugins.myplugin".split(" "),
         check=True,
     )
 
     yield
 
-    subprocess.run(
-        "pip uninstall uetools.plugins.myplugin --yes".split(" "), check=True
-    )
+    subprocess.run("pip uninstall uetools.plugins.myplugin --yes".split(" "), check=True)
 
 
 @skipif(True, reason="Flaky")
 def test_uetools_plugin():
     try:
-        subprocess.run(
-            "pip uninstall uetools.plugins.myplugin --yes".split(" "), check=True
-        )
+        subprocess.run("pip uninstall uetools.plugins.myplugin --yes".split(" "), check=True)
     except subprocess.CalledProcessError:
         pass
 
