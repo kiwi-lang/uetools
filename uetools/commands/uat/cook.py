@@ -86,8 +86,9 @@ class CookGameUAT(Command):
         utf8output                             : bool = True
         nop4                                   : bool = True
         nullrhi                                : bool = True
-        nocompileeditor                        : bool = True
-        skipbuildeditor                        : bool = True
+        nocompileeditor                        : bool = False
+        nocompileuat                           : bool = True
+        skipbuildeditor                        : bool = False
         nodebuginfo                            : bool = True
     # fmt: on
 
