@@ -77,10 +77,12 @@ class CookGameUAT(Command):
         profile                                : str = None
         cook                                   : bool = True
         stage                                  : bool = True
-
+        package                                : bool = True 
         prereqs                                : bool = True
         distribution                           : bool = True
         pak                                    : bool = True
+        iostore                                : bool = True
+        compressed                             : bool = True
 
         unattended                             : bool = True
         utf8output                             : bool = True

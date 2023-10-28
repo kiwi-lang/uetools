@@ -1,3 +1,4 @@
+from dataclasses import dataclass, asdict
 import logging
 import re
 
@@ -75,6 +76,18 @@ def colored(text, color, attrs=None):
 #
 
 
+@dataclass
+class LogLine:
+    datetime: str
+    frame: str
+    category: str
+    verbosity: str
+    message: str
+
+    def __hash__(self) -> int:
+        return hash(self.category + self.message + self.verbosity)
+
+
 class Formatter:
     """Parse an unreal engine output log line and formats it"""
 
@@ -92,6 +105,10 @@ class Formatter:
         self.only = set()
         self.return_codes = []
         self.print = print
+        self.line_hash = set()
+        self.suppress_duplicate_lines = True
+        self.prev_hash = None
+        self.duplicate_count = 0
 
         if self.col is not None:
             self.longest_category = self.col
@@ -108,9 +125,9 @@ class Formatter:
         self.print("-" * 80)
         self.print("    Summary")
         self.print("=" * 80)
-        for line in self.bad_logs:
+        for line in set(self.bad_logs):
             self.print("  - ", end="")
-            Formatter.format(self, **line)
+            Formatter.format(self, **asdict(line))
         self.print("=" * 80)
 
     def __del__(self):
@@ -133,9 +150,18 @@ class Formatter:
 
             # Kepp track of bad logs and show a summary at the end
             if data["verbosity"] in bad_logs:
-                self.bad_logs.append(data)
+                self.bad_logs.append(LogLine(**data))
 
-            self.format(**data)
+            if self.suppress_duplicate_lines:
+                h = hash(LogLine(**data))
+
+                # Line is not duplicate
+                if h not in self.line_hash:
+                    self.format(**data)
+                    self.line_hash.add(h)
+                    self.prev_hash = h
+            else:
+                self.format(**data)
         else:
             if self.print_non_matching:
                 self.print(line, end="")
