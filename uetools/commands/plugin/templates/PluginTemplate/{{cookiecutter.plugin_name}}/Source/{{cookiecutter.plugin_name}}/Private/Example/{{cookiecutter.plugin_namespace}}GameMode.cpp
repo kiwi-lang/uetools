@@ -5,7 +5,8 @@
 
 // Gamekit
 #include "{{cookiecutter.plugin_namespace}}PlayerController.h"
-#include "{{cookiecutter.plugin_namespace}}Chracter.h"
+#include "{{cookiecutter.plugin_namespace}}Character.h"
+#include "{{cookiecutter.plugin_namespace}}GameState.h"
 
 // Unreal Engine
 #include "UObject/ConstructorHelpers.h"
@@ -16,11 +17,10 @@ A{{cookiecutter.plugin_namespace}}GameMode::A{{cookiecutter.plugin_namespace}}Ga
 	// use our custom PlayerController class
 	PlayerControllerClass = A{{cookiecutter.plugin_namespace}}PlayerController::StaticClass();
     DefaultPawnClass      = A{{cookiecutter.plugin_namespace}}Character::StaticClass();
+    GameStateClass        = A{{cookiecutter.plugin_namespace}}GameState::StaticClass();
 
-    // Pawn             :
-    // HUD Class        :
-    // Player Controller:
-    // GameState        :
-    // PlayerState      :
-    // Spectator Class  :
+    // DefaultPawnClass    = A{{cookiecutter.plugin_namespace}}Pawn::StaticClass();
+    // HUDClass            = A{{cookiecutter.plugin_namespace}}HUD::StaticClass();
+    // PlayerStateClass    = A{{cookiecutter.plugin_namespace}}PlayerState::StaticClass();
+    // SpectatorClass      = A{{cookiecutter.plugin_namespace}}SpecatorPawn::StaticClass();
 }

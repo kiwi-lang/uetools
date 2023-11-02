@@ -10,6 +10,17 @@ from uetools.core.conf import find_project
 from uetools.core.options import projectfield
 
 
+
+def namespace_from_name(name: str):
+    namespace = []
+
+    for c in name:
+        if c.isupper():
+            namespace.append(c)
+    
+    return ''.join(namespace)
+
+
 class NewPlugin(Command):
     """Create a new plugin from a template"""
 
@@ -19,6 +30,7 @@ class NewPlugin(Command):
     class Arguments:
         plugin: str  # Plugin's name"
         project: str = projectfield()  # project's name
+        dry: bool = False
 
     @staticmethod
     def execute(args):
@@ -34,7 +46,20 @@ class NewPlugin(Command):
         assert os.path.exists(template)
 
         configfile = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
-        json.dump({"default_context": {"plugin_name": args.plugin}}, configfile)
+
+        config = {
+            "default_context": {
+                "plugin_name": args.plugin,
+                # "plugin_namespace": namespace_from_name(args.plugin),
+            }
+        }
+
+        print(json.dumps(config, indent=2))
+
+        if args.dry:
+            return 0
+    
+        json.dump(config, configfile)
         configfile.flush()
 
         plugin_dir = os.path.join(project_dir, "Plugins")
