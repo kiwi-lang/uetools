@@ -1,7 +1,7 @@
 // {{cookiecutter.copyright}}
 
 // Include
-#include "{{cookiecutter.plugin_namespace}}PlayerController.h"
+#include "Example/{{cookiecutter.plugin_namespace}}PlayerController.h"
 
 // Gamekit
 

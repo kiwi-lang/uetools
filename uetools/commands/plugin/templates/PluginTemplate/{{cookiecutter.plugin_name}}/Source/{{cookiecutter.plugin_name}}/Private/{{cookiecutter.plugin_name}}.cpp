@@ -1,7 +1,7 @@
 // Copyright 2023 Mischievous Game, Inc. All Rights Reserved.
 
 #include "{{cookiecutter.plugin_name}}.h"
-
+#include "{{cookiecutter.plugin_name}}Log.h"
 
 // Unreal Engine
 #include "Engine/Blueprint.h"

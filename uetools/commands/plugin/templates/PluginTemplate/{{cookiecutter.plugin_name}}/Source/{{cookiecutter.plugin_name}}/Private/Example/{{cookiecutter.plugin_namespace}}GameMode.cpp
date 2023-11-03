@@ -1,12 +1,12 @@
 // {{cookiecutter.copyright}}
 
 // Include
-#include "{{cookiecutter.plugin_namespace}}GameMode.h"
+#include "Example/{{cookiecutter.plugin_namespace}}GameMode.h"
 
 // Gamekit
-#include "{{cookiecutter.plugin_namespace}}PlayerController.h"
-#include "{{cookiecutter.plugin_namespace}}Character.h"
-#include "{{cookiecutter.plugin_namespace}}GameState.h"
+#include "Example/{{cookiecutter.plugin_namespace}}PlayerController.h"
+#include "Example/{{cookiecutter.plugin_namespace}}Character.h"
+#include "Example/{{cookiecutter.plugin_namespace}}GameState.h"
 
 // Unreal Engine
 #include "UObject/ConstructorHelpers.h"

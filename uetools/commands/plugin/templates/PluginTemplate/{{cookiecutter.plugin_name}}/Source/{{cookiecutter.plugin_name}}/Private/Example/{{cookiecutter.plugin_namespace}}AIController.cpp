@@ -1,9 +1,13 @@
 // {{cookiecutter.copyright}}
 
 // Include
-#include "{{cookiecutter.plugin_namespace}}AIController.h"
+#include "Example/{{cookiecutter.plugin_namespace}}AIController.h"
 
 // Gamekit
 
 // Unreal Engine
 
+void A{{cookiecutter.plugin_namespace}}AIController::BeginPlay()
+{
+    Super::BeginPlay();
+}

@@ -2,6 +2,7 @@
 
 // Include
 #include "{{cookiecutter.plugin_name}}Shader.h"
+#include "{{cookiecutter.plugin_name}}ShaderLog.h"
 
 // Unreal Engine
 #include "Engine/Blueprint.h"

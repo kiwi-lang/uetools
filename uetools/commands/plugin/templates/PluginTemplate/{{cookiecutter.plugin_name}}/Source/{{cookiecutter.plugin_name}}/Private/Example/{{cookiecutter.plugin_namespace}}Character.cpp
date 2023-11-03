@@ -1,7 +1,7 @@
 // {{cookiecutter.copyright}}
 
 // Include
-#include "{{cookiecutter.plugin_namespace}}Character.h"
+#include "Example/{{cookiecutter.plugin_namespace}}Character.h"
 
 // Gamekit
 
