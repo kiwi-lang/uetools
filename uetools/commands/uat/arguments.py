@@ -127,9 +127,11 @@ class BuildCookRunArguments:
     Licensee                               : bool = False             #  If set, this build is being compiled by a licensee
     NoSign                                 : bool = False             # Skips signing of code/content files.
 
-    def is_server(self):
-        return self.server or self.serverconfig is not None
+    @staticmethod
+    def is_server(args):
+        return args.server or args.serverconfig is not None or args.dedicatedserver
     
-    def is_client(self):
-        return self.client or self.clientconfig is not None
+    @staticmethod
+    def is_client(args):
+        return args.client or args.clientconfig is not None or not args.dedicatedserver
 # fmt: on

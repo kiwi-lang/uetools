@@ -97,7 +97,6 @@ class CookGameUAT(Command):
     @staticmethod
     def execute(args: BuildCookRunArguments):
         assert args.project is not None
-        args = BuildCookRunArguments(**vars(args))
 
         args.project = find_project(args.project)
 
@@ -114,10 +113,10 @@ class CookGameUAT(Command):
         if args.config is not None:
             config = vars(args).pop("config")
 
-            if args.is_server():
+            if BuildCookRunArguments.is_server(args):
                 args.serverconfig = config
                 
-            if args.is_client():
+            if BuildCookRunArguments.is_client(args):
                 args.clientconfig = config
 
         uat_args = command_builder(args)
