@@ -3,6 +3,12 @@ from dataclasses import dataclass
 from uetools.core.options import build_mode_choice, platform_choice, projectfield, target_choice
 
 
+def get(args, name, default=False):
+    if hasattr(args, name):
+        return getattr(args, name)
+    return default
+
+
 # fmt: off
 @dataclass
 class BuildCookRunArguments:
@@ -129,9 +135,9 @@ class BuildCookRunArguments:
 
     @staticmethod
     def is_server(args):
-        return args.server or args.serverconfig is not None or args.dedicatedserver
+        return get(args, 'server') or get(args, 'serverconfig')  or get(args, 'dedicatedserver')
     
     @staticmethod
     def is_client(args):
-        return args.client or args.clientconfig is not None or not args.dedicatedserver
+        return get(args, 'client') or get(args, 'clientconfig') or not get(args, 'dedicatedserver')
 # fmt: on
