@@ -5,8 +5,26 @@ from argklass.command import Command
 from tqdm import tqdm
 
 
-def zipfolder(src, dest, progress):
+def zipfolder(src, dest, progress, topfolder):
     import zipfile
+
+    def rename(path: str):
+        abssrc = os.path.abspath(src)
+        path = os.path.abspath(path)
+        common = os.path.commonpath([path, abssrc])
+
+        if topfolder is None:
+            wrap = os.path.split(abssrc)[-1]
+        else:
+            wrap = topfolder
+            
+        newname = path.removeprefix(common)
+
+        if newname and (newname[0] == '\\' or newname[0] == '/'):
+            newname = newname[1:]
+
+        newname = os.path.join(wrap, newname)
+        return newname.replace('\\', '/')
 
     zip_filename = dest
     archive_dir = os.path.dirname(dest)
@@ -19,32 +37,34 @@ def zipfolder(src, dest, progress):
 
     with zipfile.ZipFile(zip_filename, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         path = os.path.normpath(src)
+
         if path != os.curdir:
-            zf.write(path, path)
+            zf.write(path, rename(path))
             progress.update(1)
 
         for dirpath, dirnames, filenames in os.walk(src):
             for name in sorted(dirnames):
                 path = os.path.normpath(os.path.join(dirpath, name))
-                zf.write(path, path)
+                zf.write(path, rename(path))
                 progress.update(1)
 
             for name in filenames:
                 path = os.path.normpath(os.path.join(dirpath, name))
                 if os.path.isfile(path):
-                    zf.write(path, path)
+                    zf.write(path, rename(path))
                     progress.update(1)
 
 
 class Zip(Command):
-    """Publish a gitlab package to the registry
+    """Zip a folder;
+    The content of the folder is wrapped inside a folder named after the zip archive.
 
     Examples
     --------
 
     .. code-block::
 
-       uecli gitlab zip ./ArchivedBuilds/Windows/ Acara
+       uecli gitlab zip ./ArchivedBuilds/Windows/ Acara.zip
 
        E:/Examples/Acaraceim/Acara.zip
 
@@ -56,11 +76,18 @@ class Zip(Command):
     class Arguments:
         src: str
         dest: str
+        name: str = None
 
     @staticmethod
     def execute(args):
+        try:
+            if args.name is None:
+                args.name = args.dest.split('.')[0]
+        except:
+            pass
+    
         with tqdm() as progress:
-            zipfolder(args.src, args.dest, progress)
+            zipfolder(args.src, args.dest, progress, args.name)
 
         return 0
 
