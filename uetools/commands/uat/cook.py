@@ -97,6 +97,7 @@ class CookGameUAT(Command):
     @staticmethod
     def execute(args: BuildCookRunArguments):
         assert args.project is not None
+        args = BuildCookRunArguments(**vars(args))
 
         args.project = find_project(args.project)
 

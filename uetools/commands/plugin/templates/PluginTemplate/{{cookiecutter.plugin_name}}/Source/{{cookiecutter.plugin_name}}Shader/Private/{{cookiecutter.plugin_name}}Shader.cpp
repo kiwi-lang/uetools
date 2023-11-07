@@ -41,7 +41,9 @@ static void EnsureShaderPathIsConfigured() {
             || AddShaderPath(ProjectShaderDirectory, VirtualShaderPath) //
             ;
 
+#if WITH_EDITOR
         ensureMsgf(bSuccess, TEXT("A shader directory must be added for the fog of war to work"));
+#endif
         // clang-format on
     }
     else {
