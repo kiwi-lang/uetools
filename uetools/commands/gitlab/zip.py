@@ -24,7 +24,9 @@ def zipfolder(src, dest, progress, topfolder):
             newname = newname[1:]
 
         newname = os.path.join(wrap, newname)
-        return newname.replace('\\', '/')
+        newname = newname.replace('\\', '/')
+        print(newname)
+        return newname
 
     zip_filename = dest
     archive_dir = os.path.dirname(dest)
