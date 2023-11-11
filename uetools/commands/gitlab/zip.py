@@ -25,7 +25,10 @@ def zipfolder(src, dest, progress, topfolder):
 
         newname = os.path.join(wrap, newname)
         newname = newname.replace('\\', '/')
-        print(newname)
+
+        if False:
+            print(newname)
+        
         return newname
 
     zip_filename = dest
@@ -84,7 +87,8 @@ class Zip(Command):
     def execute(args):
         try:
             if args.name is None:
-                args.name = args.dest.split('.')[0]
+                _, tail = os.path.split(args.dest)
+                args.name = tail.split('.')[0]
         except:
             pass
     
