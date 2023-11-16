@@ -67,7 +67,7 @@ def pluginfield():
     return dataclasses.field(default=value, metadata=metadata)
 
 
-def projectfield():
+def projectfield(required=True):
     value = deduce_project()
 
     metadata = dict()
@@ -78,6 +78,10 @@ def projectfield():
         metadata["default"] = value
     else:
         metadata["required"] = True
+
+    if not required:
+        metadata["required"] = False
+        metadata["default"] = None
 
     return dataclasses.field(default=value, metadata=metadata)
 

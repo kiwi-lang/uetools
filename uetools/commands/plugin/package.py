@@ -39,9 +39,9 @@ class PackagePlugin(Command):
     class Arguments:
         """Builds and cook a plugin"""
 
-        output              : str           = None
-        project             : str           = projectfield()    # project's name
-        plugin              : str           = pluginfield()     # Plugin's name"
+        output              : str
+        project             : str           = projectfield(required=False)    # project's name
+        plugin              : str           = pluginfield()                   # Plugin's name"
         platforms           : List[str]     = platform_choices()  # List of platforms to build for
         EngineDir           : Optional[str] = None                # Engine directory
         StrictIncludes      : bool = False  # Disables precompiled headers and unity build in order to check all source files have self-contained headers.
@@ -101,8 +101,6 @@ class PackagePlugin(Command):
             + command_builder(args)
             # + ["-nocompileuat"]
         )
-
-        print(" ".join(cmdargs))
 
         fmt = CookingFormatter(24)
         fmt.print_non_matching = True
