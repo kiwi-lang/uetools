@@ -78,9 +78,11 @@ class _CommonArgs(BuildCookRunArguments):
     prereqs : bool = True
     compressed : bool = True
     manifests : bool = True
-    nocompile: bool = True
     nocompileuat: bool = True
     archive: bool = True
+
+    # we want to compile on the CI
+    nocompile: bool = False
 
 @dataclass
 class DedicatedServerCookArgs(_CommonArgs):
