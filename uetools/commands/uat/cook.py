@@ -162,7 +162,8 @@ class CookGameUAT(Command):
             if BuildCookRunArguments.is_client(args):
                 args.clientconfig = config
 
-        uat_args = [f"-ScriptsForProject=\"{args.project}\"", "Turnkey", "-UpdateIfNeeded", f"-project=\"{args.project}\""]
+        # this is some interactive crap
+        uat_args = [] # [f"-ScriptsForProject=\"{args.project}\"", "Turnkey", "-UpdateIfNeeded", f"-project=\"{args.project}\""]
         build_cook_args = command_builder(args)
 
         cmd = [uat()] + uat_args + ["BuildCookRun"] + build_cook_args
