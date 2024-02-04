@@ -192,6 +192,8 @@ class Build(Command):
     @staticmethod
     def execute(args):
         """Execute the UAT build tool on the target"""
+        print(ubt())
+        
         target = args.target
         platform = args.platform
         mode = args.mode

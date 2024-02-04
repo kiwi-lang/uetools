@@ -135,9 +135,15 @@ class BuildCookRunArguments:
 
     @staticmethod
     def is_server(args):
-        return get(args, 'server') or get(args, 'serverconfig')  or get(args, 'dedicatedserver')
+        return (True or 
+            get(args, 'server') or 
+            get(args, 'serverconfig') or 
+            get(args, 'dedicatedserver') or
+            get(args, 'profile') == "server" or
+            get(args, "target").endswith("Server")
+        )
     
     @staticmethod
     def is_client(args):
-        return get(args, 'client') or get(args, 'clientconfig') or not get(args, 'dedicatedserver')
+        return not BuildCookRunArguments.is_server(args)
 # fmt: on
