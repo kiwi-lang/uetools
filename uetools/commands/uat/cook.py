@@ -148,7 +148,7 @@ class CookGameUAT(Command):
 
             if profile is not None:
                 from dataclasses import asdict
-                vars(args).update(asdict(profile))
+                vars(args).update(asdict(profile()))
 
         if args.archivedirectory is not None:
             args.archive = True
