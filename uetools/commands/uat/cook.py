@@ -139,6 +139,19 @@ class CookGameUAT(Command):
         nodebuginfo                            : bool = False
     # fmt: on
 
+    def update_arguments(args, profile, default_type):
+        defaults = default_type()
+        for k, v in profile.items():
+
+            if k not in args:
+                args[k] = v
+                continue
+
+            # args has the default value, override
+            if hasattr(defaults, k) and getattr(defaults, k) == args[k]:
+                args[k] = v
+        
+
     @staticmethod
     def execute(args: BuildCookRunArguments):
         assert args.project is not None
@@ -146,11 +159,13 @@ class CookGameUAT(Command):
         args.project = find_project(args.project)
 
         if args.profile is not None:
-            profile = profiles.get(args.profile, None)
+            from dataclasses import asdict
+
+            profile_name = vars(args).pop("profile")
+            profile = profiles.get(profile_name, None)
 
             if profile is not None:
-                from dataclasses import asdict
-                vars(args).update(asdict(profile()))
+                CookGameUAT.update_arguments(vars(args), asdict(profile()), CookGameUAT.Arguments)
 
         if args.archivedirectory is not None:
             args.archive = True
@@ -159,9 +174,11 @@ class CookGameUAT(Command):
             config = vars(args).pop("config")
 
             if BuildCookRunArguments.is_server(args):
+                print("Server")
                 args.serverconfig = config
                 
             if BuildCookRunArguments.is_client(args):
+                print("Client")
                 args.clientconfig = config
 
         # this is some interactive crap
@@ -172,9 +189,9 @@ class CookGameUAT(Command):
 
         print(" ".join(cmd))
 
+        returncode = 0
         fmt = CookingFormatter(24)
         fmt.print_non_matching = True
-
         returncode = popen_with_format(fmt, cmd, shell=False)
         fmt.summary()
 
