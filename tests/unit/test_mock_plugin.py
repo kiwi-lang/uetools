@@ -15,6 +15,7 @@ def test_mock_plugin_pacakge(project, project_name, monkeypatch, rc):
                 project_name,
                 "--plugin",
                 "Plugins/ExamplePlugin",
+                "output"
             )
         )
         == rc

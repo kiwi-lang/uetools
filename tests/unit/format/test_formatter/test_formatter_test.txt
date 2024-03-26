@@ -1,0 +1,1107 @@
+[  0][D][LogConfig               ]  Loading Android ini files took 0.02 seconds
+[  0][D][LogConfig               ]  Loading VulkanPC ini files took 0.02 seconds
+[  0][D][LogConfig               ]  Loading HoloLens ini files took 0.02 seconds
+[  0][D][LogConfig               ]  Loading Mac ini files took 0.02 seconds
+[  0][D][LogConfig               ]  Loading IOS ini files took 0.02 seconds
+[  0][D][LogConfig               ]  Loading Unix ini files took 0.03 seconds
+[  0][D][LogConfig               ]  Loading Windows ini files took 0.03 seconds
+[  0][D][LogConfig               ]  Loading TVOS ini files took 0.03 seconds
+[  0][D][LogConfig               ]  Loading LinuxArm64 ini files took 0.03 seconds
+[  0][D][LogConfig               ]  Loading Linux ini files took 0.03 seconds
+[  0][L][LogPluginManager        ] Mounting Engine plugin Bridge
+[  0][L][LogPluginManager        ] Mounting Engine plugin MeshPainting
+[  0][L][LogPluginManager        ] Mounting Engine plugin TraceUtilities
+[  0][L][LogPluginManager        ] Mounting Engine plugin XGEController
+[  0][L][LogPluginManager        ] Mounting Engine plugin FastBuildController
+[  0][L][LogPluginManager        ] Mounting Engine plugin EnhancedInput
+[  0][L][LogPluginManager        ] Mounting Engine plugin AssetManagerEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin MacGraphicsSwitching
+[  0][L][LogPluginManager        ] Mounting Engine plugin Paper2D
+[  0][L][LogPluginManager        ] Mounting Engine plugin DataValidation
+[  0][L][LogPluginManager        ] Mounting Engine plugin StylusInput
+[  0][L][LogPluginManager        ] Mounting Engine plugin CryptoKeys
+[  0][L][LogPluginManager        ] Mounting Engine plugin ActorLayerUtilities
+[  0][L][LogPluginManager        ] Mounting Engine plugin MobileLauncherProfileWizard
+[  0][L][LogPluginManager        ] Mounting Engine plugin CurveEditorTools
+[  0][L][LogPluginManager        ] Mounting Engine plugin AndroidDeviceProfileSelector
+[  0][L][LogPluginManager        ] Mounting Engine plugin PluginBrowser
+[  0][L][LogPluginManager        ] Mounting Engine plugin AndroidFileServer
+[  0][L][LogPluginManager        ] Mounting Engine plugin GeometryMode
+[  0][L][LogPluginManager        ] Mounting Engine plugin GameplayTagsEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin AndroidPermission
+[  0][L][LogPluginManager        ] Mounting Engine plugin AppleImageUtils
+[  0][L][LogPluginManager        ] Mounting Engine plugin ArchVisCharacter
+[  0][L][LogPluginManager        ] Mounting Engine plugin AppleMoviePlayer
+[  0][L][LogPluginManager        ] Mounting Engine plugin FacialAnimation
+[  0][L][LogPluginManager        ] Mounting Engine plugin SequencerAnimTools
+[  0][L][LogPluginManager        ] Mounting Engine plugin AudioCapture
+[  0][L][LogPluginManager        ] Mounting Engine plugin AndroidMoviePlayer
+[  0][L][LogPluginManager        ] Mounting Engine plugin AssetTags
+[  0][L][LogPluginManager        ] Mounting Engine plugin WorldPartitionHLODUtilities
+[  0][L][LogPluginManager        ] Mounting Engine plugin AudioWidgets
+[  0][L][LogPluginManager        ] Mounting Engine plugin AudioSynesthesia
+[  0][L][LogPluginManager        ] Mounting Engine plugin CustomMeshComponent
+[  0][L][LogPluginManager        ] Mounting Engine plugin SpeedTreeImporter
+[  0][L][LogPluginManager        ] Mounting Engine plugin CableComponent
+[  0][L][LogPluginManager        ] Mounting Engine plugin DataRegistry
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChunkDownloader
+[  0][L][LogPluginManager        ] Mounting Engine plugin GameplayAbilities
+[  0][L][LogPluginManager        ] Mounting Engine plugin GeometryCache
+[  0][L][LogPluginManager        ] Mounting Engine plugin GoogleCloudMessaging
+[  0][L][LogPluginManager        ] Mounting Engine plugin GeometryProcessing
+[  0][L][LogPluginManager        ] Mounting Engine plugin GLTFImporter
+[  0][L][LogPluginManager        ] Mounting Engine plugin ExampleDeviceProfileSelector
+[  0][L][LogPluginManager        ] Mounting Engine plugin InputDebugging
+[  0][L][LogPluginManager        ] Mounting Engine plugin IOSDeviceProfileSelector
+[  0][L][LogPluginManager        ] Mounting Engine plugin GooglePAD
+[  0][L][LogPluginManager        ] Mounting Engine plugin LocationServicesBPLibrary
+[  0][L][LogPluginManager        ] Mounting Engine plugin LinuxDeviceProfileSelector
+[  0][L][LogPluginManager        ] Mounting Engine plugin Metasound
+[  0][L][LogPluginManager        ] Mounting Engine plugin MeshModelingToolset
+[  0][L][LogPluginManager        ] Mounting Engine plugin EditorDebugTools
+[  0][L][LogPluginManager        ] Mounting Engine plugin BlueprintHeaderView
+[  0][L][LogPluginManager        ] Mounting Engine plugin MobilePatchingUtils
+[  0][L][LogPluginManager        ] Mounting Engine plugin EditorScriptingUtilities
+[  0][L][LogPluginManager        ] Mounting Engine plugin ProceduralMeshComponent
+[  0][L][LogPluginManager        ] Mounting Engine plugin ModelingToolsEditorMode
+[  0][L][LogPluginManager        ] Mounting Engine plugin PropertyAccessEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin MaterialAnalyzer
+[  0][L][LogPluginManager        ] Mounting Engine plugin SignificanceManager
+[  0][L][LogPluginManager        ] Mounting Engine plugin ResonanceAudio
+[  0][L][LogPluginManager        ] Mounting Engine plugin SoundFields
+[  0][L][LogPluginManager        ] Mounting Engine plugin Synthesis
+[  0][L][LogPluginManager        ] Mounting Engine plugin WaveTable
+[  0][L][LogPluginManager        ] Mounting Engine plugin WebMMoviePlayer
+[  0][L][LogPluginManager        ] Mounting Engine plugin WindowsDeviceProfileSelector
+[  0][L][LogPluginManager        ] Mounting Engine plugin WindowsMoviePlayer
+[  0][L][LogPluginManager        ] Mounting Engine plugin Interchange
+[  0][L][LogPluginManager        ] Found config from plugin[Interchange] Game
+[  0][L][LogPluginManager        ] Mounting Engine plugin InterchangeEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin OnlineBase
+[  0][L][LogPluginManager        ] Mounting Engine plugin OnlineServices
+[  0][L][LogPluginManager        ] Mounting Engine plugin OnlineSubsystem
+[  0][L][LogPluginManager        ] Mounting Engine plugin OnlineSubsystemNull
+[  0][L][LogPluginManager        ] Mounting Engine plugin OnlineSubsystemUtils
+[  0][L][LogPluginManager        ] Mounting Engine plugin DatasmithContent
+[  0][L][LogPluginManager        ] Mounting Engine plugin GLTFExporter
+[  0][L][LogPluginManager        ] Mounting Engine plugin VariantManagerContent
+[  0][L][LogPluginManager        ] Mounting Engine plugin VariantManager
+[  0][L][LogPluginManager        ] Mounting Engine plugin Takes
+[  0][L][LogPluginManager        ] Mounting Engine plugin TcpMessaging
+[  0][L][LogPluginManager        ] Mounting Engine plugin UdpMessaging
+[  0][L][LogPluginManager        ] Mounting Engine plugin AnimationSharing
+[  0][L][LogPluginManager        ] Mounting Engine plugin CodeLiteSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin CLionSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin NullSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin KDevelopSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin GitSourceControl
+[  0][L][LogPluginManager        ] Mounting Engine plugin DumpGPUServices
+[  0][L][LogPluginManager        ] Mounting Engine plugin PixWinPlugin
+[  0][L][LogPluginManager        ] Mounting Engine plugin PerforceSourceControl
+[  0][L][LogPluginManager        ] Mounting Engine plugin PluginUtils
+[  0][L][LogPluginManager        ] Mounting Engine plugin PlasticSourceControl
+[  0][L][LogPluginManager        ] Mounting Engine plugin PropertyAccessNode
+[  0][L][LogPluginManager        ] Mounting Engine plugin SubversionSourceControl
+[  0][L][LogPluginManager        ] Mounting Engine plugin RiderSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin TextureFormatOodle
+[  0][L][LogPluginManager        ] Mounting Engine plugin TraceDataFilters
+[  0][L][LogPluginManager        ] Mounting Engine plugin UObjectPlugin
+[  0][L][LogPluginManager        ] Mounting Engine plugin VisualStudioCodeSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin VisualStudioSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin LauncherChunkInstaller
+[  0][L][LogPluginManager        ] Mounting Engine plugin AISupport
+[  0][L][LogPluginManager        ] Mounting Engine plugin XCodeSourceCodeAccess
+[  0][L][LogPluginManager        ] Mounting Engine plugin EnvironmentQueryEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin AndroidMedia
+[  0][L][LogPluginManager        ] Mounting Engine plugin AvfMedia
+[  0][L][LogPluginManager        ] Mounting Engine plugin ImgMedia
+[  0][L][LogPluginManager        ] Mounting Engine plugin MediaCompositing
+[  0][L][LogPluginManager        ] Mounting Engine plugin MediaPlate
+[  0][L][LogPluginManager        ] Mounting Engine plugin MediaPlayerEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin WebMMedia
+[  0][L][LogPluginManager        ] Mounting Engine plugin WmfMedia
+[  0][L][LogPluginManager        ] Mounting Engine plugin AlembicImporter
+[  0][L][LogPluginManager        ] Mounting Engine plugin EditorTests
+[  0][L][LogPluginManager        ] Mounting Engine plugin AutomationDriverTests
+[  0][L][LogPluginManager        ] Mounting Engine plugin FunctionalTestingEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin InterchangeTests
+[  0][L][LogPluginManager        ] Mounting Engine plugin PythonAutomationTest
+[  0][L][LogPluginManager        ] Mounting Engine plugin RuntimeTests
+[  0][L][LogPluginManager        ] Mounting Engine plugin TestSamples
+[  0][L][LogPluginManager        ] Mounting Engine plugin ActorSequence
+[  0][L][LogPluginManager        ] Mounting Engine plugin LevelSequenceEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin TemplateSequence
+[  0][L][LogPluginManager        ] Mounting Engine plugin SequencerScripting
+[  0][L][LogPluginManager        ] Mounting Engine plugin Niagara
+[  0][L][LogPluginManager        ] Mounting Engine plugin CameraShakePreviewer
+[  0][L][LogPluginManager        ] Mounting Engine plugin GameplayCameras
+[  0][L][LogPluginManager        ] Mounting Engine plugin OodleNetwork
+[  0][L][LogPluginManager        ] Mounting Engine plugin AnimationModifierLibrary
+[  0][L][LogPluginManager        ] Mounting Engine plugin BlendSpaceMotionAnalysis
+[  0][L][LogPluginManager        ] Mounting Engine plugin ControlRigSpline
+[  0][L][LogPluginManager        ] Mounting Engine plugin ControlRig
+[  0][L][LogPluginManager        ] Mounting Engine plugin IKRig
+[  0][L][LogPluginManager        ] Mounting Engine plugin AutomationUtils
+[  0][L][LogPluginManager        ] Mounting Engine plugin BackChannel
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChaosCaching
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChaosCloth
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChaosClothEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChaosEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChaosSolverPlugin
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChaosNiagara
+[  0][L][LogPluginManager        ] Mounting Engine plugin CharacterAI
+[  0][L][LogPluginManager        ] Mounting Engine plugin ChaosUserDataPT
+[  0][L][LogPluginManager        ] Mounting Engine plugin Dataflow
+[  0][L][LogPluginManager        ] Mounting Engine plugin FullBodyIK
+[  0][L][LogPluginManager        ] Mounting Engine plugin Gauntlet
+[  0][L][LogPluginManager        ] Mounting Engine plugin GeometryCollectionPlugin
+[  0][L][LogPluginManager        ] Mounting Engine plugin GeometryFlow
+[  0][L][LogPluginManager        ] Mounting Engine plugin Iris
+[  0][L][LogPluginManager        ] Mounting Engine plugin Landmass
+[  0][L][LogPluginManager        ] Mounting Engine plugin MeshLODToolset
+[  0][L][LogPluginManager        ] Mounting Engine plugin MeshModelingToolsetExp
+[  0][L][LogPluginManager        ] Mounting Engine plugin OpenImageDenoise
+[  0][L][LogPluginManager        ] Mounting Engine plugin PlanarCut
+[  0][L][LogPluginManager        ] Mounting Engine plugin PlatformCrypto
+[  0][L][LogPluginManager        ] Mounting Engine plugin ProxyLODPlugin
+[  0][L][LogPluginManager        ] Mounting Engine plugin PythonScriptPlugin
+[  0][L][LogPluginManager        ] Mounting Engine plugin SkeletalReduction
+[  0][L][LogPluginManager        ] Mounting Engine plugin UVEditor
+[  0][L][LogPluginManager        ] Mounting Engine plugin OnlineSubsystemIOS
+[  0][L][LogPluginManager        ] Mounting Engine plugin ContentBrowserAssetDataSource
+[  0][L][LogPluginManager        ] Mounting Engine plugin ContentBrowserFileDataSource
+[  0][L][LogPluginManager        ] Mounting Engine plugin ContentBrowserClassDataSource
+[  0][L][LogPluginManager        ] Mounting Engine plugin OnlineSubsystemGooglePlay
+[  0][L][LogPluginManager        ] Mounting Engine plugin LightMixer
+[  0][L][LogPluginManager        ] Mounting Engine plugin ObjectMixer
+[  0][L][LogPluginManager        ] Mounting Project plugin GKAbility
+[  0][L][LogPluginManager        ] Mounting Project plugin GKFogOfWar
+[  0][L][LogPluginManager        ] Mounting Project plugin Gamekit
+[  0][L][LogPluginManager        ] Mounting Project plugin GKScript
+[  0][L][LogPluginManager        ] Mounting Project plugin GKML
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Bridge/Content/' mounted to '/Bridge/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/2D/Paper2D/Content/' mounted to '/Paper2D/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Editor/GeometryMode/Content/' mounted to '/GeometryMode/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/AudioWidgets/Content/' mounted to '/AudioWidgets/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/AudioSynesthesia/Content/' mounted to '/AudioSynesthesia/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Editor/SpeedTreeImporter/Content/' mounted to '/SpeedTreeImporter/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/GeometryProcessing/Content/' mounted to '/GeometryProcessing/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Editor/GLTFImporter/Content/' mounted to '/GLTFImporter/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/Metasound/Content/' mounted to '/Metasound/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/MeshModelingToolset/Content/' mounted to '/MeshModelingToolset/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Editor/BlueprintHeaderView/Content/' mounted to '/BlueprintHeaderView/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Editor/ModelingToolsEditorMode/Content/' mounted to '/ModelingToolsEditorMode/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/ResonanceAudio/Content/' mounted to '/ResonanceAudio/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/Synthesis/Content/' mounted to '/Synthesis/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Runtime/WaveTable/Content/' mounted to '/WaveTable/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Interchange/Runtime/Content/' mounted to '/Interchange/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Enterprise/DatasmithContent/Content/' mounted to '/DatasmithContent/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Enterprise/GLTFExporter/Content/' mounted to '/GLTFExporter/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/VirtualProduction/Takes/Content/' mounted to '/Takes/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Developer/AnimationSharing/Content/' mounted to '/AnimationSharing/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Media/MediaCompositing/Content/' mounted to '/MediaCompositing/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Media/MediaPlate/Content/' mounted to '/MediaPlate/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Tests/EditorTests/Content/' mounted to '/EditorTests/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Tests/AutomationDriverTests/Content/' mounted to '/AutomationDriverTests/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Tests/PythonAutomationTest/Content/' mounted to '/PythonAutomationTest/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Tests/RuntimeTests/Content/' mounted to '/RuntimeTests/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/MovieScene/SequencerScripting/Content/' mounted to '/SequencerScripting/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/FX/Niagara/Content/' mounted to '/Niagara/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Animation/ControlRigSpline/Content/' mounted to '/ControlRigSpline/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Animation/ControlRig/Content/' mounted to '/ControlRig/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Animation/IKRig/Content/' mounted to '/IKRig/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/ChaosCaching/Content/' mounted to '/ChaosCaching/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/ChaosClothEditor/Content/' mounted to '/ChaosClothEditor/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/ChaosSolverPlugin/Content/' mounted to '/ChaosSolverPlugin/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/ChaosNiagara/Content/' mounted to '/ChaosNiagara/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/Dataflow/Content/' mounted to '/Dataflow/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/FullBodyIK/Content/' mounted to '/FullBodyIK/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/GeometryCollectionPlugin/Content/' mounted to '/GeometryCollectionPlugin/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/GeometryFlow/Content/' mounted to '/GeometryFlow/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/Landmass/Content/' mounted to '/Landmass/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/MeshLODToolset/Content/' mounted to '/MeshLODToolset/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/MeshModelingToolsetExp/Content/' mounted to '/MeshModelingToolsetExp/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/PythonScriptPlugin/Content/' mounted to '/PythonScriptPlugin/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Experimental/UVEditor/Content/' mounted to '/UVEditor/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Editor/ObjectMixer/LightMixer/Content/' mounted to '/LightMixer/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../Plugins/Editor/ObjectMixer/ObjectMixer/Content/' mounted to '/ObjectMixer/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../../../GamekitDev/Plugins/GKAbility/Content/' mounted to '/GKAbility/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../../../GamekitDev/Plugins/GKFogOfWar/Content/' mounted to '/GKFogOfWar/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../../../GamekitDev/Plugins/Gamekit/Content/' mounted to '/Gamekit/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../../../GamekitDev/Plugins/GKScript/Content/' mounted to '/GKScript/'
+[  0][D][LogPackageName          ]  FPackageName: Mount point added: '../../../../GamekitDev/Plugins/GKMachineLearning/Content/' mounted to '/GKML/'
+[  0][L][SourceControl           ] Source control is disabled
+[  0][L][LogHAL                  ] Log category # verbosity has been raised to Verbose.
+[  0][L][LogHAL                  ] Log category loggamekit verbosity has been raised to VeryVerbose.
+[  0][L][LogHAL                  ] Log category loggkscript verbosity has been raised to VeryVerbose.
+[  0][L][LogInit                 ] Using libcurl 7.83.1
+[  0][L][LogInit                 ]  - built for Windows
+[  0][L][LogInit                 ]  - supports SSL with OpenSSL/1.1.1n
+[  0][L][LogInit                 ]  - supports HTTP deflate (compression) using libz 1.2.12
+[  0][L][LogInit                 ]  - other features:
+[  0][L][LogInit                 ]      CURL_VERSION_SSL
+[  0][L][LogInit                 ]      CURL_VERSION_LIBZ
+[  0][L][LogInit                 ]      CURL_VERSION_IPV6
+[  0][L][LogInit                 ]      CURL_VERSION_ASYNCHDNS
+[  0][L][LogInit                 ]      CURL_VERSION_LARGEFILE
+[  0][L][LogInit                 ]  CurlRequestOptions (configurable via config and command line):
+[  0][L][LogInit                 ]  - bVerifyPeer = true  - Libcurl will verify peer certificate
+[  0][L][LogInit                 ]  - bUseHttpProxy = false  - Libcurl will NOT use HTTP proxy
+[  0][L][LogInit                 ]  - bDontReuseConnections = false  - Libcurl will reuse connections
+[  0][L][LogInit                 ]  - MaxHostConnections = 16  - Libcurl will limit the number of connections to a host
+[  0][L][LogInit                 ]  - LocalHostAddr = Default
+[  0][L][LogInit                 ]  - BufferSize = 65536
+[  0][L][LogInit                 ] WinSock:  version 1.1 (2.2), MaxSocks=32767, MaxUdp=65467
+[  0][L][LogOnline               ] OSS:  Created online subsystem instance for: NULL
+[  0][L][LogOnline               ] OSS:  TryLoadSubsystemAndSetDefault: Loaded subsystem for module [NULL]
+[  0][L][PixWinPlugin            ] PIX capture plugin failed to initialize! Check that the process is launched from PIX.
+[  0][L][LogInit                 ] Build:  ++UE5+Release-5.1-CL-0
+[  0][L][LogInit                 ] Engine Version: 5.1.0-0+++UE5+Release-5.1
+[  0][L][LogInit                 ] Compatible Engine Version: 5.1.0-0+++UE5+Release-5.1
+[  0][L][LogInit                 ] Net CL: 0
+[  0][L][LogInit                 ] OS:  Windows 10 (21H2) [10.0.19044.2486] (), CPU: AMD Ryzen 9 5950X 16-Core Processor            , GPU: NVIDIA GeForce RTX 2080 SUPER
+[  0][L][LogInit                 ] Compiled (64-bit): Feb 10 2023 14:00:13
+[  0][L][LogInit                 ] Compiled with Visual C++: 19.34.31937.00
+[  0][L][LogInit                 ] Build Configuration: Development
+[  0][L][LogInit                 ] Branch Name: ++UE5+Release-5.1
+[  0][L][LogInit                 ] Command Line:  NoMap -stdout -FullStdOutLogOutput -utf8output -Unattended -NullRHI -NoSplash -abslog=E:/uetools/tests/format/samples/tests_in.txt -NoSound -NoPause -noP4 -ReportExportPath="E:\GamekitDev/Saved/Automation/Report" -allmaps -WarningsAsErrors -TestExit="Automation Test Queue Empty" -ExecCmds="Automation RunTests Gamekit; Quit"
+[  0][L][LogInit                 ] Base Directory: E:/UnrealEngine/Engine/Binaries/Win64/
+[  0][L][LogInit                 ] Allocator:  Mimalloc
+[  0][L][LogInit                 ] Installed Engine Build: 0
+[  0][L][LogDevObjectVersion     ] Number of dev versions registered: 35
+[  0][L][LogDevObjectVersion     ]   Dev-Blueprints (B0D832E4-1F89-4F0D-ACCF-7EB736FD4AA2): 10
+[  0][L][LogDevObjectVersion     ]   Dev-Build (E1C64328-A22C-4D53-A36C-8E866417BD8C): 0
+[  0][L][LogDevObjectVersion     ]   Dev-Core (375EC13C-06E4-48FB-B500-84F0262A717E): 4
+[  0][L][LogDevObjectVersion     ]   Dev-Editor (E4B068ED-F494-42E9-A231-DA0B2E46BB41): 40
+[  0][L][LogDevObjectVersion     ]   Dev-Framework (CFFC743F-43B0-4480-9391-14DF171D2073): 37
+[  0][L][LogDevObjectVersion     ]   Dev-Mobile (B02B49B5-BB20-44E9-A304-32B752E40360): 3
+[  0][L][LogDevObjectVersion     ]   Dev-Networking (A4E4105C-59A1-49B5-A7C5-40C4547EDFEE): 0
+[  0][L][LogDevObjectVersion     ]   Dev-Online (39C831C9-5AE6-47DC-9A44-9C173E1C8E7C): 0
+[  0][L][LogDevObjectVersion     ]   Dev-Physics (78F01B33-EBEA-4F98-B9B4-84EACCB95AA2): 20
+[  0][L][LogDevObjectVersion     ]   Dev-Platform (6631380F-2D4D-43E0-8009-CF276956A95A): 0
+[  0][L][LogDevObjectVersion     ]   Dev-Rendering (12F88B9F-8875-4AFC-A67C-D90C383ABD29): 45
+[  0][L][LogDevObjectVersion     ]   Dev-Sequencer (7B5AE74C-D270-4C10-A958-57980B212A5A): 13
+[  0][L][LogDevObjectVersion     ]   Dev-VR (D7296918-1DD6-4BDD-9DE2-64A83CC13884): 3
+[  0][L][LogDevObjectVersion     ]   Dev-LoadTimes (C2A15278-BFE7-4AFE-6C17-90FF531DF755): 1
+[  0][L][LogDevObjectVersion     ]   Private-Geometry (6EACA3D4-40EC-4CC1-B786-8BED09428FC5): 3
+[  0][L][LogDevObjectVersion     ]   Dev-AnimPhys (29E575DD-E0A3-4627-9D10-D276232CDCEA): 17
+[  0][L][LogDevObjectVersion     ]   Dev-Anim (AF43A65D-7FD3-4947-9873-3E8ED9C1BB05): 15
+[  0][L][LogDevObjectVersion     ]   Dev-ReflectionCapture (6B266CEC-1EC7-4B8F-A30B-E4D90942FC07): 1
+[  0][L][LogDevObjectVersion     ]   Dev-Automation (0DF73D61-A23F-47EA-B727-89E90C41499A): 1
+[  0][L][LogDevObjectVersion     ]   FortniteMain (601D1886-AC64-4F84-AA16-D3DE0DEAC7D6): 80
+[  0][L][LogDevObjectVersion     ]   FortniteNC (5B4C06B7-2463-4AF8-805B-BF70CDF5D0DD): 10
+[  0][L][LogDevObjectVersion     ]   FortniteRelease (E7086368-6B23-4C58-8439-1B7016265E91): 4
+[  0][L][LogDevObjectVersion     ]   Dev-Enterprise (9DFFBCD6-494F-0158-E221-12823C92A888): 10
+[  0][L][LogDevObjectVersion     ]   Dev-Niagara (F2AED0AC-9AFE-416F-8664-AA7FFA26D6FC): 1
+[  0][L][LogDevObjectVersion     ]   Dev-Destruction (174F1F0B-B4C6-45A5-B13F-2EE8D0FB917D): 10
+[  0][L][LogDevObjectVersion     ]   Dev-Physics-Ext (35F94A83-E258-406C-A318-09F59610247C): 41
+[  0][L][LogDevObjectVersion     ]   Dev-PhysicsMaterial-Chaos (B68FC16E-8B1B-42E2-B453-215C058844FE): 1
+[  0][L][LogDevObjectVersion     ]   Dev-CineCamera (B2E18506-4273-CFC2-A54E-F4BB758BBA07): 1
+[  0][L][LogDevObjectVersion     ]   Dev-VirtualProduction (64F58936-FD1B-42BA-BA96-7289D5D0FA4E): 1
+[  0][L][LogDevObjectVersion     ]   UE5-Main (697DD581-E64F-41AB-AA4A-51ECBEB7B628): 88
+[  0][L][LogDevObjectVersion     ]   UE5-Release (D89B5E42-24BD-4D46-8412-ACA8DF641779): 41
+[  0][L][LogDevObjectVersion     ]   UE5-PrivateFrosty (59DA5D52-1232-4948-B878-597870B8E98B): 8
+[  0][L][LogDevObjectVersion     ]   UE5-Dev-Cooker (26075A32-730F-4708-88E9-8C32F1599D05): 0
+[  0][L][LogDevObjectVersion     ]   Dev-MediaFramework (6F0ED827-A609-4895-9C91-998D90180EA4): 2
+[  0][L][LogDevObjectVersion     ]   UE5-Dev-LWCRendering (30D58BE3-95EA-4282-A6E3-B159D8EBB06A): 1
+[  0][L][LogInit                 ] Presizing for max 25165824 objects, including 0 objects not considered by GC, pre-allocating 0 bytes for permanent pool.
+[  0][L][LogInit                 ] Object subsystem initialized
+[  0][L][LogConfig               ] Set CVar [[con.DebugEarlyDefault:1]]
+[  0][L][LogConfig               ] CVar [[con.DebugLateDefault:1]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[con.DebugLateCheat:1]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[LogNamedEventFilters:Frame *]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[r.setres:1280x720]]
+[  0][L][LogConfig               ] CVar [[framepro.ScopeMinTimeMicroseconds:10]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[fx.NiagaraAllowRuntimeScalabilityChanges:1]]
+[  0][L][LogConfig               ] CVar [[QualityLevelMapping:high]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[r.Occlusion.SingleRHIThreadStall:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.DetectVertexShaderLayerAtRuntime:1]]
+[  0][L][LogConfig               ] Set CVar [[r.VSync:0]]
+[  0][L][LogConfig               ] Set CVar [[r.RHICmdBypass:0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [/Script/Engine.RendererSettings] File [Engine]
+[  0][L][LogConfig               ] CVar [[VisualizeCalibrationColorMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationColor.PPM_DefaultCalibrationColor]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VisualizeCalibrationGrayscaleMaterialPath:/Engine/EngineMaterials/PPM_DefaultCalibrationGrayscale.PPM_DefaultCalibrationGrayscale]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[r.GPUCrashDebugging:0]]
+[  0][L][LogConfig               ] CVar [[MaxSkinBones:(Default=65536,PerPlatform=(("Mobile", 256)))]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[r.GenerateMeshDistanceFields:1]]
+[  0][L][LogConfig               ] Set CVar [[r.DynamicGlobalIlluminationMethod:1]]
+[  0][L][LogConfig               ] Set CVar [[r.ReflectionMethod:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.Enable:1]]
+[  0][L][LogConfig               ] Set CVar [[r.AllowStaticLighting:0]]
+[  0][L][LogConfig               ] Set CVar [[r.VirtualTextures:1]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [/Script/Engine.RendererOverrideSettings] File [Engine]
+[  0][L][LogConfig               ] Applying CVar settings from Section [/Script/Engine.StreamingSettings] File [Engine]
+[  0][L][LogConfig               ] Set CVar [[s.MinBulkDataSizeForAsyncLoading:131072]]
+[  0][L][LogConfig               ] Set CVar [[s.AsyncLoadingThreadEnabled:1]]
+[  0][L][LogConfig               ] Set CVar [[s.EventDrivenLoaderEnabled:1]]
+[  0][L][LogConfig               ] Set CVar [[s.WarnIfTimeLimitExceeded:0]]
+[  0][L][LogConfig               ] Set CVar [[s.TimeLimitExceededMultiplier:1.5]]
+[  0][L][LogConfig               ] Set CVar [[s.TimeLimitExceededMinTime:0.005]]
+[  0][L][LogConfig               ] Set CVar [[s.UseBackgroundLevelStreaming:1]]
+[  0][L][LogConfig               ] Set CVar [[s.PriorityAsyncLoadingExtraTime:15.0]]
+[  0][L][LogConfig               ] Set CVar [[s.LevelStreamingActorsUpdateTimeLimit:5.0]]
+[  0][L][LogConfig               ] Set CVar [[s.PriorityLevelStreamingActorsUpdateExtraTime:5.0]]
+[  0][L][LogConfig               ] Set CVar [[s.LevelStreamingComponentsRegistrationGranularity:10]]
+[  0][L][LogConfig               ] Set CVar [[s.UnregisterComponentsTimeLimit:1.0]]
+[  0][L][LogConfig               ] Set CVar [[s.LevelStreamingComponentsUnregistrationGranularity:5]]
+[  0][L][LogConfig               ] CVar [[s.MaxPackageSummarySize:16384]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[s.FlushStreamingOnExit:1]]
+[  0][L][LogConfig               ] CVar [[FixedBootOrder:/Script/Engine/Default__SoundBase]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[FixedBootOrder:/Script/Engine/Default__MaterialInterface]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[FixedBootOrder:/Script/Engine/Default__DeviceProfileManager]] deferred - dummy variable created
+[  0][L][LogConfig               ] Applying CVar settings from Section [/Script/Engine.GarbageCollectionSettings] File [Engine]
+[  0][L][LogConfig               ] Set CVar [[gc.MaxObjectsNotConsideredByGC:1]]
+[  0][L][LogConfig               ] Set CVar [[gc.SizeOfPermanentObjectPool:0]]
+[  0][L][LogConfig               ] Set CVar [[gc.FlushStreamingOnGC:0]]
+[  0][L][LogConfig               ] Set CVar [[gc.NumRetriesBeforeForcingGC:10]]
+[  0][L][LogConfig               ] Set CVar [[gc.AllowParallelGC:1]]
+[  0][L][LogConfig               ] Set CVar [[gc.TimeBetweenPurgingPendingKillObjects:61.1]]
+[  0][L][LogConfig               ] Set CVar [[gc.MaxObjectsInEditor:25165824]]
+[  0][L][LogConfig               ] Set CVar [[gc.IncrementalBeginDestroyEnabled:1]]
+[  0][L][LogConfig               ] Set CVar [[gc.CreateGCClusters:1]]
+[  0][L][LogConfig               ] Set CVar [[gc.MinGCClusterSize:5]]
+[  0][L][LogConfig               ] Set CVar [[gc.AssetClustreringEnabled:0]]
+[  0][L][LogConfig               ] Set CVar [[gc.ActorClusteringEnabled:0]]
+[  0][L][LogConfig               ] Set CVar [[gc.BlueprintClusteringEnabled:0]]
+[  0][L][LogConfig               ] Set CVar [[gc.UseDisregardForGCOnDedicatedServers:0]]
+[  0][L][LogConfig               ] Set CVar [[gc.MultithreadedDestructionEnabled:1]]
+[  0][L][LogConfig               ] Set CVar [[gc.VerifyGCObjectNames:1]]
+[  0][L][LogConfig               ] Set CVar [[gc.VerifyUObjectsAreNotFGCObjects:0]]
+[  0][L][LogConfig               ] Set CVar [[gc.PendingKillEnabled:1]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [/Script/Engine.NetworkSettings] File [Engine]
+[  0][L][LogConfig               ] CVar [[NetworkEmulationProfiles:(ProfileName="Average",ToolTip="Simulates average internet conditions")]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[NetworkEmulationProfiles:(ProfileName="Bad",ToolTip="Simulates laggy internet conditions")]] deferred - dummy variable created
+[  0][L][LogConfig               ] Applying CVar settings from Section [/Script/UnrealEd.CookerSettings] File [Engine]
+[  0][L][LogConfig               ] CVar [[DefaultPVRTCQuality:1]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[DefaultASTCQualityBySpeed:1]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[DefaultASTCQualityBySize:3]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.AllowStaticLighting]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.GBuffer]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.VelocityOutputPass]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.SelectiveBasePassOutputs]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.DBuffer]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.Shaders.Symbols]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.Shaders.GenerateSymbols]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.Shaders.WriteSymbols]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.Shaders.AllowUniqueSymbols]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.Shaders.ExtraData]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.Shaders.Optimize]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.CompileShadersForDevelopment]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.MobileHDR]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[VersionedIntRValues:r.UsePreExposure]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[bEnableCookOnTheSide:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[bEnableBuildDDCInBackground:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[bIterativeCookingForLaunchOn:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[bIterativeCookingForFileCookContent:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[bCookOnTheFlyForLaunchOn:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[cook.displaymode:1]]
+[  0][L][LogConfig               ] CVar [[bIgnoreIniSettingsOutOfDateForIteration:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[bIgnoreScriptPackagesOutOfDateForIteration:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[bCompileBlueprintsInDevelopmentMode:1]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[BlueprintComponentDataCookingMethod:EnabledBlueprintsOnly]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:WidgetBlueprint]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:GroupActor]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:MetaData]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:ObjectRedirector]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:NavMeshRenderingComponent]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:ReflectionCaptureComponent]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:TextRenderComponent]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:Font]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:InterpCurveEdSetup]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:MaterialExpression]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:MatineeActorCameraAnim]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:NiagaraEmitter]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:NiagaraScript]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:ParticleEmitter]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:ParticleLODLevel]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:ParticleModule]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:SubUVAnimation]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:SoundNode]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedServer:GameplayEffectUIData]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedClient:WidgetBlueprint]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedClient:GroupActor]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedClient:MetaData]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedClient:ObjectRedirector]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedClient:InterpCurveEdSetup]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[ClassesExcludedOnDedicatedClient:MatineeActorCameraAnim]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[cook.ASTCTextureCompressor:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] CVar [[cook.AllowASTCHDRProfile:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[cook.AllowCookedDataInEditorBuilds:0]]
+[  0][L][LogConfig               ] CVar [[bCookBlueprintComponentTemplateData:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] Applying CVar settings from Section [ViewDistanceQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.SkeletalMeshLODBias:0]]
+[  0][L][LogConfig               ] Set CVar [[r.ViewDistanceScale:1.0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [AntiAliasingQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.FXAA.Quality:4]]
+[  0][L][LogConfig               ] Set CVar [[r.TemporalAA.Quality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.History.R11G11B10:1]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.History.ScreenPercentage:100]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.History.UpdateQuality:3]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.History.GrandReprojection:1]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.ShadingRejection.Flickering:1]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.Velocity.Extrapolation:1]]
+[  0][L][LogConfig               ] CVar [[r.TSR.Velocity.HoleFill:1]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[r.TSR.RejectionAntiAliasingQuality:2]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ShadowQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.LightFunctionQuality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.ShadowQuality:5]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.CSM.MaxCascades:10]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.MaxResolution:2048]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.MaxCSMResolution:2048]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.RadiusThreshold:0.01]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.DistanceScale:1.0]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.CSM.TransitionScale:1.0]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.PreShadowResolutionFactor:1.0]]
+[  0][L][LogConfig               ] Set CVar [[r.DistanceFieldShadowing:1]]
+[  0][L][LogConfig               ] Set CVar [[r.DistanceFieldAO:1]]
+[  0][L][LogConfig               ] Set CVar [[r.AOQuality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.VolumetricFog:1]]
+[  0][L][LogConfig               ] Set CVar [[r.VolumetricFog.GridPixelSize:8]]
+[  0][L][LogConfig               ] Set CVar [[r.VolumetricFog.GridSizeZ:128]]
+[  0][L][LogConfig               ] Set CVar [[r.VolumetricFog.HistoryMissSupersampleCount:4]]
+[  0][L][LogConfig               ] Set CVar [[r.LightMaxDrawDistanceScale:1]]
+[  0][L][LogConfig               ] Set CVar [[r.CapsuleShadows:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.MaxPhysicalPages:4096]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectional:-1.5]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocal:0.0]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.RayCountDirectional:8]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayDirectional:4]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.RayCountLocal:8]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayLocal:4]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [GlobalIlluminationQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.DiffuseIndirect.Allow:1]]
+[  0][L][LogConfig               ] Set CVar [[r.LumenScene.Radiosity.ProbeSpacing:4]]
+[  0][L][LogConfig               ] Set CVar [[r.LumenScene.Radiosity.HemisphereProbeResolution:4]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TraceMeshSDFs.Allow:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.ProbeResolution:32]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.RadianceCache.NumProbesToTraceBudget:300]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.ScreenSpaceBentNormal:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.DownsampleFactor:16]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.TracingOctahedronResolution:8]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.IrradianceFormat:0]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.StochasticInterpolation:0]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.FullResolutionJitterWidth:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.ScreenProbeGather.TwoSidedFoliageBackfaceDiffuse:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TranslucencyVolume.GridPixelSize:32]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TranslucencyVolume.TraceFromVolume:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TranslucencyVolume.TracingOctahedronResolution:3]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.ProbeResolution:8]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TranslucencyVolume.RadianceCache.NumProbesToTraceBudget:200]]
+[  0][L][LogConfig               ] Set CVar [[r.LumenScene.SurfaceCache.CardCaptureRefreshFraction:0.125]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ReflectionQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.Reflections.Allow:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.Reflections.DownsampleFactor:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Allow:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.TranslucencyReflections.FrontLayer.Enable:0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [PostProcessQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.MotionBlurQuality:4]]
+[  0][L][LogConfig               ] Set CVar [[r.MotionBlur.HalfResGather:0]]
+[  0][L][LogConfig               ] Set CVar [[r.AmbientOcclusionMipLevelFactor:0.4]]
+[  0][L][LogConfig               ] Set CVar [[r.AmbientOcclusionMaxQuality:100]]
+[  0][L][LogConfig               ] Set CVar [[r.AmbientOcclusionLevels:-1]]
+[  0][L][LogConfig               ] Set CVar [[r.AmbientOcclusionRadiusScale:1.0]]
+[  0][L][LogConfig               ] Set CVar [[r.DepthOfFieldQuality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.RenderTargetPoolMin:400]]
+[  0][L][LogConfig               ] Set CVar [[r.LensFlareQuality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.SceneColorFringeQuality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.EyeAdaptationQuality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.BloomQuality:5]]
+[  0][L][LogConfig               ] Set CVar [[r.Bloom.ScreenPercentage:70.711]]
+[  0][L][LogConfig               ] Set CVar [[r.FastBlurThreshold:100]]
+[  0][L][LogConfig               ] Set CVar [[r.Upscale.Quality:3]]
+[  0][L][LogConfig               ] Set CVar [[r.Tonemapper.GrainQuantization:1]]
+[  0][L][LogConfig               ] Set CVar [[r.LightShaftQuality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Filter.SizeScale:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Tonemapper.Quality:5]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Gather.AccumulatorQuality:1        ; higher gathering accumulator quality]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Gather.PostfilterMethod:1          ; Median3x3 postfilering method]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Gather.EnableBokehSettings:0       ; no bokeh simulation when gathering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Gather.RingCount:4                 ; medium number of samples when gathering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Scatter.ForegroundCompositing:1    ; additive foreground scattering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Scatter.BackgroundCompositing:2    ; additive background scattering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Scatter.EnableBokehSettings:1      ; bokeh simulation when scattering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Scatter.MaxSpriteRatio:0.1         ; only a maximum of 10% of scattered bokeh]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Recombine.Quality:1                ; cheap slight out of focus]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Recombine.EnableBokehSettings:0    ; no bokeh simulation on slight out of focus]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.TemporalAAQuality:1                ; more stable temporal accumulation]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Kernel.MaxForegroundRadius:0.025]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Kernel.MaxBackgroundRadius:0.025]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [TextureQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.MipBias:0]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.AmortizeCPUToGPUCopy:0]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.MaxNumTexturesToStreamPerFrame:0]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.Boost:1]]
+[  0][L][LogConfig               ] Set CVar [[r.MaxAnisotropy:8]]
+[  0][L][LogConfig               ] Set CVar [[r.VT.MaxAnisotropy:8]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.LimitPoolSizeToVRAM:0]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.PoolSize:1000]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.MaxEffectiveScreenSize:0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [EffectsQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.TranslucencyLightingVolumeDim:64]]
+[  0][L][LogConfig               ] Set CVar [[r.RefractionQuality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.SSR.Quality:3]]
+[  0][L][LogConfig               ] Set CVar [[r.SSR.HalfResSceneColor:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SceneColorFormat:4]]
+[  0][L][LogConfig               ] Set CVar [[r.DetailMode:2]]
+[  0][L][LogConfig               ] Set CVar [[r.TranslucencyVolumeBlur:1]]
+[  0][L][LogConfig               ] Set CVar [[r.MaterialQualityLevel:1 ; High quality]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.Scale:1]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.SampleSet:2]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.Quality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.HalfRes:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SSGI.Quality:3]]
+[  0][L][LogConfig               ] Set CVar [[r.EmitterSpawnRateScale:1.0]]
+[  0][L][LogConfig               ] Set CVar [[r.ParticleLightQuality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.FastApplyOnOpaque:1 ; Always have FastSkyLUT 1 in this case to avoid wrong sky]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.SampleCountMaxPerSlice:4]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.DepthResolution:16.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.FastSkyLUT:1]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMin:4.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMax:128.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.SampleCountMin:4.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.SampleCountMax:128.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.TransmittanceLUT.UseSmallFormat:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.TransmittanceLUT.SampleCount:10.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.MultiScatteringLUT.SampleCount:15.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyLight.RealTimeReflectionCapture:1]]
+[  0][L][LogConfig               ] Set CVar [[fx.Niagara.QualityLevel:3]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [FoliageQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[foliage.DensityScale:1.0]]
+[  0][L][LogConfig               ] Set CVar [[grass.DensityScale:1.0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ShadingQuality@3] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.HairStrands.SkyLighting.IntegrationType:2]]
+[  0][L][LogConfig               ] Set CVar [[r.HairStrands.SkyAO.SampleCount:4]]
+[  0][L][LogConfig               ] Set CVar [[r.HairStrands.Visibility.MSAA.SamplePerPixel:4]]
+[  0][L][LogConfig               ] CVar [[r.HairStrands.Interpolation.UseSingleGuide:0]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[r.AnisotropicMaterials:1]]
+[  0][L][LogInit                 ] Selected Device Profile: [WindowsEditor]
+[  0][D][LogHAL                  ]  Platform has ~ 64 GB [68638564352 / 68719476736 / 64], which maps to Largest [LargestMinGB=32, LargerMinGB=12, DefaultMinGB=8, SmallerMinGB=6, SmallestMinGB=0)
+[  0][L][LogDeviceProfileManager ] Going up to parent DeviceProfile [Windows]
+[  0][L][LogDeviceProfileManager ] Going up to parent DeviceProfile []
+[  0][L][LogConfig               ] Applying CVar settings from Section [ViewDistanceQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.SkeletalMeshLODBias:1]]
+[  0][L][LogConfig               ] Set CVar [[r.ViewDistanceScale:0.6]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [AntiAliasingQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.FXAA.Quality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.TemporalAA.Quality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.History.UpdateQuality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.History.GrandReprojection:0]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.ShadingRejection.Flickering:0]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.Velocity.Extrapolation:0]]
+[  0][L][LogConfig               ] Set CVar [[r.TSR.RejectionAntiAliasingQuality:1]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ShadowQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.ShadowQuality:3]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.CSM.MaxCascades:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.MaxResolution:1024]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.MaxCSMResolution:1024]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.RadiusThreshold:0.05]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.DistanceScale:0.7]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.CSM.TransitionScale:0.25]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.PreShadowResolutionFactor:0.5]]
+[  0][L][LogConfig               ] Set CVar [[r.DistanceFieldShadowing:0]]
+[  0][L][LogConfig               ] Set CVar [[r.VolumetricFog:0]]
+[  0][L][LogConfig               ] Set CVar [[r.LightMaxDrawDistanceScale:.5]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.MaxPhysicalPages:512]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.ResolutionLodBiasDirectional:0.0]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.ResolutionLodBiasLocal:1.0]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.RayCountDirectional:4]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayDirectional:2]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.RayCountLocal:4]]
+[  0][L][LogConfig               ] Set CVar [[r.Shadow.Virtual.SMRT.SamplesPerRayLocal:2]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [GlobalIlluminationQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.DiffuseIndirect.Allow:0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ReflectionQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.Lumen.Reflections.Allow:0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [PostProcessQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.MotionBlurQuality:3]]
+[  0][L][LogConfig               ] Set CVar [[r.MotionBlur.HalfResGather:1]]
+[  0][L][LogConfig               ] Set CVar [[r.AmbientOcclusionMipLevelFactor:1.0]]
+[  0][L][LogConfig               ] Set CVar [[r.AmbientOcclusionMaxQuality:60]]
+[  0][L][LogConfig               ] Set CVar [[r.AmbientOcclusionRadiusScale:1.5]]
+[  0][L][LogConfig               ] Set CVar [[r.DepthOfFieldQuality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.RenderTargetPoolMin:350]]
+[  0][L][LogConfig               ] Set CVar [[r.LensFlareQuality:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SceneColorFringeQuality:0]]
+[  0][L][LogConfig               ] Set CVar [[r.BloomQuality:4]]
+[  0][L][LogConfig               ] Set CVar [[r.Bloom.ScreenPercentage:35.355]]
+[  0][L][LogConfig               ] Set CVar [[r.FastBlurThreshold:2]]
+[  0][L][LogConfig               ] Set CVar [[r.Upscale.Quality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.Tonemapper.GrainQuantization:0]]
+[  0][L][LogConfig               ] Set CVar [[r.LightShaftQuality:0]]
+[  0][L][LogConfig               ] Set CVar [[r.Filter.SizeScale:0.7]]
+[  0][L][LogConfig               ] Set CVar [[r.Tonemapper.Quality:2]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Gather.AccumulatorQuality:0        ; lower gathering accumulator quality]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Gather.PostfilterMethod:2          ; Max3x3 postfilering method]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Gather.RingCount:3                 ; low number of samples when gathering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Scatter.ForegroundCompositing:0    ; no foreground scattering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Scatter.BackgroundCompositing:0    ; no foreground scattering]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Recombine.Quality:0                ; no slight out of focus]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.TemporalAAQuality:0                ; faster temporal accumulation]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Kernel.MaxForegroundRadius:0.006   ; required because low gathering and no scattering and not looking great at 1080p]]
+[  0][L][LogConfig               ] Set CVar [[r.DOF.Kernel.MaxBackgroundRadius:0.006   ; required because low gathering and no scattering and not looking great at 1080p]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [TextureQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.MipBias:1]]
+[  0][L][LogConfig               ] Set CVar [[r.MaxAnisotropy:2]]
+[  0][L][LogConfig               ] Set CVar [[r.VT.MaxAnisotropy:4]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.LimitPoolSizeToVRAM:1]]
+[  0][L][LogConfig               ] Set CVar [[r.Streaming.PoolSize:600]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [EffectsQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.TranslucencyLightingVolumeDim:32]]
+[  0][L][LogConfig               ] Set CVar [[r.RefractionQuality:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SSR.Quality:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SSR.HalfResSceneColor:1]]
+[  0][L][LogConfig               ] Set CVar [[r.SceneColorFormat:3]]
+[  0][L][LogConfig               ] Set CVar [[r.DetailMode:1]]
+[  0][L][LogConfig               ] Set CVar [[r.TranslucencyVolumeBlur:0]]
+[  0][L][LogConfig               ] Set CVar [[r.MaterialQualityLevel:2 ; Medium quality]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.Scale:0.75]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.SampleSet:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.Quality:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SSS.HalfRes:1]]
+[  0][L][LogConfig               ] Set CVar [[r.SSGI.Quality:1]]
+[  0][L][LogConfig               ] Set CVar [[r.EmitterSpawnRateScale:0.25]]
+[  0][L][LogConfig               ] Set CVar [[r.ParticleLightQuality:0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.AerialPerspectiveLUT.SampleCountMaxPerSlice:1]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.FastSkyLUT.SampleCountMax:32.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyAtmosphere.SampleCountMax:32.0]]
+[  0][L][LogConfig               ] Set CVar [[r.SkyLight.RealTimeReflectionCapture:0]]
+[  0][L][LogConfig               ] Set CVar [[fx.Niagara.QualityLevel:1]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [FoliageQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[foliage.DensityScale:0.4]]
+[  0][L][LogConfig               ] Set CVar [[grass.DensityScale:0.4]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ShadingQuality@1] File [Scalability]
+[  0][L][LogConfig               ] Set CVar [[r.HairStrands.Visibility.MSAA.SamplePerPixel:1]]
+[  0][L][LogConfig               ] CVar [[r.HairStrands.Interpolation.UseSingleGuide:1]] deferred - dummy variable created
+[  0][L][LogConfig               ] Set CVar [[r.AnisotropicMaterials:0]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [Startup] File [../../../Engine/Config/ConsoleVariables.ini]
+[  0][L][LogConfig               ] Set CVar [[r.DumpShaderDebugInfo:2]]
+[  0][L][LogConfig               ] Set CVar [[r.ShaderCompiler.JobCacheDDC:0]]
+[  0][L][LogConfig               ] Set CVar [[p.chaos.AllowCreatePhysxBodies:1]]
+[  0][L][LogConfig               ] Set CVar [[fx.SkipVectorVMBackendOptimizations:1]]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ConsoleVariables] File [Engine]
+[  0][L][LogConfig               ] Applying CVar settings from Section [ConsoleVariables] File [E:/GamekitDev/Saved/Config/WindowsEditor/Editor.ini]
+[  0][L][LogInit                 ] Computer:  DESKTOP-KUSKFA8
+[  0][L][LogInit                 ] User:  Newton
+[  0][L][LogInit                 ] CPU Page size=4096, Cores=16
+[  0][L][LogInit                 ] High frequency timer resolution =10.000000 MHz
+[  0][L][LogMemory               ] Memory total: Physical=63.9GB (64GB approx)
+[  0][L][LogMemory               ] Platform Memory Stats for WindowsEditor
+[  0][L][LogMemory               ] Process Physical Memory: 329.53 MB used, 329.53 MB peak
+[  0][L][LogMemory               ] Process Virtual Memory: 343.28 MB used, 343.28 MB peak
+[  0][L][LogMemory               ] Physical Memory: 32764.10 MB used,  32694.74 MB free, 65458.84 MB total
+[  0][L][LogMemory               ] Virtual Memory: 61164.30 MB used,  14064.70 MB free, 75229.00 MB total
+[  0][D][LogCsvProfiler          ]  Metadata set : extradevelopmentmemorymb="0"
+[  0][L][LogWindows              ] WindowsPlatformFeatures enabled
+[  0][L][LogInit                 ] Physics initialised using underlying interface: Chaos
+[  0][L][LogInit                 ] Using OS detected language (en-GB).
+[  0][L][LogInit                 ] Using OS detected locale (en-CA).
+[  0][L][LogTextLocalizationManager] No specific localization for 'en-GB' exists, so 'en' will be used for the language.
+[  0][L][LogWindowsTextInputMethodSystem] Available input methods:
+[  0][L][LogWindowsTextInputMethodSystem]   - English (Canada) - (Keyboard).
+[  0][L][LogWindowsTextInputMethodSystem]   - French (France) - (Keyboard).
+[  0][L][LogWindowsTextInputMethodSystem]   - English (United States) - (Keyboard).
+[  0][L][LogWindowsTextInputMethodSystem] Activated input method: English (Canada) - (Keyboard).
+[  0][L][LogSlate                ] New Slate User Created. Platform User Id 0, User Index 0, Is Virtual User: 0
+[  0][L][LogSlate                ] Slate User Registered.  User Index 0, Is Virtual User: 0
+[  0][D][LogTextureFormatManager ]  Loaded Base TextureFormat: TextureFormatASTC
+[  0][D][LogTextureFormatManager ]  Loaded Base TextureFormat: TextureFormatDXT
+[  0][D][LogTextureFormatManager ]  Loaded Base TextureFormat: TextureFormatETC2
+[  0][D][LogTextureFormatManager ]  Loaded Base TextureFormat: TextureFormatIntelISPCTexComp
+[  0][D][LogTextureFormatManager ]  Loaded Base TextureFormat: TextureFormatUncompressed
+[  0][D][LogTextureFormatOodle   ]  Oodle Texture TFO init; latest sdk version = 2.9.8
+[  0][D][LogTextureFormatOodle   ]  Oodle Texture loading DLL: oo2tex_win64_2.9.5.dll
+[  0][D][LogTextureFormatOodle   ]  Oodle Texture loading DLL: oo2tex_win64_2.9.6.dll
+[  0][D][LogTextureFormatOodle   ]  Oodle Texture loading DLL: oo2tex_win64_2.9.7.dll
+[  0][D][LogTextureFormatOodle   ]  Oodle Texture loading DLL: oo2tex_win64_2.9.8.dll
+[  0][D][LogTextureFormatManager ]  Loaded Base TextureFormat: TextureFormatOodle
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_ASTC'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_DXT'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_ETC2'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'AndroidClient'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_ASTCClient'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_DXTClient'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_ETC2Client'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_Multi'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Android_MultiClient'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'HoloLens'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'HoloLensClient'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'Windows'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'WindowsEditor'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'WindowsServer'
+[  0][D][LogTargetPlatformManager]  Loaded TargetPlatform 'WindowsClient'
+[  0][D][LogTargetPlatformManager]  Building Assets For WindowsEditor
+[  0][L][LogTargetPlatformManager] Unable to find audio format BINKA from hinted modules, loading all potential format modules to find it
+[  0][L][LogTargetPlatformManager] Loaded format module AudioFormatADPCM
+[  0][L][LogTargetPlatformManager]   ADPCM
+[  0][L][LogTargetPlatformManager]   PCM
+[  0][L][LogTargetPlatformManager] Loaded format module AudioFormatBink
+[  0][L][LogTargetPlatformManager]   BINKA
+[  0][D][LogAudioDebug           ]  Lib vorbis DLL was dynamically loaded.
+[  0][L][LogTargetPlatformManager] Loaded format module AudioFormatOgg
+[  0][L][LogTargetPlatformManager]   OGG
+[  0][L][LogTargetPlatformManager] Loaded format module AudioFormatOpus
+[  0][L][LogTargetPlatformManager]   OPUS
+[  0][L][LogRendererCore         ] Ray tracing is disabled. Reason: disabled through project setting (r.RayTracing=0).
+[  0][L][LogDerivedDataCache     ] FDerivedDataBackendGraph:  Pak pak cache file ../../../../GamekitDev/DerivedDataCache/DDC.ddp not found, will not use a pak cache.
+[  0][L][LogDerivedDataCache     ] Unable to find inner node Pak for hierarchy Hierarchy.
+[  0][L][LogDerivedDataCache     ] FDerivedDataBackendGraph:  EnginePak pak cache file ../../../Engine/DerivedDataCache/DDC.ddp not found, will not use a pak cache.
+[  0][L][LogDerivedDataCache     ] Unable to find inner node EnginePak for hierarchy Hierarchy.
+[  0][L][LogDerivedDataCache     ] Speed tests for ../../../Engine/DerivedDataCache took 0.00 seconds
+[  0][D][LogDerivedDataCache     ]  Performance to ../../../Engine/DerivedDataCache: Latency=0.01ms. RandomReadSpeed=2043.72MBs, RandomWriteSpeed=381.68MBs. Assigned SpeedClass 'Local'
+[  0][L][LogDerivedDataCache     ] Using Local data cache path ../../../Engine/DerivedDataCache: Writable
+[  0][L][LogDerivedDataCache     ] Shared data cache path not found in *engine.ini, will not use an Shared cache.
+[  0][L][LogDerivedDataCache     ] Unable to find inner node Shared for hierarchy Hierarchy.
+[  0][D][LogVirtualization       ]  VirtualizationSystem name found in ini file: None
+[  0][D][LogVirtualization       ]  FNullVirtualizationSystem mounted, virtualization will be disabled
+[  0][L][LogShaderCompilers      ] Guid format shader working directory is 24 characters bigger than the processId version (../../../../GamekitDev/Intermediate/Shaders/WorkingDirectory/43788/).
+[  0][L][LogShaderCompilers      ] Cleaned the shader compiler working directory 'C:/Users/Newton/AppData/Local/Temp/UnrealShaderWorkingDir/D1628D3645DBF4B1D3373B8108D037EB/'.
+[  0][L][LogXGEController        ] Cannot use XGE Controller as Incredibuild is not installed on this machine.
+[  0][D][LogShaderCompilers      ]  Using Local Shader Compiler with 16 workers.
+[  0][D][LogShaderCompilers      ]  Compiling shader autogen file: ../../../../GamekitDev/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush
+[  0][D][LogShaderCompilers      ]  Autogen file is unchanged, skipping write.
+[  0][L][LogSlate                ] Using FreeType 2.10.0
+[  0][L][LogSlate                ] SlateFontServices - WITH_FREETYPE: 1, WITH_HARFBUZZ: 1
+[  0][L][LogAssetRegistry        ] FAssetRegistry took 0.0082 seconds to start up
+[  0][D][LogEditorDomain         ]  EditorDomain is Disabled
+[  0][L][LogDeviceProfileManager ] Available device profiles:
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B81C00][00000B8456E23000 52] GlobalDefaults, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84200][00000B8453A02800 52] Windows, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84400][00000B8453A0A000 52] WindowsEditor, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B83A00][00000B8453A05000 52] WindowsServer, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B82A00][00000B8453A0C800 52] WindowsClient, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B83C00][00000B845044C800 52] IOS, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84000][00000B8448FC0000 52] iPadAir2, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B83600][00000B8456E70000 52] IPadPro, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B82200][00000B8456E72800 52] iPadAir3, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B83400][00000B8456E77800 52] iPadAir4, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B82800][00000B8456E7A000 52] iPadAir5, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B82600][00000B8456E7C800 52] iPadMini4, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B83E00][00000B8450447800 52] iPadMini5, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B81200][00000B8456E75000 52] iPadMini6, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86E00][00000B8456E65000 52] iPhone6S, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86A00][00000B8456E62800 52] iPhone7, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86800][00000B8456E60000 52] iPodTouch7, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84600][00000B8456E6A000 52] iPhone6SPlus, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85200][00000B8456E6C800 52] iPhone7Plus, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84E00][00000B8453A07800 52] iPhoneSE, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86200][00000B8456E90000 52] iPhone8, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B82000][00000B8456E95000 52] iPhone8Plus, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84C00][00000B8456E97800 52] iPhoneX, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B82C00][00000B8456E9A000 52] iPhoneXS, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86000][00000B8456E9C800 52] iPhoneXSMax, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B83800][00000B8456E67800 52] iPhoneXR, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85800][00000B8456E40000 52] iPhone11, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85C00][00000B8456E45000 52] iPhone11Pro, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86C00][00000B8456E47800 52] iPhone11ProMax, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85400][00000B8456E4A000 52] iPhoneSE2, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86600][00000B8456E4C800 52] iPhone12Mini, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B82E00][00000B8456E92800 52] iPhone12, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87000][00000B8456EB0000 52] iPhone12Pro, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85A00][00000B8456EB5000 52] iPhone12ProMax, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85600][00000B8456EB7800 52] iPhone13Mini, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B83200][00000B8456EBA000 52] iPhone13, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87800][00000B8456EBC800 52] iPhone13Pro, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84A00][00000B8456E42800 52] iPhone13ProMax, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87A00][00000B8456EC0000 52] iPhoneSE3, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87E00][00000B8456EC5000 52] iPhone14, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88000][00000B8456EC7800 52] iPhone14Plus, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87200][00000B8456ECA000 52] iPhone14Pro, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87400][00000B8456ECC800 52] iPhone14ProMax, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85000][00000B8456EB2800 52] iPadPro105, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88800][00000B8456ED0000 52] iPadPro129, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B84800][00000B8456ED5000 52] iPadPro97, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88A00][00000B8456ED7800 52] iPadPro2_129, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88E00][00000B8456EDA000 52] iPad5, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89000][00000B8456EDC800 52] iPad6, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88200][00000B8456EC2800 52] iPad7, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88400][00000B8456EE0000 52] iPad8, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B85E00][00000B8456EE5000 52] iPad9, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89800][00000B8456EE7800 52] iPad10, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B86400][00000B8456EEA000 52] iPadPro11, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89A00][00000B8456EEC800 52] iPadPro2_11, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89E00][00000B8456ED2800 52] iPadPro3_11, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8A000][00000B8456EF0000 52] iPadPro4_11, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89200][00000B8456EF5000 52] iPadPro3_129, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89400][00000B8456EF7800 52] iPadPro4_129, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87600][00000B8456EFA000 52] iPadPro5_129, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8A800][00000B8456EFC800 52] iPadPro6_129, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B87C00][00000B8456EE2800 52] AppleTV, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8AA00][00000B8456F00000 52] AppleTV4K, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8AE00][00000B8456F05000 52] AppleTV2_4K, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8B000][00000B8456F07800 52] TVOS, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8C200][00000B8456F0C800 52] Mac, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8C400][00000B8456F0A000 52] MacEditor, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8BA00][00000B8456EF2800 52] MacClient, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8AC00][00000B8456F10000 52] MacServer, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8BC00][00000B8456F17800 52] Linux, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8B400][00000B8456F15000 52] LinuxEditor, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8CA00][00000B8456F1A000 52] LinuxArm64Editor, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8B200][00000B8456F1C800 52] LinuxArm64, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89600][00000B8456F02800 52] LinuxClient, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88C00][00000B8456F20000 52] LinuxArm64Client, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8CE00][00000B8456F25000 52] LinuxServer, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8A200][00000B8456F27800 52] LinuxArm64Server, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B89C00][00000B8456F2A000 52] Android, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8B600][00000B8456F2C800 52] Android_Preview_OpenGL, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8A600][00000B8456F12800 52] Android_Preview_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8D000][00000B8456F30000 52] Android_Low, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B88600][00000B8456F35000 52] Android_Mid, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8C000][00000B8456F37800 52] Android_High, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8BE00][00000B8456F3A000 52] Android_Default, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8D800][00000B8456F3C800 52] Android_Adreno4xx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8CC00][00000B8456F22800 52] Android_Adreno5xx_Low, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8DA00][00000B8456F40000 52] Android_Adreno5xx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8DE00][00000B8456F45000 52] Android_Adreno6xx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8E000][00000B8456F47800 52] Android_Adreno6xx_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8D200][00000B8456F4A000 52] Android_Adreno7xx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8D400][00000B8456F4C800 52] Android_Adreno7xx_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8C800][00000B8456F32800 52] Android_Mali_T6xx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8E800][00000B8456F50000 52] Android_Mali_T7xx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8A400][00000B8456F55000 52] Android_Mali_T8xx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8EA00][00000B8456F57800 52] Android_Mali_G71, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8EE00][00000B8456F5A000 52] Android_Mali_G72, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8F000][00000B8456F5C800 52] Android_Mali_G72_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8E200][00000B8456F42800 52] Android_Mali_G76, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8E400][00000B8456F60000 52] Android_Mali_G76_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8B800][00000B8456F65000 52] Android_Mali_G77, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8F800][00000B8456F67800 52] Android_Mali_G77_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8C600][00000B8456F6A000 52] Android_Mali_G78, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8FA00][00000B8456F6C800 52] Android_Mali_G78_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456B8FE00][00000B8456F52800 52] Android_Mali_G710, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8459F4FE00][00000B8456F70000 52] Android_Mali_G710_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B844D307000][00000B8456F75000 52] Android_Xclipse_920, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA0000][00000B8456F77800 52] Android_Xclipse_920_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA1200][00000B8456F7A000 52] Android_Vulkan_SM5, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA1000][00000B8456F7C800 52] Android_PowerVR_G6xxx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA1A00][00000B8456F62800 52] Android_PowerVR_GT7xxx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA0800][00000B8456FB0000 52] Android_PowerVR_GE8xxx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA1400][00000B8456FB5000 52] Android_PowerVR_GM9xxx, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA1600][00000B8456FB7800 52] Android_PowerVR_GM9xxx_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA0400][00000B8456FBA000 52] Android_TegraK1, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA0600][00000B8456FBC800 52] Android_Unknown_Vulkan, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA1800][00000B8456F72800 52] Oculus_Quest, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA2800][00000B8456FC0000 52] Oculus_Quest2, 
+[  0][L][LogDeviceProfileManager ] 	[00000B8456FA0A00][00000B8456FC5000 52] HoloLens, 
+[  0][L][LogDeviceProfileManager ] Active device profile: [00000B8456B84400][00000B8453A0A000 52] WindowsEditor
+[  0][D][LogCsvProfiler          ]  Metadata set : deviceprofile="WindowsEditor"
+[  0][D][LogShaderCompilers      ]  Compiling shader autogen file: ../../../../GamekitDev/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush
+[  0][D][LogShaderCompilers      ]  Compiling shader autogen file: ../../../../GamekitDev/Intermediate/ShaderAutogen/PCD3D_ES3_1/AutogenShaderHeaders.ush
+[  0][L][LogMeshReduction        ] Using QuadricMeshReduction for automatic static mesh reduction
+[  0][L][LogMeshReduction        ] Using SimplygonMeshReduction for automatic skeletal mesh reduction
+[  0][L][LogMeshReduction        ] Using ProxyLODMeshReduction for automatic mesh merging
+[  0][L][LogMeshReduction        ] No distributed automatic mesh merging module available
+[  0][L][LogMeshMerging          ] No distributed automatic mesh merging module available
+[  0][L][LogNetVersion           ] GamekitDev 1.0.0, NetCL: 0, EngineNetVer: 30, GameNetVer: 0 (Checksum: 349579382)
+[  0][L][LogStats                ] UGameplayTagsManager: :InitializeManager -  0.000 s
+[  0][L][LogUObjectArray         ] 23288 objects as part of root set at end of initial load.
+[  0][L][LogUObjectAllocator     ] 6703088 out of 0 bytes used by permanent object pool.
+[  0][L][LogUObjectArray         ] CloseDisregardForGC:  0/0 objects in disregard for GC pool
+[  0][L][LogSlate                ] Border
+[  0][L][LogSlate                ] BreadcrumbButton
+[  0][L][LogSlate                ] Brushes.Title
+[  0][L][LogSlate                ] Default
+[  0][L][LogSlate                ] Icons.Save
+[  0][L][LogSlate                ] Icons.Toolbar.Settings
+[  0][L][LogSlate                ] ListView
+[  0][L][LogSlate                ] SoftwareCursor_CardinalCross
+[  0][L][LogSlate                ] SoftwareCursor_Grab
+[  0][L][LogSlate                ] TableView.DarkRow
+[  0][L][LogSlate                ] TableView.Row
+[  0][L][LogSlate                ] TreeView
+[  0][D][LogAudio                ]  Registering Engine Module Parameter Interfaces...
+[  0][L][LogMetasoundEngine      ] MetaSound Engine Initialized
+[  0][L][LogTcpMessaging         ] Initializing TcpMessaging bridge
+[  0][L][LogUdpMessaging         ] Initializing bridge on interface 0.0.0.0:0 to multicast group 230.0.0.1:6666.
+[  0][D][LogUdpMessaging         ]  Added local interface '192.168.0.111' to multicast group '230.0.0.1:6666'
+[  0][L][LogNiagaraDebuggerClient] Niagara Debugger Client Initialized | Session: 58C3E3604177C88DDF849EAE564EF004 | Instance: 09748EE14F73F558C55447B62CF4139F (DESKTOP-KUSKFA8-43788).
+[  0][L][LogPython               ] Using Python 3.9.7
+[  0][L][LogAndroidPermission    ] UAndroidPermissionCallbackProxy: :GetInstance
+[  0][D][LogAudioCaptureCore     ]  No Audio Capture implementations found. Audio input will be silent.
+[  0][L][LogUProjectInfo         ] Found projects:
+[  0][L][LogOpenImageDenoise     ] OIDN starting up
+[  0][L][LogCollectionManager    ] Loaded 0 collections in 0.000564 seconds
+[  0][L][LogFileCache            ] Scanning file cache for directory 'E:/GamekitDev/Saved/Collections/' took 0.00s
+[  0][L][LogFileCache            ] Scanning file cache for directory 'E:/GamekitDev/Content/Developers/Newton/Collections/' took 0.00s
+[  0][L][LogFileCache            ] Scanning file cache for directory 'E:/GamekitDev/Content/Collections/' took 0.00s
+[  0][L][LogGKA                  ] Using /GKAbility mapped to ../../../../GamekitDev/Plugins/GKAbility/Shaders
+[  0][L][LogGKFoW                ] Using /GKFogOfWar mapped to ../../../../GamekitDev/Plugins/GKFogOfWar/Shaders
+[  0][L][LogGamekitEd            ] Auto Regenerating abilities 1
+[  0][E][LogClass                ]  BoolProperty FGKAbilityCooldown::bInputCooldownTag is not initialized properly. Module:Gamekit File:Abilities/GKAbilityStatic.h
+[  0][E][LogClass                ]  StructProperty FGKTeamInfo::Color is not initialized properly. Module:Gamekit File:GKGamekitSettings.h
+[  0][D][LogClass                ]  2 Uninitialized script struct members found including 0 object properties
+[  0][W][LogClass                ]  Property IntProperty FGKAbilityTarget::TargetActorFaction defines MetaData key "BitmaskEnum" which contains short type name "ETeamAttitude". Suggested pathname: "/Script/AIModule.ETeamAttitude". Module:Gamekit File:Abilities/GKAbilityStatic.h
+[  0][W][LogClass                ]  Property IntProperty FGKAbilityStatic::TargetActorFaction defines MetaData key "BitmaskEnum" which contains short type name "ETeamAttitude". Suggested pathname: "/Script/AIModule.ETeamAttitude". Module:Gamekit File:Abilities/GKAbilityStatic.h
+[  0][W][LogClass                ]  Property IntProperty AGKAbilityTarget_PlayerControllerTrace::TargetActorFaction defines MetaData key "BitmaskEnum" which contains short type name "EGK_FriendOrFoe". No valid type found in memory. Module:Gamekit File:Abilities/Targeting/GKAbilityTarget_PlayerControllerTrace.h
+[  0][W][LogClass                ]  Property ObjectProperty UGKRichTextBlockDecorator::ImageSet defines MetaData key "RequiredAssetDataTags" which contains short type name "RichImageRow". Suggested pathname: "/Script/UMG.RichImageRow". Module:Gamekit File:Widget/RichTextDecorator/GKRichTextBlockDecorator.h
+[  0][D][LogClass                ]  4 short type names in reflected types' MetaData
+[  0][E][LogAutomationTest       ] UObject.Class AttemptToFindUninitializedScriptStructMembers will be marked as failing due to errors being logged
+[  0][E][LogAutomationTest       ] LogClass: BoolProperty FGKAbilityCooldown::bInputCooldownTag is not initialized properly. Module:Gamekit File:Abilities/GKAbilityStatic.h
+[  0][E][LogAutomationTest       ] LogClass: StructProperty FGKTeamInfo::Color is not initialized properly. Module:Gamekit File:GKGamekitSettings.h
+[  0][W][LogAutomationTest       ] LogClass: Property IntProperty FGKAbilityTarget::TargetActorFaction defines MetaData key "BitmaskEnum" which contains short type name "ETeamAttitude". Suggested pathname: "/Script/AIModule.ETeamAttitude". Module:Gamekit File:Abilities/GKAbilityStatic.h
+[  0][W][LogAutomationTest       ] LogClass: Property IntProperty FGKAbilityStatic::TargetActorFaction defines MetaData key "BitmaskEnum" which contains short type name "ETeamAttitude". Suggested pathname: "/Script/AIModule.ETeamAttitude". Module:Gamekit File:Abilities/GKAbilityStatic.h
+[  0][W][LogAutomationTest       ] LogClass: Property IntProperty AGKAbilityTarget_PlayerControllerTrace::TargetActorFaction defines MetaData key "BitmaskEnum" which contains short type name "EGK_FriendOrFoe". No valid type found in memory. Module:Gamekit File:Abilities/Targeting/GKAbilityTarget_PlayerControllerTrace.h
+[  0][W][LogAutomationTest       ] LogClass: Property ObjectProperty UGKRichTextBlockDecorator::ImageSet defines MetaData key "RequiredAssetDataTags" which contains short type name "RichImageRow". Suggested pathname: "/Script/UMG.RichImageRow". Module:Gamekit File:Widget/RichTextDecorator/GKRichTextBlockDecorator.h
+[  0][L][LogEngine               ] Initializing Engine...
+[  0][V][LogGamekit              ]  Overriding UAbilitySystemGlobals
+[  0][W][LogClass                ]  Short type name "ETeamAttitude" provided for TryFindType. Please convert it to a path name (suggested: "/Script/AIModule.ETeamAttitude"). Callstack:
+[  0][L][LogUObjectGlobals       ] BeginLoad(/Engine/EngineDebugMaterials/WireframeMaterial) is flushing async loading
+[  0][D][LogStreaming            ]  FlushAsyncLoading(-1): 7 QueuedPackages, 0 AsyncPackages
+[  0][L][LogInit                 ] Initializing FReadOnlyCVARCache
+[  0][L][LogChaos                ] FPhysicsSolverBase: :AsyncDt:-1.000000
+[  0][L][LogAIModule             ] Creating AISystem for world Untitled
+[  0][L][LogNetVersion           ] Set ProjectVersion to 0.0.1. Version Checksum will be recalculated on next use.
+[  0][L][LogInit                 ] Texture streaming: Disabled
+[  0][D][LogAnalytics            ]  [UEEditor.UnrealEngine.Release] APIServer = https://datarouter.ol.epicgames.com/. AppVersion = 5.1.0-0+++UE5+Release-5.1
+[  0][D][LogCsvProfiler          ]  Metadata set : largeworldcoordinates="1"
+[  0][L][LogInit                 ] Transaction tracking system initialized
+[  0][D][LogSourceControl        ]  Uncontrolled Changelist persistency file loaded ../../../../GamekitDev/Saved/SourceControl/UncontrolledChangelists.json
+[  0][L][LogSourceControl        ] Uncontrolled asset enumeration started...
+[  0][L][BlueprintLog            ] New page: Editor Load
+[  0][L][LogSourceControl        ] Uncontrolled asset enumeration finished in 0.095261 seconds (Found 6083 uncontrolled assets)
+[  0][L][LocalizationService     ] Localization service is disabled
+[  0][L][TimingProfiler          ] Initialize
+[  0][L][TimingProfiler          ] OnSessionChanged
+[  0][L][LoadingProfiler         ] Initialize
+[  0][L][LoadingProfiler         ] OnSessionChanged
+[  0][L][NetworkingProfiler      ] Initialize
+[  0][L][NetworkingProfiler      ] OnSessionChanged
+[  0][L][MemoryProfiler          ] Initialize
+[  0][L][MemoryProfiler          ] OnSessionChanged
+[  0][D][LogEditorDomain         ]  Class /Script/AnimationData.AnimationSequencerDataModel is imported by a package but does not exist in memory. EditorDomain keys for packages using it will be invalid if it still exists.
+[  0][L][LogLevelSequenceEditor  ] LevelSequenceEditor subsystem initialized.
+[  0][L][LogStats                ] UGameplayCueManager: :InitializeEditorObjectLibrary -  0.002 s
+[  0][D][LogInit                 ]  Engine is initialized. Leaving FEngineLoop::Init()
+[  0][L][LogUnrealEdMisc         ] Loading editor; pre map load, took 5.858
+[  0][L][LogPackageName          ] SearchForPackageOnDisk took   0.012s, but failed to resolve NoMap.
+[  0][L][Cmd                     ] MAP LOAD FILE="../../../../GamekitDev/Content/Maps/AbilityTest/AbilityTest.umap" TEMPLATE=0 SHOWPROGRESS=1 FEATURELEVEL=3
+[  0][L][LightingResults         ] New page: Lighting Build
+[  0][L][LogWorld                ] UWorld: :CleanupWorld for Untitled, bSessionEnded=true, bCleanupResources=true
+[  0][L][LogSlate                ] InvalidateAllWidgets triggered.  All widgets were invalidated
+[  0][L][MapCheck                ] New page: Map Check
+[  0][L][LogUObjectHash          ] Compacting FUObjectHashTables data took   0.74ms
+[  0][W][LogBlueprint            ]  [AssetLog] E:\GamekitDev\Plugins\Gamekit\Content\Widgets\Preview\Preview.uasset: [Compiler] Get SkeletalMesh : Usage of 'SkeletalMesh' has been deprecated. Use USkeletalMeshComponent::GetSkeletalMeshAsset() or GetSkinnedAsset() instead.
+[  0][W][LogBlueprint            ]  [AssetLog] E:\GamekitDev\Plugins\Gamekit\Content\Widgets\Preview\Preview.uasset: [Compiler] Get SkeletalMesh : Usage of 'Get Skeletal Mesh' has been deprecated. Use USkeletalMeshComponent::GetSkeletalMeshAsset() or GetSkinnedAsset() instead.
+[  0][W][LogClass                ]  Short type name "EGK_FriendOrFoe" provided for TryFindType. Please convert it to a path name (suggested: "None"). Callstack:
+[  0][L][LogAIModule             ] Creating AISystem for world AbilityTest
+[  0][L][LogEditorServer         ] Finished looking for orphan Actors (0.000 secs)
+[  0][L][LogUObjectHash          ] Compacting FUObjectHashTables data took   0.95ms
+[  0][L][Cmd                     ] MAP CHECKDEP NOCLEARLOG
+[  0][L][MapCheck                ] Map check complete: 0 Error(s), 0 Warning(s), took 0.111ms to complete.
+[  0][L][LogFileHelpers          ] Loading map 'AbilityTest' took 5.655
+[  0][L][LogUnrealEdMisc         ] Total Editor Startup Time, took 11.535
+[  0][D][LogShaderCompilers      ]  ================================================
+[  0][D][LogShaderCompilers      ]  === FShaderJobCache stats ===
+[  0][D][LogShaderCompilers      ]  Total job queries 0, among them cache hits 0 (0.00%)
+[  0][D][LogShaderCompilers      ]  Tracking 0 distinct input hashes that result in 0 distinct outputs (0.00%)
+[  0][D][LogShaderCompilers      ]  RAM used: 0.00 MB (0.00 GB) of 3276.80 MB (3.20 GB) budget. Usage: 0.00%
+[  0][D][LogShaderCompilers      ]  === Shader Compilation stats ===
+[  0][D][LogShaderCompilers      ]  Shaders Compiled: 0
+[  0][D][LogShaderCompilers      ]  Jobs assigned 0, completed 0 (0.00%)
+[  0][D][LogShaderCompilers      ]  Time at least one job was in flight (either pending or executed): 0.00 s
+[  0][L][LogSlate                ] The tab "TopLeftModeTab" attempted to spawn in layout 'LevelEditor_Layout_v1.8' but failed for some reason. It will not be displayed.
+[  0][L][LogSlate                ] Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/StarterContent.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_FirstPerson.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_FirstPersonBP.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_Puzzle.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_PuzzleBP.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_ThirdPerson.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_ThirdPersonBP.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_TopDown.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_TopDownBP.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_VehicleAdv.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_VehicleAdvBP.upack', mount point: 'root:/'
+[  0][D][LogPakFile              ]  Mounted Pak file 'E:/UnrealEngine/FeaturePacks/TP_VirtualRealityBP.upack', mount point: 'root:/'
+[  0][L][LogSlate                ] The tab "TopRightModeTab" attempted to spawn in layout 'LevelEditor_Layout_v1.8' but failed for some reason. It will not be displayed.
+[  0][L][LogSlate                ] The tab "BottomRightModeTab" attempted to spawn in layout 'LevelEditor_Layout_v1.8' but failed for some reason. It will not be displayed.
+[  0][L][LogStall                ] Startup...
+[  0][L][LogStall                ] Startup complete.
+[  0][L][LogLoad                 ] (Engine Initialization) Total time: 11.73 seconds
+[  0][L][LogLoad                 ] (Engine Initialization) Total Blueprint compile time: 0.00 seconds
+[  0][L][LogAssetRegistry        ] Asset discovery search completed in 10.1897 seconds
+[  0][L][LogStats                ] UGameplayCueManager: :InitializeEditorObjectLibrary -  0.001 s
+[  0][L][LogCollectionManager    ] Fixed up redirectors for 0 collections in 0.000003 seconds (updated 0 objects)
+[  0][L][LogNiagara              ] Compiling System NiagaraSystem /Gamekit/FX/FireBall.FireBall took 7.417807 sec, no shader worker used.
+[  0][L][LogNiagara              ] Compiling System NiagaraSystem /Gamekit/FX/NS_Shield.NS_Shield took 6.878597 sec, no shader worker used.
+[  0][L][LogNiagara              ] Compiling System NiagaraSystem /Gamekit/FX/NS_Silence.NS_Silence took 6.869024 sec, no shader worker used.
+[  0][L][LogNiagara              ] Compiling System NiagaraSystem /Gamekit/FX/NS_Stun.NS_Stun took 6.862086 sec, no shader worker used.
+[  0][L][LogSlate                ] Took 0.000084 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[  0][L][LogSlate                ] Took 0.000061 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[  0][L][LogSlate                ] Took 0.000053 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/DroidSansMono.ttf' (77K)
+[  0][L][LogViewport             ] Scene viewport resized to 803x344, mode Windowed.
+[  0][L][LogSlate                ] Took 0.000085 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[  1][L][Cmd                     ] Automation RunTests Gamekit; Quit
+[  1][L][Automation              ] RunTests='Gamekit' Queued.
+[  1][L][Automation              ] Quit Command Queued.
+[  1][L][LogNiagara              ] Compiling System NiagaraSystem /Gamekit/FX/ArrowVolley.ArrowVolley took 0.427033 sec, no shader worker used.
+[  2][L][LogEngineAutomationLatentCommand] FWaitForInteractiveFrameRate:  FApp::CanEverRender() == false. Passing wait immediately.
+[  2][D][LogAutomationCommandLine] Ready to start automation
+[  2][L][LogNavigationDataBuild  ] Navigation data generation finished for RecastNavMesh-Default (RecastNavMesh /Game/Maps/AbilityTest/AbilityTest.AbilityTest:PersistentLevel.RecastNavMesh-Default).
+[219][D][LogPython               ] Generating Python API stub file...
+[219][D][LogPython               ] ...generating Python API: glue code
+[219][D][LogPython               ] ...generating Python API: additional code
+[219][D][LogPython               ] ...generated: E:/GamekitDev/Intermediate/PythonStub/unreal.py
+[552][L][LogAutomationWorker     ] Received FindWorkersMessage from 63C63B8942F5A0F3D750F0855AC036B8
+[552][L][LogAutomationController ] Received FindWorkersResponseMessage from F378112548E8F0B71CAE1093D2A1CF7D
+[552][L][LogAutomationController ] Requesting test list from F378112548E8F0B71CAE1093D2A1CF7D
+[552][L][LogAutomationWorker     ] Received RequestTestsMessage from 63C63B8942F5A0F3D750F0855AC036B8
+[552][D][LogInterchangeDispatcher]  InterchangeWorker executable not found. Expected location: E:/UnrealEngine/Engine/Binaries/Win64/InterchangeWorker.exe
+[552][D][LogInterchangeDispatcher]  Handler ended with error: Worker process issue (cannot create worker process)
+[553][L][LogAutomationWorker     ] Set 1772 tests to 63C63B8942F5A0F3D750F0855AC036B8
+[553][L][LogAutomationController ] Received RequestTestsReplyCompleteMessage from F378112548E8F0B71CAE1093D2A1CF7D
+[553][L][LogAutomationController ] 1772 tests available on F378112548E8F0B71CAE1093D2A1CF7D
+[553][D][LogAutomationCommandLine] -  Found 4 automation tests based on 'Gamekit'
+[553][D][LogAutomationCommandLine]     * Editor.Python.Gamekit.test_example
+[553][D][LogAutomationCommandLine]     * Gamekit.Abilities.Something.GetRelativePosition
+[553][D][LogAutomationCommandLine]     * Gamekit.Blueprint.Utility.GetRelativePosition
+[553][D][LogAutomationCommandLine]     * Gamekit.FogOfWar.Something.GetRelativePosition
+[553][L][LogAutomationController ] Sending StopTests to F378112548E8F0B71CAE1093D2A1CF7D
+[553][L][AutomationTestingLog    ] New page: -----Test Run 3----
+[553][D][LogAutomationController ] Loading results html template...
+[553][D][LogAutomationController ] Successfully wrote html results file!
+[553][L][LogAutomationController ] Sending Reset Tests to F378112548E8F0B71CAE1093D2A1CF7D
+[553][D][LogAutomationController ] Clearing ../../../../GamekitDev/Saved/Automation/Logs/ and ../../../../GamekitDev/Saved/Automation/Tmp/
+[553][L][AutomationTestingLog    ] -----Test Run 3----
+[553][L][LogAutomationController ] Sending RunTest test_example to F378112548E8F0B71CAE1093D2A1CF7D
+[553][D][LogAutomationController ] > Test Started. Name={test_example} Path={Editor.Python.Gamekit.test_example}
+[553][L][LogAutomationWorker     ]     Received StopTests from 63C63B8942F5A0F3D750F0855AC036B8
+[553][L][LogAutomationWorker     ]     Received ResetTests from 63C63B8942F5A0F3D750F0855AC036B8
+[553][L][LogAutomationWorker     ]     Received RunTests test_example from 63C63B8942F5A0F3D750F0855AC036B8
+[553][L][LogPython               ]     Skipping test test_something_linux, current platform not supported.
+[553][L][LogPython               ]     Testing test_something
+[553][L][LogPython               ]     logging
+[553][L][LogPython               ]     printing
+[553][L][LogPython               ]     Testing test_scratch_test
+[553][L][LogPython               ]     Starting tests
+[556][D][LogAutomationController ] < Test Completed. Result={Success} Name={test_example} Path={Editor.Python.Gamekit.test_example}
+[556][L][LogAutomationController ] + BeginEvents:  Editor.Python.Gamekit.test_example
+[556][L][LogAutomationController ] - EndEvents:  Editor.Python.Gamekit.test_example
+[556][L][LogAutomationController ] 
+[557][L][LogAutomationController ] Sending RunTest GetRelativePosition to F378112548E8F0B71CAE1093D2A1CF7D
+[557][D][LogAutomationController ] > Test Started. Name={GetRelativePosition} Path={Gamekit.Abilities.Something.GetRelativePosition}
+[557][L][LogAutomationWorker     ]     Received RunTests GetRelativePosition from 63C63B8942F5A0F3D750F0855AC036B8
+[559][D][LogAutomationController ] < Test Completed. Result={Success} Name={GetRelativePosition} Path={Gamekit.Abilities.Something.GetRelativePosition}
+[559][L][LogAutomationController ] + BeginEvents:  Gamekit.Abilities.Something.GetRelativePosition
+[559][L][LogAutomationController ] - EndEvents:  Gamekit.Abilities.Something.GetRelativePosition
+[559][L][LogAutomationController ] 
+[560][D][LogAutomationController ] > Test Started. Name={GetRelativePosition} Path={Gamekit.Blueprint.Utility.GetRelativePosition}
+[562][D][LogAutomationController ] < Test Completed. Result={Success} Name={GetRelativePosition} Path={Gamekit.Blueprint.Utility.GetRelativePosition}
+[562][L][LogAutomationController ] + BeginEvents:  Gamekit.Blueprint.Utility.GetRelativePosition
+[562][L][LogAutomationController ] - EndEvents:  Gamekit.Blueprint.Utility.GetRelativePosition
+[562][L][LogAutomationController ] 
+[563][D][LogAutomationController ] > Test Started. Name={GetRelativePosition} Path={Gamekit.FogOfWar.Something.GetRelativePosition}
+[565][D][LogAutomationController ] < Test Completed. Result={Success} Name={GetRelativePosition} Path={Gamekit.FogOfWar.Something.GetRelativePosition}
+[565][L][LogAutomationController ] + BeginEvents:  Gamekit.FogOfWar.Something.GetRelativePosition
+[565][L][LogAutomationController ] - EndEvents:  Gamekit.FogOfWar.Something.GetRelativePosition
+[565][L][LogAutomationController ] 
+[565][D][LogAutomationController ] Exporting Automation Report to E:\GamekitDev/Saved/Automation/Report.
+[565][L][LogAutomationController ] Writing reports to E:\GamekitDev/Saved/Automation/Report...
+[565][D][LogAutomationController ] Converting results to json object...
+[566][D][LogAutomationController ] Successfully wrote json results file!
+[566][L][LogAutomationController ] Exported report to 'E:\GamekitDev/Saved/Automation/Report' in 0.00 Seconds
+[566][D][LogAutomationController ] Report can be opened in the editor at 'E:\GamekitDev/Saved/Automation/Report'
+[567][L][LogAutomationCommandLine] Shutting down. GIsCriticalError=0
+[567][D][LogAutomationCommandLine] **** TEST COMPLETE. EXIT CODE: 0 ****
+[567][L][LogWindows              ] FPlatformMisc: :RequestExitWithStatus(1, 0)
+[567][L][LogCore                 ] Engine exit requested (reason: Win RequestExit)

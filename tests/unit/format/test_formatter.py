@@ -1,9 +1,7 @@
 import os
-import subprocess
 
 folder = os.path.join(os.path.dirname(__file__), "samples")
 
-import pytest
 
 from uetools.format.base import Formatter
 from uetools.format.cooking import CookingFormatter
@@ -48,10 +46,8 @@ def test_formatter(capsys):
     assert captured.out.strip() == formatted.strip()
 
 
-@pytest.mark.skipif(os.name == "nt", reason="Not supported")
-def test_formatter_cook(capsys, tmp_path):
-    result = os.path.join(".", "output.txt")
-    target = os.path.join(folder, "cooking_out.txt")
+# @pytest.mark.skipif(os.name == "nt", reason="Not supported")
+def test_formatter_cook(capsys, file_regression):
     input = os.path.join(folder, "cooking_in.txt")
 
     with open(input) as file:
@@ -62,23 +58,10 @@ def test_formatter_cook(capsys, tmp_path):
         fmt.match_regex(line)
 
     captured = capsys.readouterr()
-    with open(result, "w") as file:
-        file.write(captured.out)
-
-    assert os.path.exists(result)
-    assert os.path.exists(target)
-
-    cmd = ["diff", "-Z", target, result]
-    print(" ".join(cmd))
-    result = subprocess.run(cmd, capture_output=True, encoding="utf-8", check=True)
-
-    assert result.stdout == ""
+    file_regression.check(captured.out)
 
 
-@pytest.mark.skipif(os.name == "nt", reason="Not supported")
-def test_formatter_test(capsys, tmp_path):
-    result = os.path.join(tmp_path, "output.txt")
-    target = os.path.join(folder, "tests_out.txt")
+def test_formatter_test(capsys, file_regression):
     input = os.path.join(folder, "tests_in.txt")
 
     with open(input) as file:
@@ -89,17 +72,7 @@ def test_formatter_test(capsys, tmp_path):
         fmt.match_regex(line)
 
     captured = capsys.readouterr()
-    with open(result, "w") as file:
-        file.write(captured.out)
-
-    assert os.path.exists(result)
-    assert os.path.exists(target)
-
-    cmd = ["diff", "-Z", target, result]
-    print(" ".join(cmd))
-    result = subprocess.run(cmd, capture_output=True, encoding="utf-8", check=False)
-
-    assert result.stdout == ""
+    file_regression.check(captured.out)
 
 
 sample = os.path.join(folder, "error_code.txt")

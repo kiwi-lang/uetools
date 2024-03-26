@@ -16,7 +16,7 @@ def test_groups():
 
     parser = build_parser(commands)
 
-    out = parser.parse_args(args("editor", "editor"))
+    out = parser.parse_args(args("editor", "editor", "--project", "FakeProject"))
 
     gp = GroupArguments(out)
     gp.group_by_dataclass = True
@@ -77,7 +77,7 @@ def test_config():
 
     apply_defaults(parser, "config.hjson")
 
-    out = parser.parse_args(args("editor", "editor"))
+    out = parser.parse_args(args("editor", "editor", "--project", "FakeProject"))
 
     print(out)
 

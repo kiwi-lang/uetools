@@ -11,3 +11,4 @@ sphinx-serve
 breathe
 exhale
 lxml
+pytest-regressions
