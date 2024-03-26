@@ -9,15 +9,6 @@ from uetools.commands.engine.add import EngineAdd
 from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf
 
 
-@dataclass
-class Arguments:
-    # fmt: off
-    engine : Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
-    project: Optional[str] = None  # Path to the unreal project folder (C:/Projects)
-    version: Optional[str] = None  # Unreal Engine Version (5.1)
-    # fmt: on
-
-
 class Init(Command):
     """Initialize the configuration file with unreal engine folders
 
@@ -43,10 +34,13 @@ class Init(Command):
 
     name: str = "init"
 
-    @staticmethod
-    def arguments(subparsers):
-        parser = newparser(subparsers, Init)
-        add_arguments(parser, Arguments)
+    # fmt: off
+    @dataclass
+    class Arguments:
+        engine : Optional[str] = None  # Path to the unreal engine folder (C:/opt/UnrealEngine/Engine)
+        project: Optional[str] = None  # Path to the unreal project folder (C:/Projects)
+        version: Optional[str] = None  # Unreal Engine Version (5.1)
+    # fmt: on
 
     @staticmethod
     def execute(args):

@@ -281,6 +281,7 @@ class Editor(Command):
         add_arguments(parser, GameStatsArguments)
         add_arguments(parser, DebugArguments)
         add_arguments(parser, MiscArguments)
+        Editor.set_parser_description(parser)
 
     @staticmethod
     def execute(args):
