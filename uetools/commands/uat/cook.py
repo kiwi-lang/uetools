@@ -171,7 +171,7 @@ class CookGameUAT(Command):
             args.archive = True
 
         if args.config is not None:
-            config = vars(args).pop("config")
+            config = vars(args)["config"]
 
             if BuildCookRunArguments.is_server(args):
                 print("Server")
