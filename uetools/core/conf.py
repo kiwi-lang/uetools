@@ -50,7 +50,6 @@ def guess_editor_platform():
     if WINDOWS:
         return "Windows"
 
-    # this is probably wrong
     if OSX:
         return "Mac"
 
@@ -104,8 +103,8 @@ def bash(name):
     if WINDOWS:
         return name + ".bat"
 
-    # if OSX:
-    #   return name + '.command'
+    if OSX:
+      return name + '.command'
 
     return name + ".sh"
 
@@ -116,6 +115,8 @@ def ubt():
 
     if WINDOWS:
         return os.path.join(engine, "Binaries", "DotNET", "UnrealBuildTool", binary("UnrealBuildTool"))
+
+    # The script takes care of handling dotnet usually through mono
     return os.path.join(engine, "Build", "BatchFiles", guess_platform(), "Build.sh")
 
 
