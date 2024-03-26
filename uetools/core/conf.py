@@ -50,7 +50,6 @@ def guess_editor_platform():
     if WINDOWS:
         return "Windows"
 
-    # this is probably wrong
     if OSX:
         return "Mac"
 
@@ -104,8 +103,8 @@ def bash(name):
     if WINDOWS:
         return name + ".bat"
 
-    # if OSX:
-    #   return name + '.command'
+    if OSX:
+      return name + '.command'
 
     return name + ".sh"
 
@@ -117,15 +116,13 @@ def ubt():
     if WINDOWS:
         return os.path.join(engine, "Binaries", "DotNET", "UnrealBuildTool", binary("UnrealBuildTool"))
 
-    return os.path.join(engine, "Build", "BatchFiles", "Linux", "Build.sh")
+    # The script takes care of handling dotnet usually through mono
+    return os.path.join(engine, "Build", "BatchFiles", guess_platform(), "Build.sh")
 
 
 def uat():
     """Returns the path to the unreal automation executable"""
     engine = engine_folder()
-
-    if WINDOWS:
-        return os.path.join(engine, "Build", "BatchFiles", bash("RunUAT"))
 
     return os.path.join(engine, "Build", "BatchFiles", bash("RunUAT"))
 
@@ -153,42 +150,23 @@ def dotnet():
 
 def editor():
     """Returns the path to the editor executable"""
-    engine = engine_folder()
-
-    if WINDOWS:
-        return os.path.join(
-            engine,
-            "Binaries",
-            "Win64",
-            binary("UnrealEditor"),
-        )
-
     return os.path.join(
-        engine,
+        engine_folder(),
         "Binaries",
-        "Linux",
+        guess_platform(),
         binary("UnrealEditor"),
     )
 
 
 def editor_cmd():
     """Returns the path to the editor executable (cmd version)"""
-    engine = engine_folder()
-
-    if WINDOWS:
-        return os.path.join(
-            engine,
-            "Binaries",
-            "Win64",
-            binary("UnrealEditor-Cmd"),
-        )
-
     return os.path.join(
-        engine,
+        engine_folder(),
         "Binaries",
-        "Linux",
+        guess_platform(),
         binary("UnrealEditor-Cmd"),
     )
+
 
 
 def editor_commandlet(project_path, command, *args):
