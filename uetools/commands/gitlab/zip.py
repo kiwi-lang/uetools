@@ -17,18 +17,18 @@ def zipfolder(src, dest, progress, topfolder):
             wrap = os.path.split(abssrc)[-1]
         else:
             wrap = topfolder
-            
+
         newname = path.removeprefix(common)
 
-        if newname and (newname[0] == '\\' or newname[0] == '/'):
+        if newname and (newname[0] == "\\" or newname[0] == "/"):
             newname = newname[1:]
 
         newname = os.path.join(wrap, newname)
-        newname = newname.replace('\\', '/')
+        newname = newname.replace("\\", "/")
 
         if False:
             print(newname)
-        
+
         return newname
 
     zip_filename = dest
@@ -88,10 +88,10 @@ class Zip(Command):
         try:
             if args.name is None:
                 _, tail = os.path.split(args.dest)
-                args.name = tail.split('.')[0]
+                args.name = tail.split(".")[0]
         except:
             pass
-    
+
         with tqdm() as progress:
             zipfolder(args.src, args.dest, progress, args.name)
 

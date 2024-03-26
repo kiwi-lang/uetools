@@ -19,7 +19,9 @@ def platform_choices():
     metadata["type"] = str
     metadata["default"] = [guess_platform()]
 
-    return dataclasses.field(default_factory=lambda: [guess_platform()], metadata=metadata)
+    return dataclasses.field(
+        default_factory=lambda: [guess_platform()], metadata=metadata
+    )
 
 
 def build_mode_choice():

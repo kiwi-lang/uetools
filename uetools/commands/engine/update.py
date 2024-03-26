@@ -12,7 +12,9 @@ class Engine(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Engine)
-        parser.add_argument("--branch", type=str, default="5.0", help="checkout a branch")
+        parser.add_argument(
+            "--branch", type=str, default="5.0", help="checkout a branch"
+        )
         parser.add_argument("--remote", type=str, default="origin", help="remote name")
         parser.add_argument(
             "--update",

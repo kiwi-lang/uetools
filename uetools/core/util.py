@@ -13,7 +13,9 @@ import threading
 
 from uetools.core.perf import timeit
 
-_re_deduce_project_plugin = re.compile(r"(.*)(\\|/)(?P<Project>([A-Za-z0-9]*))(\\|/)Plugins(\\|/)(?P<Plugin>([A-Za-z0-9]*))(.*)")
+_re_deduce_project_plugin = re.compile(
+    r"(.*)(\\|/)(?P<Project>([A-Za-z0-9]*))(\\|/)Plugins(\\|/)(?P<Plugin>([A-Za-z0-9]*))(.*)"
+)
 
 
 def find_file_like(path, pat):
@@ -169,22 +171,18 @@ def _command_builder(cmd, args, ignore):
             _command_builder(cmd, asdict(v), ignore)
 
 
-
-
-
-
 def _tailf(filename, condition):
     while not os.path.exists(filename):
         pass
 
     try:
-        with open(filename, 'r') as fp:
+        with open(filename, "r") as fp:
             while not condition.is_set():
                 line = fp.readline()
 
                 if line:
-                    print(line, end='')
-                
+                    print(line, end="")
+
                 else:
                     time.sleep(0.1)
 
@@ -195,19 +193,16 @@ def _tailf(filename, condition):
 @contextmanager
 def tailf(filename):
     condition = threading.Event()
-    showlog = threading.Thread(
-        target=_tailf, 
-        args=(filename, condition)
-    )
+    showlog = threading.Thread(target=_tailf, args=(filename, condition))
     showlog.start()
     # condition.wait()
     # condition.clear()
 
-    yield 
+    yield
 
     condition.set()
     showlog.join()
-    
+
 
 if __name__ == "__main__":
     print(deduce_project_plugin(os.getcwd()))

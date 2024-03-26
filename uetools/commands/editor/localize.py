@@ -101,7 +101,9 @@ class LocalEditor(Command):
 
         template = template.replace("{TargetName}", name)
 
-        with open(os.path.join(localization_config, f"{target}.ini"), "w", encoding="utf-8") as file:
+        with open(
+            os.path.join(localization_config, f"{target}.ini"), "w", encoding="utf-8"
+        ) as file:
             file.write(template)
 
     @staticmethod

@@ -51,7 +51,9 @@ class CPP(Command):
         project_dir = os.path.dirname(project)
 
         if os.path.exists(os.path.join(project_dir, "Source")):
-            raise RuntimeError("Cannot add cpp source file to a project that already has sources")
+            raise RuntimeError(
+                "Cannot add cpp source file to a project that already has sources"
+            )
 
         # Windows does not like when python holds the file with `with``
         # pylint: disable=consider-using-with

@@ -34,13 +34,10 @@ class ReSavePackages(Command):
     def execute(args):
         project = find_project(vars(args).pop("project"))
 
-        cmd = (
-            editor_commandlet(project, "resavepackages")
-            + [
-                # "-VERIFY",
-                # "-PACKAGEFOLDER="
-            ]
-        )
+        cmd = editor_commandlet(project, "resavepackages") + [
+            # "-VERIFY",
+            # "-PACKAGEFOLDER="
+        ]
 
         print(" ".join(cmd))
         fmt = Formatter()

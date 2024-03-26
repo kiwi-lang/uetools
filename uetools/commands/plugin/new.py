@@ -10,15 +10,14 @@ from uetools.core.conf import find_project
 from uetools.core.options import projectfield
 
 
-
 def namespace_from_name(name: str):
     namespace = []
 
     for c in name:
         if c.isupper():
             namespace.append(c)
-    
-    return ''.join(namespace)
+
+    return "".join(namespace)
 
 
 class NewPlugin(Command):
@@ -58,7 +57,7 @@ class NewPlugin(Command):
 
         if args.dry:
             return 0
-    
+
         json.dump(config, configfile)
         configfile.flush()
 

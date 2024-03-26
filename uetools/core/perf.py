@@ -59,7 +59,9 @@ class TimerGroup:
         msg = f"{idt}{self.name} {sep * lsize} {self.latest():5.2f}"
         ext = " " * (15 + 6)
         if self.count > 1:
-            ext = f"{self.total:5.2f} | {self.count:5d} | {self.total / self.count:5.2f}"
+            ext = (
+                f"{self.total:5.2f} | {self.count:5d} | {self.total / self.count:5.2f}"
+            )
 
         explained = 0
         if len(self.subgroups) > 0:
@@ -117,7 +119,9 @@ def show_timings():
         return
 
     print()
-    print(f"{'Timings:':<40}  {'L (s)':>5} | {'T (s)':>5} | {'Count':>5} | {'T/C':>5} |")
+    print(
+        f"{'Timings:':<40}  {'L (s)':>5} | {'T (s)':>5} | {'Count':>5} | {'T/C':>5} |"
+    )
 
     for _, thread_group in timer_builder.items():
         timer = thread_group[0]

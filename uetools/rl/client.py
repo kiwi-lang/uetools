@@ -131,7 +131,9 @@ class Client:
             try:
                 self.sock.settimeout(self.timeout)
                 self.sock.connect((self.host, self.port))
-                logger.info("Connected after %5.2f s  and %d retries", time.time() - start, i)
+                logger.info(
+                    "Connected after %5.2f s  and %d retries", time.time() - start, i
+                )
                 return
             except ConnectionRefusedError:
                 pass
@@ -511,9 +513,13 @@ class Client:
         """
         return self.call("request_world_tick", tick_count, wait_for_world_tick)
 
-    def enable_action_duration(self, agent_id: int, enable_action_duration: bool, duration_sec: float):
+    def enable_action_duration(
+        self, agent_id: int, enable_action_duration: bool, duration_sec: float
+    ):
         """Enable/disable the action durations on the agent with the specified time duration in seconds."""
-        return self.call("enable_action_duration", agent_id, enable_action_duration, duration_sec)
+        return self.call(
+            "enable_action_duration", agent_id, enable_action_duration, duration_sec
+        )
 
     def wait_for_action_duration(self, agent_id: int):
         """Wait for the action duration to elapse for the agent.

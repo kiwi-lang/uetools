@@ -70,7 +70,10 @@ class GKScript(Command):
         args.blueprint = fspath_to_unreal(project, args.blueprint)
         cmd_args = command_builder(args)
 
-        cmd = editor_commandlet(project, "GKScript", "-LogCmds=LogGKScript VeryVerbose") + cmd_args
+        cmd = (
+            editor_commandlet(project, "GKScript", "-LogCmds=LogGKScript VeryVerbose")
+            + cmd_args
+        )
 
         print(" ".join(cmd))
 

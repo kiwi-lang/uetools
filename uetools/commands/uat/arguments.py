@@ -1,6 +1,11 @@
 from dataclasses import dataclass
 
-from uetools.core.options import build_mode_choice, platform_choice, projectfield, target_choice
+from uetools.core.options import (
+    build_mode_choice,
+    platform_choice,
+    projectfield,
+    target_choice,
+)
 
 
 def get(args, name, default=False):

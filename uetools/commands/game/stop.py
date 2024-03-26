@@ -2,12 +2,10 @@
 
 
 from dataclasses import dataclass
-from typing import Optional
 
 from argklass.command import Command
 
 from uetools.core.conf import editor_cmd
-from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
 from uetools.core.util import command_builder
 from uetools.format.base import Formatter
