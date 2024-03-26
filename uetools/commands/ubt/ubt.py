@@ -6,7 +6,13 @@ import os
 from argklass.arguments import add_arguments, choice
 from argklass.command import Command, newparser
 
-from uetools.core.conf import find_project, get_build_modes, get_build_platforms, ubt, engine_folder
+from uetools.core.conf import (
+    find_project,
+    get_build_modes,
+    get_build_platforms,
+    ubt,
+    engine_folder,
+)
 from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
 from uetools.core.util import command_builder, tailf
@@ -167,12 +173,7 @@ class UBT(Command):
 
         pargs += command_builder(args)
 
-        log = os.path.join(
-            engine_folder(),
-            "Programs",
-            "UnrealBuildTool",
-            "Log.txt"
-        )
+        log = os.path.join(engine_folder(), "Programs", "UnrealBuildTool", "Log.txt")
         if args.log is not None:
             log = args.log
 

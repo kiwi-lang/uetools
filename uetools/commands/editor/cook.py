@@ -7,7 +7,14 @@ from argklass.arguments import choice
 from argklass.command import Command
 
 from uetools.commands.ubt.build import Build
-from uetools.core.conf import build_platform_from_editor, editor_cmd, find_project, get_build_modes, get_editor_platforms, guess_editor_platform
+from uetools.core.conf import (
+    build_platform_from_editor,
+    editor_cmd,
+    find_project,
+    get_build_modes,
+    get_editor_platforms,
+    guess_editor_platform,
+)
 from uetools.core.options import projectfield
 from uetools.core.run import popen_with_format
 from uetools.core.util import command_builder

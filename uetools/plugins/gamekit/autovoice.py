@@ -129,7 +129,9 @@ def _impl():
                 pass
 
     def get_subtitles(filename):
-        return formatting.clean(ascii.clean(brackets.clean(lower_case.clean(subparser.parse(filename)))))
+        return formatting.clean(
+            ascii.clean(brackets.clean(lower_case.clean(subparser.parse(filename))))
+        )
 
     def get_length(subtitles) -> datetime.timedelta:
         start = datetime.time()
@@ -142,7 +144,9 @@ def _impl():
         fake_date = datetime.date.min
 
         # convert to timedelta
-        duration = datetime.datetime.combine(fake_date, end) - datetime.datetime.combine(fake_date, start)
+        duration = datetime.datetime.combine(
+            fake_date, end
+        ) - datetime.datetime.combine(fake_date, start)
         return duration
 
     def play_audio(data, sample_rate):

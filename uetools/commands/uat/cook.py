@@ -21,14 +21,14 @@ from .arguments import BuildCookRunArguments
 #   -project="E:/Examples/Acaraceim/Acaraceim.uproject"
 
 # LogTurnkeySupport: Completed SDK detection: ExitCode = 0
-# LogMonitoredProcess: Running Serialized UAT: [ 
-#   cmd.exe /c ""E:/UnrealEngine/Engine/Build/BatchFiles/RunUAT.bat"  
-#       -ScriptsForProject="E:/Examples/Acaraceim/Acaraceim.uproject" Turnkey 
-#       -utf8output -WaitForUATMutex -command=VerifySdk -ReportFilename="E:/Examples/Acaraceim/Intermediate/TurnkeyReport_1.log" 
-#       -log="E:/Examples/Acaraceim/Intermediate/TurnkeyLog_1.log" -project="E:/Examples/Acaraceim/Acaraceim.uproject"  
-#       -Device=Win64@KEPLER" 
-#       -nocompile 
-#       -nocompileuat 
+# LogMonitoredProcess: Running Serialized UAT: [
+#   cmd.exe /c ""E:/UnrealEngine/Engine/Build/BatchFiles/RunUAT.bat"
+#       -ScriptsForProject="E:/Examples/Acaraceim/Acaraceim.uproject" Turnkey
+#       -utf8output -WaitForUATMutex -command=VerifySdk -ReportFilename="E:/Examples/Acaraceim/Intermediate/TurnkeyReport_1.log"
+#       -log="E:/Examples/Acaraceim/Intermediate/TurnkeyLog_1.log" -project="E:/Examples/Acaraceim/Acaraceim.uproject"
+#       -Device=Win64@KEPLER"
+#       -nocompile
+#       -nocompileuat
 # ]
 # LogTurnkeySupport: Turnkey Platform: Android: (Status=Invalid, Allowed_Sdk=r25b, Current_Sdk=, Allowed_AutoSdk=r25b, Current_AutoSdk=, Flags="Platform_InvalidHostPrerequisites", Error="Android Studio is not installed correctly.")
 # LogTurnkeySupport: Turnkey Platform: IOS: (Status=Invalid, MinAllowed_Sdk=1100.0.0.0, MaxAllowed_Sdk=8999.0, Current_Sdk=, Allowed_AutoSdk=14.1, Current_AutoSdk=, Flags="Platform_ValidHostPrerequisites")
@@ -38,61 +38,61 @@ from .arguments import BuildCookRunArguments
 # LogTurnkeySupport: Turnkey Platform: TVOS: (Status=Invalid, MinAllowed_Sdk=1100.0.0.0, MaxAllowed_Sdk=8999.0, Current_Sdk=, Allowed_AutoSdk=14.1, Current_AutoSdk=, Flags="Platform_ValidHostPrerequisites")
 # LogTurnkeySupport: Turnkey Platform: Win64: (Status=Valid, MinAllowed_Sdk=10.0.00000.0, MaxAllowed_Sdk=10.9.99999.0, Current_Sdk=10.0.22621.0, Allowed_AutoSdk=10.0.18362.0, Current_AutoSdk=, Flags="InstalledSdk_ValidVersionExists")
 # LogTurnkeySupport: Completed device detection: Code = 0
-# LogMonitoredProcess: Running Serialized UAT: [ 
-#   cmd.exe /c ""E:/UnrealEngine/Engine/Build/BatchFiles/RunUAT.bat"  
-#   -ScriptsForProject="E:/Examples/Acaraceim/Acaraceim.uproject" Turnkey 
-#   -command=VerifySdk -platform=Win64 -UpdateIfNeeded 
-#   -EditorIO -EditorIOPort=54802  
-#   -project="E:/Examples/Acaraceim/Acaraceim.uproject" 
-#   BuildCookRun 
-#   -nop4 -utf8output -nocompileeditor -skipbuildeditor -cook  
-#   -project="E:/Examples/Acaraceim/Acaraceim.uproject" 
-#   -target=Acaraceim 
-#   -unrealexe="E:\UnrealEngine\Engine\Binaries\Win64\UnrealEditor-Cmd.exe" -platform=Win64 
-#   -stage -archive -package -build -pak -iostore -compressed 
+# LogMonitoredProcess: Running Serialized UAT: [
+#   cmd.exe /c ""E:/UnrealEngine/Engine/Build/BatchFiles/RunUAT.bat"
+#   -ScriptsForProject="E:/Examples/Acaraceim/Acaraceim.uproject" Turnkey
+#   -command=VerifySdk -platform=Win64 -UpdateIfNeeded
+#   -EditorIO -EditorIOPort=54802
+#   -project="E:/Examples/Acaraceim/Acaraceim.uproject"
+#   BuildCookRun
+#   -nop4 -utf8output -nocompileeditor -skipbuildeditor -cook
+#   -project="E:/Examples/Acaraceim/Acaraceim.uproject"
+#   -target=Acaraceim
+#   -unrealexe="E:\UnrealEngine\Engine\Binaries\Win64\UnrealEditor-Cmd.exe" -platform=Win64
+#   -stage -archive -package -build -pak -iostore -compressed
 #   -prereqs -archivedirectory="E:/tmp" -clientconfig=Development" -nocompile -nocompileuat ]
 # LogTurnkeySupport: Turnkey Device: Win64@KEPLER: (Name=KEPLER, Type=Computer, Status=Valid, MinAllowed=10.0.18362.0, MaxAllowed=, Current=10.0.19045.0, Flags="Device_InstallSoftwareValid")
 
 
-# BuildCookRun 
-#   -project="D:\Builds\glrt--E4\0\moba383037\Acarac\Acaraceim.uproject" 
-#   -build -cook -stage -package 
-#   -archive -archivedirectory=D:\Builds\glrt--E4\0\moba383037\Acarac\Saved\Archives 
-#   -platform=Win64 
+# BuildCookRun
+#   -project="D:\Builds\glrt--E4\0\moba383037\Acarac\Acaraceim.uproject"
+#   -build -cook -stage -package
+#   -archive -archivedirectory=D:\Builds\glrt--E4\0\moba383037\Acarac\Saved\Archives
+#   -platform=Win64
 #   -clientconfig=Development -target=Acaraceim -iostore -pak -pak -prereqs
-
 
 
 @dataclass
 class _CommonArgs(BuildCookRunArguments):
     nop4: bool = True
-    utf8output : bool = True
-    nocompileeditor: bool = True 
-    skipbuildeditor: bool = True 
+    utf8output: bool = True
+    nocompileeditor: bool = True
+    skipbuildeditor: bool = True
     build: bool = True
-    cook: bool = True 
-    stage: bool = True 
-    package: bool = True 
-    iostore : bool = True
-    pak: bool = True 
-    prereqs : bool = True
-    compressed : bool = True
-    manifests : bool = True
+    cook: bool = True
+    stage: bool = True
+    package: bool = True
+    iostore: bool = True
+    pak: bool = True
+    prereqs: bool = True
+    compressed: bool = True
+    manifests: bool = True
     nocompileuat: bool = True
     archive: bool = True
 
     # we want to compile on the CI
     nocompile: bool = False
 
+
 @dataclass
 class DedicatedServerCookArgs(_CommonArgs):
-    server : bool = True
-    noclient : bool = True
+    server: bool = True
+    noclient: bool = True
 
 
 @dataclass
 class ClientCookArgs(_CommonArgs):
-    client : bool = True
+    client: bool = True
 
 
 @dataclass
@@ -101,7 +101,7 @@ class GameCookArgs(_CommonArgs):
 
 
 profiles = {
-    'server': DedicatedServerCookArgs,
+    "server": DedicatedServerCookArgs,
     "game": GameCookArgs,
     "client": ClientCookArgs,
 }
@@ -150,7 +150,6 @@ class CookGameUAT(Command):
             # args has the default value, override
             if hasattr(defaults, k) and getattr(defaults, k) == args[k]:
                 args[k] = v
-        
 
     @staticmethod
     def execute(args: BuildCookRunArguments):
@@ -165,7 +164,9 @@ class CookGameUAT(Command):
             profile = profiles.get(profile_name, None)
 
             if profile is not None:
-                CookGameUAT.update_arguments(vars(args), asdict(profile()), CookGameUAT.Arguments)
+                CookGameUAT.update_arguments(
+                    vars(args), asdict(profile()), CookGameUAT.Arguments
+                )
 
         if args.archivedirectory is not None:
             args.archive = True
@@ -176,13 +177,15 @@ class CookGameUAT(Command):
             if BuildCookRunArguments.is_server(args):
                 print("Server")
                 args.serverconfig = config
-                
+
             if BuildCookRunArguments.is_client(args):
                 print("Client")
                 args.clientconfig = config
 
         # this is some interactive crap
-        uat_args = [] # [f"-ScriptsForProject=\"{args.project}\"", "Turnkey", "-UpdateIfNeeded", f"-project=\"{args.project}\""]
+        uat_args = (
+            []
+        )  # [f"-ScriptsForProject=\"{args.project}\"", "Turnkey", "-UpdateIfNeeded", f"-project=\"{args.project}\""]
         build_cook_args = command_builder(args)
 
         cmd = [uat()] + uat_args + ["BuildCookRun"] + build_cook_args

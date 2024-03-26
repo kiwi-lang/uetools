@@ -69,7 +69,9 @@ class VSCode(Command):
             create_file = "Y" if args.yes else None
 
             while create_file not in ("Y", "N"):
-                create_file = input(".vscode/settings.json does not exist, create ? (Y/N):")
+                create_file = input(
+                    ".vscode/settings.json does not exist, create ? (Y/N):"
+                )
                 create_file = create_file.upper()
 
             if create_file == "Y":

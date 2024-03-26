@@ -2,8 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from argklass.arguments import add_arguments
-from argklass.command import Command, newparser
+from argklass.command import Command
 
 from uetools.commands.engine.add import EngineAdd
 from uetools.core.conf import CONFIG, CONFIGNAME, load_conf, save_conf

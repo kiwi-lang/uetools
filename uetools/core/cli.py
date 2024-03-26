@@ -11,7 +11,11 @@ from argklass.command import ParentCommand
 from argklass.parallel import shutdown
 from argklass.plugin import with_cache_location
 
-from uetools.commands import command_cache_future, command_cache_status, discover_commands
+from uetools.commands import (
+    command_cache_future,
+    command_cache_status,
+    discover_commands,
+)
 
 from .conf import BadConfig, select_engine_version
 from .perf import show_timings, timeit
@@ -21,8 +25,12 @@ from .util import deduce_project_plugin
 # Argument Parser cannot be pickled
 def build_parser(commands):
     with timeit("build_parser"):
-        parser = argparse.ArgumentParser(add_help=False, description="Unreal Engine Utility")
-        parser.add_argument("-h", "--help", action=HelpAction, help="show this help message and exit")
+        parser = argparse.ArgumentParser(
+            add_help=False, description="Unreal Engine Utility"
+        )
+        parser.add_argument(
+            "-h", "--help", action=HelpAction, help="show this help message and exit"
+        )
         parser.add_argument("-zyx", action=DumpParserAction, help="")
         parser.add_argument(
             "-v",

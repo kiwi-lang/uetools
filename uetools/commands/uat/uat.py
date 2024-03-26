@@ -274,7 +274,9 @@ class UAT(Command):
         """Defines UAT arguments"""
         parser = newparser(subparsers, UAT)
 
-        parser.add_argument("cmd", type=str, choices=commands, help="UAT Command to execute")
+        parser.add_argument(
+            "cmd", type=str, choices=commands, help="UAT Command to execute"
+        )
         parser.add_argument(
             "--configuration",
             type=str,

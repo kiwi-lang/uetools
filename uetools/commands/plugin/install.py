@@ -60,7 +60,11 @@ class Install(Command):
         if not os.path.exists(dest):
             if args.submodule:
                 force = ["--force"] if args.force else []
-                cmd = ["git", "submodule", "add"] + force + ["--depth", "1", args.url, dest_relative]
+                cmd = (
+                    ["git", "submodule", "add"]
+                    + force
+                    + ["--depth", "1", args.url, dest_relative]
+                )
             else:
                 cmd = ["git", "clone", "--depth", "1", args.url, dest_relative]
 

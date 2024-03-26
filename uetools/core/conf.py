@@ -79,8 +79,15 @@ def save_conf(conf):
     config = os.path.join(CONFIG, CONFIGNAME)
     os.makedirs(CONFIG, exist_ok=True)
 
-    with open(config, "w", encoding="utf-8") as conffile:
+    # To avoid erasing a good config and possibly exiting
+    # before the new one is written we write the new config to
+    # a temp file that will be moved to the right name
+    # file move is atomic
+    config_temp = config + ".tmp"
+    with open(config_temp, "w", encoding="utf-8") as conffile:
         json.dump(conf, conffile, indent=2)
+
+    os.replace(config_temp, config)
 
 
 def update_conf(**kwargs):
@@ -104,7 +111,7 @@ def bash(name):
         return name + ".bat"
 
     if OSX:
-      return name + '.command'
+        return name + ".command"
 
     return name + ".sh"
 
@@ -114,7 +121,9 @@ def ubt():
     engine = engine_folder()
 
     if WINDOWS:
-        return os.path.join(engine, "Binaries", "DotNET", "UnrealBuildTool", binary("UnrealBuildTool"))
+        return os.path.join(
+            engine, "Binaries", "DotNET", "UnrealBuildTool", binary("UnrealBuildTool")
+        )
 
     # The script takes care of handling dotnet usually through mono
     return os.path.join(engine, "Build", "BatchFiles", guess_platform(), "Build.sh")
@@ -166,7 +175,6 @@ def editor_cmd():
         guess_platform(),
         binary("UnrealEditor-Cmd"),
     )
-
 
 
 def editor_commandlet(project_path, command, *args):
@@ -308,7 +316,9 @@ def project_folder():
     p = load_conf().get("project_path")
 
     if p is None:
-        logger.warning("Project folder is not defined, using UnrealEngine root as default")
+        logger.warning(
+            "Project folder is not defined, using UnrealEngine root as default"
+        )
         return engine_root()
 
     if isinstance(p, list):
@@ -410,7 +420,10 @@ def select_engine_version(version):
     p = load_conf().get("engines").get(version, None)
 
     if p is None:
-        print(f"Engine version {version} does not exist, call first:\n\t" f"`uecli engine add --version {version} --engine <...>`")
+        print(
+            f"Engine version {version} does not exist, call first:\n\t"
+            f"`uecli engine add --version {version} --engine <...>`"
+        )
         raise BadConfig()
 
 
@@ -423,7 +436,9 @@ def engine_folder(version=None):
         p = load_conf().get("engines").get(SELECTED_VERSION, None)
 
     if p is None:
-        raise ConfigurationError("Engine path is missing; call `uecli init --engine <...> --projects <...>` first")
+        raise ConfigurationError(
+            "Engine path is missing; call `uecli init --engine <...> --projects <...>` first"
+        )
 
     return p
 

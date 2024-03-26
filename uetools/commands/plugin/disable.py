@@ -31,7 +31,9 @@ class Disable(Command):
     @staticmethod
     def arguments(subparsers):
         parser = newparser(subparsers, Disable)
-        parser.add_argument("--project", type=str, help="project's name", default=deduce_project())
+        parser.add_argument(
+            "--project", type=str, help="project's name", default=deduce_project()
+        )
         parser.add_argument("plugin", type=str, help="Plugin's name")
 
     @staticmethod
