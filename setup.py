@@ -63,7 +63,7 @@ setup_kwargs = dict(
         "hjson",
         "importlib_resources",
         "tqdm",
-        "argklass",
+        "argklass>=1.4.4",
     ],
     extras_require=extras_require,
     python_requires=">=3.8",
