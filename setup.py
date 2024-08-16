@@ -64,6 +64,7 @@ setup_kwargs = dict(
         "importlib_resources",
         "tqdm",
         "argklass>=1.4.4",
+        "psutil",
     ],
     extras_require=extras_require,
     python_requires=">=3.8",
